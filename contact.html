@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>預約表單｜露營冷氣出租預約 | 露涼社 CampCool</title>
+  <meta name="description" content="立即預約露涼社露營冷氣出租，填寫簡單表單，2小時內確認，讓您的夏日露營清涼有保障。">
+  <link rel="canonical" href="https://campcool.tw/contact.html">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<script src="js/layout.js"></script>
+
+<div class="page-hero">
+  <div class="section-label-tag" style="justify-content:center">立即預約</div>
+  <h1>清涼露營，從這裡開始</h1>
+  <p>填寫下方表單，我們將在 2 小時內回覆確認</p>
+</div>
+
+<div class="section">
+  <div class="contact-layout">
+
+    <div class="contact-aside">
+      <div class="aside-card" data-fade>
+        <h4>💬 LINE 官方帳號</h4>
+        <p>最快速的聯絡方式，有急事或想先詢問，直接 LINE 我們。</p>
+        <p style="margin-top:10px"><a href="https://line.me" target="_blank">點此加入 LINE →</a></p>
+      </div>
+      <div class="aside-card" data-fade>
+        <h4>🕐 回覆時間</h4>
+        <table class="hours-table">
+          <tr><td>週一至週五</td><td>09:00 – 21:00</td></tr>
+          <tr><td>週六、週日</td><td>09:00 – 20:00</td></tr>
+          <tr><td>例假日</td><td>10:00 – 18:00</td></tr>
+        </table>
+        <p style="margin-top:12px;font-size:.8rem;color:var(--bark-l)">非上述時段將於隔日早上優先回覆。</p>
+      </div>
+      <div class="aside-card" data-fade>
+        <h4>📍 服務據點</h4>
+        <p>雙北・新竹・台中均設有取還據點，詳細地址預約確認後提供。</p>
+        <p style="margin-top:10px"><a href="locations.html">查看據點詳情 →</a></p>
+      </div>
+      <div class="aside-card accent" data-fade>
+        <h4>📋 預約前記得確認</h4>
+        <p style="line-height:1.9">
+          ✓ 營區是否有接電服務<br>
+          ✓ 帳篷大小（幾人帳）<br>
+          ✓ 出發日期與歸還日期<br>
+          ✓ 取還的服務據點
+        </p>
+      </div>
+    </div>
+
+    <div class="form-panel" data-fade>
+      <h2>🗓️ 填寫預約資訊</h2>
+      <p>資訊越完整，我們越能快速為您安排最適合的方案。</p>
+
+      <div id="bookingForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>姓名 *</label>
+            <input type="text" id="name" placeholder="您的姓名">
+          </div>
+          <div class="form-group">
+            <label>聯絡電話 *</label>
+            <input type="tel" id="phone" placeholder="09XX-XXX-XXX">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>偏好聯絡方式</label>
+          <select id="contact-method">
+            <option value="">請選擇</option>
+            <option value="line">LINE（推薦）</option>
+            <option value="phone">電話</option>
+            <option value="sms">簡訊</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>想要租借的機型 *</label>
+          <select id="model">
+            <option value="">請選擇機型</option>
+            <option value="juz400">艾比酷 JUZ-400（低耗電・零排水，適合 3-4 人帳）</option>
+            <option value="sac688">山水 SAC688（強效製冷，適合 5 人以上大帳）</option>
+            <option value="unsure">不確定，請幫我推薦</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>取件日期 *</label>
+            <input type="date" id="pickup-date">
+          </div>
+          <div class="form-group">
+            <label>歸還日期 *</label>
+            <input type="date" id="return-date">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>取還據點 *</label>
+          <select id="location">
+            <option value="">請選擇服務據點</option>
+            <option value="hsinchu">新竹據點</option>
+            <option value="taipei">雙北據點</option>
+            <option value="taichung">台中據點</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>前往的露營地（選填）</label>
+          <input type="text" id="campsite" placeholder="例如：司馬庫斯、清境農場附近">
+        </div>
+        <div class="form-group">
+          <label>其他問題或備註（選填）</label>
+          <textarea id="notes" placeholder="例如：帳篷尺寸、電力疑問、特殊需求..."></textarea>
+        </div>
+        <button class="btn-submit" onclick="submitForm()">送出預約申請 →</button>
+      </div>
+
+      <div class="success-panel" id="successMsg">
+        <div class="success-icon">✅</div>
+        <h3>預約申請已收到！</h3>
+        <p>感謝您的申請，我們將在 <strong>2 小時內</strong>透過您偏好的方式回覆確認。<br><br>若有急事，可直接透過 <a href="https://line.me" target="_blank" style="color:var(--clay)">LINE 官方帳號</a>聯繫我們。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function submitForm() {
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const model = document.getElementById('model').value;
+  const pickupDate = document.getElementById('pickup-date').value;
+  const returnDate = document.getElementById('return-date').value;
+  const location = document.getElementById('location').value;
+  if (!name || !phone || !model || !pickupDate || !returnDate || !location) {
+    alert('請填寫所有必填欄位（標有 * 的項目）'); return;
+  }
+  if (returnDate <= pickupDate) { alert('歸還日期必須晚於取件日期'); return; }
+  document.getElementById('bookingForm').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
