@@ -7,38 +7,99 @@
     <title>露涼社 CampCool - 露營冷氣出租專家</title>
     <script type="module" crossorigin src="assets/index-BIiKt1Ot.js"></script>
     <link rel="stylesheet" crossorigin href="assets/index-CEwUhtAt.css">
+    <style>
+      /* 浮動社交按鈕樣式 */
+      .floating-social-buttons {
+        position: fixed;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 1000;
+      }
+
+      .social-button {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        font-size: 28px;
+      }
+
+      .social-button:hover {
+        transform: scale(1.15);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      }
+
+      .line-button {
+        background-color: #00B900;
+        color: white;
+      }
+
+      .line-button:hover {
+        background-color: #009900;
+      }
+
+      .ig-button {
+        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        color: white;
+      }
+
+      .ig-button:hover {
+        filter: brightness(0.9);
+      }
+
+      /* 手機版適配 */
+      @media (max-width: 768px) {
+        .floating-social-buttons {
+          right: 12px;
+          gap: 12px;
+        }
+
+        .social-button {
+          width: 48px;
+          height: 48px;
+          font-size: 24px;
+        }
+      }
+
+      /* 超小螢幕 */
+      @media (max-width: 480px) {
+        .floating-social-buttons {
+          right: 10px;
+          gap: 10px;
+        }
+
+        .social-button {
+          width: 44px;
+          height: 44px;
+          font-size: 20px;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
-  <manus-content-root></manus-content-root><script>
-			var __manus_space_editor_info = {
-			spaceId : 'fzxsxtik',
-			patchList : [],
-			hideBadge : false,
-			sessionId : '',
-			isWebDev : false,
-			usageStatus : 'UsageStatus_Unknown',
-			};
-			var __manus__global_env = {
-				apiHost: 'https://api.manus.im',
-				host: 'https://manus.im',
-				amplitudeKey: '46ac3f9abb41dd2d17a5785e052bc6d3',
-			};
-			</script><script src="external/spaceEditor-DPV-_I11.js" async></script><script
-			defer
-			data-domain="manus.space"
-			src="external/plausible-script.js"
-		></script>
-		<script>
-			window.plausible =
-				window.plausible ||
-				function () {
-					(window.plausible.q = window.plausible.q || []).push(arguments);
-				};
-			plausible('custom-pageview', {
-			  props: {
-    			domain: window.location.host
-  			}
-			})
-		</script></body>
+    
+    <!-- 浮動社交按鈕 -->
+    <div class="floating-social-buttons">
+      <a href="https://lin.ee/8maotVi" class="social-button line-button" title="LINE 聯絡我們" target="_blank" rel="noopener noreferrer">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.365 9.863c.349-1.762.053-3.021-.961-3.737-2.712-1.823-7.581-.755-10.677 2.342-1.624 1.623-2.571 3.623-2.571 5.833 0 .922.141 1.851.424 2.731.595 1.876 1.663 3.325 3.127 4.192.429.259.905.438 1.405.531.348.06.745.122 1.192.122.747 0 1.608-.115 2.496-.377 1.268-.378 2.639-.943 3.886-1.675l.655-.379.755.36c1.516.723 2.604 1.088 3.271 1.088.349 0 .614-.062.796-.185.556-.378.873-1.184.873-2.416 0-.747-.115-1.608-.377-2.496-.378-1.268-.943-2.639-1.675-3.886l-.379-.655.36-.755c.723-1.516 1.088-2.604 1.088-3.271 0-.349-.062-.614-.185-.796-.378-.556-1.184-.873-2.416-.873-.747 0-1.608.115-2.496.377-1.268.378-2.639.943-3.886 1.675l-.655.379-.755-.36c-1.516-.723-2.604-1.088-3.271-1.088-.349 0-.614.062-.796.185-.556.378-.873 1.184-.873 2.416 0 .747.115 1.608.377 2.496.378 1.268.943 2.639 1.675 3.886l.379.655-.36.755c-.723 1.516-1.088 2.604-1.088 3.271 0 .349.062.614.185.796.378.556 1.184.873 2.416.873.747 0 1.608-.115 2.496-.377 1.268-.378 2.639-.943 3.886-1.675l.655-.379.755.36c1.516.723 2.604 1.088 3.271 1.088.349 0 .614-.062.796-.185.556-.378.873-1.184.873-2.416 0-.747-.115-1.608-.377-2.496z"/>
+        </svg>
+      </a>
+      <a href="https://www.instagram.com/campcool2025?igsh=OTQ2azZ4dGE0bjJm" class="social-button ig-button" title="Instagram 追蹤我們" target="_blank" rel="noopener noreferrer">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+        </svg>
+      </a>
+    </div>
+  </body>
 </html>
