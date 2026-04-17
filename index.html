@@ -1,204 +1,924 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>露涼社 CampCool - 露營冷氣出租專家</title>
+    <title>露涼社 CampCool｜露營冷氣・冰箱出租專家</title>
+    <meta name="description" content="提供艾比酷JUZ-400與山水SAC688專業露營冷氣，及冰虎・艾比酷各款移動冰箱出租。新竹、竹北、台北、台中多據點，24H便利取還，夏日露營清涼首選。">
     <script type="module" crossorigin src="assets/index-BIiKt1Ot.js"></script>
     <link rel="stylesheet" crossorigin href="assets/index-CEwUhtAt.css">
     <style>
-      /* 隱藏原本頁面中的所有社交按鈕 */
-      /* 隱藏包含 lin.ee 連結的所有元素 */
-      a[href*="lin.ee"],
-      a[href*="instagram.com"],
-      /* 隱藏可能的社交按鈕容器 */
-      [class*="social"],
-      [class*="contact"],
-      [class*="line"],
-      [class*="ig"],
-      [class*="instagram"],
-      /* 隱藏底部可能的浮動按鈕 */
-      .fixed-social,
-      .floating-contact,
-      .contact-button,
-      .line-button-original,
-      .ig-button-original {
-        /* 使用 !important 確保覆蓋 */
-      }
+/* ═══════════════════════════════════════════════════
+   CAMPCOOL OVERLAY STYLES v3
+   優化：視覺精緻、間距緊湊、完整功能注入
+═══════════════════════════════════════════════════ */
 
-      /* 更精確的隱藏規則 - 隱藏所有包含社交連結的 a 標籤（除了我們的浮動按鈕） */
-      a[href*="lin.ee"]:not(.floating-social-buttons a),
-      a[href*="instagram.com"]:not(.floating-social-buttons a) {
-        display: none !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-      }
+/* --- 1. 修正 LINE 浮動按鈕圖示 (官方正確樣式) --- */
+.floating-social-buttons {
+  position: fixed !important;
+  right: 16px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  z-index: 9999 !important;
+}
+.social-button {
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,.2) !important;
+  font-size: 0 !important;
+}
+.social-button:hover {
+  transform: scale(1.12) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,.28) !important;
+}
+.line-button { background-color: #06C755 !important; }
+.line-button:hover { background-color: #05A847 !important; }
+.ig-button { background: linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%) !important; }
 
-      /* 浮動社交按鈕樣式 */
-      .floating-social-buttons {
-        position: fixed;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        z-index: 1000;
-      }
+@media (max-width:768px) {
+  .social-button { width: 46px !important; height: 46px !important; }
+}
+@media (max-width:480px) {
+  .floating-social-buttons { right: 10px !important; gap: 10px !important; }
+  .social-button { width: 42px !important; height: 42px !important; }
+}
 
-      .social-button {
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        font-size: 28px;
-      }
+/* --- 2. 隱藏原本頁面中重複的社交連結 --- */
+a[href*="lin.ee"]:not(.floating-social-buttons a):not(.line-button),
+a[href*="instagram.com"]:not(.floating-social-buttons a):not(.ig-button) {
+  display: none !important;
+}
 
-      .social-button:hover {
-        transform: scale(1.15);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-      }
+/* --- 3. 全站視覺優化：緊縮過大間距 --- */
+/* Hero section */
+section.relative.py-20 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+section.relative.py-20 h2 { font-size: 2.6rem !important; margin-bottom: 1rem !important; }
+section.relative.py-20 p.text-xl { font-size: 1rem !important; margin-bottom: 1.25rem !important; }
+section.relative.py-20 > div { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
 
-      .line-button {
-        background-color: #00B900;
-        color: white;
-      }
+/* mb-12 全站縮減 */
+.mb-12 { margin-bottom: 1.75rem !important; }
+.mb-16 { margin-bottom: 2rem !important; }
+.py-20 { padding-block: 2.5rem !important; }
+.py-12 { padding-block: 1.75rem !important; }
 
-      .line-button:hover {
-        background-color: #009900;
-      }
+/* 卡片內距縮減 */
+.p-8 { padding: 1.25rem !important; }
+.p-6 { padding: 1rem !important; }
+.space-y-4 > * + * { margin-top: 0.6rem !important; }
+.space-y-3 > * + * { margin-top: 0.5rem !important; }
+.gap-8 { gap: 1.25rem !important; }
+.gap-6 { gap: 1rem !important; }
 
-      .ig-button {
-        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        color: white;
-      }
+/* --- 4. 導覽列新增「冰箱租借」「知識專區」選項 --- */
+#cc-extra-nav { display: contents; }
 
-      .ig-button:hover {
-        filter: brightness(0.9);
-      }
+/* --- 5. 冰箱租借頁面樣式 --- */
+#cc-fridge-page, #cc-knowledge-page {
+  display: none;
+  min-height: 100vh;
+  background: #f8fffe;
+}
+#cc-fridge-page.cc-active, #cc-knowledge-page.cc-active {
+  display: block;
+}
 
-      /* 手機版適配 */
-      @media (max-width: 768px) {
-        .floating-social-buttons {
-          right: 12px;
-          gap: 12px;
-        }
+/* 隱藏 React root 當顯示自訂頁面 */
+body.cc-custom-page #root > div > div:last-child {
+  display: none !important;
+}
 
-        .social-button {
-          width: 48px;
-          height: 48px;
-          font-size: 24px;
-        }
-      }
+/* 自訂頁面基礎樣式 */
+.cc-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+.cc-hero {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 60%, #047857 100%);
+  color: white;
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+}
+.cc-hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: .5rem; }
+.cc-hero p { font-size: 1rem; opacity: .85; max-width: 560px; margin: 0 auto; }
 
-      /* 超小螢幕 */
-      @media (max-width: 480px) {
-        .floating-social-buttons {
-          right: 10px;
-          gap: 10px;
-        }
+.cc-section-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #064e3b;
+  margin: 2rem 0 1rem;
+  padding-bottom: .5rem;
+  border-bottom: 2px solid #d1fae5;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
 
-        .social-button {
-          width: 44px;
-          height: 44px;
-          font-size: 20px;
-        }
-      }
+/* 冰箱卡片 */
+.cc-fridge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.cc-fridge-card {
+  background: white;
+  border: 1px solid #d1fae5;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(6,78,59,.07);
+  transition: transform .2s, box-shadow .2s;
+}
+.cc-fridge-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(6,78,59,.12); }
+.cc-fridge-card-head {
+  padding: 1rem 1.1rem .8rem;
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  border-bottom: 1px solid #a7f3d0;
+}
+.cc-fridge-brand {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #059669;
+  margin-bottom: .2rem;
+}
+.cc-fridge-name { font-size: 1.05rem; font-weight: 700; color: #064e3b; }
+.cc-fridge-sub { font-size: .8rem; color: #6b7280; margin-top: .2rem; }
+.cc-fridge-body { padding: .9rem 1.1rem; }
+.cc-spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .35rem 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: .85rem;
+}
+.cc-spec-row:last-child { border-bottom: none; }
+.cc-spec-label { color: #6b7280; }
+.cc-spec-value { color: #111827; font-weight: 600; }
+.cc-price-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  background: #059669;
+  color: white;
+  padding: .4rem .9rem;
+  border-radius: 20px;
+  font-size: .82rem;
+  font-weight: 700;
+  margin-top: .75rem;
+}
+
+/* 注意事項卡片 */
+.cc-notice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .85rem;
+  margin-bottom: 1.5rem;
+}
+@media(max-width:640px){ .cc-notice-grid { grid-template-columns: 1fr; } }
+.cc-notice-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  border-left: 3px solid #059669;
+  box-shadow: 0 1px 6px rgba(0,0,0,.06);
+}
+.cc-notice-card.warn { border-left-color: #d97706; }
+.cc-notice-card.danger { border-left-color: #dc2626; }
+.cc-notice-card h4 {
+  font-size: .88rem;
+  font-weight: 700;
+  margin-bottom: .4rem;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+.cc-notice-card p, .cc-notice-card li {
+  font-size: .82rem;
+  color: #374151;
+  line-height: 1.6;
+}
+.cc-notice-card ul { padding-left: 1.1rem; }
+.cc-notice-card li { margin-bottom: .2rem; }
+
+/* 重要提示 banner */
+.cc-alert {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  display: flex;
+  gap: .75rem;
+  align-items: flex-start;
+  font-size: .875rem;
+  color: #92400e;
+  line-height: 1.6;
+}
+.cc-alert.green {
+  background: #ecfdf5;
+  border-color: #6ee7b7;
+  color: #064e3b;
+}
+.cc-alert.red {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+.cc-alert-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: .05rem; }
+
+/* 知識頁面 */
+.cc-knowledge-toc {
+  background: white;
+  border: 1px solid #d1fae5;
+  border-radius: 14px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 2rem;
+}
+.cc-knowledge-toc h3 { font-size: .95rem; font-weight: 700; color: #064e3b; margin-bottom: .75rem; }
+.cc-toc-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .35rem;
+}
+.cc-toc-link {
+  font-size: .82rem;
+  color: #059669;
+  text-decoration: none;
+  padding: .3rem .5rem;
+  border-radius: 6px;
+  transition: background .15s;
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+}
+.cc-toc-link:hover { background: #ecfdf5; }
+@media(max-width:640px){ .cc-toc-list { grid-template-columns: 1fr; } }
+
+.cc-knowledge-block {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1.25rem;
+  scroll-margin-top: 80px;
+}
+.cc-knowledge-block h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #064e3b;
+  margin-bottom: .75rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.cc-knowledge-block p {
+  font-size: .875rem;
+  color: #374151;
+  line-height: 1.72;
+  margin-bottom: .6rem;
+}
+.cc-knowledge-block p:last-child { margin-bottom: 0; }
+.cc-knowledge-block strong { color: #064e3b; }
+
+/* 比較表 */
+.cc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .85rem;
+  margin: .75rem 0;
+}
+.cc-table th {
+  background: #059669;
+  color: white;
+  padding: .6rem .9rem;
+  text-align: left;
+  font-weight: 600;
+}
+.cc-table td {
+  padding: .55rem .9rem;
+  border-bottom: 1px solid #f3f4f6;
+  color: #374151;
+}
+.cc-table tr:nth-child(even) td { background: #f9fafb; }
+.cc-table tr:last-child td { border-bottom: none; }
+.cc-check { color: #059669; font-weight: 700; }
+.cc-cross { color: #dc2626; }
+
+/* 標籤 pill */
+.cc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  padding: .25rem .7rem;
+  border-radius: 20px;
+  font-size: .75rem;
+  font-weight: 600;
+  margin: .2rem .2rem .2rem 0;
+}
+.cc-pill.blue { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+.cc-pill.amber { background: #fffbeb; color: #92400e; border-color: #fcd34d; }
+
+/* 頁尾連結 */
+.cc-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: #059669;
+  color: white;
+  padding: .65rem 1.4rem;
+  border-radius: 24px;
+  font-size: .9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background .2s;
+  text-decoration: none;
+  margin-top: 1rem;
+}
+.cc-back-btn:hover { background: #047857; }
+
+/* 知識目錄側邊 sticky（桌面） */
+@media(min-width:900px) {
+  .cc-knowledge-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .cc-knowledge-sidebar {
+    position: sticky;
+    top: 80px;
+  }
+}
     </style>
   </head>
   <body>
     <div id="root"></div>
-    
-    <!-- 浮動社交按鈕 -->
+
+    <!-- ╔══════════════════════════════════╗
+         ║  浮動社交按鈕（修正版 LINE SVG）  ║
+         ╚══════════════════════════════════╝ -->
     <div class="floating-social-buttons">
-      <!-- LINE 按鈕 - 官方綠色對話框 logo -->
-      <a href="https://lin.ee/8maotVi" class="social-button line-button" title="LINE 聯絡我們" target="_blank" rel="noopener noreferrer">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-          <!-- LINE 官方對話框 logo -->
-          <path d="M12 0C5.37 0 0 4.03 0 9c0 3.08 1.74 5.75 4.5 7.32-.2 1.3-.98 4.25-.98 4.25s3.12-.5 5.27-2.15c.93.2 1.9.3 2.91.3 6.63 0 12-4.03 12-9s-5.37-9-12-9z" fill="#00B900"/>
-          <path d="M5.5 11.5h1.5v3h-1.5zm3-3h1.5v6h-1.5zm3-1h1.5v7h-1.5zm3 1h1.5v3h-1.5zm4 0h1.5v3h-1.5z" fill="white"/>
+      <!-- LINE 官方正確圖示 -->
+      <a href="https://lin.ee/8maotVi" class="social-button line-button"
+         title="LINE 聯絡我們 @Campcool" target="_blank" rel="noopener noreferrer">
+        <svg width="28" height="28" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <!-- LINE 官方 logo：白色對話泡泡 + L-I-N-E 字型線條 -->
+          <rect width="40" height="40" rx="20" fill="#06C755"/>
+          <!-- 對話泡泡外框 -->
+          <path d="M20 7C12.27 7 6 12.2 6 18.6c0 4.56 3.04 8.54 7.6 10.8-.34 1.25-.88 3.6-.88 3.6s2.78-.45 4.72-1.93c.83.17 1.68.26 2.56.26 7.73 0 14-5.2 14-11.6S27.73 7 20 7z" fill="white"/>
+          <!-- L -->
+          <rect x="12" y="15.5" width="2" height="6.5" fill="#06C755" rx=".5"/>
+          <rect x="12" y="20.5" width="4" height="1.5" fill="#06C755" rx=".5"/>
+          <!-- I -->
+          <rect x="18" y="15.5" width="2" height="6.5" fill="#06C755" rx=".5"/>
+          <!-- N -->
+          <rect x="22" y="15.5" width="1.8" height="6.5" fill="#06C755" rx=".5"/>
+          <rect x="26.2" y="15.5" width="1.8" height="6.5" fill="#06C755" rx=".5"/>
+          <path d="M23.8 15.5 L28 22" stroke="#06C755" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <!-- E -->
+          <rect x="30.5" y="15.5" width="1.8" height="6.5" fill="#06C755" rx=".5" opacity="0"/>
         </svg>
       </a>
-      <!-- Instagram 按鈕 - 官方相機圖示 -->
-      <a href="https://www.instagram.com/campcool2025?igsh=OTQ2azZ4dGE0bjJm" class="social-button ig-button" title="Instagram 追蹤我們" target="_blank" rel="noopener noreferrer">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <!-- Instagram 相機圖示 -->
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-          <circle cx="17.5" cy="6.5" r="1.5"></circle>
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/campcool2025?igsh=OTQ2azZ4dGE0bjJm"
+         class="social-button ig-button"
+         title="Instagram @campcool2025" target="_blank" rel="noopener noreferrer">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+             stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
         </svg>
       </a>
     </div>
 
-    <!-- 隱藏原本頁面社交按鈕的額外 CSS -->
+    <!-- ╔═══════════════════════════════════════════════════╗
+         ║  冰箱租借頁面（注入到 DOM，JS 控制顯示/隱藏）       ║
+         ╚═══════════════════════════════════════════════════╝ -->
+    <div id="cc-fridge-page">
+      <div class="cc-hero">
+        <h1>🧊 移動冰箱租借</h1>
+        <p>讓露營食材與飲料全程保鮮，搭配冷氣一起租更清涼</p>
+      </div>
+      <div class="cc-page">
+
+        <div class="cc-alert green">
+          <span class="cc-alert-icon">✅</span>
+          <div><strong>租借方案</strong>：移動冰箱每次租借 <strong>$800 元</strong>（不限天數，依您的露營行程）。實際可租型號依各地區庫存調配，請透過 LINE @Campcool 詢問確認。</div>
+        </div>
+
+        <!-- 冰虎系列 -->
+        <div class="cc-section-title">🐯 冰虎系列（Alpicool）</div>
+        <div class="cc-fridge-grid">
+          <div class="cc-fridge-card">
+            <div class="cc-fridge-card-head">
+              <div class="cc-fridge-brand">冰虎 Alpicool</div>
+              <div class="cc-fridge-name">ECX-40</div>
+              <div class="cc-fridge-sub">壓縮機冰箱・車露兩用</div>
+            </div>
+            <div class="cc-fridge-body">
+              <div class="cc-spec-row"><span class="cc-spec-label">容量</span><span class="cc-spec-value">40L</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">冷卻範圍</span><span class="cc-spec-value">-20°C ～ 20°C</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">耗電量</span><span class="cc-spec-value">約 40W（運轉中）</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">電源</span><span class="cc-spec-value">110V AC / 12V DC</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">適合</span><span class="cc-spec-value">4-5 人家庭</span></div>
+              <span class="cc-price-badge">💰 $800 / 次</span>
+            </div>
+          </div>
+
+          <div class="cc-fridge-card">
+            <div class="cc-fridge-card-head">
+              <div class="cc-fridge-brand">冰虎 Alpicool</div>
+              <div class="cc-fridge-name">TA-35</div>
+              <div class="cc-fridge-sub">輕量便攜款</div>
+            </div>
+            <div class="cc-fridge-body">
+              <div class="cc-spec-row"><span class="cc-spec-label">容量</span><span class="cc-spec-value">35L</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">冷卻範圍</span><span class="cc-spec-value">-15°C ～ 20°C</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">耗電量</span><span class="cc-spec-value">約 35W（運轉中）</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">電源</span><span class="cc-spec-value">110V AC / 12V DC</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">適合</span><span class="cc-spec-value">2-3 人輕量出遊</span></div>
+              <span class="cc-price-badge">💰 $800 / 次</span>
+            </div>
+          </div>
+
+          <div class="cc-fridge-card">
+            <div class="cc-fridge-card-head">
+              <div class="cc-fridge-brand">冰虎 Alpicool</div>
+              <div class="cc-fridge-name">T50 / T60</div>
+              <div class="cc-fridge-sub">大容量家族款</div>
+            </div>
+            <div class="cc-fridge-body">
+              <div class="cc-spec-row"><span class="cc-spec-label">容量</span><span class="cc-spec-value">50L / 60L</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">冷卻範圍</span><span class="cc-spec-value">-20°C ～ 20°C</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">耗電量</span><span class="cc-spec-value">約 50-60W（運轉中）</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">電源</span><span class="cc-spec-value">110V AC / 12V DC</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">適合</span><span class="cc-spec-value">5-8 人大家族</span></div>
+              <span class="cc-price-badge">💰 $800 / 次</span>
+            </div>
+          </div>
+
+          <div class="cc-fridge-card">
+            <div class="cc-fridge-card-head">
+              <div class="cc-fridge-brand">冰虎 Alpicool</div>
+              <div class="cc-fridge-name">MC-20</div>
+              <div class="cc-fridge-sub">迷你隨行款</div>
+            </div>
+            <div class="cc-fridge-body">
+              <div class="cc-spec-row"><span class="cc-spec-label">容量</span><span class="cc-spec-value">20L</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">冷卻範圍</span><span class="cc-spec-value">-10°C ～ 20°C</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">耗電量</span><span class="cc-spec-value">約 25W（運轉中）</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">電源</span><span class="cc-spec-value">110V AC / 12V DC</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">適合</span><span class="cc-spec-value">單人・雙人輕量</span></div>
+              <span class="cc-price-badge">💰 $800 / 次</span>
+            </div>
+          </div>
+
+          <div class="cc-fridge-card">
+            <div class="cc-fridge-card-head">
+              <div class="cc-fridge-brand">冰虎 Alpicool</div>
+              <div class="cc-fridge-name">CHT-35</div>
+              <div class="cc-fridge-sub">硬殼耐用款</div>
+            </div>
+            <div class="cc-fridge-body">
+              <div class="cc-spec-row"><span class="cc-spec-label">容量</span><span class="cc-spec-value">35L</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">冷卻範圍</span><span class="cc-spec-value">-15°C ～ 20°C</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">耗電量</span><span class="cc-spec-value">約 35W（運轉中）</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">電源</span><span class="cc-spec-value">110V AC / 12V DC</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">適合</span><span class="cc-spec-value">注重耐用・硬殼保護</span></div>
+              <span class="cc-price-badge">💰 $800 / 次</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 艾比酷冰箱 -->
+        <div class="cc-section-title">❄️ 艾比酷系列（Iceco）</div>
+        <div class="cc-fridge-grid">
+          <div class="cc-fridge-card">
+            <div class="cc-fridge-card-head">
+              <div class="cc-fridge-brand">艾比酷 Iceco</div>
+              <div class="cc-fridge-name">LG-D36</div>
+              <div class="cc-fridge-sub">雙溫區・靜音壓縮機</div>
+            </div>
+            <div class="cc-fridge-body">
+              <div class="cc-spec-row"><span class="cc-spec-label">容量</span><span class="cc-spec-value">36L（雙區）</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">冷卻範圍</span><span class="cc-spec-value">-20°C ～ 20°C</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">耗電量</span><span class="cc-spec-value">約 40W（運轉中）</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">電源</span><span class="cc-spec-value">110V AC / 12-24V DC</span></div>
+              <div class="cc-spec-row"><span class="cc-spec-label">特色</span><span class="cc-spec-value">可同時冷藏＋冷凍</span></div>
+              <span class="cc-price-badge">💰 $800 / 次</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 使用注意事項 -->
+        <div class="cc-section-title">⚠️ 使用注意事項</div>
+
+        <div class="cc-alert red">
+          <span class="cc-alert-icon">🚨</span>
+          <div><strong>到達現場務必靜置 30 分鐘以上再開機！</strong><br>
+          搬運過程中冷媒可能偏移。直接開機可能造成壓縮機損壞或製冷效果不佳。靜置讓冷媒回到正確位置後，再插電啟動。</div>
+        </div>
+
+        <div class="cc-alert warn">
+          <span class="cc-alert-icon">⚡</span>
+          <div><strong>注意總用電量！</strong><br>
+          若同時使用冷氣（425W~530W）＋冰箱（25W~60W），總耗電量約 450W~590W，換算電流約 4-6A。一般營區 15A 電力仍充裕，但請避免再同時使用電熱水壺（800W~1200W）或電磁爐等高耗電設備，以免跳電。</div>
+        </div>
+
+        <div class="cc-notice-grid">
+          <div class="cc-notice-card">
+            <h4>🔌 電源設置</h4>
+            <ul>
+              <li>確認使用 110V 接地插座</li>
+              <li>避免使用老舊或過細的延長線</li>
+              <li>冰箱與冷氣建議分開插座</li>
+              <li>延長線需 10A 以上規格</li>
+            </ul>
+          </div>
+          <div class="cc-notice-card">
+            <h4>📦 搬運與擺放</h4>
+            <ul>
+              <li>搬運時盡量保持直立，避免倒置超過 45 度</li>
+              <li>到達現場靜置 <strong>30 分鐘以上</strong>再開機</li>
+              <li>擺放在平穩地面，避免傾斜超過 15 度</li>
+              <li>四周留 10cm 以上散熱空間</li>
+            </ul>
+          </div>
+          <div class="cc-notice-card">
+            <h4>🌡️ 溫度設定</h4>
+            <ul>
+              <li>冷藏建議設 2°C～8°C</li>
+              <li>冷凍建議設 -10°C～-18°C</li>
+              <li>外部氣溫越高，壓縮機運轉越頻繁</li>
+              <li>避免頻繁開關蓋子，影響保冷效果</li>
+            </ul>
+          </div>
+          <div class="cc-notice-card warn">
+            <h4>🚫 禁止事項</h4>
+            <ul>
+              <li>禁止放入易燃物品</li>
+              <li>禁止在封閉帳篷內長時間無人使用</li>
+              <li>不可自行拆解或維修</li>
+              <li>發現異常聲響立即停機聯繫客服</li>
+            </ul>
+          </div>
+          <div class="cc-notice-card">
+            <h4>🧹 清潔與歸還</h4>
+            <ul>
+              <li>歸還前清空並擦乾內部水分</li>
+              <li>外部保持基本清潔</li>
+              <li>排水孔確認清空（若有積水）</li>
+              <li>隨附配件（電源線等）一同歸還</li>
+            </ul>
+          </div>
+          <div class="cc-notice-card green">
+            <h4>💡 使用小訣竅</h4>
+            <ul>
+              <li>預先放入已冷卻的食材，效果更好</li>
+              <li>食材與飲料分層放置，常取用的放上層</li>
+              <li>晚間氣溫下降後可調高溫度設定省電</li>
+              <li>搭配冷氣使用，帳篷整體環境更舒適</li>
+            </ul>
+          </div>
+        </div>
+
+        <button onclick="ccGoHome()" class="cc-back-btn">← 回首頁</button>
+      </div>
+    </div>
+
+    <!-- ╔═══════════════════════════════════════════════════╗
+         ║  知識專區頁面                                       ║
+         ╚═══════════════════════════════════════════════════╝ -->
+    <div id="cc-knowledge-page">
+      <div class="cc-hero">
+        <h1>📚 露營知識專區</h1>
+        <p>冷氣原理、冰箱選購、電力計算、露營技巧，一次學清楚</p>
+      </div>
+      <div class="cc-page">
+        <div class="cc-knowledge-layout">
+
+          <!-- 側邊目錄（桌面版） -->
+          <div class="cc-knowledge-sidebar">
+            <div class="cc-knowledge-toc">
+              <h3>📖 目錄</h3>
+              <div class="cc-toc-list" style="grid-template-columns:1fr;">
+                <a href="#kn-ac-how" class="cc-toc-link">❄️ 冷氣怎麼運作？</a>
+                <a href="#kn-btu" class="cc-toc-link">📐 BTU 是什麼？</a>
+                <a href="#kn-power" class="cc-toc-link">⚡ 電力計算方式</a>
+                <a href="#kn-humid" class="cc-toc-link">💧 排水與濕度</a>
+                <a href="#kn-tent" class="cc-toc-link">🏕️ 帳篷密封技巧</a>
+                <a href="#kn-fridge-how" class="cc-toc-link">🧊 冰箱原理</a>
+                <a href="#kn-fridge-type" class="cc-toc-link">🔄 壓縮機 vs 半導體</a>
+                <a href="#kn-fridge-pick" class="cc-toc-link">🛒 如何選冰箱容量</a>
+                <a href="#kn-static" class="cc-toc-link">⏱️ 靜置 30 分鐘原因</a>
+                <a href="#kn-combo" class="cc-toc-link">🔗 冷氣＋冰箱搭配</a>
+                <a href="#kn-env" class="cc-toc-link">🌿 環保冷媒</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 內容主體 -->
+          <div>
+
+            <div class="cc-knowledge-block" id="kn-ac-how">
+              <h3>❄️ 移動式冷氣怎麼運作？</h3>
+              <p>移動式冷氣的運作原理與家用冷氣相同，都是利用<strong>冷媒循環</strong>來轉移熱能。簡單說，冷氣不是「製造冷空氣」，而是把帳篷裡的熱空氣帶走。</p>
+              <p>整個循環分四個步驟：① <strong>蒸發</strong>—冷媒在室內側吸熱蒸發，帶走帳篷內的熱量 → ② <strong>壓縮</strong>—壓縮機將氣態冷媒加壓升溫 → ③ <strong>冷凝</strong>—高溫冷媒透過排熱管將熱量排到帳篷外 → ④ <strong>膨脹</strong>—冷媒降壓再次進入蒸發循環。</p>
+              <p>這就是為什麼移動式冷氣一定要把<strong>排熱管伸出帳篷外</strong>——如果熱氣在帳篷內循環，等於白做工，完全不會變涼。</p>
+            </div>
+
+            <div class="cc-knowledge-block" id="kn-btu">
+              <h3>📐 BTU 是什麼？如何換算？</h3>
+              <p><strong>BTU（British Thermal Unit，英國熱量單位）</strong>是冷暖氣機最常見的冷房能力標示單位。1 BTU = 讓 1 磅水溫度升高 1°F 所需的熱量。</p>
+              <p>露營用的移動冷氣通常在 <strong>5000～8000 BTU</strong> 之間。BTU 越高，製冷能力越強，但耗電量也越高。</p>
+              <table class="cc-table">
+                <tr><th>型號</th><th>BTU</th><th>適合帳篷</th><th>大約坪數</th></tr>
+                <tr><td>艾比酷 JUZ-400</td><td>5000 BTU</td><td>3-4 人帳</td><td>3～5 坪</td></tr>
+                <tr><td>山水 SAC688</td><td>6000 BTU</td><td>5-6 人大帳</td><td>5～8 坪</td></tr>
+              </table>
+              <p>帳篷隔熱效果比一般房間差很多，所以實際感受可能比室內同 BTU 的冷氣弱一些。選擇<strong>密封性好的帳篷</strong>（如黑膠帳）效果最好。</p>
+            </div>
+
+            <div class="cc-knowledge-block" id="kn-power">
+              <h3>⚡ 電力計算：怎麼知道會不會跳電？</h3>
+              <p>電力計算公式：<strong>功率（W）÷ 電壓（V）= 電流（A）</strong></p>
+              <p>台灣營區標準電壓 110V，一般接電箱提供 10A 或 15A。</p>
+              <table class="cc-table">
+                <tr><th>設備</th><th>功率</th><th>電流（110V）</th></tr>
+                <tr><td>艾比酷 JUZ-400</td><td>425W</td><td>約 3.9A</td></tr>
+                <tr><td>山水 SAC688</td><td>530W</td><td>約 4.8A</td></tr>
+                <tr><td>移動冰箱（平均）</td><td>30～60W</td><td>約 0.3～0.6A</td></tr>
+                <tr><td>電熱水壺</td><td>800～1200W</td><td>約 7.3～10.9A ⚠️</td></tr>
+                <tr><td>電磁爐</td><td>1000～2000W</td><td>約 9～18A ⚠️</td></tr>
+                <tr><td>LED 燈條</td><td>10～30W</td><td>約 0.1～0.3A</td></tr>
+                <tr><td>手機充電（4台）</td><td>約 80W</td><td>約 0.7A</td></tr>
+              </table>
+              <p>以 JUZ-400（3.9A）＋冰箱（0.5A）＋燈（0.2A）＋手機（0.7A）= 約 <strong>5.3A</strong>，在 10A 電箱下仍有充裕空間。只要不同時開電熱水壺，基本上不會跳電。</p>
+            </div>
+
+            <div class="cc-knowledge-block" id="kn-humid">
+              <h3>💧 排水與濕度管理</h3>
+              <p>移動冷氣在製冷過程中會從空氣中<strong>凝結水分</strong>（除濕效果）。這些水的處理方式依機型不同：</p>
+              <p><strong>艾比酷 JUZ-400（零排水）</strong>：採用特殊技術將凝結水從排熱管蒸發帶走，完全不需要排水，非常適合新手。</p>
+              <p><strong>山水 SAC688（需排水）</strong>：凝結水會積在水箱中，水滿時自動停機，需定期手動排水（台灣夏天約每 3-5 小時一次）。排水步驟：關機 → 找到底部排水口 → 打開讓水流出 → 確認排空後關閉 → 重新開機。</p>
+              <div class="cc-alert green">
+                <span class="cc-alert-icon">💡</span>
+                <span>夏天台灣濕度高，SAC688 排水頻率可能增加。建議睡前排一次水，避免半夜停機。</span>
+              </div>
+            </div>
+
+            <div class="cc-knowledge-block" id="kn-tent">
+              <h3>🏕️ 帳篷密封技巧：讓冷氣效果最大化</h3>
+              <p>帳篷的密封性對冷氣效果影響極大。以下是提升密封效果的實用技巧：</p>
+              <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0">
+                <span class="cc-pill">✅ 選黑膠帳或科技棉帳</span>
+                <span class="cc-pill">✅ 拉上所有拉鍊</span>
+                <span class="cc-pill">✅ 用毛巾封住網格區域</span>
+                <span class="cc-pill">✅ 排熱管縫隙用布填充</span>
+                <span class="cc-pill amber">⚠️ 避免純網格帳篷</span>
+                <span class="cc-pill amber">⚠️ 避免過大的客廳帳</span>
+              </div>
+              <p>帳篷越大，需要更大 BTU 的冷氣。5000 BTU 的 JUZ-400 適合 3-5 坪密閉空間，如果帳篷太大或開口太多，冷氣效果會打折。</p>
+              <p>建議使用冷氣前先關閉所有通風口，<strong>提前 15-20 分鐘開機預冷</strong>，等溫度降下來再進入帳篷，會感覺更清涼。</p>
+            </div>
+
+            <div class="cc-knowledge-block" id="kn-fridge-how">
+              <h3>🧊 移動冰箱怎麼運作？</h3>
+              <p>市售移動冰箱有兩大類型：<strong>壓縮機冰箱</strong>和<strong>半導體（珀耳帖）冰箱</strong>。我們提供的冰虎和艾比酷均為壓縮機冰箱。</p>
+              <p>壓縮機冰箱的運作原理與家用冰箱相同：利用冷媒循環將箱內熱量抽出，達到真正的低溫冷藏甚至冷凍效果。可以達到 <strong>-20°C</strong> 的低溫，保存肉類、海鮮、冰淇淋都沒問題。</p>
+            </div>
+
+            <div class="cc-knowledge-block" id="kn-fridge-type">
+              <h3>🔄 壓縮機冰箱 vs 半導體冰箱</h3>
+              <table class="cc-table">
+                <tr><th>比較項目</th><th>壓縮機冰箱 ✅</th><th>半導體冰箱</th></tr>
+                <tr><td>製冷能力</td><td>可達 -20°C</td><td>僅比室溫低 15-25°C</td></tr>
+                <tr><td>耗電量</td><td>較低（壓縮機間歇運轉）</td><td>持續耗電</td></tr>
+                <tr><td>噪音</td><td>有輕微壓縮機聲音</td><td>幾乎無聲</td></tr>
+                <tr><td>體積重量</td><td>較重</td><td>較輕</td></tr>
+                <tr><td>適合用途</td><td>露營、長途旅行 ✅</td><td>短程通勤、辦公室</td></tr>
+                <tr><td>傾斜使用</td><td><span class="cc-cross">需靜置後使用</span></td><td><span class="cc-check">可即時使用</span></td></tr>
+              </table>
+              <p>露營首選壓縮機冰箱，真正的冷藏冷凍效果是其他技術無法比擬的。唯一注意：<strong>搬運後需靜置 30 分鐘</strong>再開機。</p>
+            </div>
+
+            <div class="cc-knowledge-block" id="kn-fridge-pick">
+              <h3>🛒 如何選擇適合的冰箱容量？</h3>
+              <table class="cc-table">
+                <tr><th>人數</th><th>建議容量</th><th>推薦型號</th></tr>
+                <tr><td>1-2 人</td><td>20-25L</td><td>冰虎 MC20</td></tr>
+                <tr><td>2-3 人</td><td>30-40L</td><td>冰虎 TA35、ECX40</td></tr>
+                <tr><td>4-6 人</td><td>40-60L</td><td>冰虎 ECX40、T50/T60</td></tr>
+                <tr><td>2人（雙溫區需求）</td><td>36L（雙區）</td><td>艾比酷 LG-D36</td></tr>
+              </table>
+              <p>計算方式：每人每天約需要 5-8L 空間（含食材、飲料、冰塊）。如果露營 2 天，3 人大約需要 30-50L。</p>
+              <p>建議選稍大一號，因為<strong>裝太滿反而影響冷氣循環</strong>，保冷效果反而差。留 20-30% 空間讓冷空氣流動。</p>
+            </div>
+
+            <div class="cc-knowledge-block" id="kn-static">
+              <h3>⏱️ 為什麼到現場要靜置 30 分鐘？</h3>
+              <p>這是所有壓縮機冰箱（包含家用冰箱）共同的重要使用原則，原因如下：</p>
+              <p>壓縮機冰箱運作時，<strong>冷媒以液態和氣態並存</strong>於系統中。在搬運、傾斜、顛簸的過程中，液態冷媒可能流入不應該有液體的管路（壓縮機進氣側）。</p>
+              <p>如果立刻通電，壓縮機試圖壓縮液體（液壓縮現象），可能造成壓縮機<strong>損壞</strong>或減少使用壽命。靜置讓冷媒自然流回到正確位置，再開機就安全了。</p>
+              <div class="cc-alert warn">
+                <span class="cc-alert-icon">⚠️</span>
+                <span>搬運距離越長、顛簸越劇烈，靜置時間應越長。一般露營搬運建議至少靜置 <strong>30 分鐘</strong>，若長途運輸超過 1 小時建議靜置 1 小時以上。</span>
+              </div>
+            </div>
+
+            <div class="cc-knowledge-block" id="kn-combo">
+              <h3>🔗 冷氣＋冰箱最佳搭配方案</h3>
+              <p>同時使用冷氣和冰箱是最完美的夏日露營配置。以下是推薦的搭配方案：</p>
+              <table class="cc-table">
+                <tr><th>場景</th><th>冷氣</th><th>冰箱</th><th>總用電</th></tr>
+                <tr><td>2-3 人輕量</td><td>JUZ-400（425W）</td><td>MC20（25W）</td><td>約 450W ≈ 4.1A</td></tr>
+                <tr><td>3-4 人標準</td><td>JUZ-400（425W）</td><td>TA35/ECX40（35-40W）</td><td>約 465W ≈ 4.2A</td></tr>
+                <tr><td>5-6 人大帳</td><td>SAC688（530W）</td><td>T50/T60（50-60W）</td><td>約 590W ≈ 5.4A</td></tr>
+              </table>
+              <p>以上組合在 10A 電箱下均有餘裕，完全不用擔心跳電。只需注意<strong>不要再同時使用大功率設備</strong>（電熱水壺、電磁爐等）。</p>
+              <p>小撇步：冰箱最好跟冷氣<strong>分開不同插座</strong>，避免單一延長線負載過重。</p>
+            </div>
+
+            <div class="cc-knowledge-block" id="kn-env">
+              <h3>🌿 R290 環保冷媒是什麼？</h3>
+              <p>我們提供的冷氣和冰箱均使用 <strong>R290（丙烷）</strong>環保冷媒。這是目前最環保的冷媒之一，具有以下優點：</p>
+              <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0">
+                <span class="cc-pill">🌱 ODP = 0（不破壞臭氧層）</span>
+                <span class="cc-pill">🌏 GWP = 3（溫室效應極低）</span>
+                <span class="cc-pill">⚡ 製冷效率高</span>
+                <span class="cc-pill">💰 冷媒成本低</span>
+              </div>
+              <p>相比舊型 R22（HCFC）冷媒，R290 對環境的衝擊降低了 99% 以上。正常使用下，冷媒封閉於系統內，無洩漏風險。這也是為什麼我們選擇這類設備—清涼的同時也愛護環境。</p>
+            </div>
+
+            <button onclick="ccGoHome()" class="cc-back-btn">← 回首頁</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔═══════════════════════════════════════════════════╗
+         ║  控制邏輯：導覽列注入 + 頁面切換                    ║
+         ╚═══════════════════════════════════════════════════╝ -->
     <script>
-      // 頁面加載完成後，隱藏所有原本的社交按鈕
+    (function() {
+      // 目前頁面狀態
+      var ccCurrentPage = 'home';
+
+      // 隱藏重複社交連結
+      function hideOriginalSocial() {
+        var links = document.querySelectorAll(
+          'a[href*="lin.ee"], a[href*="instagram.com"]'
+        );
+        links.forEach(function(l) {
+          if (!l.closest('.floating-social-buttons')) {
+            l.style.cssText = 'display:none!important;visibility:hidden!important';
+          }
+        });
+        // 隱藏使用圖片方式的 LINE 加入好友按鈕
+        var imgs = document.querySelectorAll('img[alt*="好友"], img[alt*="LINE"], img[alt*="line"]');
+        imgs.forEach(function(img) {
+          var parent = img.parentElement;
+          if (parent && parent.tagName === 'A') parent.style.display = 'none';
+        });
+      }
+
+      // 頁面切換
+      function showPage(page) {
+        ccCurrentPage = page;
+        var fridgePage = document.getElementById('cc-fridge-page');
+        var knowledgePage = document.getElementById('cc-knowledge-page');
+
+        if (page === 'fridge') {
+          fridgePage.classList.add('cc-active');
+          knowledgePage.classList.remove('cc-active');
+          document.body.classList.add('cc-custom-page');
+          window.scrollTo(0, 0);
+        } else if (page === 'knowledge') {
+          knowledgePage.classList.add('cc-active');
+          fridgePage.classList.remove('cc-active');
+          document.body.classList.add('cc-custom-page');
+          window.scrollTo(0, 0);
+        } else {
+          fridgePage.classList.remove('cc-active');
+          knowledgePage.classList.remove('cc-active');
+          document.body.classList.remove('cc-custom-page');
+        }
+
+        // 同步更新導覽列 active 狀態
+        updateNavActive(page);
+      }
+
+      window.ccGoFridge = function() { showPage('fridge'); };
+      window.ccGoKnowledge = function() { showPage('knowledge'); };
+      window.ccGoHome = function() { showPage('home'); };
+
+      // 更新導覽列 active
+      function updateNavActive(page) {
+        var btns = document.querySelectorAll('[data-cc-nav]');
+        btns.forEach(function(btn) {
+          var target = btn.getAttribute('data-cc-nav');
+          if (target === page) {
+            btn.className = btn.className.replace('text-gray-600', 'text-emerald-800 bg-emerald-100');
+          } else {
+            btn.className = btn.className.replace('text-emerald-800 bg-emerald-100', 'text-gray-600');
+          }
+        });
+      }
+
+      // 注入「冰箱租借」與「知識專區」到導覽列
+      function injectNavItems() {
+        // 桌面導覽列
+        var desktopNav = document.querySelector('nav .hidden.md\\:flex, nav .space-x-1, nav .flex.space-x-');
+        // 找包含「退費規則」按鈕的容器
+        var allBtns = document.querySelectorAll('nav button');
+        var refundBtn = null;
+        allBtns.forEach(function(btn) {
+          if (btn.textContent.trim() === '退費規則') refundBtn = btn;
+        });
+
+        if (refundBtn && refundBtn.parentElement) {
+          var container = refundBtn.parentElement;
+
+          // 新增冰箱租借按鈕
+          var fridgeBtn = document.createElement('button');
+          fridgeBtn.textContent = '🧊 冰箱租借';
+          fridgeBtn.setAttribute('data-cc-nav', 'fridge');
+          fridgeBtn.className = refundBtn.className.replace('text-emerald-800 bg-emerald-100','text-gray-600');
+          fridgeBtn.style.cssText = 'white-space:nowrap;';
+          fridgeBtn.onclick = function() { ccGoFridge(); };
+
+          // 新增知識專區按鈕
+          var knowledgeBtn = document.createElement('button');
+          knowledgeBtn.textContent = '📚 知識專區';
+          knowledgeBtn.setAttribute('data-cc-nav', 'knowledge');
+          knowledgeBtn.className = refundBtn.className.replace('text-emerald-800 bg-emerald-100','text-gray-600');
+          knowledgeBtn.style.cssText = 'white-space:nowrap;';
+          knowledgeBtn.onclick = function() { ccGoKnowledge(); };
+
+          container.appendChild(fridgeBtn);
+          container.appendChild(knowledgeBtn);
+        }
+
+        // 手機版選單
+        var mobileBtns = document.querySelectorAll('nav .md\\:hidden button, nav [class*="mobile"] button');
+        var mobileRefund = null;
+        mobileBtns.forEach(function(btn) {
+          if (btn.textContent.trim() === '退費規則') mobileRefund = btn;
+        });
+        if (mobileRefund && mobileRefund.parentElement) {
+          var mc = mobileRefund.parentElement;
+          var mf = document.createElement('button');
+          mf.textContent = '🧊 冰箱租借';
+          mf.className = mobileRefund.className;
+          mf.onclick = function() { ccGoFridge(); };
+          var mk = document.createElement('button');
+          mk.textContent = '📚 知識專區';
+          mk.className = mobileRefund.className;
+          mk.onclick = function() { ccGoKnowledge(); };
+          mc.appendChild(mf);
+          mc.appendChild(mk);
+        }
+      }
+
+      // MutationObserver 等 React 渲染完成
+      var observer = new MutationObserver(function(mutations) {
+        hideOriginalSocial();
+        // 嘗試注入導覽列（找到退費規則按鈕才注入）
+        var allBtns = document.querySelectorAll('nav button');
+        var found = false;
+        allBtns.forEach(function(b) { if (b.textContent.trim() === '退費規則') found = true; });
+        if (found && !document.querySelector('[data-cc-nav]')) {
+          injectNavItems();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      // 初始執行
       document.addEventListener('DOMContentLoaded', function() {
-        // 隱藏所有包含 lin.ee 的連結
-        const lineLinks = document.querySelectorAll('a[href*="lin.ee"]');
-        lineLinks.forEach(link => {
-          if (!link.classList.contains('social-button')) {
-            link.style.display = 'none';
-            link.style.visibility = 'hidden';
-            link.style.pointerEvents = 'none';
-          }
-        });
-
-        // 隱藏所有包含 instagram.com 的連結
-        const igLinks = document.querySelectorAll('a[href*="instagram.com"]');
-        igLinks.forEach(link => {
-          if (!link.classList.contains('social-button')) {
-            link.style.display = 'none';
-            link.style.visibility = 'hidden';
-            link.style.pointerEvents = 'none';
-          }
-        });
-
-        // 隱藏可能的社交按鈕容器
-        const socialContainers = document.querySelectorAll('[class*="social"], [class*="contact"]');
-        socialContainers.forEach(container => {
-          // 檢查容器中是否包含社交連結
-          const hasLinks = container.querySelector('a[href*="lin.ee"], a[href*="instagram.com"]');
-          if (hasLinks && !container.classList.contains('floating-social-buttons')) {
-            container.style.display = 'none';
-            container.style.visibility = 'hidden';
-          }
-        });
+        hideOriginalSocial();
+        setTimeout(injectNavItems, 800);
       });
-
-      // 使用 MutationObserver 監視 DOM 變化，確保新加入的社交按鈕也被隱藏
-      const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-          if (mutation.addedNodes.length) {
-            mutation.addedNodes.forEach(function(node) {
-              if (node.nodeType === 1) { // Element node
-                // 隱藏新加入的 lin.ee 連結
-                if (node.href && node.href.includes('lin.ee') && !node.classList.contains('social-button')) {
-                  node.style.display = 'none';
-                  node.style.visibility = 'hidden';
-                }
-                // 隱藏新加入的 instagram 連結
-                if (node.href && node.href.includes('instagram.com') && !node.classList.contains('social-button')) {
-                  node.style.display = 'none';
-                  node.style.visibility = 'hidden';
-                }
-              }
-            });
-          }
-        });
-      });
-
-      // 開始監視整個文檔的 DOM 變化
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
+    })();
     </script>
   </body>
 </html>
