@@ -11,6 +11,9 @@
     <style>
 /* ── 浮動社交按鈕 ── */
 .cc-float{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:200}
+/* 確保 React 漢堡展開選單顯示在 cc-page 上方 */
+nav[class*="md:hidden"][class*="bg-white"],
+[class*="md:hidden bg-white"]{z-index:60!important}
 .cc-fb{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 3px 12px rgba(0,0,0,.22);border:none;cursor:pointer;transition:transform .2s}
 .cc-fb:hover{transform:scale(1.1)}
 .cc-line-fb{background:#06C755}
@@ -64,7 +67,7 @@ body{padding-bottom:58px!important}
   position:fixed;
   top:73px; /* header 高度 */
   left:0;right:0;bottom:58px; /* 底部 bar 高度 */
-  z-index:100;
+  z-index:40;
   overflow-y:auto;
   background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 50%,#ecfeff 100%);
   -webkit-overflow-scrolling:touch;
@@ -297,6 +300,17 @@ body{padding-bottom:58px!important}
 
     function ccOpen(tab) {
       setPageTop();
+      // 先關閉漢堡選單（找到並 click hamburger button）
+      var isMenuOpen = document.querySelector('nav[class*="md:hidden"][class*="bg-white"]') ||
+                       document.querySelector('[class*="md:hidden bg-white"]');
+      if (isMenuOpen) {
+        var hb = Array.from(document.querySelectorAll('button')).find(function(b){
+          return b.className && typeof b.className === 'string' &&
+                 b.className.includes('focus:outline-none') &&
+                 b.querySelector('svg');
+        });
+        if (hb) { hb.click(); }
+      }
       var pg = document.getElementById('cc-page');
       var fc = document.getElementById('cc-fridge');
       var kc = document.getElementById('cc-knowledge');
@@ -320,6 +334,16 @@ body{padding-bottom:58px!important}
 
     function ccClose() {
       document.getElementById('cc-page').className = '';
+      // 如果漢堡是開著的，點擊漢堡關閉
+      var isMenuOpen = document.querySelector('nav[class*="md:hidden"][class*="bg-white"]') ||
+                       document.querySelector('[class*="md:hidden bg-white"]');
+      if (isMenuOpen) {
+        var hb = Array.from(document.querySelectorAll('button')).find(function(b){
+          return b.className && typeof b.className === 'string' &&
+                 b.className.includes('focus:outline-none') && b.querySelector('svg');
+        });
+        if (hb) hb.click();
+      }
       syncBar();
     }
 
