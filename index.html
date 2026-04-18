@@ -27,47 +27,40 @@ a[href*="instagram.com"]:not(.cc-float a){display:none!important}
 div.md\:hidden > button[class*="focus:outline-none"],
 .md\:hidden > button[class*="hover:text-emerald"]{display:none!important}
 
-/* ── 底部導覽 bar ── */
+/* ── 底部導覽 bar（4 頁籤，大按鈕）── */
 #cc-bar{
   position:fixed;bottom:0;left:0;right:0;z-index:9995;
   background:#162616;
   border-top:1px solid rgba(255,255,255,.1);
   box-shadow:0 -4px 20px rgba(0,0,0,.3);
-  display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  display:flex;
 }
-#cc-bar::-webkit-scrollbar{display:none}
 #cc-bar button{
-  flex:none;width:calc(100vw / 7);min-width:48px;max-width:80px;
-  padding:7px 2px 9px;border:none;background:none;
+  flex:1;
+  padding:9px 4px 11px;border:none;background:none;
   color:rgba(255,255,255,.4);
-  cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
   transition:color .15s;font-family:inherit;
-  border-top:2.5px solid transparent;
+  border-top:3px solid transparent;
 }
-[data-tab="home"].on{color:#34d399;border-top-color:#34d399}
-[data-tab="products"].on{color:#60a5fa;border-top-color:#60a5fa}
-[data-tab="locations"].on{color:#fbbf24;border-top-color:#fbbf24}
-[data-tab="usageGuide"].on{color:#a78bfa;border-top-color:#a78bfa}
-[data-tab="refundPolicy"].on{color:#f87171;border-top-color:#f87171}
+[data-tab="rental"].on{color:#34d399;border-top-color:#34d399}
+[data-tab="wiki"].on{color:#a78bfa;border-top-color:#a78bfa}
+[data-tab="booking"].on{color:#f87171;border-top-color:#f87171}
 [data-tab="fridge"].on{color:#22d3ee;border-top-color:#22d3ee}
-[data-tab="knowledge"].on{color:#fb923c;border-top-color:#fb923c}
 .cc-bico{
-  width:32px;height:32px;border-radius:9px;
+  width:38px;height:38px;border-radius:11px;
   display:flex;align-items:center;justify-content:center;
-  font-size:1.15rem;
+  font-size:1.4rem;
   background:rgba(255,255,255,.07);
   transition:background .15s,transform .15s;
 }
-#cc-bar button.on .cc-bico{transform:translateY(-1px)}
-[data-tab="home"].on .cc-bico{background:rgba(52,211,153,.18)}
-[data-tab="products"].on .cc-bico{background:rgba(96,165,250,.18)}
-[data-tab="locations"].on .cc-bico{background:rgba(251,191,36,.18)}
-[data-tab="usageGuide"].on .cc-bico{background:rgba(167,139,250,.18)}
-[data-tab="refundPolicy"].on .cc-bico{background:rgba(248,113,113,.18)}
+#cc-bar button.on .cc-bico{transform:translateY(-2px)}
+[data-tab="rental"].on .cc-bico{background:rgba(52,211,153,.18)}
+[data-tab="wiki"].on .cc-bico{background:rgba(167,139,250,.18)}
+[data-tab="booking"].on .cc-bico{background:rgba(248,113,113,.18)}
 [data-tab="fridge"].on .cc-bico{background:rgba(34,211,238,.18)}
-[data-tab="knowledge"].on .cc-bico{background:rgba(251,146,60,.18)}
-.cc-blbl{font-size:.6rem;line-height:1;white-space:nowrap;font-weight:500}
-body{padding-bottom:62px!important}
+.cc-blbl{font-size:.68rem;line-height:1;white-space:nowrap;font-weight:600}
+body{padding-bottom:68px!important}
 
 /* ── 自訂頁面 ── */
 #cc-page{
@@ -75,7 +68,7 @@ body{padding-bottom:62px!important}
   position:fixed;
   top:73px;
   left:0;right:0;
-  bottom:62px;
+  bottom:68px;
   z-index:10;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
@@ -86,7 +79,8 @@ body{padding-bottom:62px!important}
 /* hero */
 .cc-ph{color:white;padding:1.8rem 1.25rem 1.5rem;text-align:center}
 #cc-page.fridge .cc-ph{background:linear-gradient(135deg,#155e75,#0891b2)}
-#cc-page.knowledge .cc-ph{background:linear-gradient(135deg,#7c2d12,#ea580c)}
+#cc-page.wiki .cc-ph{background:linear-gradient(135deg,#3b0764,#7c3aed)}
+#cc-page.knowledge .cc-ph{background:linear-gradient(135deg,#3b0764,#7c3aed)}
 .cc-ph h1{font-size:1.6rem;font-weight:700;margin-bottom:.3rem;line-height:1.25}
 .cc-ph p{font-size:.9rem;opacity:.9;max-width:440px;margin:0 auto;line-height:1.5}
 
@@ -96,7 +90,8 @@ body{padding-bottom:62px!important}
 /* Section heading */
 .cc-sh{font-size:1.1rem;font-weight:700;color:#1f2937;margin:1.4rem 0 .3rem;display:flex;align-items:center;gap:.4rem}
 .cc-shdiv{border:none;border-top:1px solid #d1fae5;margin:0 0 .9rem}
-#cc-page.knowledge .cc-shdiv{border-top-color:#fed7aa}
+#cc-page.wiki .cc-shdiv{border-top-color:#ddd6fe}
+#cc-page.knowledge .cc-shdiv{border-top-color:#ddd6fe}
 
 /* Cards grid — 手機單欄，平板雙欄 */
 .cc-grid{
@@ -186,10 +181,8 @@ body{padding-bottom:62px!important}
   margin:0 auto;line-height:1.5;position:relative;z-index:1;
 }
 /* 各頁色調 */
-#cc-hero-banner.products{background:linear-gradient(135deg,#1e3a5f,#2563eb)}
-#cc-hero-banner.locations{background:linear-gradient(135deg,#78350f,#d97706)}
-#cc-hero-banner.usageGuide{background:linear-gradient(135deg,#3b0764,#7c3aed)}
-#cc-hero-banner.refundPolicy{background:linear-gradient(135deg,#7f1d1d,#dc2626)}
+#cc-hero-banner.rental{background:linear-gradient(135deg,#064e3b,#059669)}
+#cc-hero-banner.booking{background:linear-gradient(135deg,#7f1d1d,#dc2626)}
 </style>
   </head>
   <body>
@@ -232,28 +225,19 @@ body{padding-bottom:62px!important}
       </a>
     </div>
 
-    <!-- 底部導覽 bar -->
+    <!-- 底部導覽 bar（4 頁籤）-->
     <div id="cc-bar">
-      <button data-tab="home" onclick="ccNav(this,'home')" class="on">
-        <div class="cc-bico">🏕️</div><span class="cc-blbl">首頁</span>
+      <button data-tab="rental" onclick="ccNav(this,'rental')" class="on">
+        <div class="cc-bico">🏕️</div><span class="cc-blbl">租借資訊</span>
       </button>
-      <button data-tab="products" onclick="ccNav(this,'products')">
-        <div class="cc-bico">❄️</div><span class="cc-blbl">設備</span>
+      <button data-tab="wiki" onclick="ccOpen('wiki')">
+        <div class="cc-bico">📚</div><span class="cc-blbl">知識百科</span>
       </button>
-      <button data-tab="locations" onclick="ccNav(this,'locations')">
-        <div class="cc-bico">📍</div><span class="cc-blbl">據點</span>
-      </button>
-      <button data-tab="usageGuide" onclick="ccNav(this,'usageGuide')">
-        <div class="cc-bico">📖</div><span class="cc-blbl">指南</span>
-      </button>
-      <button data-tab="refundPolicy" onclick="ccNav(this,'refundPolicy')">
-        <div class="cc-bico">📋</div><span class="cc-blbl">退費</span>
+      <button data-tab="booking" onclick="ccNav(this,'booking')">
+        <div class="cc-bico">📋</div><span class="cc-blbl">預約須知</span>
       </button>
       <button data-tab="fridge" onclick="ccOpen('fridge')">
-        <div class="cc-bico">🧊</div><span class="cc-blbl">冰箱</span>
-      </button>
-      <button data-tab="knowledge" onclick="ccOpen('knowledge')">
-        <div class="cc-bico">📚</div><span class="cc-blbl">知識</span>
+        <div class="cc-bico">🧊</div><span class="cc-blbl">冰箱租借</span>
       </button>
     </div>
 
@@ -294,54 +278,128 @@ body{padding-bottom:62px!important}
         </div>
       </div>
 
-      <!-- 知識專區 -->
+      <!-- 知識百科（設備 + 使用指南 + 知識）-->
       <div id="cc-knowledge" style="display:none">
         <div class="cc-ph">
-          <h1>📚 露營知識專區</h1>
-          <p>冷氣原理・冰箱選購・電力計算・露營技巧</p>
+          <h1>📚 知識百科</h1>
+          <p>設備規格・使用指南・冷氣冰箱知識，全在這裡</p>
         </div>
         <div class="cc-body">
+
+          <div class="cc-sh">❄️ 冷氣設備規格</div><hr class="cc-shdiv">
+          <div class="cc-al g"><span class="cc-ai">💡</span><div>我們提供兩款專業露營冷氣，適合不同帳篷大小與需求。JUZ-400 免排水，SAC688 製冷更強。</div></div>
+
+          <div style="display:grid;gap:.85rem;margin-bottom:1.25rem">
+            <div class="cc-card">
+              <div class="cc-ch" style="background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(59,130,246,.05))">
+                <div class="cc-brand" style="color:#2563eb">艾比酷 Iceco</div>
+                <div class="cc-name">JUZ-400</div>
+                <div class="cc-sub">輕量・零排水・3-4 人帳首選</div>
+              </div>
+              <div class="cc-cb">
+                <div class="cc-row"><span class="cc-lbl">冷房能力</span><span class="cc-val">5000 BTU</span></div>
+                <div class="cc-row"><span class="cc-lbl">耗電量</span><span class="cc-val">425W（約 3.9A）</span></div>
+                <div class="cc-row"><span class="cc-lbl">重量</span><span class="cc-val">13 KG</span></div>
+                <div class="cc-row"><span class="cc-lbl">尺寸</span><span class="cc-val">40×28.5×50.8 cm</span></div>
+                <div class="cc-row"><span class="cc-lbl">排水</span><span class="cc-val">✅ 免排水（自動蒸發）</span></div>
+                <div class="cc-row"><span class="cc-lbl">適合</span><span class="cc-val">3-5 坪密閉帳篷</span></div>
+              </div>
+            </div>
+            <div class="cc-card">
+              <div class="cc-ch" style="background:linear-gradient(135deg,rgba(5,150,105,.1),rgba(6,182,212,.05))">
+                <div class="cc-brand" style="color:#059669">山水</div>
+                <div class="cc-name">SAC688</div>
+                <div class="cc-sub">強效製冷・5-6 人大帳首選</div>
+              </div>
+              <div class="cc-cb">
+                <div class="cc-row"><span class="cc-lbl">冷房能力</span><span class="cc-val">6000 BTU</span></div>
+                <div class="cc-row"><span class="cc-lbl">耗電量</span><span class="cc-val">530W（約 4.8A）</span></div>
+                <div class="cc-row"><span class="cc-lbl">重量</span><span class="cc-val">16 KG</span></div>
+                <div class="cc-row"><span class="cc-lbl">尺寸</span><span class="cc-val">36×48×49 cm</span></div>
+                <div class="cc-row"><span class="cc-lbl">排水</span><span class="cc-val">⚠️ 需定期排水（約每 3-5h）</span></div>
+                <div class="cc-row"><span class="cc-lbl">適合</span><span class="cc-val">5-8 坪密閉帳篷</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cc-sh">📖 使用步驟</div><hr class="cc-shdiv">
+          <div class="cc-g2">
+            <div class="cc-nc c"><h4>🔌 電源連接</h4><ul><li>確認插座 110V 穩固</li><li>JUZ-400 耗電 425W，SAC688 耗電 530W</li><li>避免使用破損延長線</li><li>延長線需 10A 以上規格</li></ul></div>
+            <div class="cc-nc c"><h4>💨 排風管安裝</h4><ul><li>一端連接冷氣機背面</li><li>另一端伸出帳篷外</li><li>確保管路無彎折堵塞</li><li>縫隙用布填充提升效果</li></ul></div>
+            <div class="cc-nc c"><h4>🌡️ 溫度設定</h4><ul><li>建議設定 24-26°C</li><li>可選冷氣、除濕、送風模式</li><li>避免溫差過大造成不適</li><li>睡前可調至節能模式</li></ul></div>
+            <div class="cc-nc c"><h4>💧 排水處理</h4><ul><li>JUZ-400：自動蒸發，免排水</li><li>SAC688：水滿自動停機，需定期排</li><li>步驟：關機→開排水口→排空→關閉→重啟</li><li>建議睡前排一次</li></ul></div>
+          </div>
+
+          <div class="cc-sh">⚠️ 安全注意</div><hr class="cc-shdiv">
+          <div class="cc-g2">
+            <div class="cc-nc r"><h4>🚫 電氣安全</h4><ul><li>避免在潮濕環境操作</li><li>不可濕手觸摸電源開關</li><li>發現異常聲響立即停機</li><li>雷雨天氣請暫停使用</li></ul></div>
+            <div class="cc-nc w"><h4>🛡️ 設備保護</h4><ul><li>避免陽光直射機體</li><li>不可堵塞進出風口</li><li>定期清潔濾網</li><li>搬運時保持直立輕放</li></ul></div>
+            <div class="cc-nc g"><h4>💡 使用技巧</h4><ul><li>開機前先開帳篷通風預冷</li><li>設定合理溫度避免過冷</li><li>關機後等 3-5 分鐘再重啟</li><li>選密封帳篷效果最佳</li></ul></div>
+          </div>
+
+          <div class="cc-sh">🧠 冷氣原理知識</div><hr class="cc-shdiv">
           <div class="cc-kb"><h3>❄️ 移動式冷氣怎麼運作？</h3><p>冷氣不是「製造冷空氣」，而是利用<strong>冷媒循環</strong>把帳篷裡的熱量帶走排到外面。四步驟：蒸發（室內吸熱）→ 壓縮 → 冷凝（排熱管排出帳篷外）→ 膨脹。<strong>排熱管一定要伸出帳篷外</strong>，否則完全不會涼。</p></div>
-          <div class="cc-kb"><h3>📐 BTU 是什麼？</h3><p>BTU 是冷氣冷房能力單位，數字越高製冷越強。</p><div class="cc-tbl-wrap"><table class="cc-tbl"><tr><th>型號</th><th>BTU</th><th>適合帳篷</th></tr><tr><td>艾比酷 JUZ-400</td><td>5000 BTU</td><td>3-4 人帳 / 3~5 坪</td></tr><tr><td>山水 SAC688</td><td>6000 BTU</td><td>5-6 人大帳 / 5~8 坪</td></tr></table></div></div>
-          <div class="cc-kb"><h3>⚡ 電力計算：會跳電嗎？</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。台灣營區通常 10A 或 15A。</p><div class="cc-tbl-wrap"><table class="cc-tbl compact"><tr><th>設備</th><th>功率</th><th>電流</th></tr><tr><td>艾比酷 JUZ-400</td><td>425W</td><td>3.9A</td></tr><tr><td>山水 SAC688</td><td>530W</td><td>4.8A</td></tr><tr><td>移動冰箱</td><td>30～60W</td><td>0.3～0.6A</td></tr><tr><td>電熱水壺 ⚠️</td><td>800～1200W</td><td>7～11A</td></tr><tr><td>電磁爐 ⚠️</td><td>1000～2000W</td><td>9～18A</td></tr></table></div><p>JUZ-400＋冰箱＋燈＋手機 ≈ <strong>5.3A</strong>，10A 電箱沒問題。</p></div>
-          <div class="cc-kb"><h3>💧 排水管理</h3><p><strong>JUZ-400（零排水）</strong>：完全不需排水，新手首選。<br><strong>SAC688（需排水）</strong>：台灣夏天約每 3-5 小時排一次，水滿自動停機。步驟：關機 → 開排水口 → 排空 → 關閉 → 重啟。建議睡前排一次。</p></div>
-          <div class="cc-kb"><h3>🏕️ 帳篷密封技巧</h3><div class="cc-pills"><span class="cc-pill g">✅ 黑膠帳或科技棉帳</span><span class="cc-pill g">✅ 拉上所有拉鍊</span><span class="cc-pill g">✅ 布封住網格區域</span><span class="cc-pill a">⚠️ 避免純網格帳篷</span></div><p>建議<strong>提前 15-20 分鐘開機預冷</strong>，進帳後感受更明顯。</p></div>
-          <div class="cc-kb"><h3>🧊 壓縮機 vs 半導體冰箱</h3><div class="cc-tbl-wrap"><table class="cc-tbl compact"><tr><th>比較</th><th>壓縮機（我們提供）✅</th><th>半導體</th></tr><tr><td>製冷能力</td><td>可達 -20°C</td><td>僅比室溫低 15-25°C</td></tr><tr><td>耗電方式</td><td>間歇運轉，較省電</td><td>持續耗電</td></tr><tr><td>露營適合度</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐</td></tr><tr><td>搬運注意</td><td>靜置 30 分鐘再開機</td><td>可即時使用</td></tr></table></div></div>
-          <div class="cc-kb"><h3>🛒 容量怎麼選？</h3><div class="cc-tbl-wrap"><table class="cc-tbl"><tr><th>人數</th><th>建議容量</th><th>推薦型號</th></tr><tr><td>1-2 人</td><td>20-25L</td><td>MC-20</td></tr><tr><td>2-3 人</td><td>30-40L</td><td>TA-35、ECX-40</td></tr><tr><td>4-6 人</td><td>40-60L</td><td>ECX-40、T50/T60</td></tr><tr><td>需雙溫區</td><td>36L 雙區</td><td>LG-D36</td></tr></table></div><p>建議選稍大一號，留 20-30% 空間讓冷空氣循環。</p></div>
-          <div class="cc-kb"><h3>⏱️ 為什麼要靜置 30 分鐘？</h3><p>搬運時冷媒可能流入壓縮機進氣側。直接開機會造成<strong>液壓縮，損壞壓縮機</strong>。靜置讓冷媒回到正確位置後再開機才安全。長途超過 1 小時建議靜置 1 小時以上。</p></div>
-          <div class="cc-kb"><h3>🔗 冷氣＋冰箱最佳搭配</h3><div class="cc-tbl-wrap"><table class="cc-tbl compact"><tr><th>場景</th><th>冷氣</th><th>冰箱</th><th>總電流</th></tr><tr><td>2-3 人輕量</td><td>JUZ-400</td><td>MC-20</td><td>約 4.1A</td></tr><tr><td>3-4 人標準</td><td>JUZ-400</td><td>ECX-40</td><td>約 4.3A</td></tr><tr><td>5-6 人大帳</td><td>SAC688</td><td>T50/T60</td><td>約 5.3A</td></tr></table></div><p>冰箱和冷氣建議<strong>分開不同插座</strong>，避免延長線負載過重。</p></div>
+          <div class="cc-kb"><h3>📐 BTU 是什麼？</h3><p>BTU 是冷氣冷房能力單位，數字越高製冷越強。帳篷隔熱比室內差，建議選密封性好的帳篷（黑膠帳或科技棉帳）效果最佳。</p>
+          <div class="cc-tbl-wrap"><table class="cc-tbl compact"><tr><th>型號</th><th>BTU</th><th>適合帳篷</th></tr><tr><td>JUZ-400</td><td>5000</td><td>3-4 人 / 3~5 坪</td></tr><tr><td>SAC688</td><td>6000</td><td>5-6 人 / 5~8 坪</td></tr></table></div></div>
+          <div class="cc-kb"><h3>⚡ 電力計算：會跳電嗎？</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。台灣營區通常提供 10A 或 15A。JUZ-400＋冰箱＋燈＋手機 ≈ <strong>5.3A</strong>，10A 電箱完全沒問題。只要不同時使用電熱水壺或電磁爐即可。</p>
+          <div class="cc-tbl-wrap"><table class="cc-tbl compact"><tr><th>設備</th><th>功率</th><th>電流</th></tr><tr><td>JUZ-400</td><td>425W</td><td>3.9A</td></tr><tr><td>SAC688</td><td>530W</td><td>4.8A</td></tr><tr><td>移動冰箱</td><td>30-60W</td><td>0.3-0.6A</td></tr><tr><td>電熱水壺 ⚠️</td><td>800-1200W</td><td>7-11A</td></tr></table></div></div>
+          <div class="cc-kb"><h3>🏕️ 帳篷密封技巧</h3><div class="cc-pills"><span class="cc-pill g">✅ 黑膠帳或科技棉帳</span><span class="cc-pill g">✅ 拉上所有拉鍊</span><span class="cc-pill g">✅ 布封住網格區域</span><span class="cc-pill a">⚠️ 避免純網格帳篷</span></div><p>建議<strong>提前 15-20 分鐘開機預冷</strong>，進帳後感受更明顯。帳篷越密封效果越好。</p></div>
           <div class="cc-kb"><h3>🌿 R290 環保冷媒</h3><p>我們的設備均使用 <strong>R290（丙烷）</strong>環保冷媒。ODP=0（不破壞臭氧層）、GWP=3（溫室效應極低），比舊型 R22 對環境衝擊降低 99%。</p></div>
         </div>
-      </div>
-    </div>
+      </div>    <script>
+    // ── CC_HEROES for React pages ──
+    var CC_HEROES = {
+      rental:{cls:'rental',icon:'🏕️',title:'租借資訊',sub:'冷氣方案・服務據點・透明租金，一頁搞定'},
+      booking:{cls:'booking',icon:'📋',title:'預約須知',sub:'退費規則・取消政策，安心預約無後顧之憂'}
+    };
 
-    <script>
+    // 回頂部（cc-page 和 React 頁面都適用）
+    function scrollTop() {
+      // cc-page 自己 scroll
+      var pg = document.getElementById('cc-page');
+      if (pg && pg.classList.contains('on')) { pg.scrollTop = 0; return; }
+      // React 頁面：scroll window
+      window.scrollTo({top:0,behavior:'instant'});
+      // Also try scrolling the root element
+      var root = document.getElementById('root');
+      if (root) root.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+
+    // 開啟自訂頁面（冰箱/知識）
     function ccOpen(tab) {
       var pg = document.getElementById('cc-page');
       var fc = document.getElementById('cc-fridge');
       var kc = document.getElementById('cc-knowledge');
       pg.className = 'on ' + tab;
-      pg.scrollTop = 0;
+      pg.scrollTop = 0;  // ← 回頂部
       if (tab === 'fridge') {
         fc.style.display = ''; kc.style.display = 'none';
       } else {
         kc.style.display = ''; fc.style.display = 'none';
       }
-      setOn(tab);
-      // 確保 top 對齊 header
+      // tab → 對應底部 bar
+      if (tab === 'fridge') setOn('fridge');
+      else if (tab === 'wiki') setOn('wiki');
       adjustPageTop();
+      showHero(null); // 自訂頁不用 hero banner
     }
 
+    // 切換到 React 頁面
     function ccNav(btn, page) {
       document.getElementById('cc-page').className = '';
-      var labels = {home:'首頁',products:'產品介紹',locations:'服務據點',usageGuide:'使用指南',refundPolicy:'退費規則'};
-      var target = labels[page];
+      // page mapping
+      var reactPage = (page === 'rental') ? 'home' : 'refundPolicy';
+      var labels = {home:'首頁', refundPolicy:'退費規則'};
+      var target = labels[reactPage];
       Array.from(document.querySelectorAll('button')).forEach(function(b) {
         var t = b.textContent.trim();
         if (t === target || t.endsWith(target)) b.click();
       });
       setOn(page);
       showHero(page);
+      setTimeout(scrollTop, 50);  // ← 回頂部
     }
 
     function setOn(tab) {
@@ -350,21 +408,35 @@ body{padding-bottom:62px!important}
       });
     }
 
-    function syncBar() {
-      var map = {'首頁':'home','產品介紹':'products','服務據點':'locations','使用指南':'usageGuide','退費規則':'refundPolicy'};
-      var cur = 'home';
-      document.querySelectorAll('nav button').forEach(function(b) {
-        if (b.className && typeof b.className === 'string' && b.className.includes('bg-emerald-100')) {
-          var t = b.textContent.trim().replace(/^[^\u4e00-\u9fff]+/,'').trim();
-          if (map[t]) cur = map[t];
-        }
-      });
-      setOn(cur);
+    function showHero(page) {
+      var banner = document.getElementById('cc-hero-banner');
+      if (!banner) return;
+      if (!page || !CC_HEROES[page]) { banner.style.display='none'; return; }
+      var h = CC_HEROES[page];
+      banner.className = h.cls;
+      banner.innerHTML = '<h2>'+h.icon+' '+h.title+'</h2><p>'+h.sub+'</p>';
+      banner.style.display = 'block';
+      adjustBanner();
+    }
+
+    function adjustBanner() {
+      var banner = document.getElementById('cc-hero-banner');
+      var hdr = document.querySelector('header');
+      if (!banner || !hdr) return;
+      if (banner.style.display !== 'none' && hdr.parentNode && !hdr.nextSibling?.id?.includes('cc-hero')) {
+        hdr.parentNode.insertBefore(banner, hdr.nextSibling);
+      }
+    }
+
+    function adjustPageTop() {
+      var hdr = document.querySelector('header');
+      var pg = document.getElementById('cc-page');
+      if (hdr && pg) pg.style.top = hdr.getBoundingClientRect().height + 'px';
     }
 
     function hideSocial() {
       document.querySelectorAll('a[href*="lin.ee"],a[href*="instagram.com"]').forEach(function(a) {
-        if (!a.closest('.cc-float')) a.style.cssText = 'display:none!important';
+        if (!a.closest('.cc-float')) a.style.cssText='display:none!important';
       });
     }
 
@@ -381,101 +453,40 @@ body{padding-bottom:62px!important}
         Array.from(document.querySelectorAll('button')).find(function(b) {
           return b.textContent.trim() === '首頁' || b.textContent.includes('🏕️');
         })?.click();
-        setOn('home');
+        setOn('rental');
+        showHero(null);
+        setTimeout(scrollTop, 50);
       });
     }
 
-    // Hero banner config per page
-    var CC_HEROES = {
-      products:{
-        cls:'products',
-        icon:'❄️',title:'專業冷氣設備',
-        sub:'艾比酷 JUZ-400 與山水 SAC688，讓夏日露營清涼到底'
-      },
-      locations:{
-        cls:'locations',
-        icon:'📍',title:'服務據點',
-        sub:'雙北・新竹・台中，就近取還，露營前一天輕鬆取件'
-      },
-      usageGuide:{
-        cls:'usageGuide',
-        icon:'📖',title:'使用指南',
-        sub:'從安裝到操作，確保您安全舒適地享受清涼'
-      },
-      refundPolicy:{
-        cls:'refundPolicy',
-        icon:'📋',title:'退費規則',
-        sub:'透明、彈性的退費政策，讓您訂購無後顧之憂'
-      }
-    };
-
-    function showHero(page) {
-      var banner = document.getElementById('cc-hero-banner');
-      if (!banner) return;
-      if (page === 'home' || !CC_HEROES[page]) {
-        banner.style.display = 'none';
-        return;
-      }
-      var h = CC_HEROES[page];
-      banner.className = h.cls;
-      banner.innerHTML = '<h2>' + h.icon + ' ' + h.title + '</h2><p>' + h.sub + '</p>';
-      banner.style.display = 'block';
-      // Position banner right below React header
-      adjustBanner();
-    }
-
-    function adjustBanner() {
-      var banner = document.getElementById('cc-hero-banner');
-      var hdr = document.querySelector('header');
-      if (!banner || !hdr) return;
-      var hh = hdr.getBoundingClientRect().height;
-      // Find React main content and prepend banner
-      var main = hdr.nextElementSibling;
-      if (main && !main.contains(banner) && banner.style.display !== 'none') {
-        // Insert banner after header in DOM flow
-        if (hdr.parentNode) {
-          hdr.parentNode.insertBefore(banner, hdr.nextSibling);
-        }
-      }
-    }
-
+    // 監聽 React nav 按鈕（Desktop nav 同步 bar active）
     function patchNavSync() {
-      var map = {'首頁':'home','產品介紹':'products','服務據點':'locations','使用指南':'usageGuide','退費規則':'refundPolicy'};
+      var reactMap = {'首頁':'rental','退費規則':'booking'};
       document.querySelectorAll('nav button').forEach(function(b) {
         if (b._ccS) return;
         var t = b.textContent.trim().replace(/^[^\u4e00-\u9fff]+/,'').trim();
-        if (!map[t]) return;
+        if (!reactMap[t]) return;
         b._ccS = true;
         b.addEventListener('click', function() {
-          var pg = map[t];
-          setOn(pg);
+          setOn(reactMap[t]);
           document.getElementById('cc-page').className = '';
-          showHero(pg);
+          showHero(reactMap[t]);
+          setTimeout(scrollTop, 50);
         });
       });
     }
 
     new MutationObserver(function() {
       hideSocial(); patchLogo(); patchNavSync();
-    }).observe(document.body, {childList: true, subtree: true});
+    }).observe(document.body, {childList:true, subtree:true});
 
-    [200, 700, 1600].forEach(function(ms) {
-      setTimeout(function() { hideSocial(); patchLogo(); patchNavSync(); syncBar(); }, ms);
+    [200,700,1600].forEach(function(ms){
+      setTimeout(function(){ hideSocial(); patchLogo(); patchNavSync(); adjustPageTop(); }, ms);
     });
-    setOn('home');
 
-    // 動態偵測並設置 cc-page 的 top 值（對齊 header 底部）
-    function adjustPageTop() {
-      var hdr = document.querySelector('header');
-      if (hdr) {
-        var h = hdr.getBoundingClientRect().height;
-        document.getElementById('cc-page').style.top = h + 'px';
-      }
-    }
+    setOn('rental');
     adjustPageTop();
     window.addEventListener('resize', adjustPageTop);
-    setTimeout(adjustPageTop, 300);
-    setTimeout(adjustPageTop, 800);
     </script>
   </body>
 </html>
