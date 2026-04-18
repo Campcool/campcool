@@ -9,10 +9,10 @@
     <script type="module" crossorigin src="assets/index-BIiKt1Ot.js"></script>
     <link rel="stylesheet" crossorigin href="assets/index-CEwUhtAt.css">
     <style>
-/* ══ 浮動社交按鈕（右側中央）══ */
+/* ══ 浮動社交按鈕 ══ */
 .cc-float{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:9996}
-.cc-fb{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 3px 12px rgba(0,0,0,.22);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
-.cc-fb:hover{transform:scale(1.1);box-shadow:0 5px 18px rgba(0,0,0,.3)}
+.cc-fb{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 3px 12px rgba(0,0,0,.22);border:none;cursor:pointer;transition:transform .2s}
+.cc-fb:hover{transform:scale(1.1)}
 .cc-line-fb{background:#06C755}
 .cc-ig-fb{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
 @media(max-width:480px){.cc-fb{width:44px;height:44px}.cc-float{right:10px}}
@@ -21,11 +21,11 @@
 a[href*="lin.ee"]:not(.cc-float a),
 a[href*="instagram.com"]:not(.cc-float a){display:none!important}
 
-/* ══ 底部完整導覽 bar ══ */
+/* ══ 底部導覽 bar ══ */
 #cc-bar{
   position:fixed;bottom:0;left:0;right:0;z-index:9995;
-  background:#1a1a2e;
-  box-shadow:0 -2px 16px rgba(0,0,0,.3);
+  background:#1a2e1a;
+  box-shadow:0 -1px 0 rgba(255,255,255,.08), 0 -4px 16px rgba(0,0,0,.25);
   display:flex;
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
@@ -35,163 +35,204 @@ a[href*="instagram.com"]:not(.cc-float a){display:none!important}
 #cc-bar button{
   flex:none;
   width:calc(100vw / 7);
-  min-width:52px;
-  padding:8px 4px 10px;
+  min-width:50px;
+  padding:7px 3px 9px;
   border:none;background:none;
-  color:rgba(255,255,255,.75);
-  font-size:.62rem;font-weight:600;
+  color:rgba(255,255,255,.55);
+  font-size:.6rem;font-weight:600;
   cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  transition:background .15s,color .15s;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  transition:color .15s;
   font-family:inherit;
-  position:relative;
+  border-top:2px solid transparent;
 }
-#cc-bar button::after{
-  content:'';position:absolute;bottom:0;left:10%;right:10%;
-  height:2px;border-radius:2px;
-  background:transparent;transition:background .2s;
-}
-#cc-bar button:hover,#cc-bar button.cc-active-tab{
-  color:white;
-}
-/* 各頁籤底線色 */
-#cc-bar [data-tab="home"].cc-active-tab::after{background:#10b981}
-#cc-bar [data-tab="products"].cc-active-tab::after{background:#3b82f6}
-#cc-bar [data-tab="locations"].cc-active-tab::after{background:#f59e0b}
-#cc-bar [data-tab="usageGuide"].cc-active-tab::after{background:#8b5cf6}
-#cc-bar [data-tab="refundPolicy"].cc-active-tab::after{background:#ef4444}
-#cc-bar [data-tab="fridge"].cc-active-tab::after{background:#06b6d4}
-#cc-bar [data-tab="knowledge"].cc-active-tab::after{background:#f97316}
+#cc-bar button.on{color:white;border-top-color:currentColor}
+[data-tab="home"].on{color:#34d399;border-top-color:#34d399}
+[data-tab="products"].on{color:#60a5fa;border-top-color:#60a5fa}
+[data-tab="locations"].on{color:#fbbf24;border-top-color:#fbbf24}
+[data-tab="usageGuide"].on{color:#a78bfa;border-top-color:#a78bfa}
+[data-tab="refundPolicy"].on{color:#f87171;border-top-color:#f87171}
+[data-tab="fridge"].on{color:#22d3ee;border-top-color:#22d3ee}
+[data-tab="knowledge"].on{color:#fb923c;border-top-color:#fb923c}
 
-/* icon 底色圓圈 */
-.cc-bar-ico{
-  width:32px;height:32px;border-radius:10px;
+.cc-bico{
+  width:30px;height:30px;border-radius:8px;
   display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;margin-bottom:1px;
-  transition:transform .15s;
+  font-size:1rem;
+  background:rgba(255,255,255,.06);
+  margin-bottom:1px;
 }
-#cc-bar button:hover .cc-bar-ico,
-#cc-bar button.cc-active-tab .cc-bar-ico{transform:translateY(-1px)}
+[data-tab="home"].on .cc-bico{background:rgba(52,211,153,.15)}
+[data-tab="products"].on .cc-bico{background:rgba(96,165,250,.15)}
+[data-tab="locations"].on .cc-bico{background:rgba(251,191,36,.15)}
+[data-tab="usageGuide"].on .cc-bico{background:rgba(167,139,250,.15)}
+[data-tab="refundPolicy"].on .cc-bico{background:rgba(248,113,113,.15)}
+[data-tab="fridge"].on .cc-bico{background:rgba(34,211,238,.15)}
+[data-tab="knowledge"].on .cc-bico{background:rgba(251,146,60,.15)}
+.cc-blbl{font-size:.58rem;line-height:1;white-space:nowrap}
 
-/* 各頁籤 icon 背景色 */
-[data-tab="home"] .cc-bar-ico{background:rgba(16,185,129,.15);color:#10b981}
-[data-tab="products"] .cc-bar-ico{background:rgba(59,130,246,.15);color:#60a5fa}
-[data-tab="locations"] .cc-bar-ico{background:rgba(245,158,11,.15);color:#fbbf24}
-[data-tab="usageGuide"] .cc-bar-ico{background:rgba(139,92,246,.15);color:#a78bfa}
-[data-tab="refundPolicy"] .cc-bar-ico{background:rgba(239,68,68,.15);color:#f87171}
-[data-tab="fridge"] .cc-bar-ico{background:rgba(6,182,212,.15);color:#22d3ee}
-[data-tab="knowledge"] .cc-bar-ico{background:rgba(249,115,22,.15);color:#fb923c}
+body{padding-bottom:58px!important}
 
-/* active 時加深 */
-#cc-bar button.cc-active-tab [data-tab="home"].cc-bar-ico,
-[data-tab="home"].cc-active-tab .cc-bar-ico{background:rgba(16,185,129,.3)}
-[data-tab="products"].cc-active-tab .cc-bar-ico{background:rgba(59,130,246,.3)}
-[data-tab="locations"].cc-active-tab .cc-bar-ico{background:rgba(245,158,11,.3)}
-[data-tab="usageGuide"].cc-active-tab .cc-bar-ico{background:rgba(139,92,246,.3)}
-[data-tab="refundPolicy"].cc-active-tab .cc-bar-ico{background:rgba(239,68,68,.3)}
-[data-tab="fridge"].cc-active-tab .cc-bar-ico{background:rgba(6,182,212,.3)}
-[data-tab="knowledge"].cc-active-tab .cc-bar-ico{background:rgba(249,115,22,.3)}
-
-.cc-bar-lbl{font-size:.6rem;line-height:1;white-space:nowrap}
-
-/* 底部留空給 bar */
-body{padding-bottom:64px!important}
-
-/* ══ Overlay（全螢幕蓋板）══ */
+/* ══ Overlay — 完全匹配 React 的視覺語言 ══ */
 #cc-overlay{
-  display:none;position:fixed;inset:0;z-index:9997;
-  background:#f0fdf8;overflow-y:auto;
-  padding-bottom:64px;
+  display:none;
+  position:fixed;inset:0;z-index:9997;
+  /* 背景與 React 一致：from-emerald-50 via-blue-50 to-cyan-50 */
+  background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 50%,#ecfeff 100%);
+  overflow-y:auto;
+  padding-bottom:58px;
 }
 #cc-overlay.on{display:block}
 
-/* Overlay 頂部 bar */
-.cc-top{
-  position:sticky;top:0;color:white;
-  display:flex;align-items:center;gap:10px;padding:12px 16px;
-  box-shadow:0 2px 10px rgba(0,0,0,.25);z-index:10;
+/* 頂部 sticky header — 與 React 的 header 一致（白色毛玻璃）*/
+.cc-hd{
+  position:sticky;top:0;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid #d1fae5;
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;
+  z-index:10;
 }
-.cc-top-back{
-  border:none;color:white;border-radius:18px;padding:6px 14px;
-  font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0;
-  background:rgba(255,255,255,.2);
+.cc-hd-back{
+  display:flex;align-items:center;gap:5px;
+  background:none;border:1px solid #d1fae5;
+  color:#065f46;border-radius:20px;padding:6px 14px;
+  font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;
+  transition:background .2s;
 }
-.cc-top-back:hover{background:rgba(255,255,255,.3)}
-.cc-top-title{font-size:.98rem;font-weight:700;flex:1}
-.cc-top-tabs{display:flex;gap:5px}
-.cc-top-tab{
-  border:none;border-radius:14px;padding:5px 11px;font-size:.75rem;
-  cursor:pointer;font-family:inherit;font-weight:600;
-  background:rgba(255,255,255,.15);color:rgba(255,255,255,.8);
+.cc-hd-back:hover{background:#ecfdf5}
+.cc-hd-title{font-size:1.05rem;font-weight:700;color:#065f46;flex:1}
+.cc-hd-tabs{display:flex;gap:6px}
+.cc-hd-tab{
+  border:1px solid #d1fae5;border-radius:18px;
+  padding:5px 13px;font-size:.78rem;cursor:pointer;
+  font-family:inherit;font-weight:600;
+  background:none;color:#6b7280;transition:all .15s;
 }
-.cc-top-tab.on{background:rgba(255,255,255,.3);color:white}
+.cc-hd-tab.on{background:#ecfdf5;color:#065f46;border-color:#6ee7b7}
 
-/* Fridge overlay 顶色 */
-#cc-overlay.fridge .cc-top{background:linear-gradient(135deg,#0891b2,#0e7490)}
-/* Knowledge overlay 顶色 */
-#cc-overlay.knowledge .cc-top{background:linear-gradient(135deg,#ea580c,#c2410c)}
+/* page-hero — 與 React section 一致的 emerald 色調 */
+.cc-ph{
+  background:linear-gradient(135deg,#065f46 0%,#047857 60%,#059669 100%);
+  color:white;padding:2.5rem 1.5rem 2rem;text-align:center;
+}
+.cc-ph h1{font-size:2rem;font-weight:700;margin-bottom:.4rem;line-height:1.2}
+.cc-ph p{font-size:.9rem;opacity:.85;max-width:480px;margin:0 auto}
 
-/* ══ 內容通用 ══ */
-.cc-body{max-width:1040px;margin:0 auto;padding:1.5rem 1.25rem 2rem}
-.cc-hero-sm{padding:2rem 1.5rem 1.75rem;text-align:center;color:white}
-#cc-overlay.fridge .cc-hero-sm{background:linear-gradient(135deg,#0891b2,#164e63)}
-#cc-overlay.knowledge .cc-hero-sm{background:linear-gradient(135deg,#ea580c,#7c2d12)}
-.cc-hero-sm h1{font-size:1.55rem;font-weight:700;margin-bottom:.35rem}
-.cc-hero-sm p{font-size:.86rem;opacity:.88;max-width:500px;margin:0 auto}
-.cc-sh{font-size:1.05rem;font-weight:700;margin:1.5rem 0 .85rem;padding-bottom:.38rem;border-bottom:2px solid;display:flex;align-items:center;gap:.4rem}
-#cc-overlay.fridge .cc-sh{color:#0e7490;border-color:#a5f3fc}
-#cc-overlay.knowledge .cc-sh{color:#c2410c;border-color:#fed7aa}
-.cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.85rem;margin-bottom:1.2rem}
-.cc-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);transition:transform .2s}
-.cc-card:hover{transform:translateY(-2px)}
-.cc-ch{padding:.82rem 1.05rem .68rem;border-bottom:1px solid}
-#cc-overlay.fridge .cc-ch{background:linear-gradient(135deg,#ecfeff,#cffafe);border-color:#a5f3fc}
-#cc-overlay.knowledge .cc-ch{background:linear-gradient(135deg,#fff7ed,#fed7aa);border-color:#fdba74}
-.cc-brand{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.12rem}
+/* 冰箱頁：青藍色調 */
+#cc-overlay.fridge .cc-ph{background:linear-gradient(135deg,#155e75 0%,#0e7490 60%,#0891b2 100%)}
+#cc-overlay.fridge .cc-hd{border-bottom-color:#a5f3fc}
+#cc-overlay.fridge .cc-hd-back{color:#0e7490;border-color:#a5f3fc}
+#cc-overlay.fridge .cc-hd-back:hover{background:#ecfeff}
+#cc-overlay.fridge .cc-hd-title{color:#0e7490}
+#cc-overlay.fridge .cc-hd-tab.on{background:#ecfeff;color:#0e7490;border-color:#67e8f9}
+
+/* 知識頁：橘色調 */
+#cc-overlay.knowledge .cc-ph{background:linear-gradient(135deg,#7c2d12 0%,#c2410c 60%,#ea580c 100%)}
+#cc-overlay.knowledge .cc-hd{border-bottom-color:#fed7aa}
+#cc-overlay.knowledge .cc-hd-back{color:#c2410c;border-color:#fed7aa}
+#cc-overlay.knowledge .cc-hd-back:hover{background:#fff7ed}
+#cc-overlay.knowledge .cc-hd-title{color:#c2410c}
+#cc-overlay.knowledge .cc-hd-tab.on{background:#fff7ed;color:#c2410c;border-color:#fdba74}
+
+/* content body */
+.cc-body{max-width:1040px;margin:0 auto;padding:2rem 1rem 2rem}
+
+/* Section heading — 與 React text-3xl font-bold text-center 呼應 */
+.cc-sh{
+  font-size:1.3rem;font-weight:700;text-align:center;
+  color:#1f2937;margin:2rem 0 1.25rem;
+}
+/* 底線分隔，跟 React 的 section 一致 */
+.cc-sh-line{border:none;border-top:1px solid #d1fae5;margin:0 0 1.25rem}
+
+/* Card — 完全匹配 React 的 bg-white/90 shadow-lg border-emerald-100 */
+.cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-bottom:1.5rem}
+.cc-card{
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(4px);
+  border:1px solid #d1fae5;
+  border-radius:1rem;
+  overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,.08);
+  transition:transform .2s,box-shadow .2s;
+}
+.cc-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.cc-ch{
+  padding:.9rem 1.1rem .75rem;
+  background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(6,182,212,.06));
+  border-bottom:1px solid #d1fae5;
+}
+#cc-overlay.fridge .cc-ch{background:linear-gradient(135deg,rgba(6,182,212,.1),rgba(59,130,246,.06))}
+.cc-brand{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#059669;margin-bottom:.15rem}
 #cc-overlay.fridge .cc-brand{color:#0891b2}
-#cc-overlay.knowledge .cc-brand{color:#ea580c}
-.cc-name{font-size:.95rem;font-weight:700;color:#1e293b}
-.cc-sub{font-size:.73rem;color:#64748b;margin-top:.1rem}
-.cc-cb{padding:.72rem 1.05rem}
-.cc-row{display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid #f1f5f9;font-size:.79rem}
-.cc-row:last-child{border:none}.cc-lbl{color:#64748b}.cc-val{color:#1e293b;font-weight:600}
-.cc-pr{display:inline-flex;align-items:center;gap:.25rem;color:white;padding:.3rem .78rem;border-radius:16px;font-size:.76rem;font-weight:700;margin-top:.58rem}
+.cc-name{font-size:1rem;font-weight:700;color:#1f2937}
+.cc-sub{font-size:.76rem;color:#6b7280;margin-top:.12rem}
+.cc-cb{padding:.8rem 1.1rem}
+.cc-row{display:flex;justify-content:space-between;padding:.28rem 0;border-bottom:1px solid #f3f4f6;font-size:.82rem}
+.cc-row:last-child{border:none}.cc-lbl{color:#6b7280}.cc-val{color:#1f2937;font-weight:600}
+.cc-pr{display:inline-flex;align-items:center;gap:.25rem;background:#059669;color:white;padding:.35rem .85rem;border-radius:20px;font-size:.8rem;font-weight:700;margin-top:.65rem}
 #cc-overlay.fridge .cc-pr{background:#0891b2}
-#cc-overlay.knowledge .cc-pr{background:#ea580c}
-.cc-al{border-radius:10px;padding:.78rem 1rem;margin:.75rem 0;display:flex;gap:.58rem;font-size:.82rem;line-height:1.62;border:1px solid}
+
+/* Alert — 與 React 的 rounded-2xl 風格 */
+.cc-al{border-radius:1rem;padding:.85rem 1.1rem;margin:.85rem 0;display:flex;gap:.65rem;font-size:.85rem;line-height:1.65;border:1px solid}
 .cc-al.g{background:#ecfdf5;border-color:#6ee7b7;color:#065f46}
 .cc-al.y{background:#fffbeb;border-color:#fcd34d;color:#92400e}
 .cc-al.r{background:#fef2f2;border-color:#fca5a5;color:#991b1b}
-.cc-ai{font-size:1.05rem;flex-shrink:0}
-.cc-g2{display:grid;grid-template-columns:1fr 1fr;gap:.72rem;margin-bottom:1.2rem}
-@media(max-width:600px){.cc-g2{grid-template-columns:1fr}}
-.cc-nc{background:white;border-radius:11px;padding:.82rem 1rem;border-left:3px solid;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.cc-nc.c{border-left-color:#0891b2}.cc-nc.w{border-left-color:#d97706}.cc-nc.r{border-left-color:#dc2626}.cc-nc.g{border-left-color:#059669}
-.cc-nc h4{font-size:.8rem;font-weight:700;margin-bottom:.3rem;display:flex;align-items:center;gap:.28rem}
-.cc-nc li{font-size:.77rem;color:#374151;line-height:1.6;margin-bottom:.15rem}
-.cc-nc ul{padding-left:.9rem}
-.cc-kb{background:white;border-radius:12px;border:1px solid #e2e8f0;padding:1.1rem 1.25rem;margin-bottom:.95rem}
-.cc-kb h3{font-size:.94rem;font-weight:700;color:#1e293b;margin-bottom:.58rem;display:flex;align-items:center;gap:.38rem}
-.cc-kb h3 span{font-size:1rem}
-.cc-kb p{font-size:.82rem;color:#374151;line-height:1.72;margin-bottom:.48rem}
-.cc-kb p:last-child{margin-bottom:0}.cc-kb strong{color:#c2410c}
-.cc-tbl{width:100%;border-collapse:collapse;font-size:.78rem;margin:.58rem 0}
-.cc-tbl th{padding:.46rem .78rem;text-align:left;font-weight:600;color:white}
-#cc-overlay.knowledge .cc-tbl th{background:#ea580c}
-#cc-overlay.fridge .cc-tbl th{background:#0891b2}
-.cc-tbl td{padding:.43rem .78rem;border-bottom:1px solid #f1f5f9;color:#374151}
-.cc-tbl tr:nth-child(even) td{background:#f8fafc}
+.cc-ai{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+
+/* Notice grid */
+.cc-g2{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1.5rem}
+@media(max-width:580px){.cc-g2{grid-template-columns:1fr}}
+.cc-nc{
+  background:rgba(255,255,255,.9);
+  border-radius:.875rem;padding:.9rem 1rem;
+  border:1px solid #e5e7eb;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.cc-nc.c{border-left:3px solid #0891b2}
+.cc-nc.w{border-left:3px solid #d97706}
+.cc-nc.r{border-left:3px solid #dc2626}
+.cc-nc.g{border-left:3px solid #059669}
+.cc-nc h4{font-size:.83rem;font-weight:700;margin-bottom:.32rem;color:#1f2937;display:flex;align-items:center;gap:.28rem}
+.cc-nc ul{padding-left:.95rem;margin:0}
+.cc-nc li{font-size:.79rem;color:#4b5563;line-height:1.65;margin-bottom:.16rem}
+
+/* Knowledge blocks — 白色卡片 shadow-lg 風格 */
+.cc-kb{
+  background:rgba(255,255,255,.92);
+  border-radius:1rem;
+  border:1px solid #e5e7eb;
+  padding:1.25rem 1.4rem;
+  margin-bottom:1rem;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.cc-kb h3{font-size:1rem;font-weight:700;color:#1f2937;margin-bottom:.65rem;display:flex;align-items:center;gap:.4rem}
+.cc-kb p{font-size:.855rem;color:#4b5563;line-height:1.75;margin-bottom:.5rem}
+.cc-kb p:last-child{margin-bottom:0}
+.cc-kb strong{color:#065f46}
+#cc-overlay.knowledge .cc-kb strong{color:#c2410c}
+
+/* Table — emerald 主題 */
+.cc-tbl{width:100%;border-collapse:collapse;font-size:.82rem;margin:.65rem 0;border-radius:.5rem;overflow:hidden}
+.cc-tbl th{background:#065f46;color:white;padding:.52rem .88rem;text-align:left;font-weight:600}
+#cc-overlay.fridge .cc-tbl th{background:#0e7490}
+#cc-overlay.knowledge .cc-tbl th{background:#c2410c}
+.cc-tbl td{padding:.46rem .88rem;border-bottom:1px solid #f3f4f6;color:#4b5563}
+.cc-tbl tr:nth-child(even) td{background:#f9fafb}
 .cc-tbl tr:last-child td{border:none}
-.cc-pills{display:flex;flex-wrap:wrap;gap:.28rem;margin:.4rem 0}
-.cc-pill{display:inline-flex;align-items:center;border-radius:14px;padding:.18rem .58rem;font-size:.69rem;font-weight:600;border:1px solid}
-.cc-pill.g{background:#ecfdf5;color:#065f46;border-color:#6ee7b7}
-.cc-pill.a{background:#fffbeb;color:#92400e;border-color:#fcd34d}
+.cc-pills{display:flex;flex-wrap:wrap;gap:.3rem;margin:.45rem 0}
+.cc-pill{display:inline-flex;align-items:center;border-radius:14px;padding:.2rem .65rem;font-size:.71rem;font-weight:600;border:1px solid}
+.cc-pill.g{background:#dcfce7;color:#166534;border-color:#86efac}
+.cc-pill.a{background:#fef9c3;color:#854d0e;border-color:#fde047}
     </style>
   </head>
   <body>
     <div id="root"></div>
 
-    <!-- 浮動社交按鈕（右側） -->
+    <!-- 浮動社交按鈕 -->
     <div class="cc-float">
       <a href="https://lin.ee/8maotVi" class="cc-fb cc-line-fb" target="_blank" rel="noopener" title="LINE @Campcool">
         <svg width="28" height="28" viewBox="0 0 40 40">
@@ -209,59 +250,54 @@ body{padding-bottom:64px!important}
       </a>
     </div>
 
-    <!-- 底部完整導覽 bar（7個選項） -->
+    <!-- 底部導覽 bar -->
     <div id="cc-bar">
-      <button data-tab="home" onclick="ccNavClick(this,'home')">
-        <div class="cc-bar-ico">🏕️</div>
-        <span class="cc-bar-lbl">首頁</span>
+      <button data-tab="home" onclick="ccNav(this,'home')" class="on">
+        <div class="cc-bico">🏕️</div><span class="cc-blbl">首頁</span>
       </button>
-      <button data-tab="products" onclick="ccNavClick(this,'products')">
-        <div class="cc-bar-ico">❄️</div>
-        <span class="cc-bar-lbl">設備介紹</span>
+      <button data-tab="products" onclick="ccNav(this,'products')">
+        <div class="cc-bico">❄️</div><span class="cc-blbl">設備</span>
       </button>
-      <button data-tab="locations" onclick="ccNavClick(this,'locations')">
-        <div class="cc-bar-ico">📍</div>
-        <span class="cc-bar-lbl">服務據點</span>
+      <button data-tab="locations" onclick="ccNav(this,'locations')">
+        <div class="cc-bico">📍</div><span class="cc-blbl">據點</span>
       </button>
-      <button data-tab="usageGuide" onclick="ccNavClick(this,'usageGuide')">
-        <div class="cc-bar-ico">📖</div>
-        <span class="cc-bar-lbl">使用指南</span>
+      <button data-tab="usageGuide" onclick="ccNav(this,'usageGuide')">
+        <div class="cc-bico">📖</div><span class="cc-blbl">指南</span>
       </button>
-      <button data-tab="refundPolicy" onclick="ccNavClick(this,'refundPolicy')">
-        <div class="cc-bar-ico">📋</div>
-        <span class="cc-bar-lbl">退費規則</span>
+      <button data-tab="refundPolicy" onclick="ccNav(this,'refundPolicy')">
+        <div class="cc-bico">📋</div><span class="cc-blbl">退費</span>
       </button>
       <button data-tab="fridge" onclick="ccOpen('fridge')">
-        <div class="cc-bar-ico">🧊</div>
-        <span class="cc-bar-lbl">冰箱租借</span>
+        <div class="cc-bico">🧊</div><span class="cc-blbl">冰箱</span>
       </button>
       <button data-tab="knowledge" onclick="ccOpen('knowledge')">
-        <div class="cc-bar-ico">📚</div>
-        <span class="cc-bar-lbl">知識專區</span>
+        <div class="cc-bico">📚</div><span class="cc-blbl">知識</span>
       </button>
     </div>
 
-    <!-- Overlay 全螢幕覆蓋 -->
+    <!-- Overlay（視覺與 React 完全一致） -->
     <div id="cc-overlay">
-      <div class="cc-top">
-        <button class="cc-top-back" onclick="ccClose()">← 返回</button>
-        <span class="cc-top-title" id="cc-overlay-title"></span>
-        <div class="cc-top-tabs">
-          <button class="cc-top-tab" id="tab-f" onclick="ccOpen('fridge')">🧊 冰箱</button>
-          <button class="cc-top-tab" id="tab-k" onclick="ccOpen('knowledge')">📚 知識</button>
+      <!-- sticky header：白色毛玻璃，與 React navbar 同感 -->
+      <div class="cc-hd">
+        <button class="cc-hd-back" onclick="ccClose()">← 返回</button>
+        <span class="cc-hd-title" id="cc-title"></span>
+        <div class="cc-hd-tabs">
+          <button class="cc-hd-tab" id="tab-f" onclick="ccOpen('fridge')">🧊 冰箱租借</button>
+          <button class="cc-hd-tab" id="tab-k" onclick="ccOpen('knowledge')">📚 知識專區</button>
         </div>
       </div>
 
-      <!-- ── 冰箱租借 ── -->
+      <!-- ──────── 冰箱租借 ──────── -->
       <div id="cc-fridge">
-        <div class="cc-hero-sm">
+        <div class="cc-ph">
           <h1>🧊 移動冰箱租借</h1>
-          <p>搭配露營冷氣一起租，夏日清涼全包辦</p>
+          <p>搭配露營冷氣一起租，夏日清涼食材全保鮮</p>
         </div>
         <div class="cc-body">
           <div class="cc-al g"><span class="cc-ai">✅</span><div><strong>租借費用：每次 $800 元</strong>（不限天數）。型號依各地區庫存調配，請透過 LINE @Campcool 確認。</div></div>
 
           <div class="cc-sh">🐯 冰虎系列（Alpicool）</div>
+          <hr class="cc-sh-line">
           <div class="cc-grid">
             <div class="cc-card"><div class="cc-ch"><div class="cc-brand">冰虎 Alpicool</div><div class="cc-name">ECX-40</div><div class="cc-sub">壓縮機・車露兩用</div></div><div class="cc-cb"><div class="cc-row"><span class="cc-lbl">容量</span><span class="cc-val">40L</span></div><div class="cc-row"><span class="cc-lbl">溫度</span><span class="cc-val">-20°C ～ 20°C</span></div><div class="cc-row"><span class="cc-lbl">耗電</span><span class="cc-val">約 40W</span></div><div class="cc-row"><span class="cc-lbl">適合</span><span class="cc-val">4-5 人家庭</span></div><span class="cc-pr">💰 $800 / 次</span></div></div>
             <div class="cc-card"><div class="cc-ch"><div class="cc-brand">冰虎 Alpicool</div><div class="cc-name">TA-35</div><div class="cc-sub">輕量便攜款</div></div><div class="cc-cb"><div class="cc-row"><span class="cc-lbl">容量</span><span class="cc-val">35L</span></div><div class="cc-row"><span class="cc-lbl">溫度</span><span class="cc-val">-15°C ～ 20°C</span></div><div class="cc-row"><span class="cc-lbl">耗電</span><span class="cc-val">約 35W</span></div><div class="cc-row"><span class="cc-lbl">適合</span><span class="cc-val">2-3 人輕量</span></div><span class="cc-pr">💰 $800 / 次</span></div></div>
@@ -271,13 +307,15 @@ body{padding-bottom:64px!important}
           </div>
 
           <div class="cc-sh">❄️ 艾比酷系列（Iceco）</div>
+          <hr class="cc-sh-line">
           <div class="cc-grid">
             <div class="cc-card"><div class="cc-ch"><div class="cc-brand">艾比酷 Iceco</div><div class="cc-name">LG-D36</div><div class="cc-sub">雙溫區・靜音壓縮機</div></div><div class="cc-cb"><div class="cc-row"><span class="cc-lbl">容量</span><span class="cc-val">36L（雙區）</span></div><div class="cc-row"><span class="cc-lbl">溫度</span><span class="cc-val">-20°C ～ 20°C</span></div><div class="cc-row"><span class="cc-lbl">耗電</span><span class="cc-val">約 40W</span></div><div class="cc-row"><span class="cc-lbl">特色</span><span class="cc-val">冷藏＋冷凍同時</span></div><span class="cc-pr">💰 $800 / 次</span></div></div>
           </div>
 
           <div class="cc-sh">⚠️ 使用注意</div>
+          <hr class="cc-sh-line">
           <div class="cc-al r"><span class="cc-ai">🚨</span><div><strong>到達現場務必靜置 30 分鐘以上再開機！</strong>搬運中冷媒可能偏移，直接開機會損壞壓縮機。</div></div>
-          <div class="cc-al y"><span class="cc-ai">⚡</span><div><strong>注意總用電量！</strong>冷氣＋冰箱合計約 4-6A，請避免同時使用電熱水壺或電磁爐。</div></div>
+          <div class="cc-al y"><span class="cc-ai">⚡</span><div><strong>注意總用電量！</strong>冷氣（425-530W）＋冰箱（25-60W）合計約 4-6A，請避免同時使用電熱水壺或電磁爐。</div></div>
           <div class="cc-g2">
             <div class="cc-nc c"><h4>🔌 電源設置</h4><ul><li>使用 110V 接地插座</li><li>延長線需 10A 以上</li><li>冰箱與冷氣建議分開插座</li></ul></div>
             <div class="cc-nc c"><h4>📦 搬運擺放</h4><ul><li>保持直立，勿倒置超過 45°</li><li>靜置 <strong>30 分鐘以上</strong>再開機</li><li>四周留 10cm 散熱空間</li></ul></div>
@@ -288,146 +326,100 @@ body{padding-bottom:64px!important}
         </div>
       </div>
 
-      <!-- ── 知識專區 ── -->
+      <!-- ──────── 知識專區 ──────── -->
       <div id="cc-knowledge" style="display:none">
-        <div class="cc-hero-sm">
+        <div class="cc-ph">
           <h1>📚 露營知識專區</h1>
-          <p>冷氣原理・冰箱選購・電力計算・露營技巧</p>
+          <p>冷氣原理・冰箱選購・電力計算・露營技巧，全在這裡</p>
         </div>
         <div class="cc-body">
-          <div class="cc-kb"><h3><span>❄️</span>移動式冷氣怎麼運作？</h3><p>冷氣不是「製造冷空氣」，而是利用<strong>冷媒循環</strong>把帳篷裡的熱量帶走排到外面。四步驟：蒸發（吸熱）→ 壓縮 → 冷凝（排熱管排到帳篷外）→ 膨脹。<strong>排熱管一定要伸出帳篷外</strong>，否則完全不會涼。</p></div>
-          <div class="cc-kb"><h3><span>📐</span>BTU 是什麼？</h3><p>BTU 是冷氣冷房能力單位，數字越高製冷越強。</p><table class="cc-tbl"><tr><th>型號</th><th>BTU</th><th>適合帳篷</th></tr><tr><td>艾比酷 JUZ-400</td><td>5000 BTU</td><td>3-4 人帳 / 3~5 坪</td></tr><tr><td>山水 SAC688</td><td>6000 BTU</td><td>5-6 人大帳 / 5~8 坪</td></tr></table></div>
-          <div class="cc-kb"><h3><span>⚡</span>電力計算：會跳電嗎？</h3><p>公式：<strong>功率（W）÷ 110V = 電流（A）</strong>。台灣營區通常 10A 或 15A。</p><table class="cc-tbl"><tr><th>設備</th><th>功率</th><th>電流</th></tr><tr><td>艾比酷 JUZ-400</td><td>425W</td><td>3.9A</td></tr><tr><td>山水 SAC688</td><td>530W</td><td>4.8A</td></tr><tr><td>移動冰箱</td><td>30～60W</td><td>0.3～0.6A</td></tr><tr><td>電熱水壺 ⚠️</td><td>800～1200W</td><td>7～11A</td></tr><tr><td>電磁爐 ⚠️</td><td>1000～2000W</td><td>9～18A</td></tr></table><p>JUZ-400＋冰箱＋燈＋手機 ≈ <strong>5.3A</strong>，10A 電箱沒問題。</p></div>
-          <div class="cc-kb"><h3><span>💧</span>排水管理</h3><p><strong>JUZ-400（零排水）</strong>：不需排水，新手首選。<br><strong>SAC688（需排水）</strong>：台灣夏天約每 3-5 小時排一次，水滿自動停機。步驟：關機→開排水口→排空→關閉→重啟。建議睡前排一次。</p></div>
-          <div class="cc-kb"><h3><span>🏕️</span>帳篷密封技巧</h3>
-            <div class="cc-pills"><span class="cc-pill g">✅ 黑膠帳/科技棉帳</span><span class="cc-pill g">✅ 拉上所有拉鍊</span><span class="cc-pill g">✅ 布封住網格</span><span class="cc-pill a">⚠️ 避免純網格帳</span></div>
-            <p>建議<strong>提前 15-20 分鐘預冷</strong>，進帳後感受更明顯。帳篷越密封冷氣效果越好。</p>
-          </div>
-          <div class="cc-kb"><h3><span>🧊</span>壓縮機 vs 半導體冰箱</h3><table class="cc-tbl"><tr><th>比較</th><th>壓縮機（我們提供）✅</th><th>半導體</th></tr><tr><td>製冷</td><td>可達 -20°C</td><td>僅比室溫低 15-25°C</td></tr><tr><td>耗電</td><td>間歇運轉，較省電</td><td>持續耗電</td></tr><tr><td>露營適合度</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐</td></tr><tr><td>搬運注意</td><td>靜置 30 分鐘再開機</td><td>可即時使用</td></tr></table></div>
-          <div class="cc-kb"><h3><span>🛒</span>容量怎麼選？</h3><table class="cc-tbl"><tr><th>人數</th><th>建議容量</th><th>推薦型號</th></tr><tr><td>1-2 人</td><td>20-25L</td><td>MC20</td></tr><tr><td>2-3 人</td><td>30-40L</td><td>TA35、ECX40</td></tr><tr><td>4-6 人</td><td>40-60L</td><td>ECX40、T50/T60</td></tr><tr><td>需雙溫區</td><td>36L 雙區</td><td>LG-D36</td></tr></table><p>建議選稍大一號，留 20-30% 空間讓冷空氣流動。</p></div>
-          <div class="cc-kb"><h3><span>⏱️</span>為什麼要靜置 30 分鐘？</h3><p>搬運時冷媒可能流入壓縮機進氣側。直接開機會造成<strong>液壓縮損壞壓縮機</strong>。靜置讓冷媒回位後才安全開機。搬運越劇烈靜置越久，長途超過 1 小時建議靜置 1 小時。</p></div>
-          <div class="cc-kb"><h3><span>🔗</span>冷氣＋冰箱最佳搭配</h3><table class="cc-tbl"><tr><th>場景</th><th>冷氣</th><th>冰箱</th><th>總電流</th></tr><tr><td>2-3 人輕量</td><td>JUZ-400</td><td>MC20</td><td>約 4.1A</td></tr><tr><td>3-4 人標準</td><td>JUZ-400</td><td>ECX40</td><td>約 4.3A</td></tr><tr><td>5-6 人大帳</td><td>SAC688</td><td>T50/T60</td><td>約 5.3A</td></tr></table><p>冰箱和冷氣建議分開插座，避免延長線負載過重。</p></div>
-          <div class="cc-kb"><h3><span>🌿</span>R290 環保冷媒</h3><p>我們的設備均使用 <strong>R290（丙烷）</strong>環保冷媒。ODP=0（不破壞臭氧層）、GWP=3（溫室效應極低），比舊型 R22 對環境衝擊降低 99%。正常使用冷媒封閉於系統內，無洩漏風險。</p></div>
+          <div class="cc-kb"><h3>❄️ 移動式冷氣怎麼運作？</h3><p>冷氣不是「製造冷空氣」，而是利用<strong>冷媒循環</strong>把帳篷裡的熱量帶走排到外面。四步驟：蒸發（室內吸熱）→ 壓縮 → 冷凝（排熱管排出帳篷外）→ 膨脹。<strong>排熱管一定要伸出帳篷外</strong>，否則完全不會涼。</p></div>
+          <div class="cc-kb"><h3>📐 BTU 是什麼？怎麼選？</h3><p>BTU 是冷氣冷房能力單位，數字越高製冷越強。帳篷隔熱比室內差，建議選密封性好的帳篷。</p><table class="cc-tbl"><tr><th>型號</th><th>BTU</th><th>適合帳篷</th></tr><tr><td>艾比酷 JUZ-400</td><td>5000 BTU</td><td>3-4 人帳 / 3~5 坪</td></tr><tr><td>山水 SAC688</td><td>6000 BTU</td><td>5-6 人大帳 / 5~8 坪</td></tr></table></div>
+          <div class="cc-kb"><h3>⚡ 電力計算：會跳電嗎？</h3><p>公式：<strong>功率（W）÷ 110V = 電流（A）</strong>。台灣營區通常 10A 或 15A。</p><table class="cc-tbl"><tr><th>設備</th><th>功率</th><th>電流</th></tr><tr><td>艾比酷 JUZ-400</td><td>425W</td><td>3.9A</td></tr><tr><td>山水 SAC688</td><td>530W</td><td>4.8A</td></tr><tr><td>移動冰箱</td><td>30～60W</td><td>0.3～0.6A</td></tr><tr><td>電熱水壺 ⚠️</td><td>800～1200W</td><td>7～11A</td></tr><tr><td>電磁爐 ⚠️</td><td>1000～2000W</td><td>9～18A</td></tr></table><p>JUZ-400＋冰箱＋燈＋手機 ≈ <strong>5.3A</strong>，10A 電箱完全沒問題。</p></div>
+          <div class="cc-kb"><h3>💧 排水管理</h3><p><strong>JUZ-400（零排水）</strong>：不需排水，新手首選。<br><strong>SAC688（需排水）</strong>：台灣夏天約每 3-5 小時排一次，水滿自動停機。步驟：關機 → 開排水口 → 排空 → 關閉 → 重啟。建議睡前排一次避免半夜停機。</p></div>
+          <div class="cc-kb"><h3>🏕️ 帳篷密封技巧</h3><div class="cc-pills"><span class="cc-pill g">✅ 黑膠帳或科技棉帳</span><span class="cc-pill g">✅ 拉上所有拉鍊</span><span class="cc-pill g">✅ 布封住網格區域</span><span class="cc-pill a">⚠️ 避免純網格帳篷</span></div><p>建議<strong>提前 15-20 分鐘開機預冷</strong>，進帳後感受更明顯。帳篷越密封效果越好。</p></div>
+          <div class="cc-kb"><h3>🧊 壓縮機 vs 半導體冰箱</h3><table class="cc-tbl"><tr><th>比較</th><th>壓縮機（我們提供）✅</th><th>半導體</th></tr><tr><td>製冷能力</td><td>可達 -20°C</td><td>僅比室溫低 15-25°C</td></tr><tr><td>耗電方式</td><td>間歇運轉，較省電</td><td>持續耗電</td></tr><tr><td>露營適合度</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐</td></tr><tr><td>搬運注意</td><td>靜置 30 分鐘再開機</td><td>可即時使用</td></tr></table></div>
+          <div class="cc-kb"><h3>🛒 容量怎麼選？</h3><table class="cc-tbl"><tr><th>人數</th><th>建議容量</th><th>推薦型號</th></tr><tr><td>1-2 人</td><td>20-25L</td><td>MC-20</td></tr><tr><td>2-3 人</td><td>30-40L</td><td>TA-35、ECX-40</td></tr><tr><td>4-6 人</td><td>40-60L</td><td>ECX-40、T50/T60</td></tr><tr><td>需雙溫區</td><td>36L 雙區</td><td>LG-D36</td></tr></table><p>建議選稍大一號，留 20-30% 空間讓冷空氣循環，保冷效果更好。</p></div>
+          <div class="cc-kb"><h3>⏱️ 為什麼要靜置 30 分鐘？</h3><p>搬運時冷媒可能流入壓縮機進氣側。直接開機會造成<strong>液壓縮，損壞壓縮機</strong>。靜置讓冷媒回到正確位置後再安全開機。搬運越劇烈、靜置時間應越長，長途超過 1 小時建議靜置 1 小時以上。</p></div>
+          <div class="cc-kb"><h3>🔗 冷氣＋冰箱最佳搭配</h3><table class="cc-tbl"><tr><th>場景</th><th>冷氣</th><th>冰箱</th><th>總電流</th></tr><tr><td>2-3 人輕量</td><td>JUZ-400</td><td>MC-20</td><td>約 4.1A</td></tr><tr><td>3-4 人標準</td><td>JUZ-400</td><td>ECX-40</td><td>約 4.3A</td></tr><tr><td>5-6 人大帳</td><td>SAC688</td><td>T50/T60</td><td>約 5.3A</td></tr></table><p>冰箱和冷氣建議<strong>分開不同插座</strong>，避免延長線負載過重。</p></div>
+          <div class="cc-kb"><h3>🌿 R290 環保冷媒</h3><p>我們的設備均使用 <strong>R290（丙烷）</strong>環保冷媒。ODP=0（不破壞臭氧層）、GWP=3（溫室效應極低），比舊型 R22 對環境衝擊降低 99%。正常使用冷媒封閉於系統內，無洩漏風險，清涼的同時也愛護環境。</p></div>
         </div>
       </div>
     </div>
 
     <script>
-    // ── Overlay 開關 ──
     function ccOpen(tab) {
-      var ov = document.getElementById('cc-overlay');
-      var fc = document.getElementById('cc-fridge');
-      var kc = document.getElementById('cc-knowledge');
-      var tf = document.getElementById('tab-f');
-      var tk = document.getElementById('tab-k');
-      var title = document.getElementById('cc-overlay-title');
-      ov.className = 'on ' + tab;
-      document.body.style.overflow = 'hidden';
-      if (tab === 'fridge') {
-        fc.style.display = ''; kc.style.display = 'none';
-        tf.classList.add('on'); tk.classList.remove('on');
-        title.textContent = '🧊 冰箱租借';
-      } else {
-        kc.style.display = ''; fc.style.display = 'none';
-        tk.classList.add('on'); tf.classList.remove('on');
-        title.textContent = '📚 知識專區';
+      var ov=document.getElementById('cc-overlay');
+      var fc=document.getElementById('cc-fridge');
+      var kc=document.getElementById('cc-knowledge');
+      var tf=document.getElementById('tab-f');
+      var tk=document.getElementById('tab-k');
+      var ti=document.getElementById('cc-title');
+      ov.className='on '+tab;
+      document.body.style.overflow='hidden';
+      if(tab==='fridge'){
+        fc.style.display='';kc.style.display='none';
+        tf.classList.add('on');tk.classList.remove('on');
+        ti.textContent='冰箱租借';
+      }else{
+        kc.style.display='';fc.style.display='none';
+        tk.classList.add('on');tf.classList.remove('on');
+        ti.textContent='知識專區';
       }
-      ov.scrollTop = 0;
-      setBarActive(tab);
+      ov.scrollTop=0;
+      setOn(tab);
     }
-    function ccClose() {
-      document.getElementById('cc-overlay').className = '';
-      document.body.style.overflow = '';
-      // 恢復底部 bar 到當前 React 頁面狀態
-      syncBarToReact();
+    function ccClose(){
+      document.getElementById('cc-overlay').className='';
+      document.body.style.overflow='';
+      syncBar();
     }
-
-    // ── 底部 bar：點擊 React 頁面選項 ──
-    function ccNavClick(btn, pageName) {
-      // 先關掉 overlay
-      document.getElementById('cc-overlay').className = '';
-      document.body.style.overflow = '';
-      // 觸發 React 的頁面切換
-      var found = Array.from(document.querySelectorAll('button')).find(function(b){
-        var t = b.textContent.trim();
-        var map = {home:'首頁',products:'產品介紹',locations:'服務據點',usageGuide:'使用指南',refundPolicy:'退費規則'};
-        return t === map[pageName];
+    function ccNav(btn,page){
+      document.getElementById('cc-overlay').className='';
+      document.body.style.overflow='';
+      var labels={home:'首頁',products:'產品介紹',locations:'服務據點',usageGuide:'使用指南',refundPolicy:'退費規則'};
+      var b=Array.from(document.querySelectorAll('button')).find(function(b){return b.textContent.trim()===labels[page]||b.textContent.trim()==='🏕️ '+labels[page]||b.textContent.trim()==='❄️ '+labels[page]||b.textContent.trim().endsWith(labels[page]);});
+      if(b)b.click();
+      setOn(page);
+    }
+    function setOn(tab){
+      document.querySelectorAll('#cc-bar button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-tab')===tab);});
+    }
+    function syncBar(){
+      var map={'首頁':'home','產品介紹':'products','服務據點':'locations','使用指南':'usageGuide','退費規則':'refundPolicy'};
+      var cur='home';
+      document.querySelectorAll('nav button,header button').forEach(function(b){
+        var t=b.textContent.trim();
+        // strip icon prefix
+        var clean=t.replace(/^[^\u4e00-\u9fff]+/,'').trim();
+        if(b.className&&b.className.includes&&b.className.includes('bg-emerald-100')&&map[clean])cur=map[clean];
       });
-      if (found) found.click();
-      setBarActive(pageName);
+      setOn(cur);
     }
-
-    function setBarActive(tab) {
-      document.querySelectorAll('#cc-bar button').forEach(function(b){
-        b.classList.toggle('cc-active-tab', b.getAttribute('data-tab') === tab);
-      });
-    }
-
-    // 同步底部 bar 狀態與 React 當前頁
-    function syncBarToReact() {
-      // 找哪個 nav button 有 active class
-      var map = {首頁:'home',產品介紹:'products',服務據點:'locations',使用指南:'usageGuide',退費規則:'refundPolicy'};
-      var activeTab = 'home';
-      document.querySelectorAll('nav button, header ~ * button').forEach(function(b){
-        if (b.className && b.className.includes('bg-emerald-100') && b.className.includes('text-emerald-800')) {
-          var t = b.textContent.trim();
-          if (map[t]) activeTab = map[t];
-        }
-      });
-      setBarActive(activeTab);
-    }
-
-    // ── 隱藏原本社交連結 ──
-    function hideSocial() {
+    function hideSocial(){
       document.querySelectorAll('a[href*="lin.ee"],a[href*="instagram.com"]').forEach(function(a){
-        if (!a.closest('.cc-float')) a.style.cssText='display:none!important';
+        if(!a.closest('.cc-float'))a.style.cssText='display:none!important';
       });
     }
-
-    // ── Logo 點擊回首頁 ──
-    function patchLogo() {
-      var logo = document.querySelector('header img[alt="露涼社 Logo"]');
-      if (!logo || logo._cc) return;
-      logo._cc = true;
-      var wrap = logo.parentElement;
-      while (wrap && !wrap.querySelector('h1')) wrap = wrap.parentElement;
-      if (!wrap) return;
-      wrap.style.cursor = 'pointer';
-      wrap.addEventListener('click', function() {
-        ccClose();
-        var homeBtn = Array.from(document.querySelectorAll('button')).find(function(b){ return b.textContent.trim()==='首頁'; });
-        if (homeBtn) homeBtn.click();
-        setBarActive('home');
-      });
+    function patchLogo(){
+      var logo=document.querySelector('header img[alt="露涼社 Logo"]');
+      if(!logo||logo._cc)return;logo._cc=true;
+      var w=logo.parentElement;while(w&&!w.querySelector('h1'))w=w.parentElement;
+      if(!w)return;w.style.cursor='pointer';
+      w.addEventListener('click',function(){ccClose();var b=Array.from(document.querySelectorAll('button')).find(function(b){return b.textContent.trim()==='首頁'||b.textContent.trim()==='🏕️ 首頁';});if(b)b.click();setOn('home');});
     }
-
-    // ── 監聽 React 頁面切換，同步底部 bar ──
-    function patchReactNavBtns() {
-      var map = {首頁:'home',產品介紹:'products',服務據點:'locations',使用指南:'usageGuide',退費規則:'refundPolicy'};
+    function patchNavSync(){
+      var map={'首頁':'home','產品介紹':'products','服務據點':'locations','使用指南':'usageGuide','退費規則':'refundPolicy'};
       document.querySelectorAll('nav button').forEach(function(b){
-        if (b._ccSynced) return;
-        var t = b.textContent.trim();
-        if (map[t]) {
-          b._ccSynced = true;
-          b.addEventListener('click', function(){
-            setBarActive(map[t]);
-            document.getElementById('cc-overlay').className = '';
-            document.body.style.overflow = '';
-          });
-        }
+        if(b._ccS)return;
+        var t=b.textContent.trim().replace(/^[^\u4e00-\u9fff]+/,'').trim();
+        if(!map[t])return;b._ccS=true;
+        b.addEventListener('click',function(){setOn(map[t]);document.getElementById('cc-overlay').className='';document.body.style.overflow='';});
       });
     }
-
-    new MutationObserver(function(){
-      hideSocial(); patchLogo(); patchReactNavBtns();
-    }).observe(document.body,{childList:true,subtree:true});
-
-    [200,600,1500].forEach(function(ms){
-      setTimeout(function(){ hideSocial(); patchLogo(); patchReactNavBtns(); syncBarToReact(); }, ms);
-    });
-
-    // 初始設定首頁 active
-    setBarActive('home');
+    new MutationObserver(function(){hideSocial();patchLogo();patchNavSync();}).observe(document.body,{childList:true,subtree:true});
+    [200,700,1600].forEach(function(ms){setTimeout(function(){hideSocial();patchLogo();patchNavSync();syncBar();},ms);});
+    setOn('home');
     </script>
   </body>
 </html>
