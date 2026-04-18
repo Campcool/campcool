@@ -14,12 +14,12 @@
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased}
 
 /* ── 浮動社交按鈕 ── */
-.cc-float{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:9998}
+.cc-float{position:fixed;right:14px;bottom:100px;display:flex;flex-direction:column;gap:12px;z-index:9999}
 .cc-fb{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.28);border:none;cursor:pointer;transition:transform .2s;overflow:hidden;padding:0}
-.cc-fb:hover{transform:scale(1.1)}
+.cc-fb:hover{transform:scale(1.08);box-shadow:0 12px 24px rgba(0,0,0,.3)}
 .cc-line-fb{background:#06C755}
 .cc-ig-fb{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
-@media(max-width:480px){.cc-fb{width:50px;height:50px}.cc-float{right:10px;gap:10px}}
+@media(max-width:480px){.cc-fb{width:50px;height:50px}.cc-float{right:12px;bottom:90px;gap:10px}}
 
 /* ── 隱藏原本社交連結 + 漢堡選單 ── */
 a[href*="lin.ee"]:not(.cc-float a),
@@ -30,18 +30,20 @@ div.md\:hidden > button[class*="focus:outline-none"],
 /* ── 底部導覽 bar（4 頁籤，大按鈕）── */
 #cc-bar{
   position:fixed;bottom:0;left:0;right:0;z-index:9995;
-  background:#162616;
-  border-top:1px solid rgba(255,255,255,.1);
-  box-shadow:0 -4px 20px rgba(0,0,0,.3);
+  background:#0f1f14;
+  border-top:1px solid rgba(255,255,255,.08);
+  box-shadow:0 -6px 24px rgba(0,0,0,.4);
   display:flex;
+  padding:4px 0 6px;
 }
 #cc-bar button{
   flex:1;
-  padding:9px 4px 11px;border:none;background:none;
-  color:rgba(255,255,255,.4);
+  padding:8px 4px 10px;border:none;background:none;
+  color:rgba(255,255,255,.45);
   cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
-  transition:color .15s;font-family:inherit;
+  transition:color .2s,transform .1s;font-family:inherit;
   border-top:3px solid transparent;
+  font-weight:600;
 }
 [data-tab="rental"].on{color:#34d399;border-top-color:#34d399}
 [data-tab="wiki"].on{color:#a78bfa;border-top-color:#a78bfa}
@@ -50,7 +52,7 @@ div.md\:hidden > button[class*="focus:outline-none"],
 .cc-bico{
   width:38px;height:38px;border-radius:11px;
   display:flex;align-items:center;justify-content:center;
-  font-size:1.4rem;
+  font-size:1.5rem;
   background:rgba(255,255,255,.07);
   transition:background .15s,transform .15s;
 }
@@ -59,8 +61,8 @@ div.md\:hidden > button[class*="focus:outline-none"],
 [data-tab="wiki"].on .cc-bico{background:rgba(167,139,250,.18)}
 [data-tab="booking"].on .cc-bico{background:rgba(248,113,113,.18)}
 [data-tab="fridge"].on .cc-bico{background:rgba(34,211,238,.18)}
-.cc-blbl{font-size:.68rem;line-height:1;white-space:nowrap;font-weight:600}
-body{padding-bottom:68px!important}
+.cc-blbl{font-size:.7rem;letter-spacing:.3px;line-height:1;white-space:nowrap;font-weight:600}
+body{padding-bottom:76px!important}
 
 /* ── 自訂頁面 ── */
 #cc-page{
@@ -68,7 +70,7 @@ body{padding-bottom:68px!important}
   position:fixed;
   top:73px;
   left:0;right:0;
-  bottom:68px;
+  bottom:76px;
   z-index:10;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
@@ -77,18 +79,26 @@ body{padding-bottom:68px!important}
 #cc-page.on{display:block}
 
 /* hero */
-.cc-ph{color:white;padding:1.8rem 1.25rem 1.5rem;text-align:center}
+.cc-ph{
+  color:white;padding:2rem 1.25rem 1.75rem;text-align:center;
+  position:relative;overflow:hidden;
+}
+.cc-ph::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(0,20,10,.18);z-index:0;pointer-events:none;
+}
+.cc-ph h1,.cc-ph p{position:relative;z-index:1}
 #cc-page.fridge .cc-ph{background:linear-gradient(135deg,#155e75,#0891b2)}
 #cc-page.wiki .cc-ph{background:linear-gradient(135deg,#3b0764,#7c3aed)}
 #cc-page.knowledge .cc-ph{background:linear-gradient(135deg,#3b0764,#7c3aed)}
-.cc-ph h1{font-size:1.6rem;font-weight:700;margin-bottom:.3rem;line-height:1.25}
+.cc-ph h1{font-size:1.85rem;font-weight:800;margin-bottom:.35rem;line-height:1.2;text-shadow:0 2px 8px rgba(0,0,0,.2)}
 .cc-ph p{font-size:.9rem;opacity:.9;max-width:440px;margin:0 auto;line-height:1.5}
 
 /* 內容區 */
 .cc-body{max-width:860px;margin:0 auto;padding:1.1rem .9rem 1.5rem}
 
 /* Section heading */
-.cc-sh{font-size:1.1rem;font-weight:700;color:#1f2937;margin:1.4rem 0 .3rem;display:flex;align-items:center;gap:.4rem}
+.cc-sh{font-size:1.2rem;font-weight:800;color:#1e293b;margin:1.6rem 0 .32rem;display:flex;align-items:center;gap:.45rem}
 .cc-shdiv{border:none;border-top:1px solid #d1fae5;margin:0 0 .9rem}
 #cc-page.wiki .cc-shdiv{border-top-color:#ddd6fe}
 #cc-page.knowledge .cc-shdiv{border-top-color:#ddd6fe}
@@ -101,7 +111,7 @@ body{padding-bottom:68px!important}
   margin-bottom:1.1rem;
 }
 @media(min-width:500px){.cc-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}}
-.cc-card{background:white;border:1px solid #d1fae5;border-radius:.875rem;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.cc-card{background:white;border:1px solid #d1fae5;border-radius:1rem;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.06);transition:transform .15s}
 .cc-ch{padding:.8rem 1rem .68rem;background:linear-gradient(135deg,rgba(6,182,212,.08),rgba(59,130,246,.04));border-bottom:1px solid #d1fae5}
 .cc-brand{font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#0891b2;margin-bottom:.1rem}
 .cc-name{font-size:1rem;font-weight:700;color:#1f2937}
@@ -114,7 +124,7 @@ body{padding-bottom:68px!important}
 .cc-pr{display:inline-flex;align-items:center;gap:.25rem;background:#0891b2;color:white;padding:.36rem .9rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-top:.62rem}
 
 /* Alerts */
-.cc-al{border-radius:.875rem;padding:.88rem 1rem;margin:.75rem 0;display:flex;gap:.62rem;font-size:.88rem;line-height:1.6;border:1px solid}
+.cc-al{border-radius:1rem;padding:.95rem 1.1rem;margin:.85rem 0;display:flex;gap:.7rem;font-size:.92rem;line-height:1.62;border:1px solid}
 .cc-al.g{background:#ecfdf5;border-color:#6ee7b7;color:#065f46}
 .cc-al.y{background:#fffbeb;border-color:#fcd34d;color:#92400e}
 .cc-al.r{background:#fef2f2;border-color:#fca5a5;color:#991b1b}
@@ -162,10 +172,40 @@ body{padding-bottom:68px!important}
 .cc-pill.g{background:#dcfce7;color:#166534;border-color:#86efac}
 .cc-pill.a{background:#fef9c3;color:#854d0e;border-color:#fde047}
 
+/* LINE CTA 橫幅 */
+.cc-line-banner{
+  background:linear-gradient(135deg,#06C755 0%,#00a844 100%);
+  border-radius:20px;padding:1.1rem 1.3rem;color:white;
+  display:flex;align-items:center;justify-content:space-between;gap:.8rem;
+  margin:1.25rem 0;box-shadow:0 6px 16px rgba(6,199,85,.3);
+}
+.cc-line-banner strong{font-size:.95rem;font-weight:700}
+.cc-line-banner a{
+  background:white;color:#06C755;
+  padding:.65rem 1.3rem;border-radius:30px;text-decoration:none;
+  font-weight:800;font-size:.9rem;white-space:nowrap;
+  box-shadow:0 3px 8px rgba(0,0,0,.12);flex-shrink:0;
+  transition:transform .1s;
+}
+.cc-line-banner a:active{transform:scale(.96)}
+
+/* cc-name 更大 */
+.cc-name{font-size:1.1rem;font-weight:800;color:#0f172a}
+/* cc-row 更大字 */
+.cc-row{font-size:.92rem}
+/* cc-nc h4 更大 */
+.cc-nc h4{font-size:.9rem;font-weight:800}
+/* cc-nc li 更大 */
+.cc-nc li{font-size:.86rem}
+/* cc-kb h3 更大 */
+.cc-kb h3{font-size:1.05rem;font-weight:800}
+/* cc-kb p 更大 */
+.cc-kb p{font-size:.9rem}
+
 /* ── 注入到 React 頁面頂部的 hero banner ── */
 #cc-hero-banner{
   color:white;text-align:center;
-  padding:1.75rem 1.25rem 1.5rem;
+  padding:2rem 1.5rem 1.75rem;
   position:relative;overflow:hidden;
 }
 #cc-hero-banner::after{
@@ -253,6 +293,10 @@ body{padding-bottom:68px!important}
         </div>
         <div class="cc-body">
           <div class="cc-al g"><span class="cc-ai">✅</span><div><strong>租借費用：每次 $800 元</strong>（不限天數）。型號依各地區庫存調配，請透過 LINE @Campcool 確認。</div></div>
+          <div class="cc-line-banner">
+            <strong>📱 查詢庫存 / 預約冰箱</strong>
+            <a href="https://lin.ee/8maotVi" target="_blank">加 LINE 立即詢問 →</a>
+          </div>
           <div class="cc-sh">🐯 冰虎系列（Alpicool）</div><hr class="cc-shdiv">
           <div class="cc-grid">
             <div class="cc-card"><div class="cc-ch"><div class="cc-brand">冰虎 Alpicool</div><div class="cc-name">ECX-40</div><div class="cc-sub">壓縮機・車露兩用</div></div><div class="cc-cb"><div class="cc-row"><span class="cc-lbl">容量</span><span class="cc-val">40L</span></div><div class="cc-row"><span class="cc-lbl">溫度</span><span class="cc-val">-20°C ～ 20°C</span></div><div class="cc-row"><span class="cc-lbl">耗電</span><span class="cc-val">約 40W</span></div><div class="cc-row"><span class="cc-lbl">適合</span><span class="cc-val">4-5 人家庭</span></div><span class="cc-pr">💰 $800 / 次</span></div></div>
