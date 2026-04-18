@@ -448,7 +448,8 @@ body{padding-bottom:82px!important}
     // ── CC_HEROES for React pages ──
     var CC_HEROES = {
       rental:{cls:'rental',icon:'🏕️',title:'租借資訊',sub:'冷氣方案・服務據點・透明租金，一頁搞定'},
-      booking:{cls:'booking',icon:'📋',title:'預約須知',sub:'退費規則・取消政策，安心預約無後顧之憂'}
+      booking:{cls:'booking',icon:'📋',title:'預約須知',sub:'退費規則・取消政策，安心預約無後顧之憂'},
+      locations:{cls:'rental',icon:'📍',title:'服務據點',sub:'雙北・新竹竹北・台中，靠近交流道與好市多，取還超方便'}
     };
 
     // 回頂部（cc-page 和 React 頁面都適用）
@@ -638,6 +639,39 @@ body{padding-bottom:82px!important}
       if (lineBtn) lineBtn.onclick = function(){ window.open('https://lin.ee/8maotVi','_blank'); };
     }
 
+    // ── 強化服務據點說明 ──
+    function patchLocations() {
+      // 找據點區段
+      var header = Array.from(document.querySelectorAll('h3')).find(function(el){
+        return el.textContent.trim() === '服務據點分布';
+      });
+      if (!header || header._ccDone) return;
+      header._ccDone = true;
+      header.style.display = 'none';
+
+      // 找各地區卡片，在地名下加說明
+      document.querySelectorAll('[class*="flex items-center space-x-3 p-4"]').forEach(function(card){
+        var areaEl = card.querySelector('[class*="font-semibold"]') || card.querySelector('span');
+        if (!areaEl) return;
+        var area = areaEl.textContent.trim();
+        var desc = '';
+        if (area.includes('雙北') || area.includes('台北') || area.includes('新北')) {
+          desc = '📍 往宜蘭・桃園露營的出發點';
+        } else if (area.includes('新竹') || area.includes('竹北')) {
+          desc = '📍 竹苗露客首選，近交流道・好市多';
+        } else if (area.includes('台中')) {
+          desc = '📍 台中・南投露客最方便';
+        }
+        if (desc && !card.querySelector('.cc-loc-desc')) {
+          var tag = document.createElement('div');
+          tag.className = 'cc-loc-desc';
+          tag.style.cssText = 'font-size:.78rem;color:#059669;margin-top:.3rem;font-weight:600';
+          tag.textContent = desc;
+          card.appendChild(tag);
+        }
+      });
+    }
+
     // ── 覆蓋「為什麼選擇露涼社」→ 2×2 大圖示卡片 ──
     function patchWhyChoose() {
       var h = Array.from(document.querySelectorAll('h3')).find(function(el){
@@ -695,11 +729,11 @@ body{padding-bottom:82px!important}
 
     new MutationObserver(function() {
       hideSocial(); patchLogo(); patchNavSync();
-      patchPricing(); patchHeroBg(); patchWhyChoose();
+      patchPricing(); patchHeroBg(); patchWhyChoose(); patchLocations();
     }).observe(document.body, {childList:true, subtree:true});
 
     [300, 800, 1500].forEach(function(ms){
-      setTimeout(function(){ patchPricing(); patchHeroBg(); patchWhyChoose(); }, ms);
+      setTimeout(function(){ patchPricing(); patchHeroBg(); patchWhyChoose(); patchLocations(); }, ms);
     });
     </script>
   </body>
