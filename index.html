@@ -45,7 +45,7 @@ div.md\:hidden > button[class*="focus:outline-none"],
 }
 #cc-bar button{
   flex:1;
-  padding:8px 4px 10px;border:none;background:none;
+  padding:10px 4px 12px;border:none;background:none;
   color:rgba(255,255,255,.45);
   cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
   transition:color .2s,transform .1s;font-family:inherit;
@@ -68,8 +68,8 @@ div.md\:hidden > button[class*="focus:outline-none"],
 [data-tab="wiki"].on .cc-bico{background:rgba(167,139,250,.18)}
 [data-tab="booking"].on .cc-bico{background:rgba(248,113,113,.18)}
 [data-tab="fridge"].on .cc-bico{background:rgba(34,211,238,.18)}
-.cc-blbl{font-size:.7rem;letter-spacing:.3px;line-height:1;white-space:nowrap;font-weight:600}
-body{padding-bottom:76px!important}
+.cc-blbl{font-size:.75rem;letter-spacing:.3px;line-height:1;white-space:nowrap;font-weight:600}
+body{padding-bottom:82px!important}
 
 /* ── 自訂頁面 ── */
 #cc-page{
@@ -77,7 +77,7 @@ body{padding-bottom:76px!important}
   position:fixed;
   top:73px;
   left:0;right:0;
-  bottom:76px;
+  bottom:82px;
   z-index:10;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
@@ -124,10 +124,10 @@ body{padding-bottom:76px!important}
 .cc-name{font-size:1rem;font-weight:700;color:#1f2937}
 .cc-sub{font-size:.78rem;color:#6b7280;margin-top:.1rem}
 .cc-cb{padding:.78rem 1rem}
-.cc-row{display:flex;justify-content:space-between;align-items:center;padding:.28rem 0;border-bottom:1px solid #f3f4f6;font-size:.88rem}
+.cc-row{display:flex;justify-content:space-between;align-items:center;padding:.38rem 0;border-bottom:1px solid #f3f4f6;font-size:.95rem}
 .cc-row:last-child{border:none}
-.cc-lbl{color:#6b7280;flex-shrink:0;margin-right:.5rem}
-.cc-val{color:#1f2937;font-weight:600;text-align:right}
+.cc-lbl{color:#6b7280;flex-shrink:0;margin-right:.5rem;font-size:.9rem}
+.cc-val{color:#1f2937;font-weight:700;text-align:right;font-size:.95rem}
 .cc-pr{display:inline-flex;align-items:center;gap:.25rem;background:#0891b2;color:white;padding:.36rem .9rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-top:.62rem}
 
 /* Alerts */
@@ -178,6 +178,8 @@ body{padding-bottom:76px!important}
 .cc-pill{display:inline-flex;border-radius:12px;padding:.2rem .65rem;font-size:.73rem;font-weight:600;border:1px solid}
 .cc-pill.g{background:#dcfce7;color:#166534;border-color:#86efac}
 .cc-pill.a{background:#fef9c3;color:#854d0e;border-color:#fde047}
+/* 隱藏 contact section（立即預約露營冷氣）*/
+#contact-section{display:none!important}
 
 /* LINE CTA 橫幅 */
 .cc-line-banner{
@@ -378,9 +380,9 @@ body{padding-bottom:76px!important}
           <div style="display:grid;gap:.85rem;margin-bottom:1.25rem">
             <div class="cc-card">
               <div class="cc-ch" style="background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(59,130,246,.05))">
-                <div class="cc-brand" style="color:#2563eb">艾比酷 Iceco</div>
-                <div class="cc-name">JUZ-400</div>
-                <div class="cc-sub">輕量・零排水・3-4 人帳首選</div>
+                <div style="font-size:.8rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#2563eb;margin-bottom:.2rem">艾比酷 Iceco</div>
+                <div style="font-size:1.3rem;font-weight:800;color:#1f2937">JUZ-400</div>
+                <div style="font-size:.9rem;color:#6b7280;margin-top:.2rem">輕量・零排水・3-4 人帳首選</div>
               </div>
               <div class="cc-cb">
                 <div class="cc-row"><span class="cc-lbl">冷房能力</span><span class="cc-val">5100 BTU</span></div>
@@ -393,9 +395,9 @@ body{padding-bottom:76px!important}
             </div>
             <div class="cc-card">
               <div class="cc-ch" style="background:linear-gradient(135deg,rgba(5,150,105,.1),rgba(6,182,212,.05))">
-                <div class="cc-brand" style="color:#059669">山水</div>
-                <div class="cc-name">SAC688</div>
-                <div class="cc-sub">強效製冷・5-6 人大帳首選</div>
+                <div style="font-size:.8rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#059669;margin-bottom:.2rem">山水</div>
+                <div style="font-size:1.3rem;font-weight:800;color:#1f2937">SAC688</div>
+                <div style="font-size:.9rem;color:#6b7280;margin-top:.2rem">強效製冷・5-6 人大帳首選</div>
               </div>
               <div class="cc-cb">
                 <div class="cc-row"><span class="cc-lbl">冷房能力</span><span class="cc-val">6000 BTU</span></div>
