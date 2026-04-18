@@ -287,138 +287,119 @@ body.cc-custom-page #root { display: none !important; }
       </div>
     </div>
 
+    
     <script>
-    (function(){
-      /* ── 隱藏重複社交連結 ── */
-      function hideSocial(){
-        document.querySelectorAll('a[href*="lin.ee"],a[href*="instagram.com"]').forEach(function(a){
-          if(!a.closest('.floating-social-buttons')) a.style.cssText='display:none!important';
-        });
-        // 隱藏圖片版 LINE 按鈕
-        document.querySelectorAll('img').forEach(function(img){
-          if(/add.*friend|line.*btn|好友/i.test(img.alt||img.src)){
-            var p=img.closest('a');
-            if(p) p.style.display='none';
-          }
-        });
-      }
+(function(){
+  var navInjected = false;
+  var mobileInjected = false;
 
-      /* ── 頁面切換 ── */
-      function showPage(p){
-        var fp=document.getElementById('cc-fridge-page');
-        var kp=document.getElementById('cc-knowledge-page');
-        if(p==='fridge'){
-          fp.classList.add('cc-active'); kp.classList.remove('cc-active');
-          document.body.classList.add('cc-custom-page'); window.scrollTo(0,0);
-        }else if(p==='knowledge'){
-          kp.classList.add('cc-active'); fp.classList.remove('cc-active');
-          document.body.classList.add('cc-custom-page'); window.scrollTo(0,0);
-        }else{
-          fp.classList.remove('cc-active'); kp.classList.remove('cc-active');
-          document.body.classList.remove('cc-custom-page'); window.scrollTo(0,0);
+  function findBtnByText(text) {
+    var all = document.querySelectorAll('button');
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].textContent.trim() === text) return all[i];
+    }
+    return null;
+  }
+
+  function injectNav() {
+    // ── 桌面版：在「退費規則」按鈕後面加入新按鈕
+    if (!navInjected) {
+      var refundBtns = [];
+      document.querySelectorAll('button').forEach(function(b) {
+        if (b.textContent.trim() === '退費規則' && !b.hasAttribute('data-cc')) {
+          refundBtns.push(b);
         }
-      }
-      window.ccGoFridge=function(){showPage('fridge');};
-      window.ccGoKnowledge=function(){showPage('knowledge');};
-      window.ccGoHome=function(){showPage('home');};
-
-      /* ── Logo 點擊回首頁 ── */
-      function patchLogo(){
-        var logo=document.querySelector('header img[alt="露涼社 Logo"]');
-        if(logo && !logo._ccPatched){
-          logo._ccPatched=true;
-          // 點擊 logo 圖片或 h1 都回首頁
-          var wrap=logo.closest('.flex.items-center.space-x-4');
-          if(wrap){
-            wrap.style.cursor='pointer';
-            wrap.addEventListener('click',function(){
-              showPage('home');
-              // 同時觸發 React 的 home 導覽
-              var homeBtn=document.querySelector('nav button[class*="px-4 py-2 rounded-lg"]');
-              if(homeBtn) homeBtn.click();
-            });
-          }
-        }
-      }
-
-      /* ── 注入導覽列按鈕（精準選擇器）── */
-      var navInjected=false;
-      function injectNav(){
-        if(navInjected) return;
-        // 桌面版：找 hidden md:flex 的 nav
-        var desktopNav=document.querySelector('nav.hidden.md\\:flex');
-        if(!desktopNav) desktopNav=document.querySelector('[class*="hidden md:flex"]');
-        if(desktopNav && desktopNav.querySelectorAll('button').length>=4){
-          if(!desktopNav.querySelector('[data-cc]')){
-            var btnClass='px-4 py-2 rounded-lg transition-colors text-gray-600 hover:text-emerald-700';
-            var fb=document.createElement('button');
-            fb.className=btnClass; fb.setAttribute('data-cc','fridge');
-            fb.textContent='🧊 冰箱租借'; fb.onclick=function(){ccGoFridge();};
-            var kb=document.createElement('button');
-            kb.className=btnClass; kb.setAttribute('data-cc','knowledge');
-            kb.textContent='📚 知識專區'; kb.onclick=function(){ccGoKnowledge();};
-            desktopNav.appendChild(fb); desktopNav.appendChild(kb);
-            navInjected=true;
-          }
-        }
-        // 手機版：找 flex flex-col space-y-2 的容器
-        var mobileMenu=document.querySelector('[class*="md:hidden"] [class*="flex-col space-y-2"]');
-        if(!mobileMenu) mobileMenu=document.querySelector('.flex.flex-col.space-y-2');
-        if(mobileMenu && !mobileMenu.querySelector('[data-cc-m]')){
-          var mbtnClass='block px-4 py-2 rounded-lg text-left transition-colors text-gray-600 hover:bg-emerald-50 hover:text-emerald-700';
-          var mfb=document.createElement('button');
-          mfb.className=mbtnClass; mfb.setAttribute('data-cc-m','fridge');
-          mfb.textContent='🧊 冰箱租借'; mfb.onclick=function(){ccGoFridge();};
-          var mkb=document.createElement('button');
-          mkb.className=mbtnClass; mkb.setAttribute('data-cc-m','knowledge');
-          mkb.textContent='📚 知識專區'; mkb.onclick=function(){ccGoKnowledge();};
-          mobileMenu.appendChild(mfb); mobileMenu.appendChild(mkb);
-        }
-        patchLogo();
-      }
-
-      /* ── 價格卡片視覺優化 ── */
-      function patchPriceCards(){
-        // 找到所有價格卡片（text-4xl font-bold text-emerald-600 內含 $）
-        document.querySelectorAll('.text-4xl.font-bold.text-emerald-600').forEach(function(el){
-          if(!el._ccPricePatched){
-            el._ccPricePatched=true;
-            el.style.cssText='font-size:3rem;line-height:1;margin-bottom:.5rem';
-            // 找到對應的 CardTitle (方案名稱)
-            var card=el.closest('[class*="text-center bg-white"]');
-            if(card){
-              var title=card.querySelector('[class*="CardTitle"],[data-slot="card-title"]');
-              if(!title){
-                // fallback: find h3 or the title div
-                title=card.querySelector('div > div:first-child');
-              }
-              if(title){ title.style.cssText='font-size:1.6rem;font-weight:800;'; }
-              // 縮減卡片內距
-              var header=card.querySelector('[class*="CardHeader"]');
-              var content=card.querySelector('[class*="CardContent"]');
-              if(header) header.style.padding='.9rem .9rem .4rem';
-              if(content) content.style.padding='.4rem .9rem 1rem';
-            }
-          }
-        });
-      }
-
-      /* ── MutationObserver 監聽 React 渲染 ── */
-      var mo=new MutationObserver(function(){
-        hideSocial();
-        injectNav();
-        patchPriceCards();
-        patchLogo();
       });
-      mo.observe(document.body,{childList:true,subtree:true});
 
-      document.addEventListener('DOMContentLoaded',function(){
-        hideSocial();
-        setTimeout(function(){ injectNav(); patchPriceCards(); patchLogo(); },500);
-        setTimeout(function(){ injectNav(); patchPriceCards(); },1200);
-        setTimeout(function(){ injectNav(); patchPriceCards(); },2500);
+      refundBtns.forEach(function(refundBtn) {
+        var parent = refundBtn.parentElement;
+        if (!parent) return;
+        // 確認是哪種選單（桌面 vs 手機）
+        var isDesktop = !parent.className.includes('flex-col');
+        var isMobile  = parent.className.includes('flex-col') || parent.className.includes('space-y-2');
+
+        // 已注入就跳過
+        if (parent.querySelector('[data-cc]')) return;
+
+        var fbtn = document.createElement('button');
+        var kbtn = document.createElement('button');
+
+        fbtn.setAttribute('data-cc', 'fridge');
+        kbtn.setAttribute('data-cc', 'knowledge');
+        fbtn.textContent = '🧊 冰箱租借';
+        kbtn.textContent = '📚 知識專區';
+
+        // 複製 refundBtn 的 class，但移除 active 狀態的樣式
+        var baseClass = refundBtn.className
+          .replace(/bg-emerald-100\s*/g, '')
+          .replace(/text-emerald-800\s*/g, '');
+        fbtn.className = baseClass;
+        kbtn.className = baseClass;
+
+        fbtn.onclick = function() { window.ccGoFridge(); };
+        kbtn.onclick = function() { window.ccGoKnowledge(); };
+
+        parent.appendChild(fbtn);
+        parent.appendChild(kbtn);
+
+        if (isDesktop && !navInjected) navInjected = true;
+        if (isMobile && !mobileInjected) mobileInjected = true;
       });
-    })();
+    }
+
+    // ── Logo 點擊回首頁
+    patchLogo();
+  }
+
+  function patchLogo() {
+    var logo = document.querySelector('header img[alt="露涼社 Logo"]');
+    if (logo && !logo._ccPatched) {
+      logo._ccPatched = true;
+      var wrap = logo.parentElement;
+      // 往上找到包含 logo+文字 的容器
+      while (wrap && !wrap.querySelector('h1')) {
+        wrap = wrap.parentElement;
+      }
+      if (wrap) {
+        wrap.style.cursor = 'pointer';
+        wrap.addEventListener('click', function() {
+          window.ccGoHome();
+          var homeBtn = findBtnByText('首頁');
+          if (homeBtn) homeBtn.click();
+        });
+      }
+    }
+  }
+
+  function patchPriceCards() {
+    document.querySelectorAll('.text-4xl.font-bold.text-emerald-600').forEach(function(el) {
+      if (el._ccDone) return;
+      el._ccDone = true;
+      el.style.cssText = 'font-size:3rem;line-height:1;margin-bottom:.5rem';
+      var card = el.closest('[class*="text-center"]');
+      if (!card) return;
+      // 找 CardTitle — 通常是 data-slot="card-title" 或第一個 div > div
+      var title = card.querySelector('[data-slot="card-title"]') || card.querySelector('div.text-xl');
+      if (title) title.style.cssText = 'font-size:1.55rem;font-weight:800;color:#1f2937';
+      var header = card.querySelector('[data-slot="card-header"]');
+      var content = card.querySelector('[data-slot="card-content"]');
+      if (header) header.style.padding = '.9rem .9rem .4rem';
+      if (content) content.style.padding = '.4rem .9rem 1rem';
+    });
+  }
+
+  var mo = new MutationObserver(function() {
+    injectNav();
+    patchPriceCards();
+  });
+  mo.observe(document.body, {childList: true, subtree: true});
+
+  // 多次重試確保 React 渲染完成
+  [300, 800, 1500, 3000, 5000].forEach(function(ms) {
+    setTimeout(function() { injectNav(); patchPriceCards(); }, ms);
+  });
+})();
+
     </script>
   </body>
 </html>
