@@ -54,28 +54,26 @@ a[href*="instagram.com"]:not(.cc-float a){display:none!important}
 .cc-blbl{font-size:.62rem;line-height:1;white-space:nowrap}
 body{padding-bottom:62px!important}
 
-/* ── 全螢幕自訂頁面（蓋住全部，含 header 以下） ──
-   用 z-index:9997 蓋住 React 所有內容，
-   但讓 header (z-50 ≈ 9996以下) 繼續可見
-   實際上：讓 #cc-page 從 top:0 開始，
-   用 padding-top 避開 header，這樣最乾淨 ── */
+/* ── 自訂頁面：精確填充 header 與底部 bar 之間 ── */
 #cc-page{
   display:none;
   position:fixed;
-  inset:0;
-  z-index:9996;
+  top:73px; /* 動態由 JS 設定，此為 fallback */
+  left:0;right:0;
+  bottom:62px; /* 底部 bar 高度 */
+  z-index:10;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
-  padding-bottom:62px;
   background:linear-gradient(160deg,#ecfdf5 0%,#eff6ff 55%,#ecfeff 100%);
 }
 #cc-page.on{display:block}
 
+
 /* ── 頂部 tab bar（含 header 同高的空白區，視覺對齊） ── */
 .cc-topbar{
   position:sticky;top:0;z-index:10;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   border-bottom:1px solid #d1fae5;
   display:flex;align-items:center;gap:8px;
   padding:10px 14px;
@@ -379,6 +377,19 @@ body{padding-bottom:62px!important}
       setTimeout(function() { hideSocial(); patchLogo(); patchNavSync(); syncBar(); }, ms);
     });
     setOn('home');
+
+    // 動態偵測並設置 cc-page 的 top 值（對齊 header 底部）
+    function adjustPageTop() {
+      var hdr = document.querySelector('header');
+      if (hdr) {
+        var h = hdr.getBoundingClientRect().height;
+        document.getElementById('cc-page').style.top = h + 'px';
+      }
+    }
+    adjustPageTop();
+    window.addEventListener('resize', adjustPageTop);
+    setTimeout(adjustPageTop, 300);
+    setTimeout(adjustPageTop, 800);
     </script>
   </body>
 </html>
