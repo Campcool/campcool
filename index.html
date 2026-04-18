@@ -17,9 +17,12 @@
 .cc-ig-fb{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
 @media(max-width:480px){.cc-fb{width:50px;height:50px}.cc-float{right:10px}}
 
-/* ── 隱藏原本社交連結 ── */
+/* ── 隱藏原本社交連結 + 漢堡選單（用底部 bar 統一導覽） ── */
 a[href*="lin.ee"]:not(.cc-float a),
 a[href*="instagram.com"]:not(.cc-float a){display:none!important}
+/* 隱藏漢堡按鈕（所有頁面切換統一走底部 bar） */
+div.md\:hidden > button[class*="focus:outline-none"],
+.md\:hidden > button[class*="hover:text-emerald"] {display:none!important}
 
 /* ── 底部導覽 bar ── */
 #cc-bar{
@@ -216,13 +219,7 @@ body{padding-bottom:62px!important}
 
     <!-- 自訂頁面（全螢幕，z-index 高於 React 所有內容） -->
     <div id="cc-page">
-      <!-- 只有 tab 切換，不要返回列 -->
-      <div class="cc-topbar">
-        <div class="cc-tbtabs">
-          <button class="cc-tbtab" id="tab-f" onclick="ccOpen('fridge')">🧊 冰箱租借</button>
-          <button class="cc-tbtab" id="tab-k" onclick="ccOpen('knowledge')">📚 知識專區</button>
-        </div>
-      </div>
+
 
       <!-- 冰箱租借 -->
       <div id="cc-fridge">
@@ -283,17 +280,15 @@ body{padding-bottom:62px!important}
       var pg = document.getElementById('cc-page');
       var fc = document.getElementById('cc-fridge');
       var kc = document.getElementById('cc-knowledge');
-      var tf = document.getElementById('tab-f');
-      var tk = document.getElementById('tab-k');
+      var tf = null; // tab switcher removed
+      var tk = null;
       // 顯示自訂頁面（全螢幕蓋住 React，含漢堡選單）
       pg.className = 'on ' + tab;
       pg.scrollTop = 0;
       if (tab === 'fridge') {
         fc.style.display = ''; kc.style.display = 'none';
-        tf.classList.add('on'); tk.classList.remove('on');
       } else {
         kc.style.display = ''; fc.style.display = 'none';
-        tk.classList.add('on'); tf.classList.remove('on');
       }
       setOn(tab);
     }
