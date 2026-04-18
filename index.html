@@ -576,6 +576,82 @@ body{padding-bottom:76px!important}
     setOn('rental');
     adjustPageTop();
     window.addEventListener('resize', adjustPageTop);
+
+    // ── 覆蓋 React 價格卡片 → 統一價目表 ──
+    function patchPricing() {
+      // 找到 "透明租金方案" h3
+      var h = Array.from(document.querySelectorAll('h3')).find(function(el){
+        return el.textContent.trim() === '透明租金方案';
+      });
+      if (!h || h._ccDone) return;
+      h._ccDone = true;
+
+      // 找到後面的 grid（三個卡片容器）
+      var grid = h.nextElementSibling;
+      if (!grid) return;
+
+      // 替換成價目表
+      grid.innerHTML = '';
+      grid.style.cssText = 'max-width:480px;margin:0 auto 2rem;';
+      grid.innerHTML = '<div style="background:rgba(255,255,255,.95);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.15)">' +
+        '<div style="background:#059669;color:white;text-align:center;padding:14px 16px;font-weight:700;font-size:1.1rem">🏕️ 冷氣租借價目表</div>' +
+        '<table style="width:100%;border-collapse:collapse">' +
+          '<tr style="background:#ecfdf5">' +
+            '<th style="padding:10px 14px;text-align:left;color:#065f46;border-bottom:1px solid #d1fae5;font-size:.88rem">租借天數</th>' +
+            '<th style="padding:10px 14px;text-align:center;color:#065f46;border-bottom:1px solid #d1fae5;font-size:.88rem">費用</th>' +
+            '<th style="padding:10px 14px;text-align:left;color:#065f46;border-bottom:1px solid #d1fae5;font-size:.88rem">說明</th>' +
+          '</tr>' +
+          '<tr>' +
+            '<td style="padding:12px 14px;border-bottom:1px solid #f0fdf4;color:#1f2937;font-weight:600">兩天一夜</td>' +
+            '<td style="padding:12px 14px;text-align:center;font-weight:800;color:#059669;font-size:1.15rem;border-bottom:1px solid #f0fdf4">$1,000</td>' +
+            '<td style="padding:12px 14px;color:#4b5563;font-size:.85rem;border-bottom:1px solid #f0fdf4">週末露營首選</td>' +
+          '</tr>' +
+          '<tr style="background:#dcfce7">' +
+            '<td style="padding:12px 14px;border-bottom:1px solid #bbf7d0;color:#1f2937;font-weight:600">三天兩夜</td>' +
+            '<td style="padding:12px 14px;text-align:center;font-weight:800;color:#059669;font-size:1.15rem;border-bottom:1px solid #bbf7d0">$1,300</td>' +
+            '<td style="padding:12px 14px;color:#4b5563;font-size:.85rem;border-bottom:1px solid #bbf7d0">連假露營優惠 🔥</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td style="padding:12px 14px;color:#1f2937;font-weight:600">延長加日</td>' +
+            '<td style="padding:12px 14px;text-align:center;font-weight:800;color:#059669;font-size:1.15rem">+$300 / 天</td>' +
+            '<td style="padding:12px 14px;color:#4b5563;font-size:.85rem">每多一天加收</td>' +
+          '</tr>' +
+        '</table>' +
+        '<div style="padding:14px">' +
+          '<button id="cc-price-line-btn" ' +
+          'style="width:100%;background:linear-gradient(135deg,#059669,#047857);color:white;border:none;border-radius:12px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer">' +
+          '💬 立即預約 → 加 LINE 客服</button>' +
+        '</div>' +
+      '</div>';
+
+      // 綁定 LINE 按鈕點擊
+      var lineBtn = document.getElementById('cc-price-line-btn');
+      if (lineBtn) lineBtn.onclick = function(){ window.open('https://lin.ee/8maotVi','_blank'); };
+    }
+
+    // ── 覆蓋首頁 Hero 背景（加漸層 fallback）──
+    function patchHeroBg() {
+      var hero = document.querySelector('section[style*="backgroundImage"]');
+      if (!hero || hero._ccBg) return;
+      hero._ccBg = true;
+      var current = hero.style.backgroundImage;
+      if (current && !current.includes('linear-gradient')) {
+        hero.style.backgroundImage = current + ', linear-gradient(135deg,#064e3b 0%,#065f46 50%,#047857 100%)';
+        hero.style.backgroundSize = 'cover, cover';
+      }
+      // 加深 overlay
+      var overlay = hero.querySelector('.absolute');
+      if (overlay) overlay.style.opacity = '0.5';
+    }
+
+    new MutationObserver(function() {
+      hideSocial(); patchLogo(); patchNavSync();
+      patchPricing(); patchHeroBg();
+    }).observe(document.body, {childList:true, subtree:true});
+
+    [300, 800, 1500].forEach(function(ms){
+      setTimeout(function(){ patchPricing(); patchHeroBg(); }, ms);
+    });
     </script>
   </body>
 </html>
