@@ -3,187 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>露涼社 CampCool｜露營冷氣・冰箱出租專家</title>
     <meta name="description" content="提供艾比酷JUZ-400與山水SAC688專業露營冷氣，及冰虎・艾比酷各款移動冰箱出租。新竹、竹北、台北、台中多據點，24H便利取還。">
     <script type="module" crossorigin src="assets/index-BIiKt1Ot.js"></script>
     <link rel="stylesheet" crossorigin href="assets/index-CEwUhtAt.css">
     <style>
-/* ========== 全域優化 ========== */
+/* ── 全域字型優化 ── */
 *{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;
-  -webkit-font-smoothing:antialiased;
-  background:#f5faf7;
-}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased}
 
-/* ========== 頂部固定 LINE 引流條（手機醒目） ========== */
-#cc-topline-bar{
-  position:fixed;
-  top:0; left:0; right:0;
-  z-index:10000;
-  background:linear-gradient(135deg,#06C755 0%,#00B84C 100%);
-  color:white;
-  padding:10px 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  box-shadow:0 2px 12px rgba(0,0,0,0.15);
-  font-weight:600;
-  font-size:1rem;
-  backdrop-filter:blur(8px);
-  transform:translateY(-100%);
-  transition:transform 0.25s ease;
-}
-#cc-topline-bar.show{
-  transform:translateY(0);
-}
-#cc-topline-bar a{
-  background:white;
-  color:#06C755;
-  padding:8px 18px;
-  border-radius:40px;
-  text-decoration:none;
-  font-size:0.95rem;
-  font-weight:700;
-  box-shadow:0 2px 8px rgba(0,0,0,0.2);
-  transition:transform 0.1s;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-}
-#cc-topline-bar a:active{
-  transform:scale(0.96);
-}
-body.has-topbar{
-  padding-top:56px !important;
-}
-@media(min-width:768px){
-  #cc-topline-bar{
-    display:none; /* 桌機版用其他方式呈現，避免重複 */
-  }
-  body.has-topbar{
-    padding-top:0 !important;
-  }
-}
+/* ── 浮動社交按鈕 ── */
+.cc-float{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:9998}
+.cc-fb{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.28);border:none;cursor:pointer;transition:transform .2s;overflow:hidden;padding:0}
+.cc-fb:hover{transform:scale(1.1)}
+.cc-line-fb{background:#06C755}
+.cc-ig-fb{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
+@media(max-width:480px){.cc-fb{width:50px;height:50px}.cc-float{right:10px;gap:10px}}
 
-/* ========== 浮動 LINE 客服按鈕（強化版） ========== */
-.cc-float{
-  position:fixed;
-  right:16px;
-  bottom:100px;  /* 避開底部導覽列 */
-  z-index:9999;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.cc-fb{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-  box-shadow:0 8px 20px rgba(0,0,0,0.25);
-  border:none;
-  cursor:pointer;
-  transition:transform 0.2s, box-shadow 0.2s;
-  overflow:hidden;
-  padding:0;
-}
-.cc-fb:hover{
-  transform:scale(1.08);
-  box-shadow:0 12px 24px rgba(0,0,0,0.3);
-}
-.cc-line-fb{
-  background:#06C755;
-  animation:pulseLine 2s infinite;
-}
-@keyframes pulseLine{
-  0%{box-shadow:0 0 0 0 rgba(6,199,85,0.5);}
-  70%{box-shadow:0 0 0 12px rgba(6,199,85,0);}
-  100%{box-shadow:0 0 0 0 rgba(6,199,85,0);}
-}
-.cc-ig-fb{
-  background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-}
-@media(max-width:480px){
-  .cc-fb{width:52px;height:52px}
-  .cc-float{right:12px;bottom:90px;gap:10px}
-}
-
-/* 隱藏原本 React 社交連結（避免重複） */
+/* ── 隱藏原本社交連結 + 漢堡選單 ── */
 a[href*="lin.ee"]:not(.cc-float a),
 a[href*="instagram.com"]:not(.cc-float a){display:none!important}
+div.md\:hidden > button[class*="focus:outline-none"],
+.md\:hidden > button[class*="hover:text-emerald"]{display:none!important}
 
-/* ========== 底部導覽 bar（優化視覺） ========== */
+/* ── 底部導覽 bar（4 頁籤，大按鈕）── */
 #cc-bar{
-  position:fixed;
-  bottom:0;left:0;right:0;
-  z-index:9995;
-  background:#0f1f14;
-  border-top:1px solid rgba(255,255,255,0.08);
-  box-shadow:0 -6px 20px rgba(0,0,0,0.4);
+  position:fixed;bottom:0;left:0;right:0;z-index:9995;
+  background:#162616;
+  border-top:1px solid rgba(255,255,255,.1);
+  box-shadow:0 -4px 20px rgba(0,0,0,.3);
   display:flex;
-  padding:4px 0 8px;
 }
 #cc-bar button{
   flex:1;
-  padding:8px 4px 12px;
-  border:none;
-  background:none;
-  color:rgba(255,255,255,0.5);
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
-  transition:color 0.2s, transform 0.1s;
-  font-family:inherit;
+  padding:9px 4px 11px;border:none;background:none;
+  color:rgba(255,255,255,.4);
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
+  transition:color .15s;font-family:inherit;
   border-top:3px solid transparent;
-  font-weight:600;
 }
-#cc-bar button.on{
-  color:white;
-}
-[data-tab="rental"].on{color:#6ee7b7;border-top-color:#6ee7b7}
-[data-tab="wiki"].on{color:#c4b5fd;border-top-color:#c4b5fd}
-[data-tab="booking"].on{color:#fca5a5;border-top-color:#fca5a5}
-[data-tab="fridge"].on{color:#67e8f9;border-top-color:#67e8f9}
+[data-tab="rental"].on{color:#34d399;border-top-color:#34d399}
+[data-tab="wiki"].on{color:#a78bfa;border-top-color:#a78bfa}
+[data-tab="booking"].on{color:#f87171;border-top-color:#f87171}
+[data-tab="fridge"].on{color:#22d3ee;border-top-color:#22d3ee}
 .cc-bico{
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.5rem;
-  background:rgba(255,255,255,0.06);
-  transition:background 0.2s, transform 0.2s;
+  width:38px;height:38px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;
+  background:rgba(255,255,255,.07);
+  transition:background .15s,transform .15s;
 }
-#cc-bar button.on .cc-bico{
-  transform:translateY(-3px);
-}
-[data-tab="rental"].on .cc-bico{background:rgba(110,231,183,0.15)}
-[data-tab="wiki"].on .cc-bico{background:rgba(196,181,253,0.15)}
-[data-tab="booking"].on .cc-bico{background:rgba(252,165,165,0.15)}
-[data-tab="fridge"].on .cc-bico{background:rgba(103,232,249,0.15)}
-.cc-blbl{
-  font-size:0.7rem;
-  line-height:1;
-  white-space:nowrap;
-  letter-spacing:0.3px;
-}
-body{padding-bottom:78px!important}
+#cc-bar button.on .cc-bico{transform:translateY(-2px)}
+[data-tab="rental"].on .cc-bico{background:rgba(52,211,153,.18)}
+[data-tab="wiki"].on .cc-bico{background:rgba(167,139,250,.18)}
+[data-tab="booking"].on .cc-bico{background:rgba(248,113,113,.18)}
+[data-tab="fridge"].on .cc-bico{background:rgba(34,211,238,.18)}
+.cc-blbl{font-size:.68rem;line-height:1;white-space:nowrap;font-weight:600}
+body{padding-bottom:68px!important}
 
-/* ========== 自訂頁面容器 ========== */
+/* ── 自訂頁面 ── */
 #cc-page{
   display:none;
   position:fixed;
   top:73px;
   left:0;right:0;
-  bottom:78px;
+  bottom:68px;
   z-index:10;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
@@ -191,398 +76,133 @@ body{padding-bottom:78px!important}
 }
 #cc-page.on{display:block}
 
-/* 頁首區塊 (帶露營氛圍) */
-.cc-ph{
-  color:white;
-  padding:2rem 1.25rem 1.8rem;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.cc-ph::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:rgba(0,20,10,0.2);
-  z-index:0;
-}
-#cc-page.fridge .cc-ph{
-  background:linear-gradient(135deg,#0c4a6e,#0891b2),url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M30 5 L55 20 L55 40 L30 55 L5 40 L5 20 Z" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/%3E%3C/svg%3E');
-  background-blend-mode:overlay;
-}
-#cc-page.wiki .cc-ph, #cc-page.knowledge .cc-ph{
-  background:linear-gradient(135deg,#2e1065,#7c3aed),url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="20" cy="20" r="18" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/%3E%3C/svg%3E');
-  background-blend-mode:overlay;
-}
-.cc-ph h1{
-  font-size:1.9rem;
-  font-weight:800;
-  margin-bottom:0.3rem;
-  line-height:1.2;
-  position:relative;
-  z-index:1;
-  text-shadow:0 2px 8px rgba(0,0,0,0.2);
-}
-.cc-ph p{
-  font-size:1rem;
-  opacity:0.95;
-  max-width:460px;
-  margin:0 auto;
-  line-height:1.5;
-  position:relative;
-  z-index:1;
-  font-weight:500;
-}
+/* hero */
+.cc-ph{color:white;padding:1.8rem 1.25rem 1.5rem;text-align:center}
+#cc-page.fridge .cc-ph{background:linear-gradient(135deg,#155e75,#0891b2)}
+#cc-page.wiki .cc-ph{background:linear-gradient(135deg,#3b0764,#7c3aed)}
+#cc-page.knowledge .cc-ph{background:linear-gradient(135deg,#3b0764,#7c3aed)}
+.cc-ph h1{font-size:1.6rem;font-weight:700;margin-bottom:.3rem;line-height:1.25}
+.cc-ph p{font-size:.9rem;opacity:.9;max-width:440px;margin:0 auto;line-height:1.5}
 
-/* 內容卡片樣式 */
-.cc-body{
-  max-width:900px;
-  margin:0 auto;
-  padding:1.2rem 1rem 2rem;
-}
-.cc-sh{
-  font-size:1.25rem;
-  font-weight:800;
-  color:#1e293b;
-  margin:1.8rem 0 0.3rem;
-  display:flex;
-  align-items:center;
-  gap:0.5rem;
-}
-.cc-shdiv{
-  border:none;
-  border-top:2px solid #bbf7d0;
-  margin:0 0 1.2rem;
-}
-#cc-page.wiki .cc-shdiv, #cc-page.knowledge .cc-shdiv{
-  border-top-color:#ddd6fe;
-}
+/* 內容區 */
+.cc-body{max-width:860px;margin:0 auto;padding:1.1rem .9rem 1.5rem}
 
+/* Section heading */
+.cc-sh{font-size:1.1rem;font-weight:700;color:#1f2937;margin:1.4rem 0 .3rem;display:flex;align-items:center;gap:.4rem}
+.cc-shdiv{border:none;border-top:1px solid #d1fae5;margin:0 0 .9rem}
+#cc-page.wiki .cc-shdiv{border-top-color:#ddd6fe}
+#cc-page.knowledge .cc-shdiv{border-top-color:#ddd6fe}
+
+/* Cards grid — 手機單欄，平板雙欄 */
 .cc-grid{
   display:grid;
   grid-template-columns:1fr;
-  gap:1rem;
-  margin-bottom:1.5rem;
+  gap:.85rem;
+  margin-bottom:1.1rem;
 }
-@media(min-width:520px){
-  .cc-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
-}
-.cc-card{
-  background:white;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 6px 18px rgba(0,0,0,0.06);
-  border:1px solid #d1fae5;
-  transition:transform 0.15s;
-}
-.cc-card:active{transform:scale(0.99)}
-.cc-ch{
-  padding:1rem 1.2rem 0.8rem;
-  background:linear-gradient(135deg,rgba(6,182,212,0.06),rgba(59,130,246,0.02));
-  border-bottom:1px solid #e2f3e9;
-}
-.cc-brand{
-  font-size:0.75rem;
-  font-weight:700;
-  letter-spacing:0.08em;
-  text-transform:uppercase;
-  color:#0d9488;
-  margin-bottom:0.2rem;
-}
-.cc-name{
-  font-size:1.2rem;
-  font-weight:800;
-  color:#0f172a;
-}
-.cc-sub{
-  font-size:0.8rem;
-  color:#64748b;
-  margin-top:0.15rem;
-}
-.cc-cb{padding:1rem 1.2rem}
-.cc-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0.35rem 0;
-  border-bottom:1px solid #f1f5f9;
-  font-size:0.95rem;
-}
+@media(min-width:500px){.cc-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}}
+.cc-card{background:white;border:1px solid #d1fae5;border-radius:.875rem;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.cc-ch{padding:.8rem 1rem .68rem;background:linear-gradient(135deg,rgba(6,182,212,.08),rgba(59,130,246,.04));border-bottom:1px solid #d1fae5}
+.cc-brand{font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#0891b2;margin-bottom:.1rem}
+.cc-name{font-size:1rem;font-weight:700;color:#1f2937}
+.cc-sub{font-size:.78rem;color:#6b7280;margin-top:.1rem}
+.cc-cb{padding:.78rem 1rem}
+.cc-row{display:flex;justify-content:space-between;align-items:center;padding:.28rem 0;border-bottom:1px solid #f3f4f6;font-size:.88rem}
 .cc-row:last-child{border:none}
-.cc-lbl{color:#64748b;flex-shrink:0}
-.cc-val{color:#0f172a;font-weight:700;text-align:right}
-.cc-pr{
-  display:inline-flex;
-  align-items:center;
-  gap:0.3rem;
-  background:#0d9488;
-  color:white;
-  padding:0.5rem 1.2rem;
-  border-radius:30px;
-  font-size:0.95rem;
-  font-weight:700;
-  margin-top:0.8rem;
-  box-shadow:0 4px 8px rgba(13,148,136,0.2);
-}
+.cc-lbl{color:#6b7280;flex-shrink:0;margin-right:.5rem}
+.cc-val{color:#1f2937;font-weight:600;text-align:right}
+.cc-pr{display:inline-flex;align-items:center;gap:.25rem;background:#0891b2;color:white;padding:.36rem .9rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-top:.62rem}
 
-/* 提示框 */
-.cc-al{
-  border-radius:16px;
-  padding:1rem 1.2rem;
-  margin:1rem 0;
-  display:flex;
-  gap:0.8rem;
-  font-size:0.95rem;
-  line-height:1.6;
-  border:1px solid;
-  background:white;
-}
+/* Alerts */
+.cc-al{border-radius:.875rem;padding:.88rem 1rem;margin:.75rem 0;display:flex;gap:.62rem;font-size:.88rem;line-height:1.6;border:1px solid}
 .cc-al.g{background:#ecfdf5;border-color:#6ee7b7;color:#065f46}
 .cc-al.y{background:#fffbeb;border-color:#fcd34d;color:#92400e}
 .cc-al.r{background:#fef2f2;border-color:#fca5a5;color:#991b1b}
-.cc-ai{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+.cc-ai{font-size:1.1rem;flex-shrink:0;margin-top:2px}
 
-.cc-g2{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:0.9rem;
-  margin-bottom:1.2rem;
-}
+/* Notice grid — 手機單欄 */
+.cc-g2{display:grid;grid-template-columns:1fr;gap:.75rem;margin-bottom:1.1rem}
 @media(min-width:480px){.cc-g2{grid-template-columns:1fr 1fr}}
-.cc-nc{
-  background:white;
-  border-radius:16px;
-  padding:1rem 1.2rem;
-  border:1px solid #e2e8f0;
-  box-shadow:0 2px 6px rgba(0,0,0,0.03);
-}
-.cc-nc.c{border-left:4px solid #0d9488}
-.cc-nc.w{border-left:4px solid #d97706}
-.cc-nc.r{border-left:4px solid #dc2626}
-.cc-nc.g{border-left:4px solid #059669}
-.cc-nc h4{
-  font-size:0.95rem;
-  font-weight:800;
-  margin-bottom:0.5rem;
-  color:#1e293b;
-  display:flex;
-  align-items:center;
-  gap:0.3rem;
-}
-.cc-nc ul{padding-left:1.2rem;margin:0}
-.cc-nc li{
-  font-size:0.9rem;
-  color:#475569;
-  line-height:1.65;
-  margin-bottom:0.2rem;
-}
+.cc-nc{background:white;border-radius:.875rem;padding:.88rem 1rem;border:1px solid #e5e7eb;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.cc-nc.c{border-left:3px solid #0891b2}.cc-nc.w{border-left:3px solid #d97706}
+.cc-nc.r{border-left:3px solid #dc2626}.cc-nc.g{border-left:3px solid #059669}
+.cc-nc h4{font-size:.86rem;font-weight:700;margin-bottom:.32rem;color:#1f2937;display:flex;align-items:center;gap:.28rem}
+.cc-nc ul{padding-left:.9rem;margin:0}
+.cc-nc li{font-size:.83rem;color:#4b5563;line-height:1.65;margin-bottom:.18rem}
 
-/* 知識區塊 */
-.cc-kb{
-  background:white;
-  border-radius:16px;
-  border:1px solid #e2e8f0;
-  padding:1.3rem 1.3rem;
-  margin-bottom:1rem;
-  box-shadow:0 2px 8px rgba(0,0,0,0.04);
-}
-.cc-kb h3{
-  font-size:1.1rem;
-  font-weight:800;
-  color:#0f172a;
-  margin-bottom:0.7rem;
-  display:flex;
-  align-items:center;
-  gap:0.4rem;
-}
-.cc-kb p{
-  font-size:0.95rem;
-  color:#334155;
-  line-height:1.7;
-  margin-bottom:0.6rem;
-}
-.cc-kb strong{color:#b45309}
+/* Knowledge blocks */
+.cc-kb{background:white;border-radius:.875rem;border:1px solid #e5e7eb;padding:1.1rem 1.1rem;margin-bottom:.85rem;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.cc-kb h3{font-size:1rem;font-weight:700;color:#1f2937;margin-bottom:.58rem;display:flex;align-items:center;gap:.38rem;flex-wrap:wrap}
+.cc-kb p{font-size:.88rem;color:#4b5563;line-height:1.75;margin-bottom:.48rem}
+.cc-kb p:last-child{margin-bottom:0}
+.cc-kb strong{color:#c2410c}
 
-.cc-tbl-wrap{
-  width:100%;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  border-radius:12px;
-  margin:0.8rem 0;
-}
-.cc-tbl{
-  width:100%;
-  border-collapse:collapse;
-  font-size:0.9rem;
-  min-width:300px;
-}
+/* 表格：手機版可橫向滑動，避免文字擠壓換行 */
+.cc-tbl-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:.5rem;margin:.62rem 0}
+.cc-tbl{width:100%;border-collapse:collapse;font-size:.85rem;min-width:280px}
 .cc-tbl th{
-  background:#b45309;
-  color:white;
-  padding:0.6rem 1rem;
-  text-align:left;
-  font-weight:700;
-  white-space:nowrap;
+  background:#c2410c;color:white;
+  padding:.52rem .88rem;text-align:left;font-weight:600;
+  white-space:nowrap; /* 表頭不換行 */
 }
 .cc-tbl td{
-  padding:0.6rem 1rem;
-  border-bottom:1px solid #e2e8f0;
-  color:#1e293b;
+  padding:.48rem .88rem;
+  border-bottom:1px solid #f3f4f6;
+  color:#4b5563;
+  vertical-align:top;
 }
-.cc-tbl tr:nth-child(even) td{background:#f8fafc}
-.cc-tbl.compact th,.cc-tbl.compact td{padding:0.5rem 0.8rem;font-size:0.85rem}
+.cc-tbl tr:nth-child(even) td{background:#f9fafb}
+.cc-tbl tr:last-child td{border:none}
 
-/* ========== Hero Banner（React頁面用） ========== */
+/* 電力表格欄位更緊湊 */
+.cc-tbl.compact th,.cc-tbl.compact td{padding:.42rem .65rem;font-size:.82rem}
+
+.cc-pills{display:flex;flex-wrap:wrap;gap:.3rem;margin:.42rem 0}
+.cc-pill{display:inline-flex;border-radius:12px;padding:.2rem .65rem;font-size:.73rem;font-weight:600;border:1px solid}
+.cc-pill.g{background:#dcfce7;color:#166534;border-color:#86efac}
+.cc-pill.a{background:#fef9c3;color:#854d0e;border-color:#fde047}
+
+/* ── 注入到 React 頁面頂部的 hero banner ── */
 #cc-hero-banner{
-  color:white;
-  text-align:center;
-  padding:2rem 1.5rem 1.8rem;
-  position:relative;
-  overflow:hidden;
-  border-radius:0 0 32px 32px;
-  margin-bottom:0.5rem;
-  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  color:white;text-align:center;
+  padding:1.75rem 1.25rem 1.5rem;
+  position:relative;overflow:hidden;
 }
 #cc-hero-banner::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:rgba(0,20,10,0.15);
-  pointer-events:none;
+  content:'';position:absolute;inset:0;
+  background:rgba(0,0,0,.08);pointer-events:none;
 }
 #cc-hero-banner h2{
-  font-size:2rem;
-  font-weight:800;
-  margin-bottom:0.4rem;
-  line-height:1.25;
-  position:relative;
-  z-index:1;
-  text-shadow:0 4px 12px rgba(0,0,0,0.2);
+  font-size:1.65rem;font-weight:700;margin-bottom:.3rem;
+  line-height:1.25;position:relative;z-index:1;
 }
 #cc-hero-banner p{
-  font-size:1rem;
-  opacity:0.95;
-  max-width:480px;
-  margin:0 auto;
-  line-height:1.5;
-  position:relative;
-  z-index:1;
+  font-size:.9rem;opacity:.9;max-width:420px;
+  margin:0 auto;line-height:1.5;position:relative;z-index:1;
 }
-#cc-hero-banner.rental{
-  background:linear-gradient(145deg,#064e3b 0%,#0d9488 100%),url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M20 30 L80 30 L90 50 L80 70 L20 70 L10 50 Z" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3"/%3E%3C/svg%3E');
-  background-blend-mode:overlay;
-}
-#cc-hero-banner.booking{
-  background:linear-gradient(145deg,#7f1d1d 0%,#dc2626 100%),url('data:image/svg+xml,%3Csvg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"%3E%3Crect x="10" y="10" width="60" height="60" rx="10" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3"/%3E%3C/svg%3E');
-  background-blend-mode:overlay;
-}
-
-/* ========== 客戶好評卡片（新增） ========== */
-.cc-testimonials{
-  margin:1.8rem 0 1rem;
-}
-.cc-testi-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:1rem;
-}
-@media(min-width:500px){.cc-testi-grid{grid-template-columns:1fr 1fr}}
-.cc-testi-card{
-  background:white;
-  border-radius:20px;
-  padding:1.2rem 1.2rem;
-  box-shadow:0 8px 18px rgba(0,0,0,0.04);
-  border:1px solid #d1fae5;
-}
-.cc-testi-text{
-  font-size:0.95rem;
-  line-height:1.7;
-  color:#1e293b;
-  margin-bottom:1rem;
-  font-style:italic;
-  quotes:"“" "”";
-}
-.cc-testi-text::before{content:"“";font-size:1.8rem;color:#0d9488;margin-right:4px;vertical-align:middle}
-.cc-testi-author{
-  display:flex;
-  align-items:center;
-  gap:0.5rem;
-  font-weight:700;
-  color:#0f172a;
-  font-size:0.9rem;
-}
-.cc-testi-author span{color:#64748b;font-weight:400;font-size:0.8rem;margin-left:auto}
-
-/* 統計數字 */
-.cc-stats{
-  display:flex;
-  justify-content:space-around;
-  background:white;
-  border-radius:60px;
-  padding:1rem 0.5rem;
-  margin:1.5rem 0;
-  border:1px solid #d1fae5;
-}
-.cc-stat-item{
-  text-align:center;
-}
-.cc-stat-num{
-  font-size:1.8rem;
-  font-weight:800;
-  color:#0d9488;
-  line-height:1.2;
-}
-.cc-stat-label{
-  font-size:0.8rem;
-  color:#64748b;
-}
-
-/* LINE CTA 內嵌橫幅 */
-.cc-line-banner{
-  background:linear-gradient(135deg,#06C755 0%,#00A84C 100%);
-  border-radius:24px;
-  padding:1.2rem 1.5rem;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:1.5rem 0;
-  box-shadow:0 8px 18px rgba(6,199,85,0.3);
-}
-.cc-line-banner a{
-  background:white;
-  color:#06C755;
-  padding:0.8rem 1.8rem;
-  border-radius:40px;
-  text-decoration:none;
-  font-weight:800;
-  font-size:1rem;
-  white-space:nowrap;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-  transition:transform 0.1s;
-}
-.cc-line-banner a:active{transform:scale(0.96)}
-    </style>
+/* 各頁色調 */
+#cc-hero-banner.rental{background:linear-gradient(135deg,#064e3b,#059669)}
+#cc-hero-banner.booking{background:linear-gradient(135deg,#7f1d1d,#dc2626)}
+</style>
   </head>
   <body>
-    <!-- 頂部滑入 LINE 條（手機專用） -->
-    <div id="cc-topline-bar">
-      <span>🏕️ 清涼露營・立即預約</span>
-      <a href="https://lin.ee/8maotVi" target="_blank">➕ 加 LINE 查檔期 →</a>
-    </div>
-
     <div id="root"></div>
+    <!-- 動態注入的 hero banner（插在 React header 下方） -->
     <div id="cc-hero-banner" style="display:none"></div>
 
-    <!-- 浮動社交按鈕（優化版） -->
+    <!-- 浮動社交按鈕（滿版 SVG，更真實） -->
     <div class="cc-float">
+      <!-- LINE 官方完整 logo -->
       <a href="https://lin.ee/8maotVi" class="cc-fb cc-line-fb" target="_blank" rel="noopener" title="LINE @Campcool">
         <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
           <rect width="56" height="56" rx="28" fill="#06C755"/>
-          <path d="M28 10.5C17.8 10.5 9.5 17.6 9.5 26.4c0 6.3 4.2 11.8 10.5 14.9-.5 1.7-1.2 5.7-1.3 6.6 0 0 4.3-.8 7.3-2.7.6.1 1.3.2 2 .3 10.2 0 18.5-7.1 18.5-15.9S38.2 10.5 28 10.5z" fill="white"/>
+          <!-- LINE 官方白色 logo -->
+          <path d="M28 10.5C17.8 10.5 9.5 17.6 9.5 26.4c0 6.3 4.2 11.8 10.5 14.9-.5 1.7-1.2 5.7-1.3 6.6 0 0 4.3-.8 7.3-2.7 .6.1 1.3.2 2 .3 10.2 0 18.5-7.1 18.5-15.9S38.2 10.5 28 10.5z" fill="white"/>
+          <!-- LINE 字母 L I N E (縮小版) -->
           <text x="28" y="31" text-anchor="middle" font-size="11" font-weight="900" fill="#06C755" font-family="Arial Black,Arial,sans-serif" letter-spacing="1">LINE</text>
         </svg>
       </a>
+      <!-- Instagram 官方漸層 logo -->
       <a href="https://www.instagram.com/campcool2025?igsh=OTQ2azZ4dGE0bjJm" class="cc-fb cc-ig-fb" target="_blank" rel="noopener" title="IG @campcool2025">
         <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -595,14 +215,17 @@ body{padding-bottom:78px!important}
             </radialGradient>
           </defs>
           <rect width="56" height="56" rx="28" fill="url(#igG)"/>
+          <!-- camera body -->
           <rect x="15" y="15" width="26" height="26" rx="7" fill="none" stroke="white" stroke-width="2.5"/>
+          <!-- lens -->
           <circle cx="28" cy="28" r="6.5" fill="none" stroke="white" stroke-width="2.5"/>
+          <!-- flash dot -->
           <circle cx="36.5" cy="19.5" r="2" fill="white"/>
         </svg>
       </a>
     </div>
 
-    <!-- 底部導覽 bar -->
+    <!-- 底部導覽 bar（4 頁籤）-->
     <div id="cc-bar">
       <button data-tab="rental" onclick="ccNav(this,'rental')" class="on">
         <div class="cc-bico">🏕️</div><span class="cc-blbl">租借資訊</span>
@@ -618,8 +241,10 @@ body{padding-bottom:78px!important}
       </button>
     </div>
 
-    <!-- 自訂頁面內容 (冰箱/知識，與原版相同但稍加美化) -->
+    <!-- 自訂頁面（全螢幕，z-index 高於 React 所有內容） -->
     <div id="cc-page">
+
+
       <!-- 冰箱租借 -->
       <div id="cc-fridge">
         <div class="cc-ph">
@@ -628,16 +253,8 @@ body{padding-bottom:78px!important}
         </div>
         <div class="cc-body">
           <div class="cc-al g"><span class="cc-ai">✅</span><div><strong>租借費用：每次 $800 元</strong>（不限天數）。型號依各地區庫存調配，請透過 LINE @Campcool 確認。</div></div>
-          
-          <!-- 新增 LINE 橫幅 -->
-          <div class="cc-line-banner">
-            <span style="font-weight:700;">📱 查詢冰箱庫存</span>
-            <a href="https://lin.ee/8maotVi">加 LINE 立即詢問 →</a>
-          </div>
-
           <div class="cc-sh">🐯 冰虎系列（Alpicool）</div><hr class="cc-shdiv">
           <div class="cc-grid">
-            <!-- (卡片內容保持原樣) -->
             <div class="cc-card"><div class="cc-ch"><div class="cc-brand">冰虎 Alpicool</div><div class="cc-name">ECX-40</div><div class="cc-sub">壓縮機・車露兩用</div></div><div class="cc-cb"><div class="cc-row"><span class="cc-lbl">容量</span><span class="cc-val">40L</span></div><div class="cc-row"><span class="cc-lbl">溫度</span><span class="cc-val">-20°C ～ 20°C</span></div><div class="cc-row"><span class="cc-lbl">耗電</span><span class="cc-val">約 40W</span></div><div class="cc-row"><span class="cc-lbl">適合</span><span class="cc-val">4-5 人家庭</span></div><span class="cc-pr">💰 $800 / 次</span></div></div>
             <div class="cc-card"><div class="cc-ch"><div class="cc-brand">冰虎 Alpicool</div><div class="cc-name">TA-35</div><div class="cc-sub">輕量便攜款</div></div><div class="cc-cb"><div class="cc-row"><span class="cc-lbl">容量</span><span class="cc-val">35L</span></div><div class="cc-row"><span class="cc-lbl">溫度</span><span class="cc-val">-15°C ～ 20°C</span></div><div class="cc-row"><span class="cc-lbl">耗電</span><span class="cc-val">約 35W</span></div><div class="cc-row"><span class="cc-lbl">適合</span><span class="cc-val">2-3 人輕量</span></div><span class="cc-pr">💰 $800 / 次</span></div></div>
             <div class="cc-card"><div class="cc-ch"><div class="cc-brand">冰虎 Alpicool</div><div class="cc-name">T50 / T60</div><div class="cc-sub">大容量家族款</div></div><div class="cc-cb"><div class="cc-row"><span class="cc-lbl">容量</span><span class="cc-val">50L / 60L</span></div><div class="cc-row"><span class="cc-lbl">溫度</span><span class="cc-val">-20°C ～ 20°C</span></div><div class="cc-row"><span class="cc-lbl">耗電</span><span class="cc-val">約 50-60W</span></div><div class="cc-row"><span class="cc-lbl">適合</span><span class="cc-val">5-8 人大家族</span></div><span class="cc-pr">💰 $800 / 次</span></div></div>
@@ -661,21 +278,17 @@ body{padding-bottom:78px!important}
         </div>
       </div>
 
-      <!-- 知識百科（內容與原版相同，僅做視覺微調） -->
+      <!-- 知識百科（設備 + 使用指南 + 知識）-->
       <div id="cc-knowledge" style="display:none">
         <div class="cc-ph">
           <h1>📚 知識百科</h1>
           <p>設備規格・使用指南・冷氣冰箱知識，全在這裡</p>
         </div>
         <div class="cc-body">
-          <div class="cc-line-banner" style="margin-top:0;">
-            <span>❓ 仍有疑問？</span>
-            <a href="https://lin.ee/8maotVi">LINE 專人解答 →</a>
-          </div>
 
           <div class="cc-sh">❄️ 冷氣設備規格</div><hr class="cc-shdiv">
           <div class="cc-al g"><span class="cc-ai">💡</span><div>我們提供兩款專業露營冷氣，適合不同帳篷大小與需求。JUZ-400 免排水，SAC688 製冷更強。</div></div>
-          <!-- 規格卡片 -->
+
           <div style="display:grid;gap:.85rem;margin-bottom:1.25rem">
             <div class="cc-card">
               <div class="cc-ch" style="background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(59,130,246,.05))">
@@ -733,226 +346,147 @@ body{padding-bottom:78px!important}
           <div class="cc-kb"><h3>🏕️ 帳篷密封技巧</h3><div class="cc-pills"><span class="cc-pill g">✅ 黑膠帳或科技棉帳</span><span class="cc-pill g">✅ 拉上所有拉鍊</span><span class="cc-pill g">✅ 布封住網格區域</span><span class="cc-pill a">⚠️ 避免純網格帳篷</span></div><p>建議<strong>提前 15-20 分鐘開機預冷</strong>，進帳後感受更明顯。帳篷越密封效果越好。</p></div>
           <div class="cc-kb"><h3>🌿 R290 環保冷媒</h3><p>我們的設備均使用 <strong>R290（丙烷）</strong>環保冷媒。ODP=0（不破壞臭氧層）、GWP=3（溫室效應極低），比舊型 R22 對環境衝擊降低 99%。</p></div>
         </div>
-      </div>
-    </div>
+      </div>    <script>
+    // ── CC_HEROES for React pages ──
+    var CC_HEROES = {
+      rental:{cls:'rental',icon:'🏕️',title:'租借資訊',sub:'冷氣方案・服務據點・透明租金，一頁搞定'},
+      booking:{cls:'booking',icon:'📋',title:'預約須知',sub:'退費規則・取消政策，安心預約無後顧之憂'}
+    };
 
-    <!-- JavaScript (優化頂部bar行為與新增好評模塊注入) -->
-    <script>
-// ── 頁面 Hero 設定 ──
-var CC_HEROES = {
-  rental:{cls:'rental',icon:'🏕️',title:'租借資訊',sub:'冷氣方案・服務據點・透明租金，一頁搞定'},
-  booking:{cls:'booking',icon:'📋',title:'預約須知',sub:'退費規則・取消政策，安心預約無後顧之憂'}
-};
-
-// ── 頂部滑入條 ──
-window.addEventListener('scroll', function() {
-  var bar = document.getElementById('cc-topline-bar');
-  if (window.scrollY > 200) {
-    bar.classList.add('show');
-    document.body.classList.add('has-topbar');
-  } else {
-    bar.classList.remove('show');
-    document.body.classList.remove('has-topbar');
-  }
-});
-
-// 回頂部
-function scrollTop() {
-  var pg = document.getElementById('cc-page');
-  if (pg && pg.classList.contains('on')) { pg.scrollTop = 0; return; }
-  window.scrollTo({top:0,behavior:'instant'});
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
-}
-
-// ── 切換至自訂頁面（冰箱/知識）──
-function ccOpen(tab) {
-  var pg = document.getElementById('cc-page');
-  var fc = document.getElementById('cc-fridge');
-  var kc = document.getElementById('cc-knowledge');
-  
-  // 隱藏 React 可能彈出的內容 (如果有)
-  pg.className = 'on ' + tab;
-  pg.scrollTop = 0;
-  
-  if (tab === 'fridge') {
-    fc.style.display = ''; 
-    kc.style.display = 'none';
-  } else {
-    kc.style.display = ''; 
-    fc.style.display = 'none';
-  }
-  
-  setOn(tab === 'fridge' ? 'fridge' : 'wiki');
-  adjustPageTop();
-  showHero(null);
-}
-
-// ── 切換 React 頁面（直接操作路由，不再模擬點擊）──
-function ccNav(btn, page) {
-  // 1. 關閉自訂頁面
-  document.getElementById('cc-page').className = '';
-  
-  // 2. 更新底部按鈕狀態
-  setOn(page);
-  
-  // 3. 顯示對應的 Hero Banner
-  showHero(page);
-  
-  // 4. 直接改變 React 路由 (根據你的 React 路由結構)
-  //    你的 React 可能使用 hash 路由或 history 路由
-  //    我們嘗試兩種方式：
-  
-  // 方式 A: 如果是 HashRouter (網址帶 #/)
-  if (page === 'rental') {
-    window.location.hash = '#/';
-  } else if (page === 'booking') {
-    window.location.hash = '#/refundPolicy';
-  }
-  
-  // 方式 B: 如果是 BrowserRouter，嘗試 pushState
-  // (如果上面的 hash 沒效，可改用這個，但通常 GitHub Pages 用 HashRouter)
-  // if (page === 'rental') {
-  //   window.history.pushState({}, '', '/');
-  // } else if (page === 'booking') {
-  //   window.history.pushState({}, '', '/refundPolicy');
-  // }
-  // window.dispatchEvent(new PopStateEvent('popstate'));
-  
-  // 5. 滾回頂部
-  setTimeout(scrollTop, 50);
-  
-  // 6. 如果頁面是 rental，嘗試注入好評區塊（延遲確保 React 渲染完成）
-  if (page === 'rental') {
-    setTimeout(injectTestimonials, 300);
-  }
-}
-
-// 設定底部按鈕啟動狀態
-function setOn(tab) {
-  document.querySelectorAll('#cc-bar button').forEach(function(b) {
-    b.classList.toggle('on', b.getAttribute('data-tab') === tab);
-  });
-}
-
-// 顯示/隱藏 Hero Banner
-function showHero(page) {
-  var banner = document.getElementById('cc-hero-banner');
-  if (!banner) return;
-  if (!page || !CC_HEROES[page]) { 
-    banner.style.display = 'none'; 
-    return; 
-  }
-  var h = CC_HEROES[page];
-  banner.className = h.cls;
-  banner.innerHTML = '<h2>'+h.icon+' '+h.title+'</h2><p>'+h.sub+'</p>';
-  banner.style.display = 'block';
-  adjustBanner();
-}
-
-function adjustBanner() {
-  var banner = document.getElementById('cc-hero-banner');
-  var hdr = document.querySelector('header');
-  if (!banner || !hdr) return;
-  if (banner.style.display !== 'none' && hdr.parentNode && !hdr.nextSibling?.id?.includes('cc-hero')) {
-    hdr.parentNode.insertBefore(banner, hdr.nextSibling);
-  }
-}
-
-function adjustPageTop() {
-  var hdr = document.querySelector('header');
-  var pg = document.getElementById('cc-page');
-  if (hdr && pg) pg.style.top = hdr.getBoundingClientRect().height + 'px';
-}
-
-// 隱藏 React 原有的社交連結
-function hideSocial() {
-  document.querySelectorAll('a[href*="lin.ee"],a[href*="instagram.com"]').forEach(function(a) {
-    if (!a.closest('.cc-float')) a.style.cssText = 'display:none!important';
-  });
-}
-
-// Logo 點擊回首頁
-function patchLogo() {
-  var logo = document.querySelector('header img[alt="露涼社 Logo"]');
-  if (!logo || logo._cc) return;
-  logo._cc = true;
-  var w = logo.parentElement;
-  while (w && !w.querySelector('h1')) w = w.parentElement;
-  if (!w) return;
-  w.style.cursor = 'pointer';
-  w.addEventListener('click', function() {
-    document.getElementById('cc-page').className = '';
-    window.location.hash = '#/';
-    setOn('rental');
-    showHero('rental');
-    setTimeout(scrollTop, 50);
-    setTimeout(injectTestimonials, 400);
-  });
-}
-
-// 注入好評區塊（僅在租借資訊頁）
-function injectTestimonials() {
-  // 確保我們在正確的頁面 (React 內容區)
-  var container = document.querySelector('#root .container, #root > div');
-  if (!container) return;
-  if (document.getElementById('cc-testi-injected')) return;
-  
-  var html = '<div id="cc-testi-injected" class="cc-testimonials">' +
-    '<div class="cc-sh">⭐ 露友真實回饋</div><hr class="cc-shdiv">' +
-    '<div class="cc-testi-grid">' +
-      '<div class="cc-testi-card"><div class="cc-testi-text">夏天露營終於可以睡好覺！冷氣超涼，營區也沒跳電。客服回覆很快，大推！</div><div class="cc-testi-author">王小花 <span>新竹露營團</span></div></div>' +
-      '<div class="cc-testi-card"><div class="cc-testi-text">第一次租露營冷氣，取件方便，機子很新。搭配冰箱食材保鮮超方便，已推薦朋友。</div><div class="cc-testi-author">陳大山 <span>台中家庭露營</span></div></div>' +
-    '</div>' +
-    '<div class="cc-stats">' +
-      '<div class="cc-stat-item"><div class="cc-stat-num">500+</div><div class="cc-stat-label">租借次數</div></div>' +
-      '<div class="cc-stat-item"><div class="cc-stat-num">4.9 ★</div><div class="cc-stat-label">露友好評</div></div>' +
-      '<div class="cc-stat-item"><div class="cc-stat-num">4 據點</div><div class="cc-stat-label">雙北/竹/中</div></div>' +
-    '</div>' +
-    '<div class="cc-line-banner">' +
-      '<span>📅 查看可預約時段</span>' +
-      '<a href="https://lin.ee/8maotVi">加 LINE 快速預約 →</a>' +
-    '</div></div>';
-  
-  var target = container.querySelector('div') || container;
-  target.insertAdjacentHTML('beforeend', html);
-}
-
-// 監聽 hash 變化，同步底部按鈕狀態 (處理使用者直接點 React 連結)
-window.addEventListener('hashchange', function() {
-  var hash = window.location.hash;
-  var page = 'rental';
-  if (hash.includes('refundPolicy')) page = 'booking';
-  else if (hash === '#/' || hash === '') page = 'rental';
-  
-  setOn(page);
-  showHero(page);
-  document.getElementById('cc-page').className = ''; // 關閉自訂頁面
-  setTimeout(scrollTop, 50);
-  if (page === 'rental') setTimeout(injectTestimonials, 300);
-});
-
-// 初始化
-new MutationObserver(function() {
-  hideSocial(); patchLogo();
-}).observe(document.body, {childList:true, subtree:true});
-
-[200,700,1600].forEach(function(ms){
-  setTimeout(function(){ 
-    hideSocial(); patchLogo(); adjustPageTop(); 
-    // 初始載入時檢查 hash 並設定正確狀態
-    var hash = window.location.hash;
-    if (hash.includes('refundPolicy')) {
-      setOn('booking');
-      showHero('booking');
-    } else {
-      setOn('rental');
-      showHero('rental');
-      setTimeout(injectTestimonials, 500);
+    // 回頂部（cc-page 和 React 頁面都適用）
+    function scrollTop() {
+      // cc-page 自己 scroll
+      var pg = document.getElementById('cc-page');
+      if (pg && pg.classList.contains('on')) { pg.scrollTop = 0; return; }
+      // React 頁面：scroll window
+      window.scrollTo({top:0,behavior:'instant'});
+      // Also try scrolling the root element
+      var root = document.getElementById('root');
+      if (root) root.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     }
-  }, ms);
-});
 
-adjustPageTop();
-window.addEventListener('resize', adjustPageTop);
-</script>
+    // 開啟自訂頁面（冰箱/知識）
+    function ccOpen(tab) {
+      var pg = document.getElementById('cc-page');
+      var fc = document.getElementById('cc-fridge');
+      var kc = document.getElementById('cc-knowledge');
+      pg.className = 'on ' + tab;
+      pg.scrollTop = 0;  // ← 回頂部
+      if (tab === 'fridge') {
+        fc.style.display = ''; kc.style.display = 'none';
+      } else {
+        kc.style.display = ''; fc.style.display = 'none';
+      }
+      // tab → 對應底部 bar
+      if (tab === 'fridge') setOn('fridge');
+      else if (tab === 'wiki') setOn('wiki');
+      adjustPageTop();
+      showHero(null); // 自訂頁不用 hero banner
+    }
+
+    // 切換到 React 頁面
+    function ccNav(btn, page) {
+      document.getElementById('cc-page').className = '';
+      // page mapping
+      var reactPage = (page === 'rental') ? 'home' : 'refundPolicy';
+      var labels = {home:'首頁', refundPolicy:'退費規則'};
+      var target = labels[reactPage];
+      Array.from(document.querySelectorAll('button')).forEach(function(b) {
+        var t = b.textContent.trim();
+        if (t === target || t.endsWith(target)) b.click();
+      });
+      setOn(page);
+      showHero(page);
+      setTimeout(scrollTop, 50);  // ← 回頂部
+    }
+
+    function setOn(tab) {
+      document.querySelectorAll('#cc-bar button').forEach(function(b) {
+        b.classList.toggle('on', b.getAttribute('data-tab') === tab);
+      });
+    }
+
+    function showHero(page) {
+      var banner = document.getElementById('cc-hero-banner');
+      if (!banner) return;
+      if (!page || !CC_HEROES[page]) { banner.style.display='none'; return; }
+      var h = CC_HEROES[page];
+      banner.className = h.cls;
+      banner.innerHTML = '<h2>'+h.icon+' '+h.title+'</h2><p>'+h.sub+'</p>';
+      banner.style.display = 'block';
+      adjustBanner();
+    }
+
+    function adjustBanner() {
+      var banner = document.getElementById('cc-hero-banner');
+      var hdr = document.querySelector('header');
+      if (!banner || !hdr) return;
+      if (banner.style.display !== 'none' && hdr.parentNode && !hdr.nextSibling?.id?.includes('cc-hero')) {
+        hdr.parentNode.insertBefore(banner, hdr.nextSibling);
+      }
+    }
+
+    function adjustPageTop() {
+      var hdr = document.querySelector('header');
+      var pg = document.getElementById('cc-page');
+      if (hdr && pg) pg.style.top = hdr.getBoundingClientRect().height + 'px';
+    }
+
+    function hideSocial() {
+      document.querySelectorAll('a[href*="lin.ee"],a[href*="instagram.com"]').forEach(function(a) {
+        if (!a.closest('.cc-float')) a.style.cssText='display:none!important';
+      });
+    }
+
+    function patchLogo() {
+      var logo = document.querySelector('header img[alt="露涼社 Logo"]');
+      if (!logo || logo._cc) return;
+      logo._cc = true;
+      var w = logo.parentElement;
+      while (w && !w.querySelector('h1')) w = w.parentElement;
+      if (!w) return;
+      w.style.cursor = 'pointer';
+      w.addEventListener('click', function() {
+        document.getElementById('cc-page').className = '';
+        Array.from(document.querySelectorAll('button')).find(function(b) {
+          return b.textContent.trim() === '首頁' || b.textContent.includes('🏕️');
+        })?.click();
+        setOn('rental');
+        showHero(null);
+        setTimeout(scrollTop, 50);
+      });
+    }
+
+    // 監聽 React nav 按鈕（Desktop nav 同步 bar active）
+    function patchNavSync() {
+      var reactMap = {'首頁':'rental','退費規則':'booking'};
+      document.querySelectorAll('nav button').forEach(function(b) {
+        if (b._ccS) return;
+        var t = b.textContent.trim().replace(/^[^\u4e00-\u9fff]+/,'').trim();
+        if (!reactMap[t]) return;
+        b._ccS = true;
+        b.addEventListener('click', function() {
+          setOn(reactMap[t]);
+          document.getElementById('cc-page').className = '';
+          showHero(reactMap[t]);
+          setTimeout(scrollTop, 50);
+        });
+      });
+    }
+
+    new MutationObserver(function() {
+      hideSocial(); patchLogo(); patchNavSync();
+    }).observe(document.body, {childList:true, subtree:true});
+
+    [200,700,1600].forEach(function(ms){
+      setTimeout(function(){ hideSocial(); patchLogo(); patchNavSync(); adjustPageTop(); }, ms);
+    });
+
+    setOn('rental');
+    adjustPageTop();
+    window.addEventListener('resize', adjustPageTop);
+    </script>
+  </body>
+</html>
