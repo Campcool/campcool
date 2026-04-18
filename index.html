@@ -306,10 +306,7 @@ body{padding-bottom:76px!important}
             連續假期不限日期，一律 $800。依詢問時檔期存量為主，請提前透過 LINE 確認。
           </div></div>
 
-          <div class="cc-line-banner">
-            <strong>📦 檔期庫存查詢</strong>
-            <a href="https://lin.ee/8maotVi" target="_blank">加 LINE 立即查詢 →</a>
-          </div>
+
 
           <!-- 尺寸說明 -->
           <div class="cc-sh">📦 可租型號一覽</div><hr class="cc-shdiv">
@@ -629,6 +626,46 @@ body{padding-bottom:76px!important}
       if (lineBtn) lineBtn.onclick = function(){ window.open('https://lin.ee/8maotVi','_blank'); };
     }
 
+    // ── 覆蓋「為什麼選擇露涼社」→ 2×2 大圖示卡片 ──
+    function patchWhyChoose() {
+      var h = Array.from(document.querySelectorAll('h3')).find(function(el){
+        return el.textContent.trim() === '為什麼選擇露涼社？';
+      });
+      if (!h || h._ccDone) return;
+      h._ccDone = true;
+
+      // 隱藏原本標題
+      h.style.display = 'none';
+
+      // 找到後面的 grid
+      var grid = h.nextElementSibling;
+      if (!grid) return;
+
+      // 替換成 2×2 簡潔卡片
+      grid.outerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:600px;margin:0 auto">' +
+        '<div style="background:white;border-radius:18px;padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.07);border:1px solid #d1fae5">' +
+          '<div style="font-size:2.8rem;margin-bottom:.6rem">❄️</div>' +
+          '<div style="font-size:1.2rem;font-weight:800;color:#059669;margin-bottom:.5rem">強效冷房</div>' +
+          '<div style="font-size:.83rem;color:#6b7280;line-height:1.5">5000～6000 BTU<br>適合 3-6 人帳篷</div>' +
+        '</div>' +
+        '<div style="background:white;border-radius:18px;padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.07);border:1px solid #d1fae5">' +
+          '<div style="font-size:2.8rem;margin-bottom:.6rem">📍</div>' +
+          '<div style="font-size:1.2rem;font-weight:800;color:#059669;margin-bottom:.5rem">多點取還</div>' +
+          '<div style="font-size:.83rem;color:#6b7280;line-height:1.5">雙北・新竹・台中<br>24H 便利取還件</div>' +
+        '</div>' +
+        '<div style="background:white;border-radius:18px;padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.07);border:1px solid #d1fae5">' +
+          '<div style="font-size:2.8rem;margin-bottom:.6rem">💰</div>' +
+          '<div style="font-size:1.2rem;font-weight:800;color:#059669;margin-bottom:.5rem">透明定價</div>' +
+          '<div style="font-size:.83rem;color:#6b7280;line-height:1.5">兩天一夜 $1,000<br>無隱藏費用</div>' +
+        '</div>' +
+        '<div style="background:white;border-radius:18px;padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.07);border:1px solid #d1fae5">' +
+          '<div style="font-size:2.8rem;margin-bottom:.6rem">🛠️</div>' +
+          '<div style="font-size:1.2rem;font-weight:800;color:#059669;margin-bottom:.5rem">專業支援</div>' +
+          '<div style="font-size:.83rem;color:#6b7280;line-height:1.5">LINE 即時客服<br>使用問題快速解決</div>' +
+        '</div>' +
+      '</div>';
+    }
+
     // ── 覆蓋首頁 Hero 背景（加漸層 fallback）──
     function patchHeroBg() {
       var hero = document.querySelector('section[style*="backgroundImage"]');
@@ -646,11 +683,11 @@ body{padding-bottom:76px!important}
 
     new MutationObserver(function() {
       hideSocial(); patchLogo(); patchNavSync();
-      patchPricing(); patchHeroBg();
+      patchPricing(); patchHeroBg(); patchWhyChoose();
     }).observe(document.body, {childList:true, subtree:true});
 
     [300, 800, 1500].forEach(function(ms){
-      setTimeout(function(){ patchPricing(); patchHeroBg(); }, ms);
+      setTimeout(function(){ patchPricing(); patchHeroBg(); patchWhyChoose(); }, ms);
     });
     </script>
   </body>
