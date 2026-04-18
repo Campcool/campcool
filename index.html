@@ -166,10 +166,36 @@ body{padding-bottom:62px!important}
 .cc-pill{display:inline-flex;border-radius:12px;padding:.2rem .65rem;font-size:.73rem;font-weight:600;border:1px solid}
 .cc-pill.g{background:#dcfce7;color:#166534;border-color:#86efac}
 .cc-pill.a{background:#fef9c3;color:#854d0e;border-color:#fde047}
+
+/* ── 注入到 React 頁面頂部的 hero banner ── */
+#cc-hero-banner{
+  color:white;text-align:center;
+  padding:1.75rem 1.25rem 1.5rem;
+  position:relative;overflow:hidden;
+}
+#cc-hero-banner::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(0,0,0,.08);pointer-events:none;
+}
+#cc-hero-banner h2{
+  font-size:1.65rem;font-weight:700;margin-bottom:.3rem;
+  line-height:1.25;position:relative;z-index:1;
+}
+#cc-hero-banner p{
+  font-size:.9rem;opacity:.9;max-width:420px;
+  margin:0 auto;line-height:1.5;position:relative;z-index:1;
+}
+/* 各頁色調 */
+#cc-hero-banner.products{background:linear-gradient(135deg,#1e3a5f,#2563eb)}
+#cc-hero-banner.locations{background:linear-gradient(135deg,#78350f,#d97706)}
+#cc-hero-banner.usageGuide{background:linear-gradient(135deg,#3b0764,#7c3aed)}
+#cc-hero-banner.refundPolicy{background:linear-gradient(135deg,#7f1d1d,#dc2626)}
 </style>
   </head>
   <body>
     <div id="root"></div>
+    <!-- 動態注入的 hero banner（插在 React header 下方） -->
+    <div id="cc-hero-banner" style="display:none"></div>
 
     <!-- 浮動社交按鈕（滿版 SVG，更真實） -->
     <div class="cc-float">
@@ -308,17 +334,14 @@ body{padding-bottom:62px!important}
 
     function ccNav(btn, page) {
       document.getElementById('cc-page').className = '';
-      // 觸發 React 換頁
       var labels = {home:'首頁',products:'產品介紹',locations:'服務據點',usageGuide:'使用指南',refundPolicy:'退費規則'};
       var target = labels[page];
       Array.from(document.querySelectorAll('button')).forEach(function(b) {
         var t = b.textContent.trim();
-        if (t === target || t === '🏕️ ' + target || t === '❄️ ' + target ||
-            t.endsWith(target)) {
-          b.click();
-        }
+        if (t === target || t.endsWith(target)) b.click();
       });
       setOn(page);
+      showHero(page);
     }
 
     function setOn(tab) {
@@ -362,6 +385,60 @@ body{padding-bottom:62px!important}
       });
     }
 
+    // Hero banner config per page
+    var CC_HEROES = {
+      products:{
+        cls:'products',
+        icon:'❄️',title:'專業冷氣設備',
+        sub:'艾比酷 JUZ-400 與山水 SAC688，讓夏日露營清涼到底'
+      },
+      locations:{
+        cls:'locations',
+        icon:'📍',title:'服務據點',
+        sub:'雙北・新竹・台中，就近取還，露營前一天輕鬆取件'
+      },
+      usageGuide:{
+        cls:'usageGuide',
+        icon:'📖',title:'使用指南',
+        sub:'從安裝到操作，確保您安全舒適地享受清涼'
+      },
+      refundPolicy:{
+        cls:'refundPolicy',
+        icon:'📋',title:'退費規則',
+        sub:'透明、彈性的退費政策，讓您訂購無後顧之憂'
+      }
+    };
+
+    function showHero(page) {
+      var banner = document.getElementById('cc-hero-banner');
+      if (!banner) return;
+      if (page === 'home' || !CC_HEROES[page]) {
+        banner.style.display = 'none';
+        return;
+      }
+      var h = CC_HEROES[page];
+      banner.className = h.cls;
+      banner.innerHTML = '<h2>' + h.icon + ' ' + h.title + '</h2><p>' + h.sub + '</p>';
+      banner.style.display = 'block';
+      // Position banner right below React header
+      adjustBanner();
+    }
+
+    function adjustBanner() {
+      var banner = document.getElementById('cc-hero-banner');
+      var hdr = document.querySelector('header');
+      if (!banner || !hdr) return;
+      var hh = hdr.getBoundingClientRect().height;
+      // Find React main content and prepend banner
+      var main = hdr.nextElementSibling;
+      if (main && !main.contains(banner) && banner.style.display !== 'none') {
+        // Insert banner after header in DOM flow
+        if (hdr.parentNode) {
+          hdr.parentNode.insertBefore(banner, hdr.nextSibling);
+        }
+      }
+    }
+
     function patchNavSync() {
       var map = {'首頁':'home','產品介紹':'products','服務據點':'locations','使用指南':'usageGuide','退費規則':'refundPolicy'};
       document.querySelectorAll('nav button').forEach(function(b) {
@@ -370,8 +447,10 @@ body{padding-bottom:62px!important}
         if (!map[t]) return;
         b._ccS = true;
         b.addEventListener('click', function() {
-          setOn(map[t]);
+          var pg = map[t];
+          setOn(pg);
           document.getElementById('cc-page').className = '';
+          showHero(pg);
         });
       });
     }
