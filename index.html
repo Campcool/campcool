@@ -9,35 +9,40 @@
     <script type="module" crossorigin src="assets/index-BIiKt1Ot.js"></script>
     <link rel="stylesheet" crossorigin href="assets/index-CEwUhtAt.css">
     <style>
-/* ── 浮動社交按鈕（更大更真實） ── */
+/* ── 全域字型優化 ── */
+*{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased}
+
+/* ── 浮動社交按鈕 ── */
 .cc-float{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:9998}
-.cc-fb{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.28);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;overflow:hidden;padding:0}
-.cc-fb:hover{transform:scale(1.1);box-shadow:0 6px 22px rgba(0,0,0,.35)}
+.cc-fb{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.28);border:none;cursor:pointer;transition:transform .2s;overflow:hidden;padding:0}
+.cc-fb:hover{transform:scale(1.1)}
 .cc-line-fb{background:#06C755}
 .cc-ig-fb{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
-@media(max-width:480px){.cc-fb{width:50px;height:50px}.cc-float{right:10px}}
+@media(max-width:480px){.cc-fb{width:50px;height:50px}.cc-float{right:10px;gap:10px}}
 
-/* ── 隱藏原本社交連結 + 漢堡選單（用底部 bar 統一導覽） ── */
+/* ── 隱藏原本社交連結 + 漢堡選單 ── */
 a[href*="lin.ee"]:not(.cc-float a),
 a[href*="instagram.com"]:not(.cc-float a){display:none!important}
-/* 隱藏漢堡按鈕（所有頁面切換統一走底部 bar） */
 div.md\:hidden > button[class*="focus:outline-none"],
-.md\:hidden > button[class*="hover:text-emerald"] {display:none!important}
+.md\:hidden > button[class*="hover:text-emerald"]{display:none!important}
 
 /* ── 底部導覽 bar ── */
 #cc-bar{
   position:fixed;bottom:0;left:0;right:0;z-index:9995;
-  background:#1a2e1a;
-  box-shadow:0 -1px 0 rgba(255,255,255,.08),0 -4px 16px rgba(0,0,0,.25);
+  background:#162616;
+  border-top:1px solid rgba(255,255,255,.1);
+  box-shadow:0 -4px 20px rgba(0,0,0,.3);
   display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
 }
 #cc-bar::-webkit-scrollbar{display:none}
 #cc-bar button{
-  flex:none;width:calc(100vw / 7);min-width:50px;
-  padding:8px 3px 10px;border:none;background:none;
-  color:rgba(255,255,255,.45);font-size:.65rem;font-weight:600;
+  flex:none;width:calc(100vw / 7);min-width:48px;max-width:80px;
+  padding:7px 2px 9px;border:none;background:none;
+  color:rgba(255,255,255,.4);
   cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;
-  transition:color .15s;font-family:inherit;border-top:2.5px solid transparent;
+  transition:color .15s;font-family:inherit;
+  border-top:2.5px solid transparent;
 }
 [data-tab="home"].on{color:#34d399;border-top-color:#34d399}
 [data-tab="products"].on{color:#60a5fa;border-top-color:#60a5fa}
@@ -46,113 +51,122 @@ div.md\:hidden > button[class*="focus:outline-none"],
 [data-tab="refundPolicy"].on{color:#f87171;border-top-color:#f87171}
 [data-tab="fridge"].on{color:#22d3ee;border-top-color:#22d3ee}
 [data-tab="knowledge"].on{color:#fb923c;border-top-color:#fb923c}
-.cc-bico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:rgba(255,255,255,.07)}
-[data-tab="home"].on .cc-bico{background:rgba(52,211,153,.15)}
-[data-tab="products"].on .cc-bico{background:rgba(96,165,250,.15)}
-[data-tab="locations"].on .cc-bico{background:rgba(251,191,36,.15)}
-[data-tab="usageGuide"].on .cc-bico{background:rgba(167,139,250,.15)}
-[data-tab="refundPolicy"].on .cc-bico{background:rgba(248,113,113,.15)}
-[data-tab="fridge"].on .cc-bico{background:rgba(34,211,238,.15)}
-[data-tab="knowledge"].on .cc-bico{background:rgba(251,146,60,.15)}
-.cc-blbl{font-size:.62rem;line-height:1;white-space:nowrap}
+.cc-bico{
+  width:32px;height:32px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.15rem;
+  background:rgba(255,255,255,.07);
+  transition:background .15s,transform .15s;
+}
+#cc-bar button.on .cc-bico{transform:translateY(-1px)}
+[data-tab="home"].on .cc-bico{background:rgba(52,211,153,.18)}
+[data-tab="products"].on .cc-bico{background:rgba(96,165,250,.18)}
+[data-tab="locations"].on .cc-bico{background:rgba(251,191,36,.18)}
+[data-tab="usageGuide"].on .cc-bico{background:rgba(167,139,250,.18)}
+[data-tab="refundPolicy"].on .cc-bico{background:rgba(248,113,113,.18)}
+[data-tab="fridge"].on .cc-bico{background:rgba(34,211,238,.18)}
+[data-tab="knowledge"].on .cc-bico{background:rgba(251,146,60,.18)}
+.cc-blbl{font-size:.6rem;line-height:1;white-space:nowrap;font-weight:500}
 body{padding-bottom:62px!important}
 
-/* ── 自訂頁面：精確填充 header 與底部 bar 之間 ── */
+/* ── 自訂頁面 ── */
 #cc-page{
   display:none;
   position:fixed;
-  top:73px; /* 動態由 JS 設定，此為 fallback */
+  top:73px;
   left:0;right:0;
-  bottom:62px; /* 底部 bar 高度 */
+  bottom:62px;
   z-index:10;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
-  background:linear-gradient(160deg,#ecfdf5 0%,#eff6ff 55%,#ecfeff 100%);
+  background:#f0fdf8;
 }
 #cc-page.on{display:block}
 
-
-/* ── 頂部 tab bar（含 header 同高的空白區，視覺對齊） ── */
-.cc-topbar{
-  position:sticky;top:0;z-index:10;
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  border-bottom:1px solid #d1fae5;
-  display:flex;align-items:center;gap:8px;
-  padding:10px 14px;
-}
-.cc-tbtabs{display:flex;gap:7px;width:100%;justify-content:center}
-.cc-tbtab{
-  flex:1;max-width:160px;
-  border:1.5px solid #d1fae5;border-radius:20px;
-  padding:9px 10px;font-size:.88rem;cursor:pointer;
-  font-family:inherit;font-weight:700;
-  background:none;color:#6b7280;transition:all .15s;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-}
-.cc-tbtab.on{background:#ecfdf5;color:#065f46;border-color:#34d399}
-#cc-page.fridge .cc-tbtab.on{background:#ecfeff;color:#0e7490;border-color:#22d3ee}
-#cc-page.knowledge .cc-tbtab.on{background:#fff7ed;color:#c2410c;border-color:#fb923c}
-
 /* hero */
-.cc-ph{color:white;padding:2rem 1.25rem 1.75rem;text-align:center}
+.cc-ph{color:white;padding:1.8rem 1.25rem 1.5rem;text-align:center}
 #cc-page.fridge .cc-ph{background:linear-gradient(135deg,#155e75,#0891b2)}
 #cc-page.knowledge .cc-ph{background:linear-gradient(135deg,#7c2d12,#ea580c)}
-.cc-ph h1{font-size:1.8rem;font-weight:700;margin-bottom:.35rem;line-height:1.2}
-.cc-ph p{font-size:.92rem;opacity:.88;max-width:460px;margin:0 auto}
+.cc-ph h1{font-size:1.6rem;font-weight:700;margin-bottom:.3rem;line-height:1.25}
+.cc-ph p{font-size:.9rem;opacity:.9;max-width:440px;margin:0 auto;line-height:1.5}
 
-/* content */
-.cc-body{max-width:860px;margin:0 auto;padding:1.25rem 1rem 1.5rem}
-.cc-sh{font-size:1.2rem;font-weight:700;text-align:center;color:#1f2937;margin:1.5rem 0 .3rem}
-.cc-shdiv{border:none;border-top:1px solid #d1fae5;margin:0 0 1rem}
+/* 內容區 */
+.cc-body{max-width:860px;margin:0 auto;padding:1.1rem .9rem 1.5rem}
+
+/* Section heading */
+.cc-sh{font-size:1.1rem;font-weight:700;color:#1f2937;margin:1.4rem 0 .3rem;display:flex;align-items:center;gap:.4rem}
+.cc-shdiv{border:none;border-top:1px solid #d1fae5;margin:0 0 .9rem}
 #cc-page.knowledge .cc-shdiv{border-top-color:#fed7aa}
 
-/* Cards */
-.cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.9rem;margin-bottom:1.25rem}
-.cc-card{background:rgba(255,255,255,.92);border:1px solid #d1fae5;border-radius:1rem;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.08);transition:transform .2s}
-.cc-card:hover{transform:translateY(-2px)}
-.cc-ch{padding:.9rem 1.1rem .75rem;background:linear-gradient(135deg,rgba(6,182,212,.09),rgba(59,130,246,.05));border-bottom:1px solid #d1fae5}
-.cc-brand{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#0891b2;margin-bottom:.14rem}
-.cc-name{font-size:1.05rem;font-weight:700;color:#1f2937}
-.cc-sub{font-size:.8rem;color:#6b7280;margin-top:.12rem}
-.cc-cb{padding:.82rem 1.1rem}
-.cc-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:1px solid #f3f4f6;font-size:.86rem}
-.cc-row:last-child{border:none}.cc-lbl{color:#6b7280}.cc-val{color:#1f2937;font-weight:600}
-.cc-pr{display:inline-flex;align-items:center;gap:.28rem;background:#0891b2;color:white;padding:.36rem .88rem;border-radius:20px;font-size:.84rem;font-weight:700;margin-top:.65rem}
+/* Cards grid — 手機單欄，平板雙欄 */
+.cc-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:.85rem;
+  margin-bottom:1.1rem;
+}
+@media(min-width:500px){.cc-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}}
+.cc-card{background:white;border:1px solid #d1fae5;border-radius:.875rem;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.cc-ch{padding:.8rem 1rem .68rem;background:linear-gradient(135deg,rgba(6,182,212,.08),rgba(59,130,246,.04));border-bottom:1px solid #d1fae5}
+.cc-brand{font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#0891b2;margin-bottom:.1rem}
+.cc-name{font-size:1rem;font-weight:700;color:#1f2937}
+.cc-sub{font-size:.78rem;color:#6b7280;margin-top:.1rem}
+.cc-cb{padding:.78rem 1rem}
+.cc-row{display:flex;justify-content:space-between;align-items:center;padding:.28rem 0;border-bottom:1px solid #f3f4f6;font-size:.88rem}
+.cc-row:last-child{border:none}
+.cc-lbl{color:#6b7280;flex-shrink:0;margin-right:.5rem}
+.cc-val{color:#1f2937;font-weight:600;text-align:right}
+.cc-pr{display:inline-flex;align-items:center;gap:.25rem;background:#0891b2;color:white;padding:.36rem .9rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-top:.62rem}
 
 /* Alerts */
-.cc-al{border-radius:.875rem;padding:.88rem 1.05rem;margin:.8rem 0;display:flex;gap:.65rem;font-size:.88rem;line-height:1.65;border:1px solid}
+.cc-al{border-radius:.875rem;padding:.88rem 1rem;margin:.75rem 0;display:flex;gap:.62rem;font-size:.88rem;line-height:1.6;border:1px solid}
 .cc-al.g{background:#ecfdf5;border-color:#6ee7b7;color:#065f46}
 .cc-al.y{background:#fffbeb;border-color:#fcd34d;color:#92400e}
 .cc-al.r{background:#fef2f2;border-color:#fca5a5;color:#991b1b}
-.cc-ai{font-size:1.15rem;flex-shrink:0;margin-top:1px}
+.cc-ai{font-size:1.1rem;flex-shrink:0;margin-top:2px}
 
-/* Notice grid */
-.cc-g2{display:grid;grid-template-columns:1fr 1fr;gap:.82rem;margin-bottom:1.25rem}
-@media(max-width:560px){.cc-g2{grid-template-columns:1fr}}
-.cc-nc{background:rgba(255,255,255,.9);border-radius:.875rem;padding:.9rem 1rem;border:1px solid #e5e7eb;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+/* Notice grid — 手機單欄 */
+.cc-g2{display:grid;grid-template-columns:1fr;gap:.75rem;margin-bottom:1.1rem}
+@media(min-width:480px){.cc-g2{grid-template-columns:1fr 1fr}}
+.cc-nc{background:white;border-radius:.875rem;padding:.88rem 1rem;border:1px solid #e5e7eb;box-shadow:0 1px 4px rgba(0,0,0,.05)}
 .cc-nc.c{border-left:3px solid #0891b2}.cc-nc.w{border-left:3px solid #d97706}
 .cc-nc.r{border-left:3px solid #dc2626}.cc-nc.g{border-left:3px solid #059669}
 .cc-nc h4{font-size:.86rem;font-weight:700;margin-bottom:.32rem;color:#1f2937;display:flex;align-items:center;gap:.28rem}
-.cc-nc ul{padding-left:.95rem;margin:0}
-.cc-nc li{font-size:.82rem;color:#4b5563;line-height:1.65;margin-bottom:.16rem}
+.cc-nc ul{padding-left:.9rem;margin:0}
+.cc-nc li{font-size:.83rem;color:#4b5563;line-height:1.65;margin-bottom:.18rem}
 
 /* Knowledge blocks */
-.cc-kb{background:rgba(255,255,255,.9);border-radius:.875rem;border:1px solid #e5e7eb;padding:1.15rem 1.25rem;margin-bottom:.95rem;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.cc-kb h3{font-size:1rem;font-weight:700;color:#1f2937;margin-bottom:.62rem;display:flex;align-items:center;gap:.4rem}
-.cc-kb p{font-size:.87rem;color:#4b5563;line-height:1.75;margin-bottom:.5rem}
+.cc-kb{background:white;border-radius:.875rem;border:1px solid #e5e7eb;padding:1.1rem 1.1rem;margin-bottom:.85rem;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.cc-kb h3{font-size:1rem;font-weight:700;color:#1f2937;margin-bottom:.58rem;display:flex;align-items:center;gap:.38rem;flex-wrap:wrap}
+.cc-kb p{font-size:.88rem;color:#4b5563;line-height:1.75;margin-bottom:.48rem}
 .cc-kb p:last-child{margin-bottom:0}
 .cc-kb strong{color:#c2410c}
-.cc-tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:.62rem 0;overflow:hidden;border-radius:.5rem}
-.cc-tbl th{background:#c2410c;color:white;padding:.52rem .88rem;text-align:left;font-weight:600}
-.cc-tbl td{padding:.46rem .88rem;border-bottom:1px solid #f3f4f6;color:#4b5563}
+
+/* 表格：手機版可橫向滑動，避免文字擠壓換行 */
+.cc-tbl-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:.5rem;margin:.62rem 0}
+.cc-tbl{width:100%;border-collapse:collapse;font-size:.85rem;min-width:280px}
+.cc-tbl th{
+  background:#c2410c;color:white;
+  padding:.52rem .88rem;text-align:left;font-weight:600;
+  white-space:nowrap; /* 表頭不換行 */
+}
+.cc-tbl td{
+  padding:.48rem .88rem;
+  border-bottom:1px solid #f3f4f6;
+  color:#4b5563;
+  vertical-align:top;
+}
 .cc-tbl tr:nth-child(even) td{background:#f9fafb}
 .cc-tbl tr:last-child td{border:none}
+
+/* 電力表格欄位更緊湊 */
+.cc-tbl.compact th,.cc-tbl.compact td{padding:.42rem .65rem;font-size:.82rem}
+
 .cc-pills{display:flex;flex-wrap:wrap;gap:.3rem;margin:.42rem 0}
 .cc-pill{display:inline-flex;border-radius:12px;padding:.2rem .65rem;font-size:.73rem;font-weight:600;border:1px solid}
 .cc-pill.g{background:#dcfce7;color:#166534;border-color:#86efac}
 .cc-pill.a{background:#fef9c3;color:#854d0e;border-color:#fde047}
-    </style>
+</style>
   </head>
   <body>
     <div id="root"></div>
@@ -262,14 +276,14 @@ body{padding-bottom:62px!important}
         </div>
         <div class="cc-body">
           <div class="cc-kb"><h3>❄️ 移動式冷氣怎麼運作？</h3><p>冷氣不是「製造冷空氣」，而是利用<strong>冷媒循環</strong>把帳篷裡的熱量帶走排到外面。四步驟：蒸發（室內吸熱）→ 壓縮 → 冷凝（排熱管排出帳篷外）→ 膨脹。<strong>排熱管一定要伸出帳篷外</strong>，否則完全不會涼。</p></div>
-          <div class="cc-kb"><h3>📐 BTU 是什麼？</h3><p>BTU 是冷氣冷房能力單位，數字越高製冷越強。</p><table class="cc-tbl"><tr><th>型號</th><th>BTU</th><th>適合帳篷</th></tr><tr><td>艾比酷 JUZ-400</td><td>5000 BTU</td><td>3-4 人帳 / 3~5 坪</td></tr><tr><td>山水 SAC688</td><td>6000 BTU</td><td>5-6 人大帳 / 5~8 坪</td></tr></table></div>
-          <div class="cc-kb"><h3>⚡ 電力計算：會跳電嗎？</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。台灣營區通常 10A 或 15A。</p><table class="cc-tbl"><tr><th>設備</th><th>功率</th><th>電流</th></tr><tr><td>艾比酷 JUZ-400</td><td>425W</td><td>3.9A</td></tr><tr><td>山水 SAC688</td><td>530W</td><td>4.8A</td></tr><tr><td>移動冰箱</td><td>30～60W</td><td>0.3～0.6A</td></tr><tr><td>電熱水壺 ⚠️</td><td>800～1200W</td><td>7～11A</td></tr><tr><td>電磁爐 ⚠️</td><td>1000～2000W</td><td>9～18A</td></tr></table><p>JUZ-400＋冰箱＋燈＋手機 ≈ <strong>5.3A</strong>，10A 電箱沒問題。</p></div>
+          <div class="cc-kb"><h3>📐 BTU 是什麼？</h3><p>BTU 是冷氣冷房能力單位，數字越高製冷越強。</p><div class="cc-tbl-wrap"><table class="cc-tbl"><tr><th>型號</th><th>BTU</th><th>適合帳篷</th></tr><tr><td>艾比酷 JUZ-400</td><td>5000 BTU</td><td>3-4 人帳 / 3~5 坪</td></tr><tr><td>山水 SAC688</td><td>6000 BTU</td><td>5-6 人大帳 / 5~8 坪</td></tr></table></div></div>
+          <div class="cc-kb"><h3>⚡ 電力計算：會跳電嗎？</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。台灣營區通常 10A 或 15A。</p><div class="cc-tbl-wrap"><table class="cc-tbl compact"><tr><th>設備</th><th>功率</th><th>電流</th></tr><tr><td>艾比酷 JUZ-400</td><td>425W</td><td>3.9A</td></tr><tr><td>山水 SAC688</td><td>530W</td><td>4.8A</td></tr><tr><td>移動冰箱</td><td>30～60W</td><td>0.3～0.6A</td></tr><tr><td>電熱水壺 ⚠️</td><td>800～1200W</td><td>7～11A</td></tr><tr><td>電磁爐 ⚠️</td><td>1000～2000W</td><td>9～18A</td></tr></table></div><p>JUZ-400＋冰箱＋燈＋手機 ≈ <strong>5.3A</strong>，10A 電箱沒問題。</p></div>
           <div class="cc-kb"><h3>💧 排水管理</h3><p><strong>JUZ-400（零排水）</strong>：完全不需排水，新手首選。<br><strong>SAC688（需排水）</strong>：台灣夏天約每 3-5 小時排一次，水滿自動停機。步驟：關機 → 開排水口 → 排空 → 關閉 → 重啟。建議睡前排一次。</p></div>
           <div class="cc-kb"><h3>🏕️ 帳篷密封技巧</h3><div class="cc-pills"><span class="cc-pill g">✅ 黑膠帳或科技棉帳</span><span class="cc-pill g">✅ 拉上所有拉鍊</span><span class="cc-pill g">✅ 布封住網格區域</span><span class="cc-pill a">⚠️ 避免純網格帳篷</span></div><p>建議<strong>提前 15-20 分鐘開機預冷</strong>，進帳後感受更明顯。</p></div>
-          <div class="cc-kb"><h3>🧊 壓縮機 vs 半導體冰箱</h3><table class="cc-tbl"><tr><th>比較</th><th>壓縮機（我們提供）✅</th><th>半導體</th></tr><tr><td>製冷能力</td><td>可達 -20°C</td><td>僅比室溫低 15-25°C</td></tr><tr><td>耗電方式</td><td>間歇運轉，較省電</td><td>持續耗電</td></tr><tr><td>露營適合度</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐</td></tr><tr><td>搬運注意</td><td>靜置 30 分鐘再開機</td><td>可即時使用</td></tr></table></div>
-          <div class="cc-kb"><h3>🛒 容量怎麼選？</h3><table class="cc-tbl"><tr><th>人數</th><th>建議容量</th><th>推薦型號</th></tr><tr><td>1-2 人</td><td>20-25L</td><td>MC-20</td></tr><tr><td>2-3 人</td><td>30-40L</td><td>TA-35、ECX-40</td></tr><tr><td>4-6 人</td><td>40-60L</td><td>ECX-40、T50/T60</td></tr><tr><td>需雙溫區</td><td>36L 雙區</td><td>LG-D36</td></tr></table><p>建議選稍大一號，留 20-30% 空間讓冷空氣循環。</p></div>
+          <div class="cc-kb"><h3>🧊 壓縮機 vs 半導體冰箱</h3><div class="cc-tbl-wrap"><table class="cc-tbl compact"><tr><th>比較</th><th>壓縮機（我們提供）✅</th><th>半導體</th></tr><tr><td>製冷能力</td><td>可達 -20°C</td><td>僅比室溫低 15-25°C</td></tr><tr><td>耗電方式</td><td>間歇運轉，較省電</td><td>持續耗電</td></tr><tr><td>露營適合度</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐</td></tr><tr><td>搬運注意</td><td>靜置 30 分鐘再開機</td><td>可即時使用</td></tr></table></div></div>
+          <div class="cc-kb"><h3>🛒 容量怎麼選？</h3><div class="cc-tbl-wrap"><table class="cc-tbl"><tr><th>人數</th><th>建議容量</th><th>推薦型號</th></tr><tr><td>1-2 人</td><td>20-25L</td><td>MC-20</td></tr><tr><td>2-3 人</td><td>30-40L</td><td>TA-35、ECX-40</td></tr><tr><td>4-6 人</td><td>40-60L</td><td>ECX-40、T50/T60</td></tr><tr><td>需雙溫區</td><td>36L 雙區</td><td>LG-D36</td></tr></table></div><p>建議選稍大一號，留 20-30% 空間讓冷空氣循環。</p></div>
           <div class="cc-kb"><h3>⏱️ 為什麼要靜置 30 分鐘？</h3><p>搬運時冷媒可能流入壓縮機進氣側。直接開機會造成<strong>液壓縮，損壞壓縮機</strong>。靜置讓冷媒回到正確位置後再開機才安全。長途超過 1 小時建議靜置 1 小時以上。</p></div>
-          <div class="cc-kb"><h3>🔗 冷氣＋冰箱最佳搭配</h3><table class="cc-tbl"><tr><th>場景</th><th>冷氣</th><th>冰箱</th><th>總電流</th></tr><tr><td>2-3 人輕量</td><td>JUZ-400</td><td>MC-20</td><td>約 4.1A</td></tr><tr><td>3-4 人標準</td><td>JUZ-400</td><td>ECX-40</td><td>約 4.3A</td></tr><tr><td>5-6 人大帳</td><td>SAC688</td><td>T50/T60</td><td>約 5.3A</td></tr></table><p>冰箱和冷氣建議<strong>分開不同插座</strong>，避免延長線負載過重。</p></div>
+          <div class="cc-kb"><h3>🔗 冷氣＋冰箱最佳搭配</h3><div class="cc-tbl-wrap"><table class="cc-tbl compact"><tr><th>場景</th><th>冷氣</th><th>冰箱</th><th>總電流</th></tr><tr><td>2-3 人輕量</td><td>JUZ-400</td><td>MC-20</td><td>約 4.1A</td></tr><tr><td>3-4 人標準</td><td>JUZ-400</td><td>ECX-40</td><td>約 4.3A</td></tr><tr><td>5-6 人大帳</td><td>SAC688</td><td>T50/T60</td><td>約 5.3A</td></tr></table></div><p>冰箱和冷氣建議<strong>分開不同插座</strong>，避免延長線負載過重。</p></div>
           <div class="cc-kb"><h3>🌿 R290 環保冷媒</h3><p>我們的設備均使用 <strong>R290（丙烷）</strong>環保冷媒。ODP=0（不破壞臭氧層）、GWP=3（溫室效應極低），比舊型 R22 對環境衝擊降低 99%。</p></div>
         </div>
       </div>
@@ -280,9 +294,6 @@ body{padding-bottom:62px!important}
       var pg = document.getElementById('cc-page');
       var fc = document.getElementById('cc-fridge');
       var kc = document.getElementById('cc-knowledge');
-      var tf = null; // tab switcher removed
-      var tk = null;
-      // 顯示自訂頁面（全螢幕蓋住 React，含漢堡選單）
       pg.className = 'on ' + tab;
       pg.scrollTop = 0;
       if (tab === 'fridge') {
@@ -291,10 +302,11 @@ body{padding-bottom:62px!important}
         kc.style.display = ''; fc.style.display = 'none';
       }
       setOn(tab);
+      // 確保 top 對齊 header
+      adjustPageTop();
     }
 
     function ccNav(btn, page) {
-      // 關閉自訂頁面，回到 React
       document.getElementById('cc-page').className = '';
       // 觸發 React 換頁
       var labels = {home:'首頁',products:'產品介紹',locations:'服務據點',usageGuide:'使用指南',refundPolicy:'退費規則'};
