@@ -738,180 +738,221 @@ body{padding-bottom:78px!important}
 
     <!-- JavaScript (優化頂部bar行為與新增好評模塊注入) -->
     <script>
-    // ── 原有 CC_HEROES ──
-    var CC_HEROES = {
-      rental:{cls:'rental',icon:'🏕️',title:'租借資訊',sub:'冷氣方案・服務據點・透明租金，一頁搞定'},
-      booking:{cls:'booking',icon:'📋',title:'預約須知',sub:'退費規則・取消政策，安心預約無後顧之憂'}
-    };
+// ── 頁面 Hero 設定 ──
+var CC_HEROES = {
+  rental:{cls:'rental',icon:'🏕️',title:'租借資訊',sub:'冷氣方案・服務據點・透明租金，一頁搞定'},
+  booking:{cls:'booking',icon:'📋',title:'預約須知',sub:'退費規則・取消政策，安心預約無後顧之憂'}
+};
 
-    // 頂部滑入條
-    window.addEventListener('scroll', function() {
-      var bar = document.getElementById('cc-topline-bar');
-      if (window.scrollY > 200) {
-        bar.classList.add('show');
-        document.body.classList.add('has-topbar');
-      } else {
-        bar.classList.remove('show');
-        document.body.classList.remove('has-topbar');
-      }
-    });
+// ── 頂部滑入條 ──
+window.addEventListener('scroll', function() {
+  var bar = document.getElementById('cc-topline-bar');
+  if (window.scrollY > 200) {
+    bar.classList.add('show');
+    document.body.classList.add('has-topbar');
+  } else {
+    bar.classList.remove('show');
+    document.body.classList.remove('has-topbar');
+  }
+});
 
-    function scrollTop() {
-      var pg = document.getElementById('cc-page');
-      if (pg && pg.classList.contains('on')) { pg.scrollTop = 0; return; }
-      window.scrollTo({top:0,behavior:'instant'});
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    }
+// 回頂部
+function scrollTop() {
+  var pg = document.getElementById('cc-page');
+  if (pg && pg.classList.contains('on')) { pg.scrollTop = 0; return; }
+  window.scrollTo({top:0,behavior:'instant'});
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}
 
-    function ccOpen(tab) {
-      var pg = document.getElementById('cc-page');
-      var fc = document.getElementById('cc-fridge');
-      var kc = document.getElementById('cc-knowledge');
-      pg.className = 'on ' + tab;
-      pg.scrollTop = 0;
-      if (tab === 'fridge') {
-        fc.style.display = ''; kc.style.display = 'none';
-      } else {
-        kc.style.display = ''; fc.style.display = 'none';
-      }
-      if (tab === 'fridge') setOn('fridge');
-      else if (tab === 'wiki') setOn('wiki');
-      adjustPageTop();
-      showHero(null);
-    }
+// ── 切換至自訂頁面（冰箱/知識）──
+function ccOpen(tab) {
+  var pg = document.getElementById('cc-page');
+  var fc = document.getElementById('cc-fridge');
+  var kc = document.getElementById('cc-knowledge');
+  
+  // 隱藏 React 可能彈出的內容 (如果有)
+  pg.className = 'on ' + tab;
+  pg.scrollTop = 0;
+  
+  if (tab === 'fridge') {
+    fc.style.display = ''; 
+    kc.style.display = 'none';
+  } else {
+    kc.style.display = ''; 
+    fc.style.display = 'none';
+  }
+  
+  setOn(tab === 'fridge' ? 'fridge' : 'wiki');
+  adjustPageTop();
+  showHero(null);
+}
 
-    function ccNav(btn, page) {
-      document.getElementById('cc-page').className = '';
-      var reactPage = (page === 'rental') ? 'home' : 'refundPolicy';
-      var labels = {home:'首頁', refundPolicy:'退費規則'};
-      var target = labels[reactPage];
-      Array.from(document.querySelectorAll('button')).forEach(function(b) {
-        var t = b.textContent.trim();
-        if (t === target || t.endsWith(target)) b.click();
-      });
-      setOn(page);
-      showHero(page);
-      setTimeout(scrollTop, 50);
-      
-      // 注入好評模塊到租借資訊頁
-      setTimeout(injectTestimonials, 300);
-    }
+// ── 切換 React 頁面（直接操作路由，不再模擬點擊）──
+function ccNav(btn, page) {
+  // 1. 關閉自訂頁面
+  document.getElementById('cc-page').className = '';
+  
+  // 2. 更新底部按鈕狀態
+  setOn(page);
+  
+  // 3. 顯示對應的 Hero Banner
+  showHero(page);
+  
+  // 4. 直接改變 React 路由 (根據你的 React 路由結構)
+  //    你的 React 可能使用 hash 路由或 history 路由
+  //    我們嘗試兩種方式：
+  
+  // 方式 A: 如果是 HashRouter (網址帶 #/)
+  if (page === 'rental') {
+    window.location.hash = '#/';
+  } else if (page === 'booking') {
+    window.location.hash = '#/refundPolicy';
+  }
+  
+  // 方式 B: 如果是 BrowserRouter，嘗試 pushState
+  // (如果上面的 hash 沒效，可改用這個，但通常 GitHub Pages 用 HashRouter)
+  // if (page === 'rental') {
+  //   window.history.pushState({}, '', '/');
+  // } else if (page === 'booking') {
+  //   window.history.pushState({}, '', '/refundPolicy');
+  // }
+  // window.dispatchEvent(new PopStateEvent('popstate'));
+  
+  // 5. 滾回頂部
+  setTimeout(scrollTop, 50);
+  
+  // 6. 如果頁面是 rental，嘗試注入好評區塊（延遲確保 React 渲染完成）
+  if (page === 'rental') {
+    setTimeout(injectTestimonials, 300);
+  }
+}
 
-    function setOn(tab) {
-      document.querySelectorAll('#cc-bar button').forEach(function(b) {
-        b.classList.toggle('on', b.getAttribute('data-tab') === tab);
-      });
-    }
+// 設定底部按鈕啟動狀態
+function setOn(tab) {
+  document.querySelectorAll('#cc-bar button').forEach(function(b) {
+    b.classList.toggle('on', b.getAttribute('data-tab') === tab);
+  });
+}
 
-    function showHero(page) {
-      var banner = document.getElementById('cc-hero-banner');
-      if (!banner) return;
-      if (!page || !CC_HEROES[page]) { banner.style.display='none'; return; }
-      var h = CC_HEROES[page];
-      banner.className = h.cls;
-      banner.innerHTML = '<h2>'+h.icon+' '+h.title+'</h2><p>'+h.sub+'</p>';
-      banner.style.display = 'block';
-      adjustBanner();
-    }
+// 顯示/隱藏 Hero Banner
+function showHero(page) {
+  var banner = document.getElementById('cc-hero-banner');
+  if (!banner) return;
+  if (!page || !CC_HEROES[page]) { 
+    banner.style.display = 'none'; 
+    return; 
+  }
+  var h = CC_HEROES[page];
+  banner.className = h.cls;
+  banner.innerHTML = '<h2>'+h.icon+' '+h.title+'</h2><p>'+h.sub+'</p>';
+  banner.style.display = 'block';
+  adjustBanner();
+}
 
-    function adjustBanner() {
-      var banner = document.getElementById('cc-hero-banner');
-      var hdr = document.querySelector('header');
-      if (!banner || !hdr) return;
-      if (banner.style.display !== 'none' && hdr.parentNode && !hdr.nextSibling?.id?.includes('cc-hero')) {
-        hdr.parentNode.insertBefore(banner, hdr.nextSibling);
-      }
-    }
+function adjustBanner() {
+  var banner = document.getElementById('cc-hero-banner');
+  var hdr = document.querySelector('header');
+  if (!banner || !hdr) return;
+  if (banner.style.display !== 'none' && hdr.parentNode && !hdr.nextSibling?.id?.includes('cc-hero')) {
+    hdr.parentNode.insertBefore(banner, hdr.nextSibling);
+  }
+}
 
-    function adjustPageTop() {
-      var hdr = document.querySelector('header');
-      var pg = document.getElementById('cc-page');
-      if (hdr && pg) pg.style.top = hdr.getBoundingClientRect().height + 'px';
-    }
+function adjustPageTop() {
+  var hdr = document.querySelector('header');
+  var pg = document.getElementById('cc-page');
+  if (hdr && pg) pg.style.top = hdr.getBoundingClientRect().height + 'px';
+}
 
-    function hideSocial() {
-      document.querySelectorAll('a[href*="lin.ee"],a[href*="instagram.com"]').forEach(function(a) {
-        if (!a.closest('.cc-float')) a.style.cssText='display:none!important';
-      });
-    }
+// 隱藏 React 原有的社交連結
+function hideSocial() {
+  document.querySelectorAll('a[href*="lin.ee"],a[href*="instagram.com"]').forEach(function(a) {
+    if (!a.closest('.cc-float')) a.style.cssText = 'display:none!important';
+  });
+}
 
-    function patchLogo() {
-      var logo = document.querySelector('header img[alt="露涼社 Logo"]');
-      if (!logo || logo._cc) return;
-      logo._cc = true;
-      var w = logo.parentElement;
-      while (w && !w.querySelector('h1')) w = w.parentElement;
-      if (!w) return;
-      w.style.cursor = 'pointer';
-      w.addEventListener('click', function() {
-        document.getElementById('cc-page').className = '';
-        Array.from(document.querySelectorAll('button')).find(function(b) {
-          return b.textContent.trim() === '首頁' || b.textContent.includes('🏕️');
-        })?.click();
-        setOn('rental');
-        showHero(null);
-        setTimeout(scrollTop, 50);
-      });
-    }
-
-    function patchNavSync() {
-      var reactMap = {'首頁':'rental','退費規則':'booking'};
-      document.querySelectorAll('nav button').forEach(function(b) {
-        if (b._ccS) return;
-        var t = b.textContent.trim().replace(/^[^\u4e00-\u9fff]+/,'').trim();
-        if (!reactMap[t]) return;
-        b._ccS = true;
-        b.addEventListener('click', function() {
-          setOn(reactMap[t]);
-          document.getElementById('cc-page').className = '';
-          showHero(reactMap[t]);
-          setTimeout(scrollTop, 50);
-          setTimeout(injectTestimonials, 300);
-        });
-      });
-    }
-
-    // 注入好評與統計
-    function injectTestimonials() {
-      var container = document.querySelector('#root .container, #root > div');
-      if (!container) return;
-      // 避免重複注入
-      if (document.getElementById('cc-testi-injected')) return;
-      
-      var html = '<div id="cc-testi-injected" class="cc-testimonials">' +
-        '<div class="cc-sh">⭐ 露友真實回饋</div><hr class="cc-shdiv">' +
-        '<div class="cc-testi-grid">' +
-          '<div class="cc-testi-card"><div class="cc-testi-text">夏天露營終於可以睡好覺！冷氣超涼，營區也沒跳電。客服回覆很快，大推！</div><div class="cc-testi-author">王小花 <span>新竹露營團</span></div></div>' +
-          '<div class="cc-testi-card"><div class="cc-testi-text">第一次租露營冷氣，取件方便，機子很新。搭配冰箱食材保鮮超方便，已推薦朋友。</div><div class="cc-testi-author">陳大山 <span>台中家庭露營</span></div></div>' +
-        '</div>' +
-        '<div class="cc-stats">' +
-          '<div class="cc-stat-item"><div class="cc-stat-num">500+</div><div class="cc-stat-label">租借次數</div></div>' +
-          '<div class="cc-stat-item"><div class="cc-stat-num">4.9 ★</div><div class="cc-stat-label">露友好評</div></div>' +
-          '<div class="cc-stat-item"><div class="cc-stat-num">4 據點</div><div class="cc-stat-label">雙北/竹/中</div></div>' +
-        '</div>' +
-        '<div class="cc-line-banner">' +
-          '<span>📅 查看可預約時段</span>' +
-          '<a href="https://lin.ee/8maotVi">加 LINE 快速預約 →</a>' +
-        '</div></div>';
-      
-      var target = container.querySelector('div') || container;
-      target.insertAdjacentHTML('beforeend', html);
-    }
-
-    new MutationObserver(function() {
-      hideSocial(); patchLogo(); patchNavSync();
-    }).observe(document.body, {childList:true, subtree:true});
-
-    [200,700,1600].forEach(function(ms){
-      setTimeout(function(){ hideSocial(); patchLogo(); patchNavSync(); adjustPageTop(); }, ms);
-    });
-
+// Logo 點擊回首頁
+function patchLogo() {
+  var logo = document.querySelector('header img[alt="露涼社 Logo"]');
+  if (!logo || logo._cc) return;
+  logo._cc = true;
+  var w = logo.parentElement;
+  while (w && !w.querySelector('h1')) w = w.parentElement;
+  if (!w) return;
+  w.style.cursor = 'pointer';
+  w.addEventListener('click', function() {
+    document.getElementById('cc-page').className = '';
+    window.location.hash = '#/';
     setOn('rental');
-    adjustPageTop();
-    window.addEventListener('resize', adjustPageTop);
-    // 初始注入一次
-    setTimeout(injectTestimonials, 800);
-    </script>
-  </body>
-</html>
+    showHero('rental');
+    setTimeout(scrollTop, 50);
+    setTimeout(injectTestimonials, 400);
+  });
+}
+
+// 注入好評區塊（僅在租借資訊頁）
+function injectTestimonials() {
+  // 確保我們在正確的頁面 (React 內容區)
+  var container = document.querySelector('#root .container, #root > div');
+  if (!container) return;
+  if (document.getElementById('cc-testi-injected')) return;
+  
+  var html = '<div id="cc-testi-injected" class="cc-testimonials">' +
+    '<div class="cc-sh">⭐ 露友真實回饋</div><hr class="cc-shdiv">' +
+    '<div class="cc-testi-grid">' +
+      '<div class="cc-testi-card"><div class="cc-testi-text">夏天露營終於可以睡好覺！冷氣超涼，營區也沒跳電。客服回覆很快，大推！</div><div class="cc-testi-author">王小花 <span>新竹露營團</span></div></div>' +
+      '<div class="cc-testi-card"><div class="cc-testi-text">第一次租露營冷氣，取件方便，機子很新。搭配冰箱食材保鮮超方便，已推薦朋友。</div><div class="cc-testi-author">陳大山 <span>台中家庭露營</span></div></div>' +
+    '</div>' +
+    '<div class="cc-stats">' +
+      '<div class="cc-stat-item"><div class="cc-stat-num">500+</div><div class="cc-stat-label">租借次數</div></div>' +
+      '<div class="cc-stat-item"><div class="cc-stat-num">4.9 ★</div><div class="cc-stat-label">露友好評</div></div>' +
+      '<div class="cc-stat-item"><div class="cc-stat-num">4 據點</div><div class="cc-stat-label">雙北/竹/中</div></div>' +
+    '</div>' +
+    '<div class="cc-line-banner">' +
+      '<span>📅 查看可預約時段</span>' +
+      '<a href="https://lin.ee/8maotVi">加 LINE 快速預約 →</a>' +
+    '</div></div>';
+  
+  var target = container.querySelector('div') || container;
+  target.insertAdjacentHTML('beforeend', html);
+}
+
+// 監聽 hash 變化，同步底部按鈕狀態 (處理使用者直接點 React 連結)
+window.addEventListener('hashchange', function() {
+  var hash = window.location.hash;
+  var page = 'rental';
+  if (hash.includes('refundPolicy')) page = 'booking';
+  else if (hash === '#/' || hash === '') page = 'rental';
+  
+  setOn(page);
+  showHero(page);
+  document.getElementById('cc-page').className = ''; // 關閉自訂頁面
+  setTimeout(scrollTop, 50);
+  if (page === 'rental') setTimeout(injectTestimonials, 300);
+});
+
+// 初始化
+new MutationObserver(function() {
+  hideSocial(); patchLogo();
+}).observe(document.body, {childList:true, subtree:true});
+
+[200,700,1600].forEach(function(ms){
+  setTimeout(function(){ 
+    hideSocial(); patchLogo(); adjustPageTop(); 
+    // 初始載入時檢查 hash 並設定正確狀態
+    var hash = window.location.hash;
+    if (hash.includes('refundPolicy')) {
+      setOn('booking');
+      showHero('booking');
+    } else {
+      setOn('rental');
+      showHero('rental');
+      setTimeout(injectTestimonials, 500);
+    }
+  }, ms);
+});
+
+adjustPageTop();
+window.addEventListener('resize', adjustPageTop);
+</script>
