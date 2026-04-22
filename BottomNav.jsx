@@ -7,17 +7,14 @@ const TABS = [
 ];
 
 const BottomNav = ({ active, onTabChange }) => {
-  const s = {
-    bar: {
-      position: 'fixed', bottom: 0, left: 0, right: 0,
+  return (
+    <div style={{
       background: '#0f1f14',
       borderTop: '1px solid rgba(255,255,255,.08)',
       boxShadow: '0 -6px 24px rgba(0,0,0,.4)',
-      display: 'flex', padding: '4px 0 6px', zIndex: 200,
-    },
-  };
-  return (
-    <div style={s.bar}>
+      display: 'flex', padding: '4px 0 6px',
+      flexShrink: 0,
+    }}>
       {TABS.map(tab => {
         const isOn = active === tab.id;
         return (

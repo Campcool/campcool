@@ -25,7 +25,7 @@
   }
   .phone-shell {
     width: 390px;
-    min-height: 844px;
+    height: 844px;
     background: #f0fdf8;
     border-radius: 44px;
     overflow: hidden;
@@ -34,7 +34,7 @@
     display: flex;
     flex-direction: column;
   }
-  /* Status bar */
+  /* Status bar — desktop only decoration */
   .status-bar {
     background: rgba(255,255,255,.96);
     padding: 12px 24px 6px;
@@ -47,14 +47,15 @@
     flex-shrink: 0;
   }
   .status-icons { display: flex; gap: 5px; align-items: center; }
-  #app-root { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  @media (max-width: 680px) { .status-bar { display: none !important; } }
+  #app-root { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
 
-  /* Scrollable page body */
+  /* Scrollable page body — no padding-bottom needed, nav is inside flex */
   .page-body {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: 90px;
     -webkit-overflow-scrolling: touch;
+    min-height: 0;
   }
   .page-body::-webkit-scrollbar { display: none; }
 
@@ -108,7 +109,7 @@
   .side-info h2 { color: #34d399; font-size: 16px; font-weight: 800; margin-bottom: 8px; }
   .side-info .tab-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
   .side-info .tab-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  @media (max-width: 680px) { .side-info { display: none; } body { padding: 0; } .phone-shell { border-radius: 0; min-height: 100vh; width: 100%; } }
+  @media (max-width: 680px) { .side-info { display: none; } body { padding: 0; align-items: stretch; } .phone-shell { border-radius: 0; height: 100svh; width: 100%; } .status-bar { display: none; } }
 
   /* ── 浮動社交按鈕 ── */
   .cc-float {
