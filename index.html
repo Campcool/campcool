@@ -1,740 +1,445 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-TW">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>露涼社 CampCool｜露營冷氣・冰箱出租專家</title>
-    <meta name="description" content="提供艾比酷JUZ-400與山水SAC688專業露營冷氣，及冰虎・艾比酷各款移動冰箱出租。新竹、竹北、台北、台中多據點，24H便利取還。">
-    <!-- Open Graph / 社群分享標籤 -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://campcool.tw">
-    <meta property="og:site_name" content="露涼社 CampCool">
-    <meta property="og:title" content="2026 台灣露營移動冷氣選購指南：600W以下低功耗型號大評比">
-    <meta property="og:description" content="提供露營與車宿族群一份清晰的低瓦數移動冷氣比較圖表，BTU、功率、重量、尺寸完整比較，幫助你在不跳電的前提下挑選最適合的冷房設備。">
-    <meta property="og:image" content="https://campcool.tw/assets/og-cover.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="zh_TW">
-    <!-- LINE / Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="2026 台灣露營移動冷氣選購指南：600W以下低功耗型號大評比">
-    <meta name="twitter:description" content="提供露營與車宿族群清晰的低瓦數移動冷氣比較圖表，BTU、功率、重量完整比較。">
-    <meta name="twitter:image" content="https://campcool.tw/assets/og-cover.jpg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>露涼社 CampCool — UI Kit</title>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="Header.jsx"></script>
+<script type="text/babel" src="BottomNav.jsx"></script>
+<script type="text/babel" src="HeroSection.jsx"></script>
+<script type="text/babel" src="ProductCard.jsx"></script>
+<script type="text/babel" src="PricingTable.jsx"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+    background: #1a2e1e;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px 16px 40px;
+  }
+  .phone-shell {
+    width: 390px;
+    min-height: 844px;
+    background: #f0fdf8;
+    border-radius: 44px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.12);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Status bar */
+  .status-bar {
+    background: rgba(255,255,255,.96);
+    padding: 12px 24px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1f2937;
+    flex-shrink: 0;
+  }
+  .status-icons { display: flex; gap: 5px; align-items: center; }
+  #app-root { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
-    <script type="module" crossorigin src="assets/index-BIiKt1Ot.js"></script>
-    <link rel="stylesheet" crossorigin href="assets/index-CEwUhtAt.css">
-    <style>
-/* ── 全域字型優化 ── */
-*{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased}
+  /* Scrollable page body */
+  .page-body {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 90px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .page-body::-webkit-scrollbar { display: none; }
 
-/* ── 浮動社交按鈕 ── */
-.cc-float{position:fixed;right:14px;bottom:100px;display:flex;flex-direction:column;gap:12px;z-index:9999}
-.cc-fb{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.28);border:none;cursor:pointer;transition:transform .2s;overflow:hidden;padding:0}
-.cc-fb:hover{transform:scale(1.08);box-shadow:0 12px 24px rgba(0,0,0,.3)}
-.cc-line-fb{background:#06C755;animation:ccPulse 5s ease-in-out infinite}
-@keyframes ccPulse{
-  0%,100%{box-shadow:0 4px 16px rgba(0,0,0,.28)}
-  88%{box-shadow:0 4px 16px rgba(0,0,0,.28)}
-  92%{box-shadow:0 0 0 8px rgba(6,199,85,.35),0 4px 16px rgba(0,0,0,.28)}
-  96%{box-shadow:0 0 0 14px rgba(6,199,85,.12),0 4px 16px rgba(0,0,0,.28)}
-  100%{box-shadow:0 4px 16px rgba(0,0,0,.28)}
-}
-.cc-ig-fb{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
-@media(max-width:480px){.cc-fb{width:50px;height:50px}.cc-float{right:12px;bottom:90px;gap:10px}}
+  /* Section styles matching campcool.tw */
+  .cc-body { max-width: 860px; margin: 0 auto; padding: 1rem .9rem 1.5rem; }
+  .cc-sh { font-size: 1.15rem; font-weight: 800; color: #1e293b; margin: 1.5rem 0 .3rem; display: flex; align-items: center; gap: .45rem; }
+  .cc-shdiv { border: none; border-top: 1px solid #d1fae5; margin: 0 0 .85rem; }
+  .cc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1rem; }
 
-/* ── 隱藏原本社交連結 + 漢堡選單 ── */
-a[href*="lin.ee"]:not(.cc-float a),
-a[href*="instagram.com"]:not(.cc-float a){display:none!important}
-div.md\:hidden > button[class*="focus:outline-none"],
-.md\:hidden > button[class*="hover:text-emerald"]{display:none!important}
+  /* Fridge table */
+  .cc-tbl-wrap { width: 100%; overflow-x: auto; border-radius: .5rem; margin: .6rem 0; }
+  .cc-tbl { width: 100%; border-collapse: collapse; font-size: .82rem; min-width: 280px; }
+  .cc-tbl th { background: #059669; color: white; padding: .48rem .8rem; text-align: left; font-weight: 600; }
+  .cc-tbl td { padding: .44rem .8rem; border-bottom: 1px solid #f3f4f6; color: #4b5563; }
+  .cc-tbl tr:nth-child(even) td { background: #f9fafb; }
 
-/* ── 底部導覽 bar（4 頁籤，大按鈕）── */
-#cc-bar{
-  position:fixed;bottom:0;left:0;right:0;z-index:9995;
-  background:#0f1f14;
-  border-top:1px solid rgba(255,255,255,.08);
-  box-shadow:0 -6px 24px rgba(0,0,0,.4);
-  display:flex;
-  padding:4px 0 6px;
-}
-#cc-bar button{
-  flex:1;
-  padding:10px 4px 12px;border:none;background:none;
-  color:rgba(255,255,255,.45);
-  cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
-  transition:color .2s,transform .1s;font-family:inherit;
-  border-top:3px solid transparent;
-  font-weight:600;
-}
-[data-tab="rental"].on{color:#34d399;border-top-color:#34d399}
-[data-tab="wiki"].on{color:#a78bfa;border-top-color:#a78bfa}
-[data-tab="booking"].on{color:#f87171;border-top-color:#f87171}
-[data-tab="fridge"].on{color:#22d3ee;border-top-color:#22d3ee}
-.cc-bico{
-  width:38px;height:38px;border-radius:11px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;
-  background:rgba(255,255,255,.07);
-  transition:background .15s,transform .15s;
-}
-#cc-bar button.on .cc-bico{transform:translateY(-2px)}
-[data-tab="rental"].on .cc-bico{background:rgba(52,211,153,.18)}
-[data-tab="wiki"].on .cc-bico{background:rgba(167,139,250,.18)}
-[data-tab="booking"].on .cc-bico{background:rgba(248,113,113,.18)}
-[data-tab="fridge"].on .cc-bico{background:rgba(34,211,238,.18)}
-.cc-blbl{font-size:.75rem;letter-spacing:.3px;line-height:1;white-space:nowrap;font-weight:600}
-body{padding-bottom:82px!important}
+  /* Knowledge blocks */
+  .cc-kb { background: white; border-radius: .875rem; border: 1px solid #e5e7eb; padding: 1rem 1.1rem; margin-bottom: .8rem; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+  .cc-kb h3 { font-size: 1rem; font-weight: 800; color: #1f2937; margin-bottom: .5rem; display: flex; align-items: center; gap: .35rem; }
+  .cc-kb p { font-size: .87rem; color: #4b5563; line-height: 1.75; }
+  .cc-kb strong { color: #c2410c; }
 
-/* ── 自訂頁面 ── */
-#cc-page{
-  display:none;
-  position:fixed;
-  top:73px;
-  left:0;right:0;
-  bottom:82px;
-  z-index:10;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  background:#f0fdf8;
-}
-#cc-page.on{display:block}
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; margin-bottom: 1.2rem; }
+  .why-card { background: white; border-radius: 18px; padding: 1.25rem .9rem; text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.07); border: 1px solid #d1fae5; }
+  .why-card .icon { font-size: 2.4rem; margin-bottom: .5rem; }
+  .why-card .title { font-size: 1.05rem; font-weight: 800; color: #059669; margin-bottom: .4rem; }
+  .why-card .desc { font-size: .78rem; color: #6b7280; line-height: 1.5; }
 
-/* hero */
-.cc-ph{
-  color:white;padding:2rem 1.25rem 1.75rem;text-align:center;
-  position:relative;overflow:hidden;
-}
-.cc-ph::before{
-  content:'';position:absolute;inset:0;
-  background:rgba(0,20,10,.18);z-index:0;pointer-events:none;
-}
-.cc-ph h1,.cc-ph p{position:relative;z-index:1}
-#cc-page.fridge .cc-ph{background:linear-gradient(135deg,#155e75,#0891b2)}
-#cc-page.wiki .cc-ph{background:linear-gradient(135deg,#3b0764,#7c3aed)}
-#cc-page.knowledge .cc-ph{background:linear-gradient(135deg,#3b0764,#7c3aed)}
-.cc-ph h1{font-size:1.85rem;font-weight:800;margin-bottom:.35rem;line-height:1.2;text-shadow:0 2px 8px rgba(0,0,0,.2)}
-.cc-ph p{font-size:.9rem;opacity:.9;max-width:440px;margin:0 auto;line-height:1.5}
+  /* Map placeholder */
+  .map-placeholder { background: linear-gradient(135deg,#ecfdf5,#d1fae5); border-radius: 14px; padding: 1.2rem; margin-bottom: 1rem; border: 1px solid #a7f3d0; }
+  .loc-item { display: flex; align-items: flex-start; gap: 10px; padding: .65rem 0; border-bottom: 1px solid #e5e7eb; }
+  .loc-item:last-child { border: none; }
+  .loc-dot { width: 10px; height: 10px; border-radius: 50%; background: #059669; margin-top: 5px; flex-shrink: 0; }
+  .loc-name { font-size: .95rem; font-weight: 700; color: #1f2937; }
+  .loc-desc { font-size: .78rem; color: #059669; font-weight: 600; margin-top: 2px; }
 
-/* 內容區 */
-.cc-body{max-width:860px;margin:0 auto;padding:1.1rem .9rem 1.5rem}
+  /* Booking/Policy styles */
+  .policy-block { background: white; border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: .85rem; border: 1px solid #e5e7eb; }
+  .policy-block h4 { font-size: .95rem; font-weight: 800; color: #1f2937; margin-bottom: .5rem; display: flex; align-items: center; gap: .4rem; }
+  .policy-block li { font-size: .85rem; color: #4b5563; line-height: 1.7; list-style: disc; margin-left: 1rem; }
 
-/* Section heading */
-.cc-sh{font-size:1.2rem;font-weight:800;color:#1e293b;margin:1.6rem 0 .32rem;display:flex;align-items:center;gap:.45rem}
-.cc-shdiv{border:none;border-top:1px solid #d1fae5;margin:0 0 .9rem}
-#cc-page.wiki .cc-shdiv{border-top-color:#ddd6fe}
-#cc-page.knowledge .cc-shdiv{border-top-color:#ddd6fe}
+  /* Side panel for desktop */
+  .side-info {
+    position: fixed; top: 24px; left: 50%;
+    transform: translateX(calc(-195px - 200px - 24px));
+    width: 200px;
+    color: rgba(255,255,255,.7);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .side-info h2 { color: #34d399; font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+  .side-info .tab-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
+  .side-info .tab-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  @media (max-width: 680px) { .side-info { display: none; } body { padding: 0; } .phone-shell { border-radius: 0; min-height: 100vh; width: 100%; } }
 
-/* Cards grid — 手機單欄，平板雙欄 */
-.cc-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:.85rem;
-  margin-bottom:1.1rem;
-}
-@media(min-width:500px){.cc-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}}
-.cc-card{background:white;border:1px solid #d1fae5;border-radius:1rem;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.06);transition:transform .15s}
-.cc-ch{padding:.8rem 1rem .68rem;background:linear-gradient(135deg,rgba(6,182,212,.08),rgba(59,130,246,.04));border-bottom:1px solid #d1fae5}
-.cc-brand{font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#0891b2;margin-bottom:.1rem}
-.cc-name{font-size:1rem;font-weight:700;color:#1f2937}
-.cc-sub{font-size:.78rem;color:#6b7280;margin-top:.1rem}
-.cc-cb{padding:.78rem 1rem}
-.cc-row{display:flex;justify-content:space-between;align-items:center;padding:.38rem 0;border-bottom:1px solid #f3f4f6;font-size:.95rem}
-.cc-row:last-child{border:none}
-.cc-lbl{color:#6b7280;flex-shrink:0;margin-right:.5rem;font-size:.9rem}
-.cc-val{color:#1f2937;font-weight:700;text-align:right;font-size:.95rem}
-.cc-pr{display:inline-flex;align-items:center;gap:.25rem;background:#0891b2;color:white;padding:.36rem .9rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-top:.62rem}
+  /* ── 浮動社交按鈕 ── */
+  .cc-float {
+    position: absolute; right: -68px; bottom: 110px;
+    display: flex; flex-direction: column; gap: 12px; z-index: 9999;
+  }
+  @media (max-width: 680px) {
+    .cc-float { position: fixed; right: 12px; bottom: 100px; }
+  }
+  .cc-fab {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; box-shadow: 0 4px 16px rgba(0,0,0,.28);
+    border: none; cursor: pointer; overflow: hidden; padding: 0;
+    transition: transform .2s;
+  }
+  .cc-fab:hover { transform: scale(1.08); }
+  .cc-fab-line { background: #06C755; animation: ccPulse 5s ease-in-out infinite; }
+  .cc-fab-ig { background: linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+  @keyframes ccPulse {
+    0%,88%,100% { box-shadow: 0 4px 16px rgba(0,0,0,.28); }
+    92% { box-shadow: 0 0 0 8px rgba(6,199,85,.35), 0 4px 16px rgba(0,0,0,.28); }
+    96% { box-shadow: 0 0 0 14px rgba(6,199,85,.12), 0 4px 16px rgba(0,0,0,.28); }
+  }
 
-/* Alerts */
-.cc-al{border-radius:1rem;padding:.95rem 1.1rem;margin:.85rem 0;display:flex;gap:.7rem;font-size:.92rem;line-height:1.62;border:1px solid}
-.cc-al.g{background:#ecfdf5;border-color:#6ee7b7;color:#065f46}
-.cc-al.y{background:#fffbeb;border-color:#fcd34d;color:#92400e}
-.cc-al.r{background:#fef2f2;border-color:#fca5a5;color:#991b1b}
-.cc-ai{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+  /* OG/BTU 比較圖 */
+  .btu-cover { width: 100%; border-radius: 12px; overflow: hidden; margin: .75rem 0 1.25rem; box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+  .btu-cover img { width: 100%; height: auto; display: block; }
 
-/* Notice grid — 手機單欄 */
-.cc-g2{display:grid;grid-template-columns:1fr;gap:.75rem;margin-bottom:1.1rem}
-@media(min-width:480px){.cc-g2{grid-template-columns:1fr 1fr}}
-.cc-nc{background:white;border-radius:.875rem;padding:.88rem 1rem;border:1px solid #e5e7eb;box-shadow:0 1px 4px rgba(0,0,0,.05)}
-.cc-nc.c{border-left:3px solid #0891b2}.cc-nc.w{border-left:3px solid #d97706}
-.cc-nc.r{border-left:3px solid #dc2626}.cc-nc.g{border-left:3px solid #059669}
-.cc-nc h4{font-size:.86rem;font-weight:700;margin-bottom:.32rem;color:#1f2937;display:flex;align-items:center;gap:.28rem}
-.cc-nc ul{padding-left:.9rem;margin:0}
-.cc-nc li{font-size:.83rem;color:#4b5563;line-height:1.65;margin-bottom:.18rem}
-
-/* Knowledge blocks */
-.cc-kb{background:white;border-radius:.875rem;border:1px solid #e5e7eb;padding:1.1rem 1.1rem;margin-bottom:.85rem;box-shadow:0 1px 4px rgba(0,0,0,.05)}
-.cc-kb h3{font-size:1rem;font-weight:700;color:#1f2937;margin-bottom:.58rem;display:flex;align-items:center;gap:.38rem;flex-wrap:wrap}
-.cc-kb p{font-size:.88rem;color:#4b5563;line-height:1.75;margin-bottom:.48rem}
-.cc-kb p:last-child{margin-bottom:0}
-.cc-kb strong{color:#c2410c}
-
-/* 表格：手機版可橫向滑動，避免文字擠壓換行 */
-.cc-tbl-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:.5rem;margin:.62rem 0}
-.cc-tbl{width:100%;border-collapse:collapse;font-size:.85rem;min-width:280px}
-.cc-tbl th{
-  background:#c2410c;color:white;
-  padding:.52rem .88rem;text-align:left;font-weight:600;
-  white-space:nowrap; /* 表頭不換行 */
-}
-.cc-tbl td{
-  padding:.48rem .88rem;
-  border-bottom:1px solid #f3f4f6;
-  color:#4b5563;
-  vertical-align:top;
-}
-.cc-tbl tr:nth-child(even) td{background:#f9fafb}
-.cc-tbl tr:last-child td{border:none}
-
-/* 電力表格欄位更緊湊 */
-.cc-tbl.compact th,.cc-tbl.compact td{padding:.42rem .65rem;font-size:.82rem}
-
-.cc-pills{display:flex;flex-wrap:wrap;gap:.3rem;margin:.42rem 0}
-.cc-pill{display:inline-flex;border-radius:12px;padding:.2rem .65rem;font-size:.73rem;font-weight:600;border:1px solid}
-.cc-pill.g{background:#dcfce7;color:#166534;border-color:#86efac}
-.cc-pill.a{background:#fef9c3;color:#854d0e;border-color:#fde047}
-/* 隱藏 contact section（立即預約露營冷氣）*/
-#contact-section{display:none!important}
-
-/* LINE CTA 橫幅 */
-.cc-line-banner{
-  background:linear-gradient(135deg,#06C755 0%,#00a844 100%);
-  border-radius:20px;padding:1.1rem 1.3rem;color:white;
-  display:flex;align-items:center;justify-content:space-between;gap:.8rem;
-  margin:1.25rem 0;box-shadow:0 6px 16px rgba(6,199,85,.3);
-}
-.cc-line-banner strong{font-size:.95rem;font-weight:700}
-.cc-line-banner a{
-  background:white;color:#06C755;
-  padding:.65rem 1.3rem;border-radius:30px;text-decoration:none;
-  font-weight:800;font-size:.9rem;white-space:nowrap;
-  box-shadow:0 3px 8px rgba(0,0,0,.12);flex-shrink:0;
-  transition:transform .1s;
-}
-.cc-line-banner a:active{transform:scale(.96)}
-
-/* cc-name 更大 */
-.cc-name{font-size:1.1rem;font-weight:800;color:#0f172a}
-/* cc-row 更大字 */
-.cc-row{font-size:.92rem}
-/* cc-nc h4 更大 */
-.cc-nc h4{font-size:.9rem;font-weight:800}
-/* cc-nc li 更大 */
-.cc-nc li{font-size:.86rem}
-/* cc-kb h3 更大 */
-.cc-kb h3{font-size:1.05rem;font-weight:800}
-/* cc-kb p 更大 */
-.cc-kb p{font-size:.9rem}
-
-/* ── 注入到 React 頁面頂部的 hero banner ── */
-#cc-hero-banner{
-  color:white;text-align:center;
-  padding:2rem 1.5rem 1.75rem;
-  position:relative;overflow:hidden;
-}
-#cc-hero-banner::after{
-  content:'';position:absolute;inset:0;
-  background:rgba(0,0,0,.08);pointer-events:none;
-}
-#cc-hero-banner h2{
-  font-size:1.65rem;font-weight:700;margin-bottom:.3rem;
-  line-height:1.25;position:relative;z-index:1;
-}
-#cc-hero-banner p{
-  font-size:.9rem;opacity:.9;max-width:420px;
-  margin:0 auto;line-height:1.5;position:relative;z-index:1;
-}
-/* 各頁色調 */
-#cc-hero-banner.rental{background:linear-gradient(135deg,#064e3b,#059669)}
-#cc-hero-banner.booking{background:linear-gradient(135deg,#7f1d1d,#dc2626)}
+  /* Knowledge-first 定位標語 */
+  .knowledge-banner {
+    background: linear-gradient(135deg,#3b0764,#7c3aed);
+    color: white; border-radius: 14px; padding: 14px 16px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .knowledge-banner .kb-icon { font-size: 2rem; flex-shrink: 0; }
+  .knowledge-banner h3 { font-size: .95rem; font-weight: 800; margin-bottom: 3px; }
+  .knowledge-banner p  { font-size: .78rem; opacity: .88; line-height: 1.5; }
 </style>
-  </head>
-  <body>
-    <div id="root"></div>
-    <!-- 動態注入的 hero banner（插在 React header 下方） -->
-    <div id="cc-hero-banner" style="display:none"></div>
+</head>
+<body>
 
-    <!-- 浮動社交按鈕（滿版 SVG，更真實） -->
-    <div class="cc-float">
-      <!-- LINE 官方完整 logo -->
-      <a href="https://lin.ee/8maotVi" class="cc-fb cc-line-fb" target="_blank" rel="noopener" title="LINE @Campcool">
-        <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-          <rect width="56" height="56" rx="28" fill="#06C755"/>
-          <!-- LINE 官方白色 logo -->
-          <path d="M28 10.5C17.8 10.5 9.5 17.6 9.5 26.4c0 6.3 4.2 11.8 10.5 14.9-.5 1.7-1.2 5.7-1.3 6.6 0 0 4.3-.8 7.3-2.7 .6.1 1.3.2 2 .3 10.2 0 18.5-7.1 18.5-15.9S38.2 10.5 28 10.5z" fill="white"/>
-          <!-- LINE 字母 L I N E (縮小版) -->
-          <text x="28" y="31" text-anchor="middle" font-size="11" font-weight="900" fill="#06C755" font-family="Arial Black,Arial,sans-serif" letter-spacing="1">LINE</text>
-        </svg>
-      </a>
-      <!-- Instagram 官方漸層 logo -->
-      <a href="https://www.instagram.com/campcool2025?igsh=OTQ2azZ4dGE0bjJm" class="cc-fb cc-ig-fb" target="_blank" rel="noopener" title="IG @campcool2025">
-        <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="igG" cx="30%" cy="107%" r="150%">
-              <stop offset="0%" stop-color="#fdf497"/>
-              <stop offset="5%" stop-color="#fdf497"/>
-              <stop offset="45%" stop-color="#fd5949"/>
-              <stop offset="60%" stop-color="#d6249f"/>
-              <stop offset="90%" stop-color="#285AEB"/>
-            </radialGradient>
-          </defs>
-          <rect width="56" height="56" rx="28" fill="url(#igG)"/>
-          <!-- camera body -->
-          <rect x="15" y="15" width="26" height="26" rx="7" fill="none" stroke="white" stroke-width="2.5"/>
-          <!-- lens -->
-          <circle cx="28" cy="28" r="6.5" fill="none" stroke="white" stroke-width="2.5"/>
-          <!-- flash dot -->
-          <circle cx="36.5" cy="19.5" r="2" fill="white"/>
-        </svg>
-      </a>
+<div class="side-info">
+  <h2>露涼社 CampCool</h2>
+  <p style="margin-bottom:12px;color:rgba(255,255,255,.5)">UI Kit — 點擊底部 Tab 切換頁面</p>
+  <div class="tab-item"><div class="tab-dot" style="background:#34d399"></div>租借資訊</div>
+  <div class="tab-item"><div class="tab-dot" style="background:#a78bfa"></div>知識百科</div>
+  <div class="tab-item"><div class="tab-dot" style="background:#f87171"></div>預約須知</div>
+  <div class="tab-item"><div class="tab-dot" style="background:#22d3ee"></div>冰箱租借</div>
+  <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.35);font-size:11px">
+    Source: Campcool/campcool<br>
+    campcool.tw
+  </div>
+</div>
+
+<div class="phone-shell">
+  <!-- Status bar -->
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="status-icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/><rect x="13.5" y="0" width="2.5" height="12" rx="1" opacity=".3"/></svg>
+      <svg width="16" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.5C5.9 4.1 12 2 18.5 4l1.5-2C12.5 0 5.5 2.5.5 7l1 1.5zm3 3C7 9 10 7.5 12 8c2-.5 4.5.5 6 2.5l1.5-2C17 5.5 14 4 12 4.5 9.5 5 7 6.5 5 9l-1.5 2.5zm3 3c1-1 2-2 3-2s2.5 1 3 2.5l1.5-2c-1-2-3-3.5-4.5-3.5S8 11 7 12.5l1.5 2zm3 3a2 2 0 014 0"/></svg>
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" strokeOpacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/><path d="M23 4v4a2 2 0 000-4z" fill="currentColor" fillOpacity=".4"/></svg>
     </div>
+  </div>
 
-    <!-- 底部導覽 bar（4 頁籤）-->
-    <div id="cc-bar">
-      <button data-tab="rental" onclick="ccNav(this,'rental')" class="on">
-        <div class="cc-bico">🏕️</div><span class="cc-blbl">租借資訊</span>
-      </button>
-      <button data-tab="wiki" onclick="ccOpen('wiki')">
-        <div class="cc-bico">📚</div><span class="cc-blbl">知識百科</span>
-      </button>
-      <button data-tab="booking" onclick="ccNav(this,'booking')">
-        <div class="cc-bico">📋</div><span class="cc-blbl">預約須知</span>
-      </button>
-      <button data-tab="fridge" onclick="ccOpen('fridge')">
-        <div class="cc-bico">🧊</div><span class="cc-blbl">冰箱租借</span>
-      </button>
-    </div>
+  <!-- React app mounts here -->
+  <div id="app-root"></div>
 
-    <!-- 自訂頁面（全螢幕，z-index 高於 React 所有內容） -->
-    <div id="cc-page">
+  <!-- 浮動社交按鈕 -->
+  <div class="cc-float">
+    <a href="https://lin.ee/8maotVi" class="cc-fab cc-fab-line" target="_blank" rel="noopener" title="LINE @Campcool">
+      <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" rx="26" fill="#06C755"/>
+        <path d="M26 9C16.6 9 9 15.6 9 23.7c0 5.9 3.9 11 9.8 13.9l-1.2 6.2 6.8-2.5c.5.1 1 .1 1.6.1 9.4 0 17-6.6 17-14.7S35.4 9 26 9z" fill="white"/>
+        <text x="26" y="29" text-anchor="middle" font-size="10" font-weight="900" fill="#06C755" font-family="Arial Black,Arial,sans-serif" letter-spacing="1">LINE</text>
+      </svg>
+    </a>
+    <a href="https://www.instagram.com/campcool2025" class="cc-fab cc-fab-ig" target="_blank" rel="noopener" title="IG @campcool2025">
+      <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" rx="26" fill="none"/>
+        <rect x="13" y="13" width="26" height="26" rx="7" fill="none" stroke="white" stroke-width="2.5"/>
+        <circle cx="26" cy="26" r="6.5" fill="none" stroke="white" stroke-width="2.5"/>
+        <circle cx="34" cy="18" r="2" fill="white"/>
+      </svg>
+    </a>
+  </div>
+</div>
 
+<script type="text/babel">
+const { useState, useEffect } = React;
 
-      <!-- 冰箱租借 -->
-      <div id="cc-fridge">
-        <div class="cc-ph">
-          <h1>🧊 移動冰箱租借</h1>
-          <p>搭配露營冷氣一起租，夏日清涼食材全保鮮</p>
+// ── Rental Tab ──────────────────────────────────────────────
+const RentalTab = ({ onLineClick, onTabChange }) => (
+  <div>
+    <HeroSection tab="rental" />
+    <div className="cc-body">
+      {/* Knowledge nudge — 引導到知識頁 */}
+      <div onClick={() => onTabChange('wiki')} style={{ background: 'linear-gradient(135deg,#fff1f2,#ffe4e6)', borderRadius: 14, padding: '12px 14px', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 12, border: '1.5px solid #fecdd3', cursor: 'pointer', boxShadow: '0 4px 12px rgba(244,63,94,.12)' }}>
+        <span style={{ fontSize: '1.8rem' }}>📊</span>
+        <div>
+          <div style={{ fontSize: '.88rem', fontWeight: 800, color: '#be123c' }}>不確定選哪台？先看比較表</div>
+          <div style={{ fontSize: '.75rem', color: '#e11d48', marginTop: 2, fontWeight: 600 }}>BTU・功率・重量完整評比 → 知識百科</div>
         </div>
-        <div class="cc-body">
+        <span style={{ marginLeft: 'auto', color: '#e11d48', fontSize: 20, fontWeight: 800 }}>›</span>
+      </div>
 
-          <!-- 定價說明 -->
-          <div class="cc-al g"><span class="cc-ai">💰</span><div>
-            <strong>統一定價：$800 元／次</strong><br>
-            連續假期不限日期，一律 $800。依詢問時檔期存量為主，請提前透過 LINE 確認。
-          </div></div>
-
-
-
-          <!-- 尺寸說明 -->
-          <div class="cc-sh">📦 可租型號一覽</div><hr class="cc-shdiv">
-          <div class="cc-al y"><span class="cc-ai">ℹ️</span><div>20L～60L 皆有，可依人數與需求選擇。實際可租型號依各地區存量調配。</div></div>
-
-          <div class="cc-tbl-wrap"><table class="cc-tbl">
-            <tr><th>品牌・型號</th><th>容量</th><th>重量</th><th>溫度範圍</th><th>耗電</th></tr>
-            <tr><td>冰虎 MC-20</td><td>20L</td><td>約 8 kg</td><td>-10°C ～ 20°C</td><td>約 25W</td></tr>
-            <tr><td>冰虎 TA-35</td><td>35L</td><td>約 14 kg</td><td>-15°C ～ 20°C</td><td>約 35W</td></tr>
-            <tr><td>冰虎 CHT-35</td><td>35L</td><td>約 14 kg</td><td>-15°C ～ 20°C</td><td>約 35W</td></tr>
-            <tr><td>冰虎 ECX-40</td><td>40L</td><td>約 16 kg</td><td>-20°C ～ 20°C</td><td>約 40W</td></tr>
-            <tr><td>冰虎 T50</td><td>50L</td><td>約 19 kg</td><td>-20°C ～ 20°C</td><td>約 50W</td></tr>
-            <tr><td>冰虎 T60</td><td>60L</td><td>約 22 kg</td><td>-20°C ～ 20°C</td><td>約 60W</td></tr>
-            <tr><td>艾比酷 LG-D36</td><td>36L（雙溫區）</td><td>約 15 kg</td><td>-20°C ～ 20°C</td><td>約 40W</td></tr>
-          </table></div>
-
-          <!-- 注意事項 -->
-          <div class="cc-sh">⚠️ 使用注意</div><hr class="cc-shdiv">
-          <div class="cc-g2">
-            <div class="cc-nc r"><h4>🚨 搬運後必看</h4><ul>
-              <li>到現場後靜置 <strong>30 分鐘以上</strong>再開機</li>
-              <li>搬運時保持直立，勿倒置超過 45°</li>
-              <li>直接開機可能損壞壓縮機</li>
-            </ul></div>
-            <div class="cc-nc c"><h4>🔌 電源設置</h4><ul>
-              <li>使用 110V 接地插座</li>
-              <li>延長線需 10A 以上</li>
-              <li>建議與冷氣分開插座</li>
-            </ul></div>
-            <div class="cc-nc c"><h4>🌡️ 溫度設定</h4><ul>
-              <li>冷藏：2°C ～ 8°C</li>
-              <li>冷凍：-10°C ～ -18°C</li>
-              <li>避免頻繁開關蓋</li>
-            </ul></div>
-            <div class="cc-nc w"><h4>⚡ 用電注意</h4><ul>
-              <li>冷氣＋冰箱合計約 4-6A</li>
-              <li>勿同時使用電熱水壺</li>
-              <li>勿同時使用電磁爐</li>
-            </ul></div>
+      {/* Why Choose */}
+      <div className="cc-sh">為什麼選擇露涼社？</div>
+      <hr className="cc-shdiv" />
+      <div className="why-grid">
+        {[
+          { icon: '❄️', title: '強效冷房', desc: '5000～6000 BTU\n適合 3-6 人帳篷' },
+          { icon: '📍', title: '多點取還', desc: '雙北・新竹・台中\n24H 便利取還' },
+          { icon: '💰', title: '透明定價', desc: '兩天一夜 $1,000\n無隱藏費用' },
+          { icon: '🛠️', title: '專業支援', desc: 'LINE 即時客服\n使用問題快速解決' },
+        ].map((c, i) => (
+          <div key={i} className="why-card">
+            <div className="icon">{c.icon}</div>
+            <div className="title">{c.title}</div>
+            <div className="desc">{c.desc.split('\n').map((l,j) => <span key={j}>{l}<br/></span>)}</div>
           </div>
+        ))}
+      </div>
+
+      {/* Pricing */}
+      <div className="cc-sh">透明租金方案</div>
+      <hr className="cc-shdiv" />
+      <PricingTable onLineClick={onLineClick} />
+
+      {/* Locations */}
+      <div className="cc-sh">📍 服務據點分布</div>
+      <hr className="cc-shdiv" />
+      <div className="map-placeholder">
+        {[
+          { name: '新竹・竹北', desc: '竹苗露客首選，近交流道・好市多' },
+          { name: '雙北 (台北・新北)', desc: '往宜蘭・桃園露營的出發點' },
+          { name: '台中', desc: '台中・南投露客最方便' },
+        ].map((loc, i) => (
+          <div key={i} className="loc-item">
+            <div className="loc-dot" />
+            <div>
+              <div className="loc-name">{loc.name}</div>
+              <div className="loc-desc">📍 {loc.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <LineBanner onLineClick={onLineClick} />
+    </div>
+  </div>
+);
+
+// ── Wiki Tab ──────────────────────────────────────────────
+const WikiTab = () => (
+  <div>
+    <HeroSection tab="wiki" />
+    <div className="cc-body">
+
+      {/* Knowledge-first 定位 */}
+      <div className="knowledge-banner">
+        <div className="kb-icon">📊</div>
+        <div>
+          <h3>2026 台灣露營移動冷氣選購指南</h3>
+          <p>600W 以下低功耗型號大評比 — BTU、功率、重量、尺寸完整比較</p>
         </div>
       </div>
 
-      <!-- 知識百科（設備 + 使用指南 + 知識）-->
-      <div id="cc-knowledge" style="display:none">
-        <div class="cc-ph">
-          <h1>📚 知識百科</h1>
-          <p>設備規格・使用指南・冷氣冰箱知識，全在這裡</p>
+      {/* BTU 比較圖（OG cover） */}
+      <div className="cc-sh">📐 移動冷氣 BTU 市場比較</div>
+      <hr className="cc-shdiv" />
+      <AlertBanner type="g" icon="💡">
+        BTU 越高製冷越強，但重量與耗電也越高。5000 BTU 已足夠 3-4 人帳，6000 BTU 適合大帳或開口較多的帳篷。
+      </AlertBanner>
+      <div className="btu-cover">
+        <img src="../../assets/og-cover.jpg" alt="2026台灣露營移動冷氣選購指南：600W以下低功耗型號大評比" />
+      </div>
+
+      <div className="cc-sh">❄️ 我們的冷氣設備規格</div>
+      <hr className="cc-shdiv" />
+      <ProductCard
+        brand="艾比酷 Iceco" brandColor="#2563eb"
+        headerGradient="linear-gradient(135deg,rgba(37,99,235,.1),rgba(59,130,246,.05))"
+        name="JUZ-400" tagline="輕量・零排水・3-4 人帳首選"
+        specs={[
+          { label: '冷房能力', value: '5100 BTU' },
+          { label: '耗電量', value: '425W（約 3.9A）' },
+          { label: '重量', value: '13 kg' },
+          { label: '尺寸', value: '40×28.5×50.8 cm' },
+          { label: '排水', value: '✅ 免排水（自動蒸發）' },
+          { label: '適合', value: '3-5 坪密閉帳篷' },
+        ]}
+      />
+      <ProductCard
+        brand="山水" brandColor="#059669"
+        headerGradient="linear-gradient(135deg,rgba(5,150,105,.1),rgba(6,182,212,.05))"
+        name="SAC688" tagline="強效製冷・5-6 人大帳首選"
+        specs={[
+          { label: '冷房能力', value: '6000 BTU' },
+          { label: '耗電量', value: '530W（約 4.8A）' },
+          { label: '重量', value: '17 kg' },
+          { label: '尺寸', value: '36×48×49 cm' },
+          { label: '排水', value: '⚠️ 需定期排水（每 3-5h）' },
+          { label: '適合', value: '5-8 坪密閉帳篷' },
+        ]}
+      />
+
+      <div className="cc-sh">🧠 露營冷氣知識</div>
+      <hr className="cc-shdiv" />
+      <div className="cc-kb"><h3>❄️ 冷氣怎麼運作？</h3><p>冷氣不是「製造冷空氣」，而是利用<strong>冷媒循環</strong>把帳篷裡的熱量帶走排到外面。<strong>排熱管一定要伸出帳篷外</strong>，否則完全不會涼。</p></div>
+      <div className="cc-kb"><h3>⚡ 電力計算：會跳電嗎？</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。JUZ-400＋冰箱＋燈 ≈ <strong>5.3A</strong>，10A 電箱完全沒問題。只要不同時開電熱水壺即可。</p></div>
+      <div className="cc-kb"><h3>🏕️ 帳篷密封技巧</h3><p>帳篷越密封，冷氣效果越好。建議<strong>提前 15-20 分鐘開機預冷</strong>再進帳。黑膠帳或科技棉帳效果最佳。</p></div>
+    </div>
+  </div>
+);
+
+// ── Booking Tab ──────────────────────────────────────────
+const BookingTab = ({ onLineClick }) => (
+  <div>
+    <HeroSection tab="booking" />
+    <div className="cc-body">
+      <AlertBanner type="g" icon="✅">
+        <strong>預約方式</strong>：請透過 LINE 官方帳號詢問檔期，確認後付款即完成預約。
+      </AlertBanner>
+
+      <div className="cc-sh">📋 預約流程</div>
+      <hr className="cc-shdiv" />
+      {[
+        { step: '01', icon: '💬', title: 'LINE 詢問', desc: '告知露營日期、地點、人數與需求' },
+        { step: '02', icon: '📅', title: '確認檔期', desc: '我們確認存量並報價，通常 1 小時內回覆' },
+        { step: '03', icon: '💳', title: '付款確認', desc: '匯款或轉帳後傳截圖確認，預約完成' },
+        { step: '04', icon: '🚗', title: '取機出發', desc: '約定時間至據點取機，附使用說明' },
+      ].map((s, i) => (
+        <div key={i} className="policy-block" style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#ecfdf5', border: '2px solid #059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>{s.icon}</div>
+          <div>
+            <div style={{ fontSize: '.72rem', fontWeight: 700, color: '#059669', letterSpacing: '.06em', textTransform: 'uppercase' }}>STEP {s.step}</div>
+            <div style={{ fontSize: '.95rem', fontWeight: 800, color: '#1f2937', marginTop: 1 }}>{s.title}</div>
+            <div style={{ fontSize: '.83rem', color: '#4b5563', marginTop: 2, lineHeight: 1.55 }}>{s.desc}</div>
+          </div>
         </div>
-        <div class="cc-body">
+      ))}
 
-          <!-- ① BTU 市場比較表（最上面） -->
-          <div class="cc-sh">📐 移動冷氣 BTU 市場比較</div><hr class="cc-shdiv">
-          <div class="cc-al g"><span class="cc-ai">💡</span><div>BTU 越高製冷越強，但重量與耗電也越高。帳篷密封性好時，5000 BTU 已足夠 3-4 人帳，6000 BTU 適合大帳或開口較多的帳篷。</div></div>
-          <div style="width:100%;border-radius:12px;overflow:hidden;margin:.75rem 0 1.25rem;box-shadow:0 4px 16px rgba(0,0,0,.1)">
-            <img src="assets/og-cover.jpg"
-                 alt="2026台灣露營移動冷氣選購指南：600W以下低功耗型號大評比"
-                 style="width:100%;height:auto;display:block">
-          </div>
+      <div className="cc-sh">💰 退費規則</div>
+      <hr className="cc-shdiv" />
+      <div className="policy-block">
+        <h4>📅 取消政策</h4>
+        <ul>
+          <li>取機前 <strong style={{color:'#059669'}}>7 天以上</strong>取消：全額退費</li>
+          <li>取機前 <strong style={{color:'#d97706'}}>3-6 天</strong>取消：退費 50%</li>
+          <li>取機前 <strong style={{color:'#dc2626'}}>1-2 天</strong>取消：不予退費</li>
+          <li>遇天災、颱風等不可抗力：協商處理</li>
+        </ul>
+      </div>
+      <AlertBanner type="y" icon="⚠️">
+        連假檔期熱門，建議提前 2-3 週預約。旺季可能無法臨時配合，請見諒。
+      </AlertBanner>
 
-          <!-- ② 我們的設備規格 -->
-          <div class="cc-sh">❄️ 我們的冷氣設備規格</div><hr class="cc-shdiv">
-          <div style="display:grid;gap:.85rem;margin-bottom:1.25rem">
-            <div class="cc-card">
-              <div class="cc-ch" style="background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(59,130,246,.05))">
-                <div style="font-size:.8rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#2563eb;margin-bottom:.2rem">艾比酷 Iceco</div>
-                <div style="font-size:1.3rem;font-weight:800;color:#1f2937">JUZ-400</div>
-                <div style="font-size:.9rem;color:#6b7280;margin-top:.2rem">輕量・零排水・3-4 人帳首選</div>
-              </div>
-              <div class="cc-cb">
-                <div class="cc-row"><span class="cc-lbl">冷房能力</span><span class="cc-val">5100 BTU</span></div>
-                <div class="cc-row"><span class="cc-lbl">耗電量</span><span class="cc-val">425W（約 3.9A）</span></div>
-                <div class="cc-row"><span class="cc-lbl">重量</span><span class="cc-val">13 kg</span></div>
-                <div class="cc-row"><span class="cc-lbl">尺寸</span><span class="cc-val">40×28.5×50.8 cm</span></div>
-                <div class="cc-row"><span class="cc-lbl">排水</span><span class="cc-val">✅ 免排水（自動蒸發）</span></div>
-                <div class="cc-row"><span class="cc-lbl">適合</span><span class="cc-val">3-5 坪密閉帳篷</span></div>
-              </div>
-            </div>
-            <div class="cc-card">
-              <div class="cc-ch" style="background:linear-gradient(135deg,rgba(5,150,105,.1),rgba(6,182,212,.05))">
-                <div style="font-size:.8rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#059669;margin-bottom:.2rem">山水</div>
-                <div style="font-size:1.3rem;font-weight:800;color:#1f2937">SAC688</div>
-                <div style="font-size:.9rem;color:#6b7280;margin-top:.2rem">強效製冷・5-6 人大帳首選</div>
-              </div>
-              <div class="cc-cb">
-                <div class="cc-row"><span class="cc-lbl">冷房能力</span><span class="cc-val">6000 BTU</span></div>
-                <div class="cc-row"><span class="cc-lbl">耗電量</span><span class="cc-val">530W（約 4.8A）</span></div>
-                <div class="cc-row"><span class="cc-lbl">重量</span><span class="cc-val">17 kg</span></div>
-                <div class="cc-row"><span class="cc-lbl">尺寸</span><span class="cc-val">36×48×49 cm</span></div>
-                <div class="cc-row"><span class="cc-lbl">排水</span><span class="cc-val">⚠️ 需定期排水（每 3-5h）</span></div>
-                <div class="cc-row"><span class="cc-lbl">適合</span><span class="cc-val">5-8 坪密閉帳篷</span></div>
-              </div>
-            </div>
-          </div>
+      <LineBanner onLineClick={onLineClick} />
+    </div>
+  </div>
+);
 
-          <!-- ③ 使用步驟 -->
-          <div class="cc-sh">📖 使用步驟</div><hr class="cc-shdiv">
-          <div class="cc-g2">
-            <div class="cc-nc c"><h4>🔌 電源連接</h4><ul><li>確認插座 110V 穩固</li><li>延長線需 10A 以上規格</li><li>避免使用破損延長線</li></ul></div>
-            <div class="cc-nc c"><h4>💨 排風管安裝</h4><ul><li>一端連接冷氣機背面</li><li>另一端伸出帳篷外</li><li>縫隙用布填充提升效果</li></ul></div>
-            <div class="cc-nc c"><h4>🌡️ 溫度設定</h4><ul><li>建議設定 24-26°C</li><li>可選冷氣、除濕、送風模式</li><li>睡前可調至節能模式</li></ul></div>
-            <div class="cc-nc c"><h4>💧 排水處理</h4><ul><li>JUZ-400：自動蒸發，免排水</li><li>SAC688：水滿停機，需定期排</li><li>建議睡前排一次</li></ul></div>
-          </div>
+// ── Fridge Tab ──────────────────────────────────────────
+const FridgeTab = ({ onLineClick }) => (
+  <div>
+    <HeroSection tab="fridge" />
+    <div className="cc-body">
+      <AlertBanner type="g" icon="💰">
+        <strong>統一定價：$800 元／次</strong><br/>
+        連續假期不限日期，一律 $800。依詢問時檔期存量為主，請提前透過 LINE 確認。
+      </AlertBanner>
 
-          <!-- ④ 安全注意 -->
-          <div class="cc-sh">⚠️ 安全注意</div><hr class="cc-shdiv">
-          <div class="cc-g2">
-            <div class="cc-nc r"><h4>🚫 電氣安全</h4><ul><li>避免在潮濕環境操作</li><li>不可濕手觸摸電源開關</li><li>發現異常聲響立即停機</li><li>雷雨天氣請暫停使用</li></ul></div>
-            <div class="cc-nc w"><h4>🛡️ 設備保護</h4><ul><li>避免陽光直射機體</li><li>不可堵塞進出風口</li><li>搬運時保持直立輕放</li></ul></div>
-            <div class="cc-nc g"><h4>💡 使用技巧</h4><ul><li>開機前先開帳篷通風預冷</li><li>提前 15-20 分鐘預冷效果更好</li><li>關機後等 3-5 分鐘再重啟</li></ul></div>
-          </div>
+      <div className="cc-sh">📦 可租型號一覽</div>
+      <hr className="cc-shdiv" />
+      <div className="cc-tbl-wrap">
+        <table className="cc-tbl">
+          <thead>
+            <tr><th>品牌・型號</th><th>容量</th><th>重量</th><th>耗電</th></tr>
+          </thead>
+          <tbody>
+            {[
+              ['冰虎 MC-20','20L','約 8 kg','約 25W'],
+              ['冰虎 TA-35','35L','約 14 kg','約 35W'],
+              ['冰虎 T50','50L','約 19 kg','約 50W'],
+              ['冰虎 T60','60L','約 22 kg','約 60W'],
+              ['艾比酷 LG-D36','36L（雙溫區）','約 15 kg','約 40W'],
+            ].map((row, i) => (
+              <tr key={i}>{row.map((cell, j) => <td key={j}>{cell}</td>)}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-          <!-- ⑤ 原理知識 -->
-          <div class="cc-sh">🧠 露營冷氣知識</div><hr class="cc-shdiv">
-          <div class="cc-kb"><h3>❄️ 冷氣怎麼運作？</h3><p>冷氣不是「製造冷空氣」，而是利用<strong>冷媒循環</strong>把帳篷裡的熱量帶走排到外面。<strong>排熱管一定要伸出帳篷外</strong>，否則完全不會涼。步驟：蒸發吸熱 → 壓縮 → 冷凝排熱 → 膨脹再循環。</p></div>
-          <div class="cc-kb"><h3>⚡ 電力計算：會跳電嗎？</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。台灣營區通常 10A 或 15A。JUZ-400＋冰箱＋燈＋手機 ≈ <strong>5.3A</strong>，10A 電箱完全沒問題。只要不同時開電熱水壺或電磁爐即可。</p></div>
-          <div class="cc-kb"><h3>🏕️ 帳篷密封技巧</h3><div class="cc-pills"><span class="cc-pill g">✅ 黑膠帳或科技棉帳</span><span class="cc-pill g">✅ 拉上所有拉鍊</span><span class="cc-pill g">✅ 布封住網格縫隙</span><span class="cc-pill a">⚠️ 避免純網格帳篷</span></div><p>帳篷越密封，冷氣效果越好。建議<strong>提前 15-20 分鐘開機預冷</strong>再進帳。</p></div>
-          <div class="cc-kb"><h3>🌿 R410A 冷媒</h3><p>山水 SAC688 與艾比酷 JUZ-400 均使用 <strong>R410A</strong> 冷媒。ODP=0（不破壞臭氧層），製冷效率穩定，是目前市場主流的環保冷媒之一。</p></div>
-        </div>
-      </div>    <script>
-    // ── CC_HEROES for React pages ──
-    var CC_HEROES = {
-      rental:{cls:'rental',icon:'🏕️',title:'租借資訊',sub:'冷氣方案・服務據點・透明租金，一頁搞定'},
-      booking:{cls:'booking',icon:'📋',title:'預約須知',sub:'退費規則・取消政策，安心預約無後顧之憂'},
-      locations:{cls:'rental',icon:'📍',title:'服務據點',sub:'雙北・新竹竹北・台中，靠近交流道與好市多，取還超方便'}
-    };
+      <div className="cc-sh">⚠️ 使用注意</div>
+      <hr className="cc-shdiv" />
+      <div className="cc-grid">
+        <NoticeCard type="r" icon="🚨" title="搬運後必看" items={['靜置 <strong>30 分鐘以上</strong>再開機','保持直立，勿倒置超過 45°','直接開機可能損壞壓縮機']} />
+        <NoticeCard type="c" icon="🔌" title="電源設置" items={['使用 110V 接地插座','延長線需 10A 以上','建議與冷氣分開插座']} />
+        <NoticeCard type="c" icon="🌡️" title="溫度設定" items={['冷藏：2°C～8°C','冷凍：-10°C～-18°C','避免頻繁開關蓋']} />
+        <NoticeCard type="w" icon="⚡" title="用電注意" items={['冷氣＋冰箱合計約 4-6A','勿同時使用電熱水壺','勿同時使用電磁爐']} />
+      </div>
 
-    // 回頂部（cc-page 和 React 頁面都適用）
-    function scrollTop() {
-      // cc-page 自己 scroll
-      var pg = document.getElementById('cc-page');
-      if (pg && pg.classList.contains('on')) { pg.scrollTop = 0; return; }
-      // React 頁面：scroll window
-      window.scrollTo({top:0,behavior:'instant'});
-      // Also try scrolling the root element
-      var root = document.getElementById('root');
-      if (root) root.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    }
+      <LineBanner onLineClick={onLineClick} />
+    </div>
+  </div>
+);
 
-    // 開啟自訂頁面（冰箱/知識）
-    function ccOpen(tab) {
-      var pg = document.getElementById('cc-page');
-      var fc = document.getElementById('cc-fridge');
-      var kc = document.getElementById('cc-knowledge');
-      pg.className = 'on ' + tab;
-      pg.scrollTop = 0;  // ← 回頂部
-      if (tab === 'fridge') {
-        fc.style.display = ''; kc.style.display = 'none';
-      } else {
-        kc.style.display = ''; fc.style.display = 'none';
-      }
-      // tab → 對應底部 bar
-      if (tab === 'fridge') setOn('fridge');
-      else if (tab === 'wiki') setOn('wiki');
-      adjustPageTop();
-      showHero(null); // 自訂頁不用 hero banner
-    }
+// ── App ─────────────────────────────────────────────────
+function App() {
+  const [tab, setTab] = useState(() => localStorage.getItem('cc_tab') || 'rental');
+  useEffect(() => { localStorage.setItem('cc_tab', tab); }, [tab]);
 
-    // 切換到 React 頁面
-    function ccNav(btn, page) {
-      document.getElementById('cc-page').className = '';
-      // page mapping
-      var reactPage = (page === 'rental') ? 'home' : 'refundPolicy';
-      var labels = {home:'首頁', refundPolicy:'退費規則'};
-      var target = labels[reactPage];
-      Array.from(document.querySelectorAll('button')).forEach(function(b) {
-        var t = b.textContent.trim();
-        if (t === target || t.endsWith(target)) b.click();
-      });
-      setOn(page);
-      showHero(page);
-      setTimeout(scrollTop, 50);  // ← 回頂部
-    }
+  const onLineClick = () => window.open('https://lin.ee/8maotVi', '_blank');
 
-    function setOn(tab) {
-      document.querySelectorAll('#cc-bar button').forEach(function(b) {
-        b.classList.toggle('on', b.getAttribute('data-tab') === tab);
-      });
-    }
+  const pages = { rental: RentalTab, wiki: WikiTab, booking: BookingTab, fridge: FridgeTab };
+  const Page = pages[tab] || RentalTab;
 
-    function showHero(page) {
-      var banner = document.getElementById('cc-hero-banner');
-      if (!banner) return;
-      if (!page || !CC_HEROES[page]) { banner.style.display='none'; return; }
-      var h = CC_HEROES[page];
-      banner.className = h.cls;
-      banner.innerHTML = '<h2>'+h.icon+' '+h.title+'</h2><p>'+h.sub+'</p>';
-      banner.style.display = 'block';
-      adjustBanner();
-    }
+  return (
+    <div id="app-root">
+      <Header onLogoClick={() => setTab('rental')} />
+      <div className="page-body">
+        <Page onLineClick={onLineClick} onTabChange={setTab} />
+      </div>
+      <BottomNav active={tab} onTabChange={setTab} />
+    </div>
+  );
+}
 
-    function adjustBanner() {
-      var banner = document.getElementById('cc-hero-banner');
-      var hdr = document.querySelector('header');
-      if (!banner || !hdr) return;
-      if (banner.style.display !== 'none' && hdr.parentNode && !hdr.nextSibling?.id?.includes('cc-hero')) {
-        hdr.parentNode.insertBefore(banner, hdr.nextSibling);
-      }
-    }
-
-    function adjustPageTop() {
-      var hdr = document.querySelector('header');
-      var pg = document.getElementById('cc-page');
-      if (hdr && pg) pg.style.top = hdr.getBoundingClientRect().height + 'px';
-    }
-
-    function hideSocial() {
-      document.querySelectorAll('a[href*="lin.ee"],a[href*="instagram.com"]').forEach(function(a) {
-        if (!a.closest('.cc-float')) a.style.cssText='display:none!important';
-      });
-    }
-
-    function patchLogo() {
-      var logo = document.querySelector('header img[alt="露涼社 Logo"]');
-      if (!logo || logo._cc) return;
-      logo._cc = true;
-      var w = logo.parentElement;
-      while (w && !w.querySelector('h1')) w = w.parentElement;
-      if (!w) return;
-      w.style.cursor = 'pointer';
-      w.addEventListener('click', function() {
-        document.getElementById('cc-page').className = '';
-        Array.from(document.querySelectorAll('button')).find(function(b) {
-          return b.textContent.trim() === '首頁' || b.textContent.includes('🏕️');
-        })?.click();
-        setOn('rental');
-        showHero(null);
-        setTimeout(scrollTop, 50);
-      });
-    }
-
-    // 監聽 React nav 按鈕（Desktop nav 同步 bar active）
-    function patchNavSync() {
-      var reactMap = {'首頁':'rental','退費規則':'booking'};
-      document.querySelectorAll('nav button').forEach(function(b) {
-        if (b._ccS) return;
-        var t = b.textContent.trim().replace(/^[^\u4e00-\u9fff]+/,'').trim();
-        if (!reactMap[t]) return;
-        b._ccS = true;
-        b.addEventListener('click', function() {
-          setOn(reactMap[t]);
-          document.getElementById('cc-page').className = '';
-          showHero(reactMap[t]);
-          setTimeout(scrollTop, 50);
-        });
-      });
-    }
-
-    new MutationObserver(function() {
-      hideSocial(); patchLogo(); patchNavSync();
-    }).observe(document.body, {childList:true, subtree:true});
-
-    [200,700,1600].forEach(function(ms){
-      setTimeout(function(){ hideSocial(); patchLogo(); patchNavSync(); adjustPageTop(); }, ms);
-    });
-
-    setOn('rental');
-    adjustPageTop();
-    window.addEventListener('resize', adjustPageTop);
-
-    // ── 覆蓋 React 價格卡片 → 統一價目表 ──
-    function patchPricing() {
-      // 找到 "透明租金方案" h3
-      var h = Array.from(document.querySelectorAll('h3')).find(function(el){
-        return el.textContent.trim() === '透明租金方案';
-      });
-      if (!h || h._ccDone) return;
-      h._ccDone = true;
-
-      // 找到後面的 grid（三個卡片容器）
-      var grid = h.nextElementSibling;
-      if (!grid) return;
-
-      // 替換成價目表
-      grid.innerHTML = '';
-      grid.style.cssText = 'max-width:480px;margin:0 auto 2rem;';
-      grid.innerHTML = '<div style="background:rgba(255,255,255,.95);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.15)">' +
-        '<div style="background:#059669;color:white;text-align:center;padding:14px 16px;font-weight:700;font-size:1.1rem">🏕️ 冷氣租借價目表</div>' +
-        '<table style="width:100%;border-collapse:collapse">' +
-          '<tr style="background:#ecfdf5">' +
-            '<th style="padding:10px 14px;text-align:left;color:#065f46;border-bottom:1px solid #d1fae5;font-size:.88rem">租借天數</th>' +
-            '<th style="padding:10px 14px;text-align:center;color:#065f46;border-bottom:1px solid #d1fae5;font-size:.88rem">費用</th>' +
-            '<th style="padding:10px 14px;text-align:left;color:#065f46;border-bottom:1px solid #d1fae5;font-size:.88rem">說明</th>' +
-          '</tr>' +
-          '<tr>' +
-            '<td style="padding:12px 14px;border-bottom:1px solid #f0fdf4;color:#1f2937;font-weight:600">兩天一夜</td>' +
-            '<td style="padding:12px 14px;text-align:center;font-weight:800;color:#059669;font-size:1.15rem;border-bottom:1px solid #f0fdf4">$1,000</td>' +
-            '<td style="padding:12px 14px;color:#4b5563;font-size:.85rem;border-bottom:1px solid #f0fdf4">週末露營首選</td>' +
-          '</tr>' +
-          '<tr style="background:#dcfce7">' +
-            '<td style="padding:12px 14px;border-bottom:1px solid #bbf7d0;color:#1f2937;font-weight:600">三天兩夜</td>' +
-            '<td style="padding:12px 14px;text-align:center;font-weight:800;color:#059669;font-size:1.15rem;border-bottom:1px solid #bbf7d0">$1,300</td>' +
-            '<td style="padding:12px 14px;color:#4b5563;font-size:.85rem;border-bottom:1px solid #bbf7d0">連假露營優惠 🔥</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<td style="padding:12px 14px;color:#1f2937;font-weight:600">延長加日</td>' +
-            '<td style="padding:12px 14px;text-align:center;font-weight:800;color:#059669;font-size:1.15rem">+$300 / 天</td>' +
-            '<td style="padding:12px 14px;color:#4b5563;font-size:.85rem">每多一天加收</td>' +
-          '</tr>' +
-        '</table>' +
-        '<div style="padding:14px">' +
-          '<button id="cc-price-line-btn" ' +
-          'style="width:100%;background:linear-gradient(135deg,#059669,#047857);color:white;border:none;border-radius:12px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer">' +
-          '💬 立即預約 → 加 LINE 客服</button>' +
-        '</div>' +
-      '</div>';
-
-      // 綁定 LINE 按鈕點擊
-      var lineBtn = document.getElementById('cc-price-line-btn');
-      if (lineBtn) lineBtn.onclick = function(){ window.open('https://lin.ee/8maotVi','_blank'); };
-    }
-
-    // ── 強化服務據點說明 ──
-    function patchLocations() {
-      // 找據點區段
-      var header = Array.from(document.querySelectorAll('h3')).find(function(el){
-        return el.textContent.trim() === '服務據點分布';
-      });
-      if (!header || header._ccDone) return;
-      header._ccDone = true;
-      header.style.display = 'none';
-
-      // 找各地區卡片，在地名下加說明
-      document.querySelectorAll('[class*="flex items-center space-x-3 p-4"]').forEach(function(card){
-        var areaEl = card.querySelector('[class*="font-semibold"]') || card.querySelector('span');
-        if (!areaEl) return;
-        var area = areaEl.textContent.trim();
-        var desc = '';
-        if (area.includes('雙北') || area.includes('台北') || area.includes('新北')) {
-          desc = '📍 往宜蘭・桃園露營的出發點';
-        } else if (area.includes('新竹') || area.includes('竹北')) {
-          desc = '📍 竹苗露客首選，近交流道・好市多';
-        } else if (area.includes('台中')) {
-          desc = '📍 台中・南投露客最方便';
-        }
-        if (desc && !card.querySelector('.cc-loc-desc')) {
-          var tag = document.createElement('div');
-          tag.className = 'cc-loc-desc';
-          tag.style.cssText = 'font-size:.78rem;color:#059669;margin-top:.3rem;font-weight:600';
-          tag.textContent = desc;
-          card.appendChild(tag);
-        }
-      });
-    }
-
-    // ── 覆蓋「為什麼選擇露涼社」→ 2×2 大圖示卡片 ──
-    function patchWhyChoose() {
-      var h = Array.from(document.querySelectorAll('h3')).find(function(el){
-        return el.textContent.trim() === '為什麼選擇露涼社？';
-      });
-      if (!h || h._ccDone) return;
-      h._ccDone = true;
-
-      // 隱藏原本標題
-      h.style.display = 'none';
-
-      // 找到後面的 grid
-      var grid = h.nextElementSibling;
-      if (!grid) return;
-
-      // 替換成 2×2 簡潔卡片
-      grid.outerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:600px;margin:0 auto">' +
-        '<div style="background:white;border-radius:18px;padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.07);border:1px solid #d1fae5">' +
-          '<div style="font-size:2.8rem;margin-bottom:.6rem">❄️</div>' +
-          '<div style="font-size:1.2rem;font-weight:800;color:#059669;margin-bottom:.5rem">強效冷房</div>' +
-          '<div style="font-size:.83rem;color:#6b7280;line-height:1.5">5000～6000 BTU<br>適合 3-6 人帳篷</div>' +
-        '</div>' +
-        '<div style="background:white;border-radius:18px;padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.07);border:1px solid #d1fae5">' +
-          '<div style="font-size:2.8rem;margin-bottom:.6rem">📍</div>' +
-          '<div style="font-size:1.2rem;font-weight:800;color:#059669;margin-bottom:.5rem">多點取還</div>' +
-          '<div style="font-size:.83rem;color:#6b7280;line-height:1.5">雙北・新竹・台中<br>24H 便利取還件</div>' +
-        '</div>' +
-        '<div style="background:white;border-radius:18px;padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.07);border:1px solid #d1fae5">' +
-          '<div style="font-size:2.8rem;margin-bottom:.6rem">💰</div>' +
-          '<div style="font-size:1.2rem;font-weight:800;color:#059669;margin-bottom:.5rem">透明定價</div>' +
-          '<div style="font-size:.83rem;color:#6b7280;line-height:1.5">兩天一夜 $1,000<br>無隱藏費用</div>' +
-        '</div>' +
-        '<div style="background:white;border-radius:18px;padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.07);border:1px solid #d1fae5">' +
-          '<div style="font-size:2.8rem;margin-bottom:.6rem">🛠️</div>' +
-          '<div style="font-size:1.2rem;font-weight:800;color:#059669;margin-bottom:.5rem">專業支援</div>' +
-          '<div style="font-size:.83rem;color:#6b7280;line-height:1.5">LINE 即時客服<br>使用問題快速解決</div>' +
-        '</div>' +
-      '</div>';
-    }
-
-    // ── 覆蓋首頁 Hero 背景（加漸層 fallback）──
-    function patchHeroBg() {
-      var hero = document.querySelector('section[style*="backgroundImage"]');
-      if (!hero || hero._ccBg) return;
-      hero._ccBg = true;
-      var current = hero.style.backgroundImage;
-      if (current && !current.includes('linear-gradient')) {
-        hero.style.backgroundImage = current + ', linear-gradient(135deg,#064e3b 0%,#065f46 50%,#047857 100%)';
-        hero.style.backgroundSize = 'cover, cover';
-      }
-      // 加深 overlay
-      var overlay = hero.querySelector('.absolute');
-      if (overlay) overlay.style.opacity = '0.5';
-    }
-
-    new MutationObserver(function() {
-      hideSocial(); patchLogo(); patchNavSync();
-      patchPricing(); patchHeroBg(); patchWhyChoose(); patchLocations();
-    }).observe(document.body, {childList:true, subtree:true});
-
-    [300, 800, 1500].forEach(function(ms){
-      setTimeout(function(){ patchPricing(); patchHeroBg(); patchWhyChoose(); patchLocations(); }, ms);
-    });
-    </script>
-  </body>
+ReactDOM.createRoot(document.getElementById('app-root')).render(<App />);
+</script>
+</body>
 </html>

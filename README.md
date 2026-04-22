@@ -1,44 +1,33 @@
-# 露涼社 CampCool - 露營冷氣出租專家
+# Campcool 露涼社 — Website UI Kit
 
-## 網站概述
+## Overview
+High-fidelity recreation of the campcool.tw mobile website.  
+Built with React (JSX via Babel). Source: `Campcool/campcool` repo.
 
-露涼社 CampCool 是一個專業的露營冷氣和冰箱出租服務網站。提供艾比酷 JUZ-400 與山水 SAC688 專業露營冷氣出租服務，覆蓋新竹、竹北、台北、台中等多個據點，提供 24 小時便利取還服務。
+## Product
+Single mobile-first website with 4 sections (tabs):
+- **租借資訊** — AC rental info, pricing, locations
+- **知識百科** — Equipment specs, usage guides
+- **預約須知** — Booking policy, cancellation terms
+- **冰箱租借** — Portable fridge rental
 
-## 網站特色
+## Components
+| File | Description |
+|---|---|
+| `Header.jsx` | Sticky top header with logo |
+| `BottomNav.jsx` | 4-tab fixed bottom navigation |
+| `HeroSection.jsx` | Page hero banner (gradient bg) |
+| `ProductCard.jsx` | AC/Fridge spec card |
+| `NoticeCard.jsx` | Color-coded notice/alert card |
+| `PricingTable.jsx` | Rental pricing display |
+| `AlertBanner.jsx` | Info/warning/danger alert banners |
+| `LineBanner.jsx` | LINE CTA banner |
 
-- 📱 響應式設計，支援各種裝置
-- 🌐 完整的產品介紹和服務說明
-- 📍 多個服務據點展示
-- 💰 透明的租金方案
-- 📞 便捷的聯絡方式
+## Usage
+Open `index.html` for the full interactive prototype.
+Components are exported to `window` and can be used standalone.
 
-## 部署到 GitHub Pages
-
-1. Fork 此倉庫
-2. 在 GitHub 倉庫設定中啟用 GitHub Pages
-3. 選擇 `main` 分支作為發佈源
-4. 網站將在 `https://yourusername.github.io/campcool-github-pages` 上線
-
-## 自訂網域
-
-此倉庫已包含 `CNAME` 檔案，配置為 `campcool.tw`。如需使用自訂網域：
-
-1. 修改 `CNAME` 檔案中的網域名稱
-2. 在您的域名提供商設定 DNS 記錄指向 GitHub Pages
-
-## 技術棧
-
-- HTML5
-- CSS3
-- JavaScript (React)
-- 響應式設計
-
-## 聯絡資訊
-
-- LINE: 加入好友
-- Instagram: @campcool2025
-- 服務據點：新竹、竹北、台北、台中
-
----
-
-*此網站由 CampCool 露涼社 製作*
+## Design Constraints
+- Mobile-first (375px target width)
+- System font stack — no custom fonts
+- Tailwind CSS v4 color tokens (see `colors_and_type.css`)
