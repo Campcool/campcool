@@ -8,6 +8,9 @@ const Header = ({ onLogoClick }) => {
       borderBottom: '1px solid #d1fae5',
       boxShadow: '0 1px 8px rgba(0,0,0,0.06)',
       padding: '10px 16px',
+    },
+    inner: {
+      maxWidth: 680, margin: '0 auto',
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     },
     logo: { display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', userSelect: 'none' },
@@ -24,6 +27,7 @@ const Header = ({ onLogoClick }) => {
   };
   return (
     <header style={s.header}>
+      <div style={s.inner}>
       <div style={s.logo} onClick={onLogoClick}>
         <img src="../../assets/logo.jpg" alt="露涼社 CampCool Logo" style={s.logoImg} />
         <div style={s.logoText}>
@@ -34,6 +38,7 @@ const Header = ({ onLogoClick }) => {
       <button style={s.lineBtn} onClick={() => window.open('https://lin.ee/8maotVi','_blank')}>
         <span>💬</span> LINE 諮詢
       </button>
+      </div>
     </header>
   );
 };

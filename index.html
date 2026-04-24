@@ -17,51 +17,21 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
-    background: #1a2e1e;
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 24px 16px 40px;
-  }
-  .phone-shell {
-    width: 390px;
-    height: 844px;
     background: #f0fdf8;
-    border-radius: 44px;
-    overflow: hidden;
-    box-shadow: 0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.12);
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    min-height: 100vh;
+    padding-bottom: 82px;
   }
-  /* Status bar — desktop only decoration */
-  .status-bar {
-    background: rgba(255,255,255,.96);
-    padding: 12px 24px 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    font-weight: 600;
-    color: #1f2937;
-    flex-shrink: 0;
-  }
-  .status-icons { display: flex; gap: 5px; align-items: center; }
-  @media (max-width: 680px) { .status-bar { display: none !important; } }
-  #app-root { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
+  #app-root { display: flex; flex-direction: column; min-height: 100vh; }
 
-  /* Scrollable page body — no padding-bottom needed, nav is inside flex */
+  /* Scrollable page body */
   .page-body {
     flex: 1;
-    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    min-height: 0;
   }
   .page-body::-webkit-scrollbar { display: none; }
 
   /* Section styles matching campcool.tw */
-  .cc-body { max-width: 860px; margin: 0 auto; padding: 1rem .9rem 1.5rem; }
+  .cc-body { max-width: 680px; margin: 0 auto; padding: 1rem .9rem 1.5rem; }
   .cc-sh { font-size: 1.15rem; font-weight: 800; color: #1e293b; margin: 1.5rem 0 .3rem; display: flex; align-items: center; gap: .45rem; }
   .cc-shdiv { border: none; border-top: 1px solid #d1fae5; margin: 0 0 .85rem; }
   .cc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1rem; }
@@ -98,27 +68,12 @@
   .policy-block h4 { font-size: .95rem; font-weight: 800; color: #1f2937; margin-bottom: .5rem; display: flex; align-items: center; gap: .4rem; }
   .policy-block li { font-size: .85rem; color: #4b5563; line-height: 1.7; list-style: disc; margin-left: 1rem; }
 
-  /* Side panel for desktop */
-  .side-info {
-    position: fixed; top: 24px; left: 50%;
-    transform: translateX(calc(-195px - 200px - 24px));
-    width: 200px;
-    color: rgba(255,255,255,.7);
-    font-size: 12px;
-    line-height: 1.6;
-  }
-  .side-info h2 { color: #34d399; font-size: 16px; font-weight: 800; margin-bottom: 8px; }
-  .side-info .tab-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
-  .side-info .tab-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  @media (max-width: 680px) { .side-info { display: none; } body { padding: 0; align-items: stretch; } .phone-shell { border-radius: 0; height: 100svh; width: 100%; } .status-bar { display: none; } }
+  /* side-info removed — proper responsive site */
 
   /* ── 浮動社交按鈕 ── */
   .cc-float {
-    position: absolute; right: -68px; bottom: 110px;
+    position: fixed; right: 14px; bottom: 100px;
     display: flex; flex-direction: column; gap: 12px; z-index: 9999;
-  }
-  @media (max-width: 680px) {
-    .cc-float { position: fixed; right: 12px; bottom: 100px; }
   }
   .cc-fab {
     width: 52px; height: 52px; border-radius: 50%;
@@ -153,32 +108,8 @@
 </head>
 <body>
 
-<div class="side-info">
-  <h2>露涼社 CampCool</h2>
-  <p style="margin-bottom:12px;color:rgba(255,255,255,.5)">UI Kit — 點擊底部 Tab 切換頁面</p>
-  <div class="tab-item"><div class="tab-dot" style="background:#34d399"></div>租借資訊</div>
-  <div class="tab-item"><div class="tab-dot" style="background:#a78bfa"></div>知識百科</div>
-  <div class="tab-item"><div class="tab-dot" style="background:#f87171"></div>預約須知</div>
-  <div class="tab-item"><div class="tab-dot" style="background:#22d3ee"></div>冰箱租借</div>
-  <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.35);font-size:11px">
-    Source: Campcool/campcool<br>
-    campcool.tw
-  </div>
-</div>
-
-<div class="phone-shell">
-  <!-- Status bar -->
-  <div class="status-bar">
-    <span>9:41</span>
-    <div class="status-icons">
-      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/><rect x="13.5" y="0" width="2.5" height="12" rx="1" opacity=".3"/></svg>
-      <svg width="16" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.5C5.9 4.1 12 2 18.5 4l1.5-2C12.5 0 5.5 2.5.5 7l1 1.5zm3 3C7 9 10 7.5 12 8c2-.5 4.5.5 6 2.5l1.5-2C17 5.5 14 4 12 4.5 9.5 5 7 6.5 5 9l-1.5 2.5zm3 3c1-1 2-2 3-2s2.5 1 3 2.5l1.5-2c-1-2-3-3.5-4.5-3.5S8 11 7 12.5l1.5 2zm3 3a2 2 0 014 0"/></svg>
-      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" strokeOpacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/><path d="M23 4v4a2 2 0 000-4z" fill="currentColor" fillOpacity=".4"/></svg>
-    </div>
-  </div>
-
-  <!-- React app mounts here -->
-  <div id="app-root"></div>
+<!-- React app mounts here -->
+<div id="app-root"></div>
 
   <!-- 浮動社交按鈕 -->
   <div class="cc-float">
@@ -198,7 +129,6 @@
       </svg>
     </a>
   </div>
-</div>
 
 <script type="text/babel">
 const { useState, useEffect } = React;

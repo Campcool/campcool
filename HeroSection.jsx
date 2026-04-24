@@ -16,7 +16,7 @@ const HeroSection = ({ tab }) => {
       position: 'relative', overflow: 'hidden',
     }}>
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,.1)', pointerEvents: 'none' }} />
-      <h1 style={{ fontSize: '1.7rem', fontWeight: 800, marginBottom: '.3rem', lineHeight: 1.2, textShadow: '0 2px 8px rgba(0,0,0,.2)', position: 'relative', zIndex: 1 }}>
+      <h1 style={{ fontSize: 'clamp(1.5rem,4vw,2.2rem)', fontWeight: 800, marginBottom: '.3rem', lineHeight: 1.2, textShadow: '0 2px 8px rgba(0,0,0,.2)', position: 'relative', zIndex: 1 }}>
         {theme.emoji} {theme.title}
       </h1>
       <p style={{ fontSize: '.88rem', opacity: .9, maxWidth: 400, margin: '0 auto', lineHeight: 1.55, position: 'relative', zIndex: 1 }}>
