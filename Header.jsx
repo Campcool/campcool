@@ -14,8 +14,7 @@ const Header = ({ onLogoClick }) => {
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     },
     logo: { display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', userSelect: 'none' },
-    logoImg: { width: 44, height: 44, borderRadius: 10, objectFit: 'cover', flexShrink: 0 },
-    logoText: { display: 'flex', flexDirection: 'column' },
+    logoImg: { width: 44, height: 44, borderRadius: 10, objectFit: 'cover', flexShrink: 0 },    logoText: { display: 'flex', flexDirection: 'column' },
     logoMain: { fontSize: 15, fontWeight: 800, color: '#064e3b', lineHeight: 1.15 },
     logoSub: { fontSize: 10, color: '#059669', fontWeight: 600, letterSpacing: '0.04em' },    lineBtn: {
       background: '#06C755', color: 'white', border: 'none',
@@ -29,7 +28,7 @@ const Header = ({ onLogoClick }) => {
     <header style={s.header}>
       <div style={s.inner}>
       <div style={s.logo} onClick={onLogoClick}>
-        <img src="../../assets/logo.jpg" alt="露涼社 CampCool Logo" style={s.logoImg} />
+        <img src="assets/logo.jpg" alt="露涼社 CampCool Logo" style={s.logoImg} />
         <div style={s.logoText}>
           <span style={s.logoMain}>露涼社</span>
           <span style={s.logoSub}>@CampCool</span>

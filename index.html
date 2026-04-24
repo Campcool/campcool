@@ -3,10 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>露涼社 CampCool — UI Kit</title>
-<link rel="icon" type="image/jpeg" href="../../assets/logo.jpg">
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<title>露涼社 CampCool｜露營冷氣・冰箱出租專家｜新竹・雙北・台中</title>
+<meta name="description" content="提供艾比酷JUZ-400與山水SAC688專業露營冷氣，及冰虎・艾比酷各款移動冰箱出租。新竹、竹北、台北、台中多據點，24H便利取還。">
+<meta name="keywords" content="露營冷氣出租,移動冷氣,JUZ-400,SAC688,冰箱出租,露營,新竹,竹北,台北,台中">
+<link rel="canonical" href="https://campcool.tw/">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://campcool.tw/">
+<meta property="og:site_name" content="露涼社 CampCool">
+<meta property="og:title" content="2026 台灣露營移動冷氣選購指南：600W以下低功耗型號大評比">
+<meta property="og:description" content="提供露營與車宿族群一份清晰的低瓦數移動冷氣比較圖表，BTU、功率、重量、尺寸完整比較。">
+<meta property="og:image" content="https://campcool.tw/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_TW">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="2026 台灣露營移動冷氣選購指南：600W以下低功耗型號大評比">
+<meta name="twitter:description" content="提供露營與車宿族群清晰的低瓦數移動冷氣比較圖表，BTU、功率、重量完整比較。">
+<meta name="twitter:image" content="https://campcool.tw/assets/og-cover.jpg">
+<!-- JSON-LD 結構化資料 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "露涼社 CampCool",
+  "alternateName": "CampCool",
+  "description": "專業露營冷氣與移動冰箱出租服務，提供艾比酷JUZ-400與山水SAC688冷氣出租，覆蓋新竹、竹北、台北、台中多個據點。",
+  "url": "https://campcool.tw",
+  "logo": "https://campcool.tw/assets/logo.jpg",
+  "image": "https://campcool.tw/assets/og-cover.jpg",
+  "telephone": "",
+  "priceRange": "$",
+  "currenciesAccepted": "TWD",
+  "paymentAccepted": "Bank Transfer",
+  "areaServed": [
+    {"@type": "City", "name": "新竹市"},
+    {"@type": "City", "name": "竹北市"},
+    {"@type": "City", "name": "台北市"},
+    {"@type": "City", "name": "新北市"},
+    {"@type": "City", "name": "台中市"}
+  ],
+  "sameAs": [
+    "https://www.instagram.com/campcool2025",
+    "https://lin.ee/8maotVi"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "露營冷氣租借方案",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "兩天一夜冷氣出租",
+        "price": "1000",
+        "priceCurrency": "TWD",
+        "description": "艾比酷JUZ-400或山水SAC688冷氣，兩天一夜方案"
+      },
+      {
+        "@type": "Offer",
+        "name": "三天兩夜冷氣出租",
+        "price": "1300",
+        "priceCurrency": "TWD",
+        "description": "艾比酷JUZ-400或山水SAC688冷氣，三天兩夜方案"
+      },
+      {
+        "@type": "Offer",
+        "name": "移動冰箱出租",
+        "price": "800",
+        "priceCurrency": "TWD",
+        "description": "冰虎/艾比酷移動冰箱，20L~60L多款，連假統一$800"
+      }
+    ]
+  }
+}
+</script>
+<link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script type="text/babel" src="Header.jsx"></script>
 <script type="text/babel" src="BottomNav.jsx"></script>
@@ -217,7 +290,7 @@ const WikiTab = () => (
         BTU 越高製冷越強，但重量與耗電也越高。5000 BTU 已足夠 3-4 人帳，6000 BTU 適合大帳或開口較多的帳篷。
       </AlertBanner>
       <div className="btu-cover">
-        <img src="../../assets/og-cover.jpg" alt="2026台灣露營移動冷氣選購指南：600W以下低功耗型號大評比" />
+        <img src="assets/og-cover.jpg" alt="2026台灣露營移動冷氣選購指南：600W以下低功耗型號大評比，包含BTU、功率、重量、尺寸完整比較表" loading="lazy" />
       </div>
 
       <div className="cc-sh">❄️ 我們的冷氣設備規格</div>

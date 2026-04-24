@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://campcool.tw/</loc>
-    <lastmod>2026-04-18</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://campcool.tw/assets/og-cover.jpg</image:loc>
+      <image:title>2026 台灣露營移動冷氣選購指南：600W以下低功耗型號大評比</image:title>
+      <image:caption>BTU、功率、重量、尺寸完整比較表，幫助露營族挑選最適合的冷房設備</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://campcool.tw/assets/juz400_product.webp</image:loc>
+      <image:title>艾比酷 JUZ-400 露營冷氣</image:title>
+      <image:caption>艾比酷 JUZ-400 輕量移動冷氣，5100 BTU，免排水，適合 3-5 坪帳篷</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://campcool.tw/assets/sac688_product.jpg</image:loc>
+      <image:title>山水 SAC688 露營冷氣</image:title>
+      <image:caption>山水 SAC688 強效移動冷氣，6000 BTU，適合 5-8 坪大帳篷</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://campcool.tw/assets/homepage_hero.png</image:loc>
+      <image:title>露涼社 CampCool 露營冷氣出租</image:title>
+      <image:caption>露涼社 CampCool 專業露營冷氣與移動冰箱出租，服務新竹、竹北、台北、台中</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://campcool.tw/assets/taiwan_map.png</image:loc>
+      <image:title>露涼社服務據點地圖</image:title>
+      <image:caption>露涼社 CampCool 服務範圍：嘉義以北全台灣，含新竹、竹北、台北、新北、台中</image:caption>
+    </image:image>
   </url>
 </urlset>
