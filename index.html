@@ -577,7 +577,10 @@ const FridgeTab = ({ onLineClick }) => (
 // ── App ─────────────────────────────────────────────────
 function App() {
   const [tab, setTab] = useState(() => localStorage.getItem('cc_tab') || 'rental');
-  useEffect(() => { localStorage.setItem('cc_tab', tab); }, [tab]);
+  useEffect(() => {
+    localStorage.setItem('cc_tab', tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [tab]);
 
   const onLineClick = (src) => {
     logLineClick(src || 'cta');
