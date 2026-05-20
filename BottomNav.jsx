@@ -1,9 +1,9 @@
 // BottomNav.jsx — Campcool 4-tab bottom navigation
 const TABS = [
-  { id: 'rental',  emoji: '🏕️', label: '租借資訊', color: '#34d399', bg: 'rgba(52,211,153,.18)' },
-  { id: 'wiki',    emoji: '📚', label: '知識百科', color: '#a78bfa', bg: 'rgba(167,139,250,.18)' },
-  { id: 'booking', emoji: '📋', label: '預約須知', color: '#f87171', bg: 'rgba(248,113,113,.18)' },
-  { id: 'fridge',  emoji: '🧊', label: '冰箱租借', color: '#22d3ee', bg: 'rgba(34,211,238,.18)' },
+  { id: 'rental',  emoji: '❄️', label: '租借方案', color: '#34d399', bg: 'rgba(52,211,153,.18)' },
+  { id: 'wiki',    emoji: '📊', label: '選購指南', color: '#a78bfa', bg: 'rgba(167,139,250,.18)' },
+  { id: 'booking', emoji: '📅', label: '預約方式', color: '#f87171', bg: 'rgba(248,113,113,.18)' },
+  { id: 'fridge',  emoji: '🧊', label: '冰箱出租', color: '#22d3ee', bg: 'rgba(34,211,238,.18)' },
 ];
 
 const BottomNav = ({ active, onTabChange }) => {

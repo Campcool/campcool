@@ -16,27 +16,30 @@ const Header = ({ onLogoClick }) => {
     logo: { display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', userSelect: 'none' },
     logoImg: { width: 44, height: 44, borderRadius: 10, objectFit: 'cover', flexShrink: 0 },    logoText: { display: 'flex', flexDirection: 'column' },
     logoMain: { fontSize: 15, fontWeight: 800, color: '#064e3b', lineHeight: 1.15 },
-    logoSub: { fontSize: 10, color: '#059669', fontWeight: 600, letterSpacing: '0.04em' },    lineBtn: {
-      background: '#06C755', color: 'white', border: 'none',
-      borderRadius: 20, padding: '7px 14px', fontSize: 12,
-      fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit',
+    logoSub: { fontSize: 10, color: '#059669', fontWeight: 600, letterSpacing: '0.03em' },
+    lineBtn: {
+      background: 'linear-gradient(135deg,#06C755,#00a844)',
+      color: 'white', border: 'none',
+      borderRadius: 20, padding: '8px 16px', fontSize: 12,
+      fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit',
       display: 'flex', alignItems: 'center', gap: 5,
-      boxShadow: '0 2px 8px rgba(6,199,85,.3)',
+      boxShadow: '0 3px 10px rgba(6,199,85,.35)',
+      whiteSpace: 'nowrap',
     },
   };
   return (
     <header style={s.header}>
       <div style={s.inner}>
-      <div style={s.logo} onClick={onLogoClick}>
-        <img src="assets/logo.jpg" alt="露涼社 CampCool Logo" style={s.logoImg} />
-        <div style={s.logoText}>
-          <span style={s.logoMain}>露涼社</span>
-          <span style={s.logoSub}>@CampCool</span>
+        <div style={s.logo} onClick={onLogoClick}>
+          <img src="assets/logo.jpg" alt="露涼社 CampCool Logo" style={s.logoImg} />
+          <div style={s.logoText}>
+            <span style={s.logoMain}>露涼社 CampCool</span>
+            <span style={s.logoSub}>露營冷氣・移動冰箱出租</span>
+          </div>
         </div>
-      </div>
-      <button style={s.lineBtn} onClick={() => window.open('https://lin.ee/8maotVi','_blank')}>
-        <span>💬</span> LINE 諮詢
-      </button>
+        <button style={s.lineBtn} onClick={() => window.open('https://lin.ee/8maotVi','_blank')}>
+          <span>💬</span> 詢問・預約
+        </button>
       </div>
     </header>
   );
