@@ -256,7 +256,7 @@
 
   <!-- 浮動社交按鈕 -->
   <div class="cc-float">
-    <a href="https://lin.ee/8maotVi" class="cc-fab cc-fab-line" target="_blank" rel="noopener" title="LINE @Campcool">
+    <a href="https://lin.ee/8maotVi" class="cc-fab cc-fab-line" target="_blank" rel="noopener" title="LINE @Campcool" onclick="logLineClick('floating')">
       <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
         <rect width="52" height="52" rx="26" fill="#06C755"/>
         <path d="M26 9C16.6 9 9 15.6 9 23.7c0 5.9 3.9 11 9.8 13.9l-1.2 6.2 6.8-2.5c.5.1 1 .1 1.6.1 9.4 0 17-6.6 17-14.7S35.4 9 26 9z" fill="white"/>
@@ -272,6 +272,31 @@
       </svg>
     </a>
   </div>
+
+<!-- ── LINE 點擊轉換追蹤（Google Ads + GA4）── -->
+<script>
+function logLineClick(source) {
+  try {
+    if (typeof gtag !== 'undefined') {
+      // GA4 自訂事件（可在 GA4 後台查看各按鈕點擊來源）
+      gtag('event', 'line_click', {
+        event_category: 'contact',
+        event_label: source || 'unknown',
+        value: 1,
+      });
+      /* ── Google Ads 轉換追蹤 ──────────────────────────────
+         步驟：Google Ads → 目標與轉換 → 轉換 → 新增轉換動作 → 網站
+               → 選「手動新增代碼」→ 複製「轉換標籤」（格式：AW-XXXXXXXX/YYYYYYYY）
+         完成後取消下方 // 並填入你的轉換標籤：               */
+      // gtag('event', 'conversion', {
+      //   send_to: 'AW-18167565264/YOUR_CONVERSION_LABEL',
+      //   value: 1000,
+      //   currency: 'TWD',
+      // });
+    }
+  } catch(e) {}
+}
+</script>
 
 <script type="text/babel">
 const { useState, useEffect } = React;
@@ -333,7 +358,53 @@ const RentalTab = ({ onLineClick, onTabChange }) => (
         ))}
       </div>
 
-      <LineBanner onLineClick={onLineClick} />
+      {/* ── 露友好評區塊 ── */}
+      <div className="cc-sh">⭐ 露友真實好評</div>
+      <hr className="cc-shdiv" />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: '1rem' }}>
+        {[
+          { img: 'assets/review-01.jpg', location: '新竹尖石', date: '2026.05' },
+          { img: 'assets/review-02.jpg', location: '南投清境', date: '2026.05' },
+          { img: 'assets/review-03.jpg', location: '宜蘭太平山', date: '2026.04' },
+        ].map((r, i) => (
+          <div key={i} style={{ borderRadius: 14, overflow: 'hidden', boxShadow: '0 2px 10px rgba(0,0,0,.08)', border: '1px solid #e5e7eb', background: 'white' }}>
+            {/* 截圖圖片（放入 assets/review-0X.jpg 後自動顯示） */}
+            <img
+              src={r.img}
+              alt={`露友 LINE 好評截圖 ${i + 1}`}
+              style={{ width: '100%', display: 'block' }}
+              onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+            />
+            {/* 佔位符：圖片未上傳時顯示 */}
+            <div style={{ display: 'none', height: 130, background: '#f9fafb', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 6 }}>
+              <div style={{ fontSize: '2rem' }}>💬</div>
+              <div style={{ fontSize: '.78rem', color: '#9ca3af', fontWeight: 600 }}>好評截圖上傳後自動顯示</div>
+              <div style={{ fontSize: '.7rem', color: '#d1d5db' }}>→ 放入 assets/review-0{i + 1}.jpg</div>
+            </div>
+            {/* 底部資訊列 */}
+            <div style={{ padding: '8px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #f3f4f6' }}>
+              <span style={{ fontSize: '.85rem', color: '#f59e0b', letterSpacing: 2 }}>★★★★★</span>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <span style={{ fontSize: '.73rem', color: '#6b7280' }}>📍 {r.location}</span>
+                <span style={{ fontSize: '.7rem', color: '#d1d5db' }}>{r.date}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* 邀請露友分享 → 收集真實好評的誘因 */}
+      <div style={{ background: 'linear-gradient(135deg,#f0fdf4,#dcfce7)', border: '1.5px dashed #6ee7b7', borderRadius: 12, padding: '14px 16px', marginBottom: '1rem', textAlign: 'center' }}>
+        <div style={{ fontSize: '.88rem', color: '#047857', fontWeight: 800, marginBottom: 5 }}>
+          📸 租過嗎？分享帳篷清涼照
+        </div>
+        <div style={{ fontSize: '.77rem', color: '#059669', lineHeight: 1.6 }}>
+          把帳篷清涼照傳到我們 LINE<br/>
+          有機會刊登在官網好評牆 ＋ IG 頻道
+        </div>
+      </div>
+
+      <LineBanner onLineClick={() => onLineClick('linebanner')} />
     </div>
   </div>
 );
@@ -508,7 +579,10 @@ function App() {
   const [tab, setTab] = useState(() => localStorage.getItem('cc_tab') || 'rental');
   useEffect(() => { localStorage.setItem('cc_tab', tab); }, [tab]);
 
-  const onLineClick = () => window.open('https://lin.ee/8maotVi', '_blank');
+  const onLineClick = (src) => {
+    logLineClick(src || 'cta');
+    window.open('https://lin.ee/8maotVi', '_blank');
+  };
 
   const pages = { rental: RentalTab, wiki: WikiTab, booking: BookingTab, fridge: FridgeTab };
   const Page = pages[tab] || RentalTab;

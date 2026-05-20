@@ -37,7 +37,7 @@ const Header = ({ onLogoClick }) => {
             <span style={s.logoSub}>露營冷氣・移動冰箱出租</span>
           </div>
         </div>
-        <button style={s.lineBtn} onClick={() => window.open('https://lin.ee/8maotVi','_blank')}>
+        <button style={s.lineBtn} onClick={() => { logLineClick('header'); window.open('https://lin.ee/8maotVi','_blank'); }}>
           <span>💬</span> 詢問・預約
         </button>
       </div>

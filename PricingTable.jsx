@@ -43,7 +43,7 @@ const PricingTable = ({ onLineClick }) => (
 
     {/* CTA 區 */}
     <div style={{ padding: '14px 14px 12px' }}>
-      <button onClick={onLineClick} style={{
+      <button onClick={() => { logLineClick('pricing_table'); onLineClick?.(); }} style={{
         width: '100%',
         background: 'linear-gradient(135deg,#06C755,#00a844)',
         color: 'white', border: 'none', borderRadius: 14,
@@ -82,7 +82,7 @@ const LineBanner = ({ onLineClick }) => (
       </div>
     </div>
     <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener"
-       onClick={e => { onLineClick?.(); }}
+       onClick={() => logLineClick('linebanner')}
        style={{
          background: 'white', color: '#059669',
          padding: '.65rem 1.2rem', borderRadius: 30, textDecoration: 'none',
