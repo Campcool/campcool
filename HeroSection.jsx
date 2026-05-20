@@ -4,7 +4,7 @@ const HERO_THEMES = {
     gradient: 'linear-gradient(135deg,#064e3b,#059669)',
     badge: '🏕️ 夏季熱門出租中',
     emoji: '❄️',
-    title: '帳篷不悶了，露營才好玩',
+    title: '睡覺不悶熱，露營才好玩',
     sub: '兩天一夜 $1,000・新竹・台北・台中・24H 取還',
     stat: '✅ 已服務 800+ 組露友',
   },
