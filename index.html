@@ -28,6 +28,7 @@
 <meta property="og:image" content="https://campcool.tw/assets/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="露涼社 CampCool 露營移動冷氣選購指南：BTU、功率、重量比較表">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:author" content="露涼社 CampCool">
 <meta property="article:tag" content="BTU">
@@ -39,6 +40,7 @@
 <meta name="twitter:title" content="帳篷冷氣幾 BTU 才夠？5100 vs 6000 實測｜2026 露營移動冷氣完整攻略">
 <meta name="twitter:description" content="3×3 帳篷選 5100 還是 6000 BTU？10A 電源會跳電？免排水原理？一篇看懂，附型號規格完整比較表。">
 <meta name="twitter:image" content="https://campcool.tw/assets/og-cover.jpg">
+<meta name="twitter:image:alt" content="露涼社 CampCool 露營移動冷氣選購指南：BTU、功率、重量比較表">
 <meta name="twitter:label1" content="閱讀時間">
 <meta name="twitter:data1" content="約 5 分鐘">
 <meta name="twitter:label2" content="分類">
@@ -51,13 +53,24 @@
   "name": "露涼社 CampCool",
   "alternateName": "CampCool",
   "description": "專業露營冷氣與移動冰箱出租服務，提供艾比酷JUZ-400與山水SAC688冷氣出租，覆蓋新竹、竹北、台北、台中多個據點。",
+  "@id": "https://campcool.tw/#business",
   "url": "https://campcool.tw",
   "logo": "https://campcool.tw/assets/logo.jpg",
   "image": "https://campcool.tw/assets/og-cover.jpg",
-  "telephone": "",
   "priceRange": "$",
   "currenciesAccepted": "TWD",
   "paymentAccepted": "Bank Transfer",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 24.8138,
+    "longitude": 121.0177
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "url": "https://lin.ee/8maotVi",
+    "availableLanguage": ["zh-TW"]
+  },
   "areaServed": [
     {"@type": "City", "name": "新竹市"},
     {"@type": "City", "name": "竹北市"},
@@ -143,6 +156,71 @@
         "@type": "Answer",
         "text": "目前服務據點包含：新竹、竹北（近交流道與好市多）、台北、新北、台中。全部據點提供 24H 便利取還服務。"
       }
+    }
+  ]
+}
+</script>
+<!-- Product / Service Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "艾比酷 JUZ-400 露營移動冷氣",
+      "image": "https://campcool.tw/assets/juz400_product.webp",
+      "description": "5100 BTU 輕量移動冷氣，425W 低耗電、完全免排水，適合 3-5 坪密閉帳篷。露涼社 CampCool 提供出租。",
+      "brand": {"@type": "Brand", "name": "艾比酷 Iceco"},
+      "additionalProperty": [
+        {"@type": "PropertyValue", "name": "冷房能力", "value": "5100 BTU"},
+        {"@type": "PropertyValue", "name": "耗電量", "value": "425W"},
+        {"@type": "PropertyValue", "name": "重量", "value": "13 kg"},
+        {"@type": "PropertyValue", "name": "排水", "value": "免排水（自動蒸發）"}
+      ],
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "TWD",
+        "price": "1000",
+        "priceValidUntil": "2026-12-31",
+        "availability": "https://schema.org/InStock",
+        "url": "https://campcool.tw/",
+        "description": "兩天一夜租借方案"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "山水 SAC688 露營移動冷氣",
+      "image": "https://campcool.tw/assets/sac688_product.jpg",
+      "description": "6000 BTU 強效移動冷氣，530W，適合 5-8 坪大帳。露涼社 CampCool 提供出租。",
+      "brand": {"@type": "Brand", "name": "山水 SANSUI"},
+      "additionalProperty": [
+        {"@type": "PropertyValue", "name": "冷房能力", "value": "6000 BTU"},
+        {"@type": "PropertyValue", "name": "耗電量", "value": "530W"},
+        {"@type": "PropertyValue", "name": "重量", "value": "17 kg"}
+      ],
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "TWD",
+        "price": "1000",
+        "priceValidUntil": "2026-12-31",
+        "availability": "https://schema.org/InStock",
+        "url": "https://campcool.tw/",
+        "description": "兩天一夜租借方案"
+      }
+    },
+    {
+      "@type": "Service",
+      "serviceType": "露營冷氣與移動冰箱出租",
+      "name": "露涼社 CampCool 露營冷氣出租",
+      "provider": {"@type": "LocalBusiness", "name": "露涼社 CampCool", "@id": "https://campcool.tw/#business"},
+      "areaServed": [
+        {"@type": "City", "name": "新竹市"},
+        {"@type": "City", "name": "竹北市"},
+        {"@type": "City", "name": "台北市"},
+        {"@type": "City", "name": "新北市"},
+        {"@type": "City", "name": "台中市"}
+      ],
+      "url": "https://campcool.tw/"
     }
   ]
 }
@@ -419,10 +497,23 @@
         <div class="cc-sh">📍 服務據點分布</div>
         <hr class="cc-shdiv">
         <div class="map-placeholder">
-          <div class="loc-item"><div class="loc-dot"></div><div><div class="loc-name">新竹・竹北</div><div class="loc-desc">📍 竹苗露客首選，近交流道・好市多</div></div></div>
-          <div class="loc-item"><div class="loc-dot"></div><div><div class="loc-name">雙北 (台北・新北)</div><div class="loc-desc">📍 往宜蘭・桃園露營的出發點</div></div></div>
-          <div class="loc-item"><div class="loc-dot"></div><div><div class="loc-name">台中</div><div class="loc-desc">📍 台中・南投露客最方便</div></div></div>
+          <div class="loc-item"><div class="loc-dot"></div><div>
+            <div class="loc-name">新竹・竹北 露營冷氣出租</div>
+            <div class="loc-desc">📍 竹苗露客首選，近國道交流道・好市多竹北店</div>
+            <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">前往尖石、五峰、南庄、司馬庫斯等山區營地的最佳取機點，24H 便利取還。</div>
+          </div></div>
+          <div class="loc-item"><div class="loc-dot"></div><div>
+            <div class="loc-name">雙北（台北・新北）露營冷氣出租</div>
+            <div class="loc-desc">📍 往宜蘭・桃園・新竹露營的出發點</div>
+            <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">適合前往宜蘭、烏來、坪林、福隆一帶營區的露友，市區面交方便。</div>
+          </div></div>
+          <div class="loc-item"><div class="loc-dot"></div><div>
+            <div class="loc-name">台中 露營冷氣出租</div>
+            <div class="loc-desc">📍 台中・南投・苗栗中部露客最方便</div>
+            <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">服務前往谷關、清境、合歡山、武陵、南投山區露營的中部露友。</div>
+          </div></div>
         </div>
+        <p style="font-size:.78rem;color:#6b7280;line-height:1.65;margin-bottom:1rem">露涼社 CampCool 服務範圍涵蓋嘉義以北全台灣，含新竹市、竹北市、台北市、新北市、台中市。實際取還地點與時間請透過 LINE 確認。</p>
 
         <!-- Reviews -->
         <div class="cc-sh">⭐ 露友真實好評</div>
@@ -484,6 +575,13 @@
           </span>
           <span style="font-size:.75rem;background:#d1fae5;color:#047857;border-radius:8px;padding:3px 10px;font-weight:700;flex-shrink:0">分享 →</span>
         </a>
+
+        <div class="cc-kb"><h3>⚡ 30 秒懶人包</h3><p>
+          • 3×3 帳篷選 <strong>5100 BTU（JUZ-400）</strong>就夠；4×4 大帳選 <strong>6000 BTU（SAC688）</strong><br>
+          • 營區 10A 電源<strong>不會跳電</strong>：冷氣＋冰箱＋燈＋手機約 4.8A（別同時用電熱水壺）<br>
+          • 不想半夜起來排水 → 選<strong>免排水的 JUZ-400</strong><br>
+          • 一年露營少於 5 次，<strong>用租的比買划算</strong>
+        </p></div>
 
         <div class="cc-sh">📐 移動冷氣 BTU 市場比較</div>
         <hr class="cc-shdiv">

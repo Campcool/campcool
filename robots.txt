@@ -7,4 +7,23 @@ Allow: /
 User-agent: Twitterbot
 Allow: /
 
+# AI / LLM 爬蟲（生成式引擎優化 GEO，歡迎索引與引用）
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://campcool.tw/sitemap.xml
