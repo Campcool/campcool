@@ -654,6 +654,12 @@
 <script>
 var TAB_IDS = ['rental','wiki','booking','fridge'];
 
+/* ── Google Ads 轉換標籤 ──────────────────────────────────
+   想把「加 LINE」當成廣告轉換目標？到 Google Ads → 目標與轉換 → 轉換
+   → 新增轉換動作 → 網站 → 手動新增代碼，複製「轉換標籤」後填入下方即可
+   （格式：AW-18167565264/XXXXXXXXXXX）。留空則只記錄 GA4 事件、不送轉換。 */
+var ADS_CONVERSION_LABEL = '';
+
 function logLineClick(source) {
   try {
     if (typeof gtag !== 'undefined') {
@@ -663,15 +669,14 @@ function logLineClick(source) {
         event_label: source || 'unknown',
         value: 1,
       });
-      /* ── Google Ads 轉換追蹤 ──────────────────────────────
-         步驟：Google Ads → 目標與轉換 → 轉換 → 新增轉換動作 → 網站
-               → 選「手動新增代碼」→ 複製「轉換標籤」（格式：AW-XXXXXXXX/YYYYYYYY）
-         完成後取消下方 // 並填入你的轉換標籤：               */
-      // gtag('event', 'conversion', {
-      //   send_to: 'AW-18167565264/YOUR_CONVERSION_LABEL',
-      //   value: 1000,
-      //   currency: 'TWD',
-      // });
+      // Google Ads 轉換（僅在上方已填入轉換標籤時才送出）
+      if (ADS_CONVERSION_LABEL) {
+        gtag('event', 'conversion', {
+          send_to: ADS_CONVERSION_LABEL,
+          value: 1000,
+          currency: 'TWD',
+        });
+      }
     }
   } catch(e) {}
 }
