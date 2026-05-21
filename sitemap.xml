@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://campcool.tw/</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -22,12 +22,12 @@
       <image:caption>山水 SAC688 強效移動冷氣，6000 BTU，適合 5-8 坪大帳篷</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://campcool.tw/assets/homepage_hero.png</image:loc>
+      <image:loc>https://campcool.tw/assets/homepage_hero.webp</image:loc>
       <image:title>露涼社 CampCool 露營冷氣出租</image:title>
       <image:caption>露涼社 CampCool 專業露營冷氣與移動冰箱出租，服務新竹、竹北、台北、台中</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://campcool.tw/assets/taiwan_map.png</image:loc>
+      <image:loc>https://campcool.tw/assets/taiwan_map.webp</image:loc>
       <image:title>露涼社服務據點地圖</image:title>
       <image:caption>露涼社 CampCool 服務範圍：嘉義以北全台灣，含新竹、竹北、台北、新北、台中</image:caption>
     </image:image>
