@@ -154,7 +154,7 @@
       "name": "露涼社冷氣出租有哪些服務據點？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "目前服務據點包含：新竹、竹北（近交流道與好市多）、台北、新北、台中。全部據點提供 24H 便利取還服務。"
+        "text": "目前服務據點包含：新竹、竹北（24H 社區寄櫃與公道五路便利倉，近新竹好市多與交流道）、台北、新北、內湖（近內湖好市多）、台中。各據點皆鄰近國道交流道，提供 24H 便利取還服務。"
       }
     }
   ]
@@ -348,6 +348,33 @@
   .cc-kb p { font-size: .87rem; color: #4b5563; line-height: 1.75; }
   .cc-kb strong { color: #c2410c; }
 
+  /* 選機計算機 */
+  .cc-calc { background:#fff; border:1px solid #e5e7eb; border-radius:1rem; padding:1.1rem; box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:1rem; }
+  .cc-calc h3 { font-size:1.05rem; font-weight:800; color:#1f2937; margin-bottom:.2rem; display:flex; align-items:center; gap:.4rem; }
+  .cc-calc .sub { font-size:.78rem; color:#6b7280; margin-bottom:.6rem; }
+  .cc-calc label { display:block; font-size:.82rem; font-weight:700; color:#374151; margin:.7rem 0 .3rem; }
+  .cc-calc select { width:100%; padding:.6rem .7rem; font-size:.92rem; border:1.5px solid #d1d5db; border-radius:.6rem; background:#fff; color:#1f2937; -webkit-appearance:none; appearance:none; }
+  .cc-calc select:focus { outline:none; border-color:#059669; box-shadow:0 0 0 3px rgba(5,150,105,.12); }
+  .cc-calc-btn { width:100%; margin-top:.95rem; padding:.8rem; font-size:.95rem; font-weight:800; color:#fff; background:linear-gradient(135deg,#059669,#10b981); border:none; border-radius:.7rem; cursor:pointer; }
+  .cc-calc-btn:active { transform:translateY(1px); }
+  .cc-calc-res { margin-top:1rem; border-radius:.8rem; padding:1rem; display:none; }
+  .cc-calc-res.show { display:block; animation:ccfade .25s ease; }
+  @keyframes ccfade { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+  .cc-calc-res .pick { font-size:.78rem; font-weight:800; }
+  .cc-calc-res .model { font-size:1.25rem; font-weight:900; margin:.1rem 0 .4rem; }
+  .cc-calc-res .reason { font-size:.86rem; line-height:1.65; color:#374151; }
+  .cc-calc-res .reason b { color:#1f2937; }
+  .cc-calc-res .note { font-size:.77rem; margin-top:.55rem; color:#6b7280; line-height:1.55; }
+  .cc-calc-res .rbtn { display:inline-block; margin-top:.85rem; background:#06C755; color:#fff; font-weight:800; font-size:.86rem; text-decoration:none; padding:.6rem 1rem; border-radius:.6rem; }
+
+  /* 以租代買 */
+  .cc-rentbuy { display:flex; flex-direction:column; gap:.6rem; margin-bottom:.9rem; }
+  .cc-rb-item { display:flex; gap:.7rem; align-items:flex-start; background:#fff; border:1px solid #e5e7eb; border-radius:.8rem; padding:.8rem .9rem; box-shadow:0 1px 4px rgba(0,0,0,.05); }
+  .cc-rb-item .ic { font-size:1.4rem; flex-shrink:0; line-height:1.2; }
+  .cc-rb-item .t { font-size:.9rem; font-weight:800; color:#1f2937; margin-bottom:.15rem; }
+  .cc-rb-item .d { font-size:.8rem; color:#4b5563; line-height:1.6; }
+  .cc-rb-item .d b { color:#c2410c; }
+
   .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; margin-bottom: 1.2rem; }
   .why-card { background: white; border-radius: 18px; padding: 1.25rem .9rem; text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.07); border: 1px solid #d1fae5; }
   .why-card .icon { font-size: 2.4rem; margin-bottom: .5rem; }
@@ -493,19 +520,32 @@
           </div>
         </div>
 
+        <!-- Rent vs Buy -->
+        <div class="cc-sh">💡 為什麼「以租代買」更聰明？</div>
+        <hr class="cc-shdiv">
+        <div class="cc-rentbuy">
+          <div class="cc-rb-item"><span class="ic">📉</span><div><div class="t">買一台動輒上萬，一落地就掉價</div><div class="d">市售移動冷氣 <b>$10,000 起跳</b>，一開封變二手只剩 <b>$7,000～8,000</b>，先賠 2-3 成。</div></div></div>
+          <div class="cc-rb-item"><span class="ic">📅</span><div><div class="t">一年露不到 5 次，租更划算</div><div class="d">偶爾露營的話，租金 × 次數 通常還是比買整台便宜，不必為了幾晚扛一台回家。</div></div></div>
+          <div class="cc-rb-item"><span class="ic">📦</span><div><div class="t">不佔家裡空間</div><div class="d">不用煩惱淡季的<b>收納、屯放與保養</b>，用完直接還我們就好。</div></div></div>
+          <div class="cc-rb-item"><span class="ic">🧪</span><div><div class="t">先租再決定，不怕踩雷</div><div class="d">用過喜歡再買也不遲，先花 <b>$1,000</b> 租一次試試最實際。</div></div></div>
+        </div>
+        <div style="text-align:center;margin-bottom:1rem">
+          <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('rentbuy')" style="display:inline-block;background:#06C755;color:#fff;font-weight:800;font-size:.9rem;text-decoration:none;padding:.7rem 1.4rem;border-radius:.7rem;box-shadow:0 2px 8px rgba(6,199,85,.25)">💬 先花 $1,000 租一次試試</a>
+        </div>
+
         <!-- Locations -->
         <div class="cc-sh">📍 服務據點分布</div>
         <hr class="cc-shdiv">
         <div class="map-placeholder">
           <div class="loc-item"><div class="loc-dot"></div><div>
             <div class="loc-name">新竹・竹北 露營冷氣出租</div>
-            <div class="loc-desc">📍 竹苗露客首選，近國道交流道・好市多竹北店</div>
-            <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">前往尖石、五峰、南庄、司馬庫斯等山區營地的最佳取機點，24H 便利取還。</div>
+            <div class="loc-desc">📍 兩個取機點，皆鄰近新竹好市多・快速道路／高速公路交流道</div>
+            <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">① 竹北 24H 社區寄櫃自取（時間彈性）　② 公道五路便利倉。前往尖石、五峰、南庄等山區營地最方便。</div>
           </div></div>
           <div class="loc-item"><div class="loc-dot"></div><div>
-            <div class="loc-name">雙北（台北・新北）露營冷氣出租</div>
-            <div class="loc-desc">📍 往宜蘭・桃園・新竹露營的出發點</div>
-            <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">適合前往宜蘭、烏來、坪林、福隆一帶營區的露友，市區面交方便。</div>
+            <div class="loc-name">雙北（台北・新北・內湖）露營冷氣出租</div>
+            <div class="loc-desc">📍 共三個取機點，皆鄰近國道交流道，市區面交方便</div>
+            <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">內湖取機點鄰近內湖好市多。適合前往宜蘭、烏來、坪林、福隆一帶營區的露友。</div>
           </div></div>
           <div class="loc-item"><div class="loc-dot"></div><div>
             <div class="loc-name">台中 露營冷氣出租</div>
@@ -513,7 +553,7 @@
             <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">服務前往谷關、清境、合歡山、武陵、南投山區露營的中部露友。</div>
           </div></div>
         </div>
-        <p style="font-size:.78rem;color:#6b7280;line-height:1.65;margin-bottom:1rem">露涼社 CampCool 服務範圍涵蓋嘉義以北全台灣，含新竹市、竹北市、台北市、新北市、台中市。實際取還地點與時間請透過 LINE 確認。</p>
+        <p style="font-size:.78rem;color:#6b7280;line-height:1.65;margin-bottom:1rem">露涼社 CampCool 服務範圍涵蓋嘉義以北全台灣，含新竹市、竹北市、台北市、新北市（含內湖）、台中市。實際取機點與時間請透過 LINE 確認。</p>
 
         <!-- Reviews -->
         <div class="cc-sh">⭐ 露友真實好評</div>
@@ -580,7 +620,7 @@
           • 3×3 帳篷選 <strong>5100 BTU（JUZ-400）</strong>就夠；4×4 大帳選 <strong>6000 BTU（SAC688）</strong><br>
           • 營區 10A 電源<strong>不會跳電</strong>：冷氣＋冰箱＋燈＋手機約 4.8A（別同時用電熱水壺）<br>
           • 不想半夜起來排水 → 選<strong>免排水的 JUZ-400</strong><br>
-          • 一年露營少於 5 次，<strong>用租的比買划算</strong>
+          • 不確定選哪台？往下用 <strong>「帳篷選機計算機」</strong>一鍵推薦
         </p></div>
 
         <div class="cc-sh">📐 移動冷氣 BTU 市場比較</div>
@@ -588,6 +628,29 @@
         <div class="cc-alert g"><span class="ic">💡</span><div>BTU 越高製冷越強，但重量與耗電也越高。5000 BTU 已足夠 3-4 人帳，6000 BTU 適合大帳或開口較多的帳篷。</div></div>
         <div class="btu-cover">
           <img src="assets/og-cover.jpg" alt="2026台灣露營移動冷氣選購指南：600W以下低功耗型號大評比，包含BTU、功率、重量、尺寸完整比較表" width="1200" height="630" loading="lazy">
+        </div>
+
+        <div class="cc-sh">🧮 帳篷選機計算機</div>
+        <hr class="cc-shdiv">
+        <div class="cc-calc">
+          <h3>30 秒找出適合你的機型</h3>
+          <div class="sub">填入帳篷大小與睡覺人數，立即推薦艾比酷或山水。</div>
+          <label for="calcTent">帳篷大小（內帳／睡眠空間）</label>
+          <select id="calcTent">
+            <option value="2.2">小型寢室帳　約 270×270cm（2-3 人）</option>
+            <option value="2.7" selected>標準四人帳　約 300×300cm（3-4 人）</option>
+            <option value="3.5">一房一廳　約 330×330cm（4 人）</option>
+            <option value="4.0">大型一房一廳　約 300×450cm（4-5 人）</option>
+            <option value="4.8">大型／兩房帳　約 400×400cm（5-6 人）</option>
+            <option value="6.0">客廳帳／兩房一廳　440cm 以上（6 人以上）</option>
+          </select>
+          <label for="calcPpl">睡覺人數</label>
+          <select id="calcPpl">
+            <option>1</option><option>2</option><option selected>3</option>
+            <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
+          </select>
+          <button type="button" class="cc-calc-btn" onclick="calcRecommend()">🔍 推薦適合的機型</button>
+          <div id="calcRes" class="cc-calc-res" role="status" aria-live="polite"></div>
         </div>
 
         <div class="cc-sh">❄️ 我們的冷氣設備規格</div>
@@ -783,6 +846,31 @@ function logLineClick(source) {
 function goLine(source) {
   logLineClick(source || 'cta');
   window.open('https://lin.ee/8maotVi', '_blank');
+}
+
+// 選機計算機：依帳篷坪數與睡覺人數推薦機型（空間或人數偏大 → 山水 6000 BTU）
+function calcRecommend() {
+  var area = parseFloat(document.getElementById('calcTent').value) || 2.7;
+  var ppl = parseInt(document.getElementById('calcPpl').value, 10) || 3;
+  var res = document.getElementById('calcRes');
+  var big = area >= 4.0 || ppl >= 5;
+  var html;
+  if (big) {
+    res.style.background = '#ecfdf5'; res.style.border = '1px solid #a7f3d0';
+    html = '<div class="pick" style="color:#047857">✅ 為你推薦</div>' +
+      '<div class="model" style="color:#047857">山水 SAC688・6000 BTU</div>' +
+      '<div class="reason">你的帳篷約 <b>' + area + ' 坪</b>、<b>' + ppl + ' 人</b>，空間較大或人數較多，建議用 <b>6000 BTU</b> 強效製冷才夠力。</div>' +
+      '<div class="note">⚠️ SAC688 需每 3-5 小時排水一次；兩台租金相同（兩天一夜 $1,000）。</div>';
+  } else {
+    res.style.background = '#eff6ff'; res.style.border = '1px solid #bfdbfe';
+    html = '<div class="pick" style="color:#1d4ed8">✅ 為你推薦</div>' +
+      '<div class="model" style="color:#1d4ed8">艾比酷 JUZ-400・5100 BTU</div>' +
+      '<div class="reason">你的帳篷約 <b>' + area + ' 坪</b>、<b>' + ppl + ' 人</b>，5100 BTU 製冷充足，而且 <b>完全免排水</b>、輕巧好搬，最省心。</div>' +
+      '<div class="note">💡 完全免排水免顧；兩台租金相同（兩天一夜 $1,000）。</div>';
+  }
+  html += '<a class="rbtn" href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick(\'calc_' + (big ? 'sac688' : 'juz400') + '\')">💬 用 LINE 預約這台</a>';
+  res.innerHTML = html;
+  res.classList.add('show');
 }
 
 // 分頁切換：顯示對應區塊、更新導覽列、寫入網址 hash 與 localStorage
