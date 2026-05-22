@@ -154,7 +154,7 @@
       "name": "露涼社冷氣出租有哪些服務據點？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "目前服務據點包含：新竹、竹北（24H 社區寄櫃與公道五路便利倉，近新竹好市多與交流道）、台北、新北、內湖（近內湖好市多）、台中。各據點皆鄰近國道交流道，提供 24H 便利取還服務。"
+        "text": "目前服務據點包含：新竹、竹北（24H 社區寄櫃與公道五路便利倉，近新竹好市多與交流道）、台北（內湖近內湖好市多、士林）、新北（五股）、台中（西屯）。各據點皆鄰近國道交流道，提供 24H 便利取還服務。"
       }
     }
   ]
@@ -347,6 +347,11 @@
   .cc-kb h3 { font-size: 1rem; font-weight: 800; color: #1f2937; margin-bottom: .5rem; display: flex; align-items: center; gap: .35rem; }
   .cc-kb p { font-size: .87rem; color: #4b5563; line-height: 1.75; }
   .cc-kb strong { color: #c2410c; }
+  .cc-tldr { list-style: none; padding: 0; margin: 0; }
+  .cc-tldr li { position: relative; padding-left: 1.15rem; margin-bottom: .6rem; font-size: .88rem; color: #4b5563; line-height: 1.7; }
+  .cc-tldr li:last-child { margin-bottom: 0; }
+  .cc-tldr li::before { content: "•"; position: absolute; left: .25rem; color: #059669; font-weight: 800; }
+  .cc-tldr strong { color: #c2410c; }
 
   /* 選機計算機 */
   .cc-calc { background:#fff; border:1px solid #e5e7eb; border-radius:1rem; padding:1.1rem; box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:1rem; }
@@ -386,8 +391,11 @@
   .loc-item { display: flex; align-items: flex-start; gap: 10px; padding: .65rem 0; border-bottom: 1px solid #e5e7eb; }
   .loc-item:last-child { border: none; }
   .loc-dot { width: 10px; height: 10px; border-radius: 50%; background: #059669; margin-top: 5px; flex-shrink: 0; }
-  .loc-name { font-size: .95rem; font-weight: 700; color: #1f2937; }
-  .loc-desc { font-size: .78rem; color: #059669; font-weight: 600; margin-top: 2px; }
+  .loc-name { font-size: 1.12rem; font-weight: 800; color: #064e3b; }
+  .loc-desc { font-size: .78rem; color: #059669; font-weight: 600; margin-top: 3px; }
+  .loc-pts { list-style: none; margin: .4rem 0 .3rem; padding: 0; }
+  .loc-pts li { font-size: .8rem; color: #374151; line-height: 1.55; padding: 2px 0; }
+  .loc-sub { font-size: .76rem; color: #6b7280; line-height: 1.55; }
 
   /* Booking/Policy styles */
   .policy-block { background: white; border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: .85rem; border: 1px solid #e5e7eb; }
@@ -534,26 +542,35 @@
         </div>
 
         <!-- Locations -->
-        <div class="cc-sh">📍 服務據點分布</div>
+        <div class="cc-sh" style="font-size:1.4rem">📍 服務據點分布</div>
         <hr class="cc-shdiv">
         <div class="map-placeholder">
           <div class="loc-item"><div class="loc-dot"></div><div>
-            <div class="loc-name">新竹・竹北 露營冷氣出租</div>
-            <div class="loc-desc">📍 兩個取機點，皆鄰近新竹好市多・快速道路／高速公路交流道</div>
-            <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">① 竹北 24H 社區寄櫃自取（時間彈性）　② 公道五路便利倉。前往尖石、五峰、南庄等山區營地最方便。</div>
+            <div class="loc-name">新竹／竹北</div>
+            <div class="loc-desc">📍 兩個取機點，皆近新竹好市多・快速道路／高速公路交流道</div>
+            <ul class="loc-pts">
+              <li>① 竹北 24H 社區寄櫃自取（時間彈性）</li>
+              <li>② 公道五路便利倉</li>
+            </ul>
+            <div class="loc-sub">前往尖石、五峰、南庄等山區營地最方便。</div>
           </div></div>
           <div class="loc-item"><div class="loc-dot"></div><div>
-            <div class="loc-name">雙北（台北・新北・內湖）露營冷氣出租</div>
+            <div class="loc-name">雙北（內湖・士林・五股）</div>
             <div class="loc-desc">📍 共三個取機點，皆鄰近國道交流道，市區面交方便</div>
-            <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">內湖取機點鄰近內湖好市多。適合前往宜蘭、烏來、坪林、福隆一帶營區的露友。</div>
+            <ul class="loc-pts">
+              <li>① 內湖（鄰近內湖好市多）</li>
+              <li>② 士林</li>
+              <li>③ 五股</li>
+            </ul>
+            <div class="loc-sub">適合前往宜蘭、烏來、坪林、福隆一帶營區的露友。</div>
           </div></div>
           <div class="loc-item"><div class="loc-dot"></div><div>
-            <div class="loc-name">台中 露營冷氣出租</div>
+            <div class="loc-name">台中・西屯</div>
             <div class="loc-desc">📍 台中・南投・苗栗中部露客最方便</div>
-            <div style="font-size:.76rem;color:#6b7280;margin-top:3px;line-height:1.55">服務前往谷關、清境、合歡山、武陵、南投山區露營的中部露友。</div>
+            <div class="loc-sub">服務前往谷關、清境、合歡山、武陵、南投山區露營的中部露友。</div>
           </div></div>
         </div>
-        <p style="font-size:.78rem;color:#6b7280;line-height:1.65;margin-bottom:1rem">露涼社 CampCool 服務範圍涵蓋嘉義以北全台灣，含新竹市、竹北市、台北市、新北市（含內湖）、台中市。實際取機點與時間請透過 LINE 確認。</p>
+        <p style="font-size:.78rem;color:#6b7280;line-height:1.65;margin-bottom:1rem">露涼社 CampCool 服務範圍涵蓋嘉義以北全台灣，含新竹市、竹北市、台北市（內湖・士林）、新北市（五股）、台中市（西屯）。實際取機點與時間請透過 LINE 確認。</p>
 
         <!-- Reviews -->
         <div class="cc-sh">⭐ 露友真實好評</div>
@@ -616,12 +633,13 @@
           <span style="font-size:.75rem;background:#d1fae5;color:#047857;border-radius:8px;padding:3px 10px;font-weight:700;flex-shrink:0">分享 →</span>
         </a>
 
-        <div class="cc-kb"><h3>⚡ 30 秒懶人包</h3><p>
-          • 3×3 帳篷選 <strong>5100 BTU（JUZ-400）</strong>就夠；4×4 大帳選 <strong>6000 BTU（SAC688）</strong><br>
-          • 營區 10A 電源<strong>不會跳電</strong>：冷氣＋冰箱＋燈＋手機約 4.8A（別同時用電熱水壺）<br>
-          • 不想半夜起來排水 → 選<strong>免排水的 JUZ-400</strong><br>
-          • 不確定選哪台？往下用 <strong>「帳篷選機計算機」</strong>一鍵推薦
-        </p></div>
+        <div class="cc-kb"><h3>⚡ 30 秒懶人包</h3>
+          <ul class="cc-tldr">
+            <li>3×3 帳篷選 <strong>5100 BTU（JUZ-400）</strong>就夠；4×4 大帳選 <strong>6000 BTU（SAC688）</strong></li>
+            <li>營區 10A 電源<strong>不會跳電</strong>：冷氣＋冰箱＋燈＋手機約 4.8A（別同時用電熱水壺）。訂位前先和營區確認<strong>可用瓦數、能否帶冷氣</strong></li>
+            <li>不想半夜起來排水 → 選<strong>免排水的 JUZ-400</strong></li>
+          </ul>
+        </div>
 
         <div class="cc-sh">📐 移動冷氣 BTU 市場比較</div>
         <hr class="cc-shdiv">
