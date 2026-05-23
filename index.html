@@ -383,7 +383,7 @@
   /* 預約表單 */
   .cc-form { background:#fff; border:1px solid #e5e7eb; border-radius:1rem; padding:1.1rem; box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:1rem; }
   .cc-form label { display:block; font-size:.84rem; font-weight:700; color:#374151; margin:.85rem 0 .35rem; }
-  .cc-form input[type=text], .cc-form input[type=date], .cc-form select, .cc-form textarea { width:100%; padding:.6rem .7rem; font-size:.92rem; border:1.5px solid #d1d5db; border-radius:.6rem; background:#fff; color:#1f2937; font-family:inherit; -webkit-appearance:none; appearance:none; }
+  .cc-form input[type=text], .cc-form input[type=tel], .cc-form input[type=date], .cc-form select, .cc-form textarea { width:100%; padding:.6rem .7rem; font-size:.92rem; border:1.5px solid #d1d5db; border-radius:.6rem; background:#fff; color:#1f2937; font-family:inherit; -webkit-appearance:none; appearance:none; }
   .cc-form input:focus, .cc-form select:focus, .cc-form textarea:focus { outline:none; border-color:#059669; box-shadow:0 0 0 3px rgba(5,150,105,.12); }
   .cc-form textarea { min-height:62px; resize:vertical; }
   .cc-counter-row { display:flex; align-items:center; justify-content:space-between; margin-top:.9rem; }
@@ -406,6 +406,7 @@
   .cc-form-res pre { white-space:pre-wrap; word-break:break-word; font-family:inherit; font-size:.82rem; line-height:1.6; color:#374151; background:#fff; border:1px solid #e5e7eb; border-radius:.5rem; padding:.7rem; margin:.5rem 0 .7rem; }
   .cc-form-res .rbtn { display:inline-block; background:#06C755; color:#fff; font-weight:800; font-size:.88rem; text-decoration:none; padding:.6rem 1rem; border-radius:.6rem; }
   .cc-form-hint { font-size:.75rem; color:#6b7280; margin-top:.5rem; line-height:1.5; }
+  .cc-modelinfo { display:none; margin-top:.4rem; font-size:.8rem; color:#047857; background:#f0fdf4; border:1px solid #a7f3d0; border-radius:.6rem; padding:.55rem .7rem; line-height:1.55; }
 
   .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; margin-bottom: 1.2rem; }
   .why-card { background: white; border-radius: 18px; padding: 1.25rem .9rem; text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.07); border: 1px solid #d1fae5; }
@@ -757,14 +758,17 @@
           <label for="bkName">稱呼</label>
           <input type="text" id="bkName" placeholder="怎麼稱呼你？（選填）">
 
+          <label for="bkPhone">手機號碼</label>
+          <input type="tel" id="bkPhone" inputmode="numeric" autocomplete="tel" placeholder="方便聯絡的手機號碼">
+
           <label for="bkDate">取機日期</label>
           <input type="date" id="bkDate">
 
           <label for="planSel">租借方案</label>
           <select id="planSel" onchange="onPlanChange()">
-            <option value="兩天一夜">兩天一夜（$1,000）</option>
-            <option value="三天兩夜">三天兩夜（$1,300）</option>
-            <option value="長租（3天以上）">長租（3 天以上）</option>
+            <option value="兩天一夜">兩天一夜（2天1夜・$1,000）</option>
+            <option value="三天兩夜">三天兩夜（3天2夜・$1,300）</option>
+            <option value="其他">其他（長租／自訂天數）</option>
             <option value="請幫我推薦">不確定，請幫我推薦</option>
           </select>
 
@@ -793,6 +797,21 @@
             <option value="其他（LINE 再討論）">其他（LINE 再討論）</option>
           </select>
 
+          <label for="bkDepart">預計出發地點（取／還）</label>
+          <input type="text" id="bkDepart" placeholder="例如：新竹市區、台北內湖（方便安排取還）">
+
+          <label for="bkSite">營區名稱</label>
+          <input type="text" id="bkSite" placeholder="例如：尖石那羅、清境農場露營區">
+          <p class="cc-form-hint" style="margin-top:.3rem">填營區名稱，我們可先幫你確認該營區是否能帶冷氣／供電。</p>
+
+          <label for="modelSel">希望機型</label>
+          <select id="modelSel" onchange="onModelChange()">
+            <option value="不限／請推薦">不限／請幫我推薦</option>
+            <option value="艾比酷 JUZ-400">艾比酷 JUZ-400</option>
+            <option value="山水 SAC688">山水 SAC688</option>
+          </select>
+          <div class="cc-modelinfo" id="modelInfo"></div>
+
           <div class="cc-counter-row">
             <span class="cc-counter-label">冷氣台數</span>
             <div class="cc-counter">
@@ -819,8 +838,8 @@
             <label class="cc-check"><input type="checkbox" value="需協助挑選機型">需協助挑選機型</label>
           </div>
 
-          <label for="bkNote">備註</label>
-          <textarea id="bkNote" placeholder="營區名稱、人數、帳篷大小或其他需求（選填）"></textarea>
+          <label for="bkNote">其他租借需求</label>
+          <textarea id="bkNote" placeholder="人數、帳篷大小、特殊取還時間或其他需求（選填）"></textarea>
 
           <div class="cc-form-actions">
             <button type="button" class="cc-btn-primary" onclick="submitBooking()">產生預約訊息</button>
@@ -1013,40 +1032,82 @@ function adjustCounter(id, delta, min) {
   if (minus) minus.disabled = (v <= min);
 }
 
-// 方案 select 變動：選「長租」時顯示專屬欄位
+// 方案 select 變動：選「其他（長租／自訂天數）」時顯示專屬欄位
 function onPlanChange() {
   var sel = document.getElementById('planSel');
   var box = document.getElementById('longRentFields');
   if (!sel || !box) return;
-  box.style.display = (sel.value === '長租（3天以上）') ? 'block' : 'none';
+  box.style.display = (sel.value === '其他') ? 'block' : 'none';
+}
+
+// 機型規格（顯示給客戶看的瓦數等資訊）
+var MODEL_SPEC = {
+  '艾比酷 JUZ-400': '5100 BTU・425W（約 3.9A）・13kg・免排水，適合 3-5 坪帳',
+  '山水 SAC688': '6000 BTU・530W（約 4.8A）・17kg，適合 5-8 坪大帳'
+};
+var MODEL_TAG = {
+  '艾比酷 JUZ-400': '5100 BTU／425W',
+  '山水 SAC688': '6000 BTU／530W'
+};
+// 希望機型 select 變動：顯示該機型瓦數規格
+function onModelChange() {
+  var v = document.getElementById('modelSel').value;
+  var box = document.getElementById('modelInfo');
+  if (!box) return;
+  if (MODEL_SPEC[v]) {
+    box.textContent = '⚡ ' + v + '：' + MODEL_SPEC[v];
+    box.style.display = 'block';
+  } else {
+    box.textContent = '';
+    box.style.display = 'none';
+  }
 }
 
 // 送出：整理欄位成 LINE 訊息、複製並開啟 LINE
 function submitBooking() {
   var g = function (id) { var el = document.getElementById(id); return el ? String(el.value).trim() : ''; };
   var t = function (id) { var el = document.getElementById(id); return el ? el.textContent.trim() : ''; };
+  var res = document.getElementById('bkRes');
+
+  // 手機號碼為必填
+  var phone = g('bkPhone');
+  if (!phone) {
+    res.innerHTML = '<div class="rt" style="color:#dc2626">⚠️ 請先填手機號碼，方便我們聯絡你</div>';
+    res.classList.add('show');
+    var pe = document.getElementById('bkPhone'); if (pe) pe.focus();
+    res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
   var plan = g('planSel');
+  var planMap = { '兩天一夜': '兩天一夜（2天1夜）', '三天兩夜': '三天兩夜（3天2夜）', '其他': '其他／自訂天數', '請幫我推薦': '請幫我推薦' };
 
   var addons = [];
   var boxes = document.querySelectorAll('.cc-form .cc-check input[type=checkbox]');
   for (var i = 0; i < boxes.length; i++) { if (boxes[i].checked) addons.push(boxes[i].value); }
 
+  var model = g('modelSel');
+  var modelText = MODEL_TAG[model] ? (model + '（' + MODEL_TAG[model] + '）') : model;
+
   var lines = ['【露涼社預約詢問】'];
   var name = g('bkName'); if (name) lines.push('稱呼：' + name);
+  lines.push('手機：' + phone);
   lines.push('取機日：' + (g('bkDate') || '（未填）'));
-  lines.push('方案：' + plan);
-  if (plan === '長租（3天以上）') {
+  lines.push('方案：' + (planMap[plan] || plan));
+  if (plan === '其他') {
     lines.push('　└ 租借天數：' + t('rentDays') + ' 天');
     lines.push('　└ 取機方式：' + g('pickupWay'));
   }
   lines.push('取機點：' + g('pickupSel'));
+  var depart = g('bkDepart'); if (depart) lines.push('出發地點：' + depart);
+  var site = g('bkSite'); if (site) lines.push('營區：' + site);
+  lines.push('希望機型：' + modelText);
   lines.push('冷氣：' + t('acQty') + ' 台');
   lines.push('移動冰箱：' + t('fridgeQty') + ' 台');
   if (addons.length) lines.push('其他需求：' + addons.join('、'));
-  var note = g('bkNote'); if (note) lines.push('備註：' + note);
+  var note = g('bkNote'); if (note) lines.push('其他租借需求：' + note);
   var msg = lines.join('\n');
 
-  var res = document.getElementById('bkRes');
   res.innerHTML =
     '<div class="rt">✅ 預約內容已整理好</div>' +
     '<pre id="bkMsg"></pre>' +
@@ -1069,10 +1130,12 @@ function submitBooking() {
 
 // 重新填寫：計數器回預設、清空欄位、收起條件區與結果
 function resetBooking() {
-  ['bkName', 'bkDate', 'bkNote'].forEach(function (id) { var el = document.getElementById(id); if (el) el.value = ''; });
+  ['bkName', 'bkPhone', 'bkDate', 'bkDepart', 'bkSite', 'bkNote'].forEach(function (id) { var el = document.getElementById(id); if (el) el.value = ''; });
   var planSel = document.getElementById('planSel'); if (planSel) planSel.selectedIndex = 0;
   var pickupSel = document.getElementById('pickupSel'); if (pickupSel) pickupSel.selectedIndex = 0;
   var pickupWay = document.getElementById('pickupWay'); if (pickupWay) pickupWay.selectedIndex = 0;
+  var modelSel = document.getElementById('modelSel'); if (modelSel) modelSel.selectedIndex = 0;
+  onModelChange();
 
   document.getElementById('acQty').textContent = '1';
   document.getElementById('acQty-minus').disabled = true;
