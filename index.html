@@ -268,6 +268,8 @@
   .cc-hero-title { font-size: clamp(1.45rem,4.5vw,2.1rem); font-weight: 800; margin-bottom: .35rem; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,.25); position: relative; z-index: 1; }
   .cc-hero-sub { font-size: .88rem; opacity: .92; max-width: 400px; margin: 0 auto; line-height: 1.6; position: relative; z-index: 1; }
   .cc-hero-stat { margin-top: 10px; position: relative; z-index: 1; font-size: .75rem; opacity: .88; font-weight: 600; background: rgba(255,255,255,.15); display: inline-block; border-radius: 20px; padding: 3px 12px; }
+  .cc-hero-cta { margin-top: 14px; position: relative; z-index: 1; display: inline-block; background: #fff; color: #047857; font-size: .95rem; font-weight: 800; border: none; border-radius: 999px; padding: .7rem 1.5rem; box-shadow: 0 4px 14px rgba(0,0,0,.2); cursor: pointer; }
+  .cc-hero-cta:active { transform: translateY(1px); }
 
   /* ── Bottom nav ── */
   .cc-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #0f1f14; border-top: 1px solid rgba(255,255,255,.08); box-shadow: 0 -6px 24px rgba(0,0,0,.4); display: flex; padding: 4px 0 6px; z-index: 200; }
@@ -508,6 +510,7 @@
         <h1 class="cc-hero-title">❄️ 睡覺不悶熱，露營才好玩</h1>
         <p class="cc-hero-sub">兩天一夜 $1,000・新竹・台北・台中・24H 取還</p>
         <div class="cc-hero-stat">✅ 已服務 800+ 組露友</div>
+        <div><button type="button" class="cc-hero-cta" onclick="goBooking('hero')">📝 立即預約・查方案</button></div>
       </div>
       <div class="cc-body">
 
@@ -671,6 +674,16 @@
         <div class="cc-sh">📐 移動冷氣 BTU 市場比較</div>
         <hr class="cc-shdiv">
         <div class="cc-alert g"><span class="ic">💡</span><div>BTU 越高製冷越強，但重量與耗電也越高。5000 BTU 已足夠 3-4 人帳，6000 BTU 適合大帳或開口較多的帳篷。</div></div>
+        <div class="cc-tbl-wrap">
+          <table class="cc-tbl">
+            <thead><tr><th>帳篷大小</th><th>建議人數</th><th>建議 BTU</th><th>推薦機型</th></tr></thead>
+            <tbody>
+              <tr><td>270×270～300×300（約 3 坪以下）</td><td>2-4 人</td><td>約 5,000-5,100 BTU</td><td>艾比酷 JUZ-400</td></tr>
+              <tr><td>330×330～300×450（約 3-4 坪）</td><td>4-5 人</td><td>5,100-6,000 BTU</td><td>JUZ-400／SAC688</td></tr>
+              <tr><td>400×400 以上／兩房／開口大（約 4.8 坪以上）</td><td>5-8 人</td><td>6,000 BTU（或雙機）</td><td>山水 SAC688</td></tr>
+            </tbody>
+          </table>
+        </div>
         <div class="btu-cover">
           <img src="assets/og-cover.jpg" alt="2026台灣露營移動冷氣選購指南：600W以下低功耗型號大評比，包含BTU、功率、重量、尺寸完整比較表" width="1200" height="630" loading="lazy">
         </div>
@@ -975,6 +988,11 @@ function logLineClick(source, convert) {
   } catch(e) {}
 }
 
+// GA4 一般事件（非轉換，用於漏斗分析）
+function logEvent(name, label) {
+  try { if (typeof gtag !== 'undefined') gtag('event', name, label ? { event_label: label } : {}); } catch(e) {}
+}
+
 // 引導至預約表單（不擋人：表單上方仍可直接跳 LINE）
 function goBooking(source) {
   logLineClick(source || 'goBooking');
@@ -1016,6 +1034,7 @@ function calcRecommend() {
   html += '<a class="rbtn" href="#booking" onclick="goBookingWithModel(\'' + bkModel + '\',\'calc_' + (big ? 'sac688' : 'juz400') + '\');return false;">💬 預約這台</a>';
   res.innerHTML = html;
   res.classList.add('show');
+  logEvent('calculator_use', bkModel);
 }
 
 // ── 預約表單：計數器、條件欄位、產生 LINE 訊息 ──────────────
@@ -1162,6 +1181,7 @@ function setTab(id, opts) {
   if (('#' + id) !== location.hash) {
     try { history.replaceState(null, '', '#' + id); } catch(e) { location.hash = id; }
   }
+  logEvent('tab_view', id);
   if (!opts.noScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1179,6 +1199,16 @@ window.addEventListener('hashchange', function () {
   var id = location.hash.replace('#', '');
   if (TAB_IDS.indexOf(id) !== -1) setTab(id);
 });
+
+// 表單開始填寫（GA4，僅觸發一次）
+(function () {
+  var form = document.querySelector('.cc-form');
+  if (!form) return;
+  var started = false;
+  var fire = function () { if (started) return; started = true; logEvent('booking_form_start'); };
+  form.addEventListener('focusin', fire);
+  form.addEventListener('change', fire);
+})();
 </script>
 </body>
 </html>
