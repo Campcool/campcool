@@ -392,9 +392,6 @@
   .cc-counter button { width:42px; height:42px; border:none; background:#f0fdf4; color:#059669; font-size:1.2rem; font-weight:800; cursor:pointer; line-height:1; }
   .cc-counter button:disabled { color:#cbd5e1; background:#f8fafc; cursor:not-allowed; }
   .cc-counter span { min-width:46px; text-align:center; font-size:1rem; font-weight:800; color:#1f2937; }
-  .cc-checks { display:flex; flex-direction:column; gap:.5rem; margin-top:.35rem; }
-  .cc-check { display:flex; align-items:center; gap:.55rem; font-size:.86rem; color:#374151; background:#f9fafb; border:1px solid #e5e7eb; border-radius:.6rem; padding:.55rem .7rem; cursor:pointer; }
-  .cc-check input { width:18px; height:18px; accent-color:#059669; flex-shrink:0; }
   .cc-cond { display:none; margin-top:.5rem; padding:.85rem; border:1px dashed #6ee7b7; border-radius:.7rem; background:#f0fdf4; }
   .cc-form-actions { display:flex; gap:.6rem; margin-top:1.1rem; }
   .cc-form-actions button { flex:1; padding:.8rem; font-size:.92rem; font-weight:800; border-radius:.7rem; cursor:pointer; border:none; }
@@ -800,9 +797,6 @@
             <option value="其他（LINE 再討論）">其他（LINE 再討論）</option>
           </select>
 
-          <label for="bkDepart">預計出發地點（取／還）</label>
-          <input type="text" id="bkDepart" placeholder="例如：新竹市區、台北內湖（方便安排取還）">
-
           <label for="bkSite">營區名稱</label>
           <input type="text" id="bkSite" placeholder="例如：尖石那羅、清境農場露營區">
           <p class="cc-form-hint" style="margin-top:.3rem">填營區名稱，我們可先幫你確認該營區是否能帶冷氣／供電。</p>
@@ -833,16 +827,8 @@
             </div>
           </div>
 
-          <label>其他需求（可複選）</label>
-          <div class="cc-checks">
-            <label class="cc-check"><input type="checkbox" value="延長線組（10A 以上）">延長線組（10A 以上）</label>
-            <label class="cc-check"><input type="checkbox" value="帳篷冷氣風管／密封窗檔">帳篷冷氣風管／密封窗檔</label>
-            <label class="cc-check"><input type="checkbox" value="保冰冰桶">保冰冰桶</label>
-            <label class="cc-check"><input type="checkbox" value="需協助挑選機型">需協助挑選機型</label>
-          </div>
-
           <label for="bkNote">其他租借需求</label>
-          <textarea id="bkNote" placeholder="人數、帳篷大小、特殊取還時間或其他需求（選填）"></textarea>
+          <textarea id="bkNote" placeholder="也可代租天幕、營柱、焚火台／觀火台、椅子、沙發等露營用品；或填人數、帳篷大小、特殊取還時間等（選填）"></textarea>
 
           <div class="cc-form-actions">
             <button type="button" class="cc-btn-primary" onclick="submitBooking()">產生預約訊息</button>
@@ -1060,10 +1046,6 @@ var MODEL_SPEC = {
   '艾比酷 JUZ-400': '5100 BTU・425W（約 3.9A）・13kg・免排水，適合 3-5 坪帳',
   '山水 SAC688': '6000 BTU・530W（約 4.8A）・17kg，適合 5-8 坪大帳'
 };
-var MODEL_TAG = {
-  '艾比酷 JUZ-400': '5100 BTU／425W',
-  '山水 SAC688': '6000 BTU／530W'
-};
 // 希望機型 select 變動：顯示該機型瓦數規格
 function onModelChange() {
   var v = document.getElementById('modelSel').value;
@@ -1097,12 +1079,7 @@ function submitBooking() {
   var plan = g('planSel');
   var planMap = { '兩天一夜': '兩天一夜（2天1夜）', '三天兩夜': '三天兩夜（3天2夜）', '其他': '其他／自訂天數', '請幫我推薦': '請幫我推薦' };
 
-  var addons = [];
-  var boxes = document.querySelectorAll('.cc-form .cc-check input[type=checkbox]');
-  for (var i = 0; i < boxes.length; i++) { if (boxes[i].checked) addons.push(boxes[i].value); }
-
   var model = g('modelSel');
-  var modelText = MODEL_TAG[model] ? (model + '（' + MODEL_TAG[model] + '）') : model;
 
   // 聯絡 / 時間 / 地點
   var L1 = [];
@@ -1110,7 +1087,6 @@ function submitBooking() {
   L1.push('📱 手機：' + phone);
   L1.push('📅 取機日：' + (g('bkDate') || '（未填）'));
   L1.push('📍 取機點：' + g('pickupSel'));
-  var depart = g('bkDepart'); if (depart) L1.push('🚗 出發地點：' + depart);
   var site = g('bkSite'); if (site) L1.push('⛺ 營區：' + site);
 
   // 租借內容
@@ -1121,10 +1097,9 @@ function submitBooking() {
     L2.push('　└ 取機方式：' + g('pickupWay'));
   }
   L2.push('❄️ 冷氣：' + t('acQty') + ' 台');
-  L2.push('🧊 移動冰箱：' + t('fridgeQty') + ' 台');
-  L2.push('🔧 希望機型：' + modelText);
-  if (addons.length) L2.push('➕ 其他需求：' + addons.join('、'));
-  var note = g('bkNote'); if (note) L2.push('📝 備註：' + note);
+  if (parseInt(t('fridgeQty'), 10) > 0) L2.push('🧊 移動冰箱：' + t('fridgeQty') + ' 台');
+  L2.push('🔧 希望機型：' + model);
+  var note = g('bkNote'); if (note) L2.push('📝 其他需求：' + note);
 
   var msg = '【露涼社 預約詢問】\n\n' + L1.join('\n') + '\n\n' + L2.join('\n');
 
@@ -1151,7 +1126,7 @@ function submitBooking() {
 
 // 重新填寫：計數器回預設、清空欄位、收起條件區與結果
 function resetBooking() {
-  ['bkName', 'bkPhone', 'bkDate', 'bkDepart', 'bkSite', 'bkNote'].forEach(function (id) { var el = document.getElementById(id); if (el) el.value = ''; });
+  ['bkName', 'bkPhone', 'bkDate', 'bkSite', 'bkNote'].forEach(function (id) { var el = document.getElementById(id); if (el) el.value = ''; });
   var planSel = document.getElementById('planSel'); if (planSel) planSel.selectedIndex = 0;
   var pickupSel = document.getElementById('pickupSel'); if (pickupSel) pickupSel.selectedIndex = 0;
   var pickupWay = document.getElementById('pickupWay'); if (pickupWay) pickupWay.selectedIndex = 0;
@@ -1164,9 +1139,6 @@ function resetBooking() {
   document.getElementById('fridgeQty-minus').disabled = true;
   document.getElementById('rentDays').textContent = '3';
   var rd = document.getElementById('rentDays-minus'); if (rd) rd.disabled = true;
-
-  var boxes = document.querySelectorAll('.cc-form .cc-check input[type=checkbox]');
-  for (var i = 0; i < boxes.length; i++) boxes[i].checked = false;
 
   onPlanChange();
   var res = document.getElementById('bkRes');
