@@ -407,6 +407,8 @@
   .cc-form-res .rbtn { display:inline-block; background:#06C755; color:#fff; font-weight:800; font-size:.88rem; text-decoration:none; padding:.6rem 1rem; border-radius:.6rem; }
   .cc-form-hint { font-size:.75rem; color:#6b7280; margin-top:.5rem; line-height:1.5; }
   .cc-modelinfo { display:none; margin-top:.4rem; font-size:.8rem; color:#047857; background:#f0fdf4; border:1px solid #a7f3d0; border-radius:.6rem; padding:.55rem .7rem; line-height:1.55; }
+  .cc-form-skip { font-size:.8rem; color:#475569; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:.6rem; padding:.6rem .75rem; margin-bottom:.7rem; line-height:1.7; }
+  .cc-form-skip a { color:#047857; font-weight:800; text-decoration:none; white-space:nowrap; }
 
   .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; margin-bottom: 1.2rem; }
   .why-card { background: white; border-radius: 18px; padding: 1.25rem .9rem; text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.07); border: 1px solid #d1fae5; }
@@ -493,7 +495,7 @@
           <span class="cc-logo-sub">露營冷氣・移動冰箱出租</span>
         </span>
       </button>
-      <button class="cc-line-btn" type="button" onclick="goLine('header')">
+      <button class="cc-line-btn" type="button" onclick="goBooking('header')">
         <span>💬</span> 詢問・預約
       </button>
     </div>
@@ -550,7 +552,7 @@
             </tbody>
           </table>
           <div class="cc-price-cta">
-            <button type="button" onclick="goLine('pricing_table')">💬 加 LINE 查詢檔期・免費諮詢</button>
+            <button type="button" onclick="goBooking('pricing')">💬 立即預約・查詢檔期</button>
             <div class="cc-price-urgent">⚡ 連假熱門時段有限，建議提前 2 週預約</div>
             <div class="cc-price-note">無隱藏費用・透明定價・LINE 30 分鐘內回覆</div>
           </div>
@@ -566,7 +568,7 @@
           <div class="cc-rb-item"><span class="ic">🧪</span><div><div class="t">先租再決定，不怕踩雷</div><div class="d">用過喜歡再買也不遲，先花 <b>$1,000</b> 租一次試試最實際。</div></div></div>
         </div>
         <div style="text-align:center;margin-bottom:1rem">
-          <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('rentbuy')" style="display:inline-block;background:#06C755;color:#fff;font-weight:800;font-size:.9rem;text-decoration:none;padding:.7rem 1.4rem;border-radius:.7rem;box-shadow:0 2px 8px rgba(6,199,85,.25)">💬 先花 $1,000 租一次試試</a>
+          <a href="#booking" onclick="goBooking('rentbuy');return false;" style="display:inline-block;background:#06C755;color:#fff;font-weight:800;font-size:.9rem;text-decoration:none;padding:.7rem 1.4rem;border-radius:.7rem;box-shadow:0 2px 8px rgba(6,199,85,.25)">💬 先花 $1,000 租一次試試</a>
         </div>
 
         <!-- Locations -->
@@ -629,7 +631,7 @@
             <div class="t">💬 現在詢問，今晚確認檔期</div>
             <div class="s">平均 30 分鐘回覆・問完沒有強迫預約</div>
           </div>
-          <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('linebanner')">馬上加 LINE</a>
+          <a href="#booking" onclick="goBooking('linebanner');return false;">立即預約</a>
         </div>
       </div>
     </section>
@@ -752,9 +754,10 @@
         <div class="cc-alert g"><span class="ic">✅</span><div><strong>預約方式</strong>：請透過 LINE 官方帳號詢問檔期，確認後付款即完成預約。</div></div>
 
         <!-- 快速預約表單 -->
-        <div class="cc-sh">📝 快速預約表單</div>
+        <div class="cc-sh" id="bookingForm">📝 快速預約表單</div>
         <hr class="cc-shdiv">
         <div class="cc-form">
+          <div class="cc-form-skip">📝 留個資料，我們回覆更快、報價更精準。<br>不想填也沒關係 → <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('form_skip')">直接用 LINE 聯絡我們 →</a></div>
           <label for="bkName">稱呼</label>
           <input type="text" id="bkName" placeholder="怎麼稱呼你？（選填）">
 
@@ -875,7 +878,7 @@
             <div class="t">💬 現在詢問，今晚確認檔期</div>
             <div class="s">平均 30 分鐘回覆・問完沒有強迫預約</div>
           </div>
-          <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('linebanner')">馬上加 LINE</a>
+          <a href="#booking" onclick="goBooking('linebanner');return false;">立即預約</a>
         </div>
       </div>
     </section>
@@ -920,7 +923,7 @@
             <div class="t">💬 現在詢問，今晚確認檔期</div>
             <div class="s">平均 30 分鐘回覆・問完沒有強迫預約</div>
           </div>
-          <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('linebanner')">馬上加 LINE</a>
+          <a href="#booking" onclick="goBooking('linebanner');return false;">立即預約</a>
         </div>
       </div>
     </section>
@@ -987,10 +990,21 @@ function logLineClick(source) {
   } catch(e) {}
 }
 
-// LINE 詢問按鈕：記錄來源後開啟官方帳號
-function goLine(source) {
-  logLineClick(source || 'cta');
-  window.open('https://lin.ee/8maotVi', '_blank');
+// 引導至預約表單（不擋人：表單上方仍可直接跳 LINE）
+function goBooking(source) {
+  logLineClick(source || 'goBooking');
+  setTab('booking', { noScroll: true });
+  setTimeout(function () {
+    var el = document.getElementById('bookingForm');
+    if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+}
+
+// 由計算機帶入推薦機型後前往表單
+function goBookingWithModel(model, source) {
+  var sel = document.getElementById('modelSel');
+  if (sel && model) { sel.value = model; if (typeof onModelChange === 'function') onModelChange(); }
+  goBooking(source);
 }
 
 // 選機計算機：依帳篷坪數與睡覺人數推薦機型（空間或人數偏大 → 山水 6000 BTU）
@@ -1013,7 +1027,8 @@ function calcRecommend() {
       '<div class="reason">你的帳篷約 <b>' + area + ' 坪</b>、<b>' + ppl + ' 人</b>，5100 BTU 製冷充足，而且 <b>完全免排水</b>、輕巧好搬，最省心。</div>' +
       '<div class="note">💡 完全免排水免顧；兩台租金相同（兩天一夜 $1,000）。</div>';
   }
-  html += '<a class="rbtn" href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick(\'calc_' + (big ? 'sac688' : 'juz400') + '\')">💬 用 LINE 預約這台</a>';
+  var bkModel = big ? '山水 SAC688' : '艾比酷 JUZ-400';
+  html += '<a class="rbtn" href="#booking" onclick="goBookingWithModel(\'' + bkModel + '\',\'calc_' + (big ? 'sac688' : 'juz400') + '\');return false;">💬 預約這台</a>';
   res.innerHTML = html;
   res.classList.add('show');
 }
