@@ -1104,24 +1104,30 @@ function submitBooking() {
   var model = g('modelSel');
   var modelText = MODEL_TAG[model] ? (model + '（' + MODEL_TAG[model] + '）') : model;
 
-  var lines = ['【露涼社預約詢問】'];
-  var name = g('bkName'); if (name) lines.push('稱呼：' + name);
-  lines.push('手機：' + phone);
-  lines.push('取機日：' + (g('bkDate') || '（未填）'));
-  lines.push('方案：' + (planMap[plan] || plan));
+  // 聯絡 / 時間 / 地點
+  var L1 = [];
+  var name = g('bkName'); if (name) L1.push('👤 稱呼：' + name);
+  L1.push('📱 手機：' + phone);
+  L1.push('📅 取機日：' + (g('bkDate') || '（未填）'));
+  L1.push('📍 取機點：' + g('pickupSel'));
+  var depart = g('bkDepart'); if (depart) L1.push('🚗 出發地點：' + depart);
+  var site = g('bkSite'); if (site) L1.push('⛺ 營區：' + site);
+
+  // 租借內容
+  var L2 = [];
+  L2.push('🗓 方案：' + (planMap[plan] || plan));
   if (plan === '其他') {
-    lines.push('　└ 租借天數：' + t('rentDays') + ' 天');
-    lines.push('　└ 取機方式：' + g('pickupWay'));
+    L2.push('　└ 租借天數：' + t('rentDays') + ' 天');
+    L2.push('　└ 取機方式：' + g('pickupWay'));
   }
-  lines.push('取機點：' + g('pickupSel'));
-  var depart = g('bkDepart'); if (depart) lines.push('出發地點：' + depart);
-  var site = g('bkSite'); if (site) lines.push('營區：' + site);
-  lines.push('希望機型：' + modelText);
-  lines.push('冷氣：' + t('acQty') + ' 台');
-  lines.push('移動冰箱：' + t('fridgeQty') + ' 台');
-  if (addons.length) lines.push('其他需求：' + addons.join('、'));
-  var note = g('bkNote'); if (note) lines.push('其他租借需求：' + note);
-  var msg = lines.join('\n');
+  L2.push('❄️ 冷氣：' + t('acQty') + ' 台');
+  L2.push('🧊 移動冰箱：' + t('fridgeQty') + ' 台');
+  L2.push('🔧 希望機型：' + modelText);
+  if (addons.length) L2.push('➕ 其他需求：' + addons.join('、'));
+  var note = g('bkNote'); if (note) L2.push('📝 備註：' + note);
+
+  var msg = '【露涼社 預約詢問】\n\n' + L1.join('\n') + '\n\n' + L2.join('\n');
+
 
   res.innerHTML =
     '<div class="rt">✅ 預約內容已整理好</div>' +
