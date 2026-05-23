@@ -754,7 +754,7 @@
         <div class="cc-sh" id="bookingForm">📝 快速預約表單</div>
         <hr class="cc-shdiv">
         <div class="cc-form">
-          <div class="cc-form-skip">📝 留個資料，我們回覆更快、報價更精準。<br>不想填也沒關係 → <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('form_skip')">直接用 LINE 聯絡我們 →</a></div>
+          <div class="cc-form-skip">📝 留個資料，我們回覆更快、報價更精準。<br>不想填也沒關係 → <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('form_skip', true)">直接用 LINE 聯絡我們 →</a></div>
           <label for="bkName">稱呼</label>
           <input type="text" id="bkName" placeholder="怎麼稱呼你？（選填）">
 
@@ -928,7 +928,7 @@
 
 <!-- 浮動社交按鈕 -->
 <div class="cc-float">
-  <a href="https://lin.ee/8maotVi" class="cc-fab cc-fab-line" target="_blank" rel="noopener" title="LINE @Campcool" onclick="logLineClick('floating')">
+  <a href="https://lin.ee/8maotVi" class="cc-fab cc-fab-line" target="_blank" rel="noopener" title="LINE @Campcool" onclick="logLineClick('floating', true)">
     <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
       <rect width="52" height="52" rx="26" fill="#06C755"/>
       <path d="M26 9C16.6 9 9 15.6 9 23.7c0 5.9 3.9 11 9.8 13.9l-1.2 6.2 6.8-2.5c.5.1 1 .1 1.6.1 9.4 0 17-6.6 17-14.7S35.4 9 26 9z" fill="white"/>
@@ -950,12 +950,11 @@
 var TAB_IDS = ['rental','wiki','booking','fridge'];
 
 /* ── Google Ads 轉換標籤 ──────────────────────────────────
-   想把「加 LINE」當成廣告轉換目標？到 Google Ads → 目標與轉換 → 轉換
-   → 新增轉換動作 → 網站 → 手動新增代碼，複製「轉換標籤」後填入下方即可
-   （格式：AW-18167565264/XXXXXXXXXXX）。留空則只記錄 GA4 事件、不送轉換。 */
-var ADS_CONVERSION_LABEL = '';
+   只有「真的開啟 LINE 聯絡」的動作會回傳轉換（logLineClick 第二參數 true）；
+   導向表單等導覽點擊只記 GA4，不算轉換，避免灌水。留空則完全不送轉換。 */
+var ADS_CONVERSION_LABEL = 'AW-18167565264/IyTqCO2sprIcENCX_NZD';
 
-function logLineClick(source) {
+function logLineClick(source, convert) {
   try {
     if (typeof gtag !== 'undefined') {
       // GA4 自訂事件（可在 GA4 後台查看各按鈕點擊來源）
@@ -964,8 +963,8 @@ function logLineClick(source) {
         event_label: source || 'unknown',
         value: 1,
       });
-      // Google Ads 轉換（僅在上方已填入轉換標籤時才送出）
-      if (ADS_CONVERSION_LABEL) {
+      // Google Ads 轉換（僅「真的聯絡 LINE」且已填標籤時才送出）
+      if (convert && ADS_CONVERSION_LABEL) {
         gtag('event', 'conversion', {
           send_to: ADS_CONVERSION_LABEL,
           value: 1000,
@@ -1107,7 +1106,7 @@ function submitBooking() {
   res.innerHTML =
     '<div class="rt">✅ 預約內容已整理好</div>' +
     '<pre id="bkMsg"></pre>' +
-    '<a class="rbtn" href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick(\'booking_form\')">💬 開啟 LINE 貼上送出</a>';
+    '<a class="rbtn" href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick(\'booking_form\', true)">💬 開啟 LINE 貼上送出</a>';
   res.querySelector('#bkMsg').textContent = msg;
   res.classList.add('show');
 
