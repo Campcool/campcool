@@ -768,7 +768,7 @@
         <div class="cc-sites-box">
           <div class="cc-sites-stats" id="sitesStats">載入中…</div>
           <div class="cc-sites-controls">
-            <input type="text" id="sitesQ" oninput="renderSites()" placeholder="搜尋營區名稱或地區（例：宜蘭／尖石）">
+            <input type="text" id="sitesQ" oninput="renderSites()" placeholder="🔍 輸入營區名稱或地區開始查詢">
             <select id="sitesRegion" onchange="renderSites()">
               <option value="">全部地區</option>
               <option>宜蘭</option><option>桃園</option><option>新竹</option>
@@ -780,6 +780,10 @@
               <option value="0">✗ 不可帶</option>
               <option value="?">❓ 未確認</option>
             </select>
+          </div>
+          <div id="sitesHint" style="padding:14px 12px;color:#6b7280;font-size:.85rem;background:#f9fafb;border-radius:8px;line-height:1.6">
+            💡 為了保護資料庫，請<b>輸入營區名稱或選擇地區</b>後才會顯示結果。<br>
+            <span style="font-size:.78rem;color:#9ca3af">例如：輸入「尖石」、「清境」、「三乘山」⋯</span>
           </div>
           <div id="sitesList" class="cc-sites-list"></div>
         </div>
@@ -1251,48 +1255,9 @@ window.addEventListener('hashchange', function () {
   form.addEventListener('change', fire);
 })();
 
-// ── 營區資料庫（從 Worker 公開 API 載入，給速查表與表單對照用）─────
-var SITES_DB = [];
-var SITES_LOADED = false;
-function loadSitesDB() {
-  if (SITES_LOADED) return Promise.resolve(SITES_DB);
-  return fetch('https://campcool-line-bot.a0920077473.workers.dev/public/sites')
-    .then(function (r) { return r.json(); })
-    .then(function (d) {
-      SITES_DB = d.sites || [];
-      SITES_LOADED = true;
-      // 填 datalist 給預約表單自動補完
-      var dl = document.getElementById('bkSiteList');
-      if (dl) {
-        dl.innerHTML = SITES_DB.map(function (s) {
-          return '<option value="' + (s.name || '').replace(/"/g, '&quot;') + '">';
-        }).join('');
-      }
-      renderSites();
-      return SITES_DB;
-    })
-    .catch(function () {
-      var el = document.getElementById('sitesStats');
-      if (el) el.textContent = '⚠️ 載入資料庫失敗，請稍後重試';
-    });
-}
-
-function checkBkSite() {
-  var q = (document.getElementById('bkSite').value || '').trim().toLowerCase();
-  var ind = document.getElementById('bkSiteStatus');
-  if (!ind) return;
-  if (!q) { ind.innerHTML = ''; return; }
-  if (!SITES_LOADED) { loadSitesDB().then(checkBkSite); return; }
-  var m = SITES_DB.find(function (s) { return (s.name || '').toLowerCase() === q; });
-  if (!m) m = SITES_DB.find(function (s) {
-    var n = (s.name || '').toLowerCase();
-    return n && (q.indexOf(n) >= 0 || n.indexOf(q) >= 0);
-  });
-  if (!m) { ind.innerHTML = '<span style="color:#9ca3af">❓ 未收錄</span>'; return; }
-  if (m.allows_ac === 1) ind.innerHTML = '<span style="color:#047857">✓ 可帶冷氣' + (m.power_info ? '（' + escSites(m.power_info).slice(0, 30) + '）' : '') + '</span>';
-  else if (m.allows_ac === 0) ind.innerHTML = '<span style="color:#b91c1c">✗ 不可帶冷氣</span>';
-  else ind.innerHTML = '<span style="color:#d97706">❓ 已收錄但未確認</span>';
-}
+// ── 營區資料庫（搜尋時才向 Worker API 查詢，避免整批資料外露）─────
+var SITES_API = 'https://campcool-line-bot.a0920077473.workers.dev/public/sites';
+var sitesStatsLoaded = false;
 
 function escSites(s) {
   return (s == null ? '' : String(s)).replace(/[&<>]/g, function (c) {
@@ -1300,40 +1265,96 @@ function escSites(s) {
   });
 }
 
-function renderSites() {
-  var list = document.getElementById('sitesList');
-  var stats = document.getElementById('sitesStats');
-  if (!list) return;
-  if (!SITES_LOADED) { loadSitesDB(); return; }
-  var q = (document.getElementById('sitesQ').value || '').toLowerCase().trim();
-  var region = document.getElementById('sitesRegion').value;
-  var status = document.getElementById('sitesStatus').value;
-  var rows = SITES_DB.filter(function (s) {
-    if (region && (s.region || '') !== region) return false;
-    if (status === '1' && s.allows_ac !== 1) return false;
-    if (status === '0' && s.allows_ac !== 0) return false;
-    if (status === '?' && s.allows_ac !== null && s.allows_ac !== undefined) return false;
-    if (q && (s.name || '').toLowerCase().indexOf(q) < 0 && (s.region || '').toLowerCase().indexOf(q) < 0) return false;
-    return true;
-  });
-  var total = SITES_DB.length;
-  var canAc = SITES_DB.filter(function (s) { return s.allows_ac === 1; }).length;
-  stats.innerHTML = '共 <b>' + total + '</b> 個營區｜<span style="color:#047857">✓ ' + canAc + '</span>｜<span style="color:#d97706">❓ ' + (total - canAc) + '</span>　篩選後：' + rows.length + ' 個';
-  if (!rows.length) { list.innerHTML = '<div style="padding:12px;color:#9ca3af;font-size:.85rem">沒有符合的營區</div>'; return; }
-  list.innerHTML = rows.map(function (s) {
-    var cls = (s.allows_ac === 1) ? 'y' : (s.allows_ac === 0) ? 'n' : 'u';
-    var icon = (s.allows_ac === 1) ? '✓' : (s.allows_ac === 0) ? '✗' : '❓';
-    return '<div class="cc-site-item">'
-      + '<div class="cc-site-icon ' + cls + '">' + icon + '</div>'
-      + '<div class="cc-site-meta">'
-      + '<div class="cc-site-name">' + escSites(s.name) + (s.region ? '<span class="cc-site-region">' + escSites(s.region) + '</span>' : '') + '</div>'
-      + (s.power_info ? '<div class="cc-site-info">' + escSites(s.power_info) + '</div>' : '')
-      + '</div></div>';
-  }).join('');
+// 初次只取統計（總數＋各地區可帶/未確認筆數），不取完整名單
+function loadSitesStats() {
+  if (sitesStatsLoaded) return;
+  fetch(SITES_API).then(function (r) { return r.json(); }).then(function (d) {
+    sitesStatsLoaded = true;
+    var stats = document.getElementById('sitesStats');
+    if (!stats) return;
+    var total = d.total || 0;
+    var can = 0, unk = 0, no = 0;
+    (d.breakdown || []).forEach(function (b) {
+      if (b.allows_ac === 1) can += b.c; else if (b.allows_ac === 0) no += b.c; else unk += b.c;
+    });
+    stats.innerHTML = '已收錄 <b>' + total + '</b> 個營區（<span style="color:#047857">✓ 可帶 ' + can + '</span>｜<span style="color:#d97706">❓ 待確認 ' + unk + '</span>'
+      + (no ? '｜<span style="color:#b91c1c">✗ 不可帶 ' + no + '</span>' : '') + '）';
+  }).catch(function () {});
 }
 
-// 進入網站就開始載入（速查表與表單都會用到）
-loadSitesDB();
+// debounce helper
+function debounce(fn, ms) {
+  var t; return function () { var a = arguments, c = this; clearTimeout(t); t = setTimeout(function () { fn.apply(c, a); }, ms); };
+}
+
+// 表單即時查（防抖 250ms）
+var checkBkSite = debounce(function () {
+  var ind = document.getElementById('bkSiteStatus');
+  if (!ind) return;
+  var v = (document.getElementById('bkSite').value || '').trim();
+  if (!v) { ind.innerHTML = ''; return; }
+  fetch(SITES_API + '?q=' + encodeURIComponent(v.toLowerCase()))
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var ql = v.toLowerCase();
+      var arr = d.sites || [];
+      var m = arr.filter(function (s) { return (s.name || '').toLowerCase() === ql; })[0]
+            || arr.filter(function (s) { var n = (s.name || '').toLowerCase(); return n && (ql.indexOf(n) >= 0 || n.indexOf(ql) >= 0); })[0];
+      if (!m) { ind.innerHTML = '<span style="color:#9ca3af">❓ 未收錄</span>'; return; }
+      if (m.allows_ac === 1) ind.innerHTML = '<span style="color:#047857">✓ 可帶冷氣' + (m.power_info ? '（' + escSites(String(m.power_info)).slice(0, 30) + '）' : '') + '</span>';
+      else if (m.allows_ac === 0) ind.innerHTML = '<span style="color:#b91c1c">✗ 不可帶冷氣</span>';
+      else ind.innerHTML = '<span style="color:#d97706">❓ 已收錄但未確認</span>';
+    }).catch(function () { ind.innerHTML = ''; });
+}, 250);
+
+// 速查表搜尋（防抖 300ms）
+var searchSites = debounce(function () {
+  var q = (document.getElementById('sitesQ').value || '').trim();
+  var region = document.getElementById('sitesRegion').value;
+  var status = document.getElementById('sitesStatus').value;
+  var list = document.getElementById('sitesList');
+  var hint = document.getElementById('sitesHint');
+  // 沒輸入任何條件 → 不顯示名單（保護資料）
+  if (!q && !region && !status) {
+    list.innerHTML = '';
+    if (hint) hint.style.display = 'block';
+    return;
+  }
+  if (hint) hint.style.display = 'none';
+  // 用最具識別性的關鍵字向 API 查（地區或文字）
+  var searchTerm = q || region || '';
+  if (!searchTerm) { list.innerHTML = '<div style="padding:12px;color:#9ca3af;font-size:.85rem">請輸入營區名稱或選擇地區</div>'; return; }
+  list.innerHTML = '<div style="padding:12px;color:#9ca3af;font-size:.85rem">查詢中…</div>';
+  fetch(SITES_API + '?q=' + encodeURIComponent(searchTerm.toLowerCase()))
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var rows = (d.sites || []).filter(function (s) {
+        if (region && (s.region || '') !== region) return false;
+        if (status === '1' && s.allows_ac !== 1) return false;
+        if (status === '0' && s.allows_ac !== 0) return false;
+        if (status === '?' && s.allows_ac !== null && s.allows_ac !== undefined) return false;
+        if (q && (s.name || '').toLowerCase().indexOf(q.toLowerCase()) < 0 && (s.region || '').toLowerCase().indexOf(q.toLowerCase()) < 0) return false;
+        return true;
+      });
+      if (!rows.length) { list.innerHTML = '<div style="padding:12px;color:#9ca3af;font-size:.85rem">沒有符合的營區</div>'; return; }
+      list.innerHTML = rows.map(function (s) {
+        var cls = (s.allows_ac === 1) ? 'y' : (s.allows_ac === 0) ? 'n' : 'u';
+        var icon = (s.allows_ac === 1) ? '✓' : (s.allows_ac === 0) ? '✗' : '❓';
+        return '<div class="cc-site-item">'
+          + '<div class="cc-site-icon ' + cls + '">' + icon + '</div>'
+          + '<div class="cc-site-meta">'
+          + '<div class="cc-site-name">' + escSites(s.name) + (s.region ? '<span class="cc-site-region">' + escSites(s.region) + '</span>' : '') + '</div>'
+          + (s.power_info ? '<div class="cc-site-info">' + escSites(s.power_info) + '</div>' : '')
+          + '</div></div>';
+      }).join('');
+    }).catch(function () { list.innerHTML = '<div style="padding:12px;color:#b91c1c;font-size:.85rem">查詢失敗，請稍後再試</div>'; });
+}, 300);
+
+// 提供舊命名給 inline handler 使用
+function renderSites() { searchSites(); }
+
+// 進入網站只取統計
+loadSitesStats();
 </script>
 </body>
 </html>
