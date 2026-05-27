@@ -406,6 +406,24 @@
   .cc-form-res .rbtn { display:inline-block; background:#06C755; color:#fff; font-weight:800; font-size:.88rem; text-decoration:none; padding:.6rem 1rem; border-radius:.6rem; }
   .cc-form-hint { font-size:.75rem; color:#6b7280; margin-top:.5rem; line-height:1.5; }
   .cc-modelinfo { display:none; margin-top:.4rem; font-size:.8rem; color:#047857; background:#f0fdf4; border:1px solid #a7f3d0; border-radius:.6rem; padding:.55rem .7rem; line-height:1.55; }
+
+  /* 營區速查表 */
+  .cc-sites-box { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:12px; margin-bottom:1rem; }
+  .cc-sites-stats { font-size:.78rem; color:#6b7280; margin-bottom:8px; }
+  .cc-sites-controls { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:10px; }
+  .cc-sites-controls input { grid-column:1 / -1; }
+  .cc-sites-controls input, .cc-sites-controls select { width:100%; padding:8px; font-size:.88rem; border:1.5px solid #d1d5db; border-radius:8px; background:#fff; -webkit-appearance:none; appearance:none; }
+  .cc-sites-list { max-height:480px; overflow-y:auto; border:1px solid #f3f4f6; border-radius:8px; }
+  .cc-site-item { display:flex; align-items:flex-start; gap:8px; padding:8px 10px; border-bottom:1px solid #f3f4f6; }
+  .cc-site-item:last-child { border-bottom:none; }
+  .cc-site-icon { font-size:1rem; flex-shrink:0; width:18px; text-align:center; line-height:1.4; }
+  .cc-site-icon.y { color:#047857; }
+  .cc-site-icon.n { color:#b91c1c; }
+  .cc-site-icon.u { color:#9ca3af; }
+  .cc-site-meta { flex:1; min-width:0; }
+  .cc-site-name { font-size:.88rem; font-weight:700; color:#1f2937; }
+  .cc-site-region { display:inline-block; font-size:.7rem; background:#f3f4f6; color:#6b7280; border-radius:10px; padding:1px 8px; margin-left:6px; vertical-align:1px; }
+  .cc-site-info { font-size:.76rem; color:#6b7280; line-height:1.5; margin-top:2px; word-break:break-word; }
   .cc-form-skip { font-size:.8rem; color:#475569; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:.6rem; padding:.6rem .75rem; margin-bottom:.7rem; line-height:1.7; }
   .cc-form-skip a { color:#047857; font-weight:800; text-decoration:none; white-space:nowrap; }
 
@@ -744,6 +762,28 @@
           </div>
         </div>
 
+        <div class="cc-sh">🏕️ 可用冷氣露營區速查表</div>
+        <hr class="cc-shdiv">
+        <div class="cc-alert g"><span class="ic">📚</span><div>收錄 200+ 個全台知名露營區的<strong>是否可帶冷氣／供電狀況</strong>，資料來自各營區官網、粉專、訂位平台。下次出遊前先查一下，避免白跑。</div></div>
+        <div class="cc-sites-box">
+          <div class="cc-sites-stats" id="sitesStats">載入中…</div>
+          <div class="cc-sites-controls">
+            <input type="text" id="sitesQ" oninput="renderSites()" placeholder="搜尋營區名稱或地區（例：宜蘭／尖石）">
+            <select id="sitesRegion" onchange="renderSites()">
+              <option value="">全部地區</option>
+              <option>宜蘭</option><option>桃園</option><option>新竹</option>
+              <option>苗栗</option><option>台中</option><option>南投</option>
+            </select>
+            <select id="sitesStatus" onchange="renderSites()">
+              <option value="">全部狀態</option>
+              <option value="1">✓ 可帶冷氣</option>
+              <option value="0">✗ 不可帶</option>
+              <option value="?">❓ 未確認</option>
+            </select>
+          </div>
+          <div id="sitesList" class="cc-sites-list"></div>
+        </div>
+
         <div class="cc-sh">🧠 露營冷氣知識</div>
         <hr class="cc-shdiv">
         <div class="cc-kb"><h3>❄️ 冷氣怎麼運作？</h3><p>冷氣不是「製造冷空氣」，而是利用<strong>冷媒循環</strong>把帳篷裡的熱量帶走排到外面。<strong>排熱管一定要伸出帳篷外</strong>，否則完全不會涼。</p></div>
@@ -810,9 +850,10 @@
             <option value="其他（LINE 再討論）">其他（LINE 再討論）</option>
           </select>
 
-          <label for="bkSite">營區名稱</label>
-          <input type="text" id="bkSite" placeholder="例如：尖石那羅、清境農場露營區">
-          <p class="cc-form-hint" style="margin-top:.3rem">填營區名稱，我們可先幫你確認該營區是否能帶冷氣／供電。</p>
+          <label for="bkSite">營區名稱<span id="bkSiteStatus" style="float:right;font-size:.78rem;font-weight:700"></span></label>
+          <input type="text" id="bkSite" list="bkSiteList" oninput="checkBkSite()" placeholder="例如：尖石那羅、清境農場露營區">
+          <datalist id="bkSiteList"></datalist>
+          <p class="cc-form-hint" style="margin-top:.3rem">填營區名稱會自動對照我們收錄的資料庫（200+ 筆），顯示能否帶冷氣。</p>
 
           <label for="modelSel">希望機型</label>
           <select id="modelSel" onchange="onModelChange()">
@@ -1209,6 +1250,90 @@ window.addEventListener('hashchange', function () {
   form.addEventListener('focusin', fire);
   form.addEventListener('change', fire);
 })();
+
+// ── 營區資料庫（從 Worker 公開 API 載入，給速查表與表單對照用）─────
+var SITES_DB = [];
+var SITES_LOADED = false;
+function loadSitesDB() {
+  if (SITES_LOADED) return Promise.resolve(SITES_DB);
+  return fetch('https://campcool-line-bot.a0920077473.workers.dev/public/sites')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      SITES_DB = d.sites || [];
+      SITES_LOADED = true;
+      // 填 datalist 給預約表單自動補完
+      var dl = document.getElementById('bkSiteList');
+      if (dl) {
+        dl.innerHTML = SITES_DB.map(function (s) {
+          return '<option value="' + (s.name || '').replace(/"/g, '&quot;') + '">';
+        }).join('');
+      }
+      renderSites();
+      return SITES_DB;
+    })
+    .catch(function () {
+      var el = document.getElementById('sitesStats');
+      if (el) el.textContent = '⚠️ 載入資料庫失敗，請稍後重試';
+    });
+}
+
+function checkBkSite() {
+  var q = (document.getElementById('bkSite').value || '').trim().toLowerCase();
+  var ind = document.getElementById('bkSiteStatus');
+  if (!ind) return;
+  if (!q) { ind.innerHTML = ''; return; }
+  if (!SITES_LOADED) { loadSitesDB().then(checkBkSite); return; }
+  var m = SITES_DB.find(function (s) { return (s.name || '').toLowerCase() === q; });
+  if (!m) m = SITES_DB.find(function (s) {
+    var n = (s.name || '').toLowerCase();
+    return n && (q.indexOf(n) >= 0 || n.indexOf(q) >= 0);
+  });
+  if (!m) { ind.innerHTML = '<span style="color:#9ca3af">❓ 未收錄</span>'; return; }
+  if (m.allows_ac === 1) ind.innerHTML = '<span style="color:#047857">✓ 可帶冷氣' + (m.power_info ? '（' + escSites(m.power_info).slice(0, 30) + '）' : '') + '</span>';
+  else if (m.allows_ac === 0) ind.innerHTML = '<span style="color:#b91c1c">✗ 不可帶冷氣</span>';
+  else ind.innerHTML = '<span style="color:#d97706">❓ 已收錄但未確認</span>';
+}
+
+function escSites(s) {
+  return (s == null ? '' : String(s)).replace(/[&<>]/g, function (c) {
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c];
+  });
+}
+
+function renderSites() {
+  var list = document.getElementById('sitesList');
+  var stats = document.getElementById('sitesStats');
+  if (!list) return;
+  if (!SITES_LOADED) { loadSitesDB(); return; }
+  var q = (document.getElementById('sitesQ').value || '').toLowerCase().trim();
+  var region = document.getElementById('sitesRegion').value;
+  var status = document.getElementById('sitesStatus').value;
+  var rows = SITES_DB.filter(function (s) {
+    if (region && (s.region || '') !== region) return false;
+    if (status === '1' && s.allows_ac !== 1) return false;
+    if (status === '0' && s.allows_ac !== 0) return false;
+    if (status === '?' && s.allows_ac !== null && s.allows_ac !== undefined) return false;
+    if (q && (s.name || '').toLowerCase().indexOf(q) < 0 && (s.region || '').toLowerCase().indexOf(q) < 0) return false;
+    return true;
+  });
+  var total = SITES_DB.length;
+  var canAc = SITES_DB.filter(function (s) { return s.allows_ac === 1; }).length;
+  stats.innerHTML = '共 <b>' + total + '</b> 個營區｜<span style="color:#047857">✓ ' + canAc + '</span>｜<span style="color:#d97706">❓ ' + (total - canAc) + '</span>　篩選後：' + rows.length + ' 個';
+  if (!rows.length) { list.innerHTML = '<div style="padding:12px;color:#9ca3af;font-size:.85rem">沒有符合的營區</div>'; return; }
+  list.innerHTML = rows.map(function (s) {
+    var cls = (s.allows_ac === 1) ? 'y' : (s.allows_ac === 0) ? 'n' : 'u';
+    var icon = (s.allows_ac === 1) ? '✓' : (s.allows_ac === 0) ? '✗' : '❓';
+    return '<div class="cc-site-item">'
+      + '<div class="cc-site-icon ' + cls + '">' + icon + '</div>'
+      + '<div class="cc-site-meta">'
+      + '<div class="cc-site-name">' + escSites(s.name) + (s.region ? '<span class="cc-site-region">' + escSites(s.region) + '</span>' : '') + '</div>'
+      + (s.power_info ? '<div class="cc-site-info">' + escSites(s.power_info) + '</div>' : '')
+      + '</div></div>';
+  }).join('');
+}
+
+// 進入網站就開始載入（速查表與表單都會用到）
+loadSitesDB();
 </script>
 </body>
 </html>
