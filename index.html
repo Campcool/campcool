@@ -230,6 +230,9 @@
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -408,11 +411,60 @@
   .cc-form-res .rbtn { display:inline-block; background:#06C755; color:#fff; font-weight:800; font-size:.88rem; text-decoration:none; padding:.6rem 1rem; border-radius:.6rem; }
   .cc-form-hint { font-size:.75rem; color:#6b7280; margin-top:.5rem; line-height:1.5; }
   .cc-modelinfo { display:none; margin-top:.4rem; font-size:.8rem; color:#047857; background:#f0fdf4; border:1px solid #a7f3d0; border-radius:.6rem; padding:.55rem .7rem; line-height:1.55; }
-  /* 選購指南：子分頁 */
-  .cc-sub-tabs{display:flex;gap:4px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:4px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.05);position:sticky;top:8px;z-index:5}
-  .cc-sub-tab{flex:1;padding:10px 4px;border:none;background:transparent;font-weight:700;color:#6b7280;cursor:pointer;border-radius:8px;font-size:.82rem;line-height:1.3}
-  .cc-sub-tab.active{color:#fff;background:linear-gradient(135deg,#7c3aed,#a855f7)}
+  /* 選購指南：子分頁（連貫頁籤＋下方內容區） */
+  .cc-sub-tabs{display:flex;gap:6px;background:#f3e8ff;border:1px solid #d8b4fe;border-bottom:none;border-radius:14px 14px 0 0;padding:6px 6px 0;margin:0;position:sticky;top:8px;z-index:5}
+  .cc-sub-tab{flex:1;padding:12px 4px;border:none;background:transparent;font-weight:800;color:#6d28d9;cursor:pointer;border-radius:10px 10px 0 0;font-size:.82rem;line-height:1.3;position:relative;bottom:-1px;transition:all .15s ease}
+  .cc-sub-tab:hover{background:rgba(255,255,255,.5)}
+  .cc-sub-tab.active{color:#fff;background:linear-gradient(180deg,#7c3aed,#6d28d9);box-shadow:0 -2px 6px rgba(124,58,237,.25);transform:translateY(-2px)}
+  .cc-wpanel{background:#fff;border:1px solid #d8b4fe;border-top:3px solid #6d28d9;border-radius:0 0 14px 14px;padding:14px 12px 16px;margin-bottom:18px;box-shadow:0 6px 16px rgba(124,58,237,.08)}
   .cc-wpanel[hidden]{display:none}
+
+  /* 復古像素電玩風 */
+  .cc-pixel-box{background:linear-gradient(180deg,#1a0b3d,#2d1b69);border:4px solid #ffd60a;border-radius:0;padding:14px;margin:10px 0 16px;color:#fff;font-family:'VT323','Courier New','Noto Sans Mono',monospace;box-shadow:6px 6px 0 #000,inset 0 0 0 2px #1a0b3d,inset 0 0 0 4px #f72585;position:relative}
+  .cc-pixel-box::before{content:'';position:absolute;top:-4px;left:-4px;right:-4px;bottom:-4px;border:2px solid #000;pointer-events:none;border-radius:0}
+  .cc-pixel-box .px-title{font-family:'Press Start 2P','VT323',monospace;font-size:.78rem;letter-spacing:1px;color:#ffd60a;text-shadow:2px 2px 0 #000;margin-bottom:12px;padding-bottom:10px;border-bottom:2px dashed #f72585;line-height:1.5}
+  .cc-pixel-box .px-title .px-zh{display:block;font-family:'Noto Sans TC',sans-serif;font-size:.85rem;color:#9bf6ff;margin-top:4px;letter-spacing:0;font-weight:900;text-shadow:1px 1px 0 #000}
+  .cc-pixel-box .px-sub{font-family:'VT323',monospace;font-size:1rem;color:#9bf6ff;margin-bottom:10px;line-height:1.4}
+  .cc-pixel-box .px-alert{background:#0f0f23;border:2px solid #ffd60a;padding:8px 10px;margin-bottom:10px;color:#ffd60a;font-size:.78rem;line-height:1.6;font-family:'Noto Sans TC',sans-serif;font-weight:700}
+  .cc-pixel-box .px-alert b{color:#fff}
+  .cc-pixel-box .px-mode{display:flex;gap:6px;margin-bottom:12px}
+  .cc-pixel-box .px-mode-btn{flex:1;padding:9px 4px;background:#0f0f23;color:#9bf6ff;border:3px solid #9bf6ff;border-radius:0;font-family:'Press Start 2P','VT323',monospace;font-size:.62rem;letter-spacing:1px;cursor:pointer;line-height:1.5;font-weight:700}
+  .cc-pixel-box .px-mode-btn .px-zh{display:block;font-family:'Noto Sans TC',sans-serif;font-size:.78rem;margin-top:4px;letter-spacing:0;font-weight:900}
+  .cc-pixel-box .px-mode-btn.active{background:#f72585;color:#fff;border-color:#fff;box-shadow:3px 3px 0 #000}
+  .cc-pixel-box label{display:block;font-family:'Press Start 2P','VT323',monospace;font-size:.6rem;letter-spacing:1px;color:#9bf6ff;margin:10px 0 4px;text-shadow:1px 1px 0 #000;line-height:1.4}
+  .cc-pixel-box label .px-zh{font-family:'Noto Sans TC',sans-serif;font-size:.78rem;color:#ffd60a;margin-left:6px;letter-spacing:0;font-weight:800;text-shadow:none}
+  .cc-pixel-box select,.cc-pixel-box input[type=text]{width:100%;padding:10px 8px;background:#0f0f23;color:#9bf6ff;border:3px solid #f72585;border-radius:0;font-family:'VT323','Noto Sans TC',monospace;font-weight:700;font-size:1rem;-webkit-appearance:none;appearance:none}
+  .cc-pixel-box select:disabled{opacity:.5;cursor:not-allowed}
+  .cc-pixel-box select:focus,.cc-pixel-box input[type=text]:focus{outline:none;border-color:#ffd60a;box-shadow:0 0 0 2px #1a0b3d,0 0 0 4px #ffd60a}
+  .cc-pixel-btn{display:block;width:100%;margin-top:14px;padding:12px;background:#06d6a0;color:#0f0f23;border:3px solid #fff;border-radius:0;box-shadow:4px 4px 0 #000;font-family:'Press Start 2P','VT323',monospace;font-weight:900;cursor:pointer;font-size:.72rem;letter-spacing:1px;text-decoration:none;text-align:center}
+  .cc-pixel-btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #000}
+  /* 將既有 .cc-calc-res 在像素盒裡換皮 */
+  .cc-pixel-box .cc-calc-res{background:#0f0f23!important;border:3px solid #06d6a0!important;border-radius:0!important;color:#fff;font-family:'Noto Sans TC',sans-serif;margin-top:12px;padding:12px}
+  .cc-pixel-box .cc-calc-res .pick{color:#ffd60a!important;font-family:'Press Start 2P','VT323',monospace;font-size:.62rem;letter-spacing:1px;text-shadow:1px 1px 0 #000}
+  .cc-pixel-box .cc-calc-res .model{color:#06d6a0!important;font-family:'Press Start 2P','VT323',monospace;font-size:.9rem;text-shadow:2px 2px 0 #000;margin:10px 0;letter-spacing:1px}
+  .cc-pixel-box .cc-calc-res .reason{color:#fff!important;font-size:.85rem;line-height:1.7}
+  .cc-pixel-box .cc-calc-res .reason b{color:#ffd60a}
+  .cc-pixel-box .cc-calc-res .note{color:#ffd60a!important;font-size:.78rem;margin-top:8px;background:transparent!important;border:none!important;padding:0!important}
+  .cc-pixel-box .cc-calc-res .rbtn{display:inline-block;margin-top:12px;padding:10px 18px;background:#06C755;color:#fff;border:3px solid #fff;border-radius:0!important;box-shadow:4px 4px 0 #000;font-family:'Press Start 2P','VT323',monospace;font-size:.7rem;letter-spacing:1px;text-decoration:none;font-weight:900}
+  /* 像素風營區速查表 */
+  .cc-pixel-box .cc-sites-stats{font-family:'VT323',monospace;font-size:1rem;color:#ffd60a;letter-spacing:1px;background:#0f0f23;border:2px solid #ffd60a;padding:6px 10px;margin-bottom:10px;text-align:center}
+  .cc-pixel-box .cc-sites-stats b{color:#06d6a0;font-size:1.15rem}
+  .cc-pixel-box .cc-sites-controls{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .cc-pixel-box .cc-sites-list{max-height:420px;background:#0f0f23;border:3px solid #f72585;border-radius:0;font-family:'Noto Sans TC',sans-serif}
+  .cc-pixel-box .cc-site-item{border-bottom:1px dashed #f72585;color:#fff;padding:10px}
+  .cc-pixel-box .cc-site-name{color:#fff;font-weight:800}
+  .cc-pixel-box .cc-site-region{background:#2d1b69;color:#9bf6ff;border:1px solid #f72585}
+  .cc-pixel-box .cc-site-info{color:#9bf6ff}
+  .cc-pixel-box .cc-site-icon.y{color:#06d6a0;text-shadow:1px 1px 0 #000}
+  .cc-pixel-box .cc-site-icon.n{color:#ff006e;text-shadow:1px 1px 0 #000}
+  .cc-pixel-box .cc-site-icon.u{color:#ffd60a;text-shadow:1px 1px 0 #000}
+  .cc-pixel-box #sitesHint{background:#0f0f23!important;color:#9bf6ff!important;border:2px dashed #ffd60a;font-family:'Noto Sans TC',sans-serif;line-height:1.7}
+  .cc-pixel-box #sitesHint b{color:#ffd60a}
+  /* 像素風小窄螢幕微調 */
+  @media (max-width:380px){
+    .cc-pixel-box .px-title{font-size:.68rem}
+    .cc-pixel-box .px-mode-btn{font-size:.55rem;padding:8px 2px}
+  }
 
   /* 營區速查表 */
   .cc-sites-box { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:12px; margin-bottom:1rem; }
@@ -672,9 +724,9 @@
       <div class="cc-body">
 
         <div class="cc-sub-tabs">
-          <button class="cc-sub-tab" data-wtab="btu" onclick="setWikiTab('btu')">📐 BTU 知識</button>
-          <button class="cc-sub-tab" data-wtab="tents" onclick="setWikiTab('tents')">🏕️ 帳篷→冷氣</button>
-          <button class="cc-sub-tab" data-wtab="power" onclick="setWikiTab('power')">⚡ 營區用電</button>
+          <button class="cc-sub-tab" data-wtab="btu" onclick="setWikiTab('btu')">📐 BTU 小知識</button>
+          <button class="cc-sub-tab" data-wtab="tents" onclick="setWikiTab('tents')">🏕️ 依帳篷推薦冷氣</button>
+          <button class="cc-sub-tab" data-wtab="power" onclick="setWikiTab('power')">⚡ 營區用電與速查表</button>
         </div>
 
         <!-- ───── Panel A：BTU 小知識 + 機型 BTU 表 ───── -->
@@ -759,63 +811,58 @@
           <div class="cc-kb"><h3>🏕️ 帳篷密封技巧</h3><p>帳篷越密封，冷氣效果越好。建議<strong>提前 15-20 分鐘開機預冷</strong>再進帳。黑膠帳或科技棉帳效果最佳。</p></div>
         </div>
 
-        <!-- ───── Panel B：帳篷 → 推薦冷氣 計算機 ───── -->
+        <!-- ───── Panel B：依帳篷推薦冷氣（像素電玩風）───── -->
         <div id="wpanel-tents" class="cc-wpanel" hidden>
 
-          <div class="cc-sh">🏕️ 從帳篷選冷氣（13 品牌 50 款資料庫）</div>
-          <hr class="cc-shdiv">
-          <div class="cc-alert g"><span class="ic">🤖</span><div>選你的帳篷<strong>品牌</strong>與<strong>型號</strong>，自動帶睡帳尺寸並推薦適合的冷氣。涵蓋 Snow Peak／Coody／KZM／Naturehike／Heimplanet／Dometic／DOD／Ogawa／Coleman／DARCHE／Vango／Zane Arts／LOGOS。</div></div>
+          <div class="cc-pixel-box">
+            <div class="px-title">▶ TENT × A/C MATCHER<span class="px-zh">🏕️ 依帳篷推薦冷氣</span></div>
+            <div class="px-alert">🤖 13 品牌 50 款資料庫｜<b>找不到型號？切到「用尺寸」模式</b></div>
 
-          <div class="cc-calc">
-            <h3>🔍 廠牌 → 型號 → 推薦冷氣</h3>
-            <div class="sub">資料即時從資料庫讀取。找不到型號可往下用「面積估算」。</div>
-            <label for="tcBrand">品牌</label>
-            <select id="tcBrand" onchange="onTentBrandChange()"><option value="">— 選擇品牌 —</option></select>
-            <label for="tcModel">型號</label>
-            <select id="tcModel" onchange="onTentModelChange()" disabled><option value="">— 先選品牌 —</option></select>
-            <div id="tcRes" class="cc-calc-res" role="status" aria-live="polite"></div>
-          </div>
+            <div class="px-mode" role="tablist" aria-label="計算模式">
+              <button type="button" class="px-mode-btn active" data-tcmode="model" onclick="setTcMode('model')">[A] FIND BY MODEL<span class="px-zh">📋 從型號找</span></button>
+              <button type="button" class="px-mode-btn" data-tcmode="size" onclick="setTcMode('size')">[B] BY SIZE<span class="px-zh">📐 用尺寸估算</span></button>
+            </div>
 
-          <div class="cc-sh" style="margin-top:1.5rem">📐 找不到型號？用面積估算</div>
-          <hr class="cc-shdiv">
-          <div class="cc-calc">
-            <h3>30 秒找出適合你的機型</h3>
-            <div class="sub">不知道型號也沒關係，從帳篷大小與睡覺人數估算。</div>
-            <label for="calcTent">帳篷大小（內帳／睡眠空間）</label>
-            <select id="calcTent">
-              <option value="2.2">小型寢室帳　約 270×270cm（2-3 人）</option>
-              <option value="2.7" selected>標準四人帳　約 300×300cm（3-4 人）</option>
-              <option value="3.5">一房一廳　約 330×330cm（4 人）</option>
-              <option value="4.0">大型一房一廳　約 300×450cm（4-5 人）</option>
-              <option value="4.8">大型／兩房帳　約 400×400cm（5-6 人）</option>
-              <option value="6.0">客廳帳／兩房一廳　440cm 以上（6 人以上）</option>
-            </select>
-            <label for="calcPpl">睡覺人數</label>
-            <select id="calcPpl">
-              <option>1</option><option>2</option><option selected>3</option>
-              <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
-            </select>
-            <button type="button" class="cc-calc-btn" onclick="calcRecommend()">🔍 推薦適合的機型</button>
-            <div id="calcRes" class="cc-calc-res" role="status" aria-live="polite"></div>
+            <!-- 模式 A：廠牌 → 型號 -->
+            <div id="tcModeModel">
+              <label for="tcBrand">BRAND <span class="px-zh">品牌</span></label>
+              <select id="tcBrand" onchange="onTentBrandChange()"><option value="">— 選擇品牌 —</option></select>
+              <label for="tcModel">MODEL <span class="px-zh">型號</span></label>
+              <select id="tcModel" onchange="onTentModelChange()" disabled><option value="">— 先選品牌 —</option></select>
+              <div id="tcRes" class="cc-calc-res" role="status" aria-live="polite"></div>
+            </div>
+
+            <!-- 模式 B：面積 + 人數 -->
+            <div id="tcModeSize" hidden>
+              <label for="calcTent">TENT SIZE <span class="px-zh">帳篷大小</span></label>
+              <select id="calcTent">
+                <option value="2.2">小型寢室帳　約 270×270cm（2-3 人）</option>
+                <option value="2.7" selected>標準四人帳　約 300×300cm（3-4 人）</option>
+                <option value="3.5">一房一廳　約 330×330cm（4 人）</option>
+                <option value="4.0">大型一房一廳　約 300×450cm（4-5 人）</option>
+                <option value="4.8">大型／兩房帳　約 400×400cm（5-6 人）</option>
+                <option value="6.0">客廳帳／兩房一廳　440cm 以上（6 人以上）</option>
+              </select>
+              <label for="calcPpl">PARTY <span class="px-zh">睡覺人數</span></label>
+              <select id="calcPpl">
+                <option>1</option><option>2</option><option selected>3</option>
+                <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
+              </select>
+              <button type="button" class="cc-pixel-btn" onclick="calcRecommend()">► START 推薦機型</button>
+              <div id="calcRes" class="cc-calc-res" role="status" aria-live="polite"></div>
+            </div>
           </div>
         </div>
 
-        <!-- ───── Panel C：營區用電小知識 + 速查表 ───── -->
+        <!-- ───── Panel C：營區用電與速查表（速查表優先 + 像素風）───── -->
         <div id="wpanel-power" class="cc-wpanel" hidden>
 
-          <div class="cc-sh">⚡ 營區用電 — 為什麼會跳電？</div>
-          <hr class="cc-shdiv">
-          <div class="cc-kb"><h3>🔌 無熔絲開關（NFB）與迴路的真相</h3><p>營區的電源由<strong>無熔絲開關（NFB）</strong>保護，每個迴路有<strong>電流上限</strong>（常見 10A 或 15A）。<strong>同一迴路上的所有插座共享這個上限</strong>——同時使用的電器電流總和超過上限，就會跳電。</p></div>
-          <div class="cc-kb"><h3>📊 露營常見電器電流</h3><p>冷氣 ~3.9A、移動冰箱 ~0.4A、LED 燈 ~0.2A、手機 ~0.3A → <strong>合計約 4.8A，10A 內安全</strong>。<br>但<strong>電熱水壺（8A）、電磁爐（10A）、吹風機（10A）</strong>單一就會超標。</p></div>
-          <div class="cc-kb"><h3>⚠️ 看不見的風險：同迴路其他帳</h3><p>很多營區是<strong>多帳共用一個迴路</strong>。你只用 4.8A，但隔壁帳如果也帶冷氣＋電熱水壺，整個迴路就跳電。<br>👉 訂位前主動問營主：<strong>每帳獨立電箱還是共用？同帳區其他露友會帶冷氣嗎？</strong></p></div>
-          <div class="cc-kb"><h3>💡 安全策略</h3><p>1️⃣ 確認該迴路電流上限<br>2️⃣ 不要同時開電熱水壺／電磁爐／吹風機<br>3️⃣ 跟同帳區露友互相通知，錯開高耗電時段<br>4️⃣ 帶足夠長的延長線，必要時插到其他迴路</p></div>
-          <div class="cc-kb"><h3>🧮 電力計算公式</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。JUZ-400（425W）＋冰箱＋燈 ≈ <strong>5.3A</strong>，10A 電箱完全沒問題。只要不同時開電熱水壺即可。</p></div>
+          <!-- 1️⃣ 速查表優先放最上面（像素風） -->
+          <div class="cc-pixel-box">
+            <div class="px-title">▶ CAMP SITE LOOKUP<span class="px-zh">🏕️ 可用冷氣露營區速查表</span></div>
+            <div class="px-alert">🤖 <b>AI 整理供參考</b>：收錄 600+ 個全台知名露營區的供電狀況，資料由 AI 整合各營區官網、粉專、訂位平台公開資訊。<b>實際配置仍以洽詢營主為準。</b></div>
 
-          <div class="cc-sh">🏕️ 可用冷氣露營區速查表</div>
-          <hr class="cc-shdiv">
-          <div class="cc-alert y"><span class="ic">🤖</span><div><strong>AI 整理供參考</strong>：收錄 600+ 個全台知名露營區的「是否可帶冷氣／供電狀況」，資料由 AI 整合各營區官網、粉專、訂位平台公開資訊。<strong>實際配置與規則仍以洽詢營主為準。</strong></div></div>
-          <div class="cc-sites-box">
-            <div class="cc-sites-stats" id="sitesStats">載入中…</div>
+            <div class="cc-sites-stats" id="sitesStats">LOADING…</div>
             <div class="cc-sites-controls">
               <input type="text" id="sitesQ" oninput="renderSites()" placeholder="🔍 輸入營區名稱或地區開始查詢">
               <select id="sitesRegion" onchange="renderSites()">
@@ -830,12 +877,21 @@
                 <option value="?">❓ 未確認</option>
               </select>
             </div>
-            <div id="sitesHint" style="padding:14px 12px;color:#6b7280;font-size:.85rem;background:#f9fafb;border-radius:8px;line-height:1.6">
+            <div id="sitesHint" style="padding:14px 12px;font-size:.85rem;line-height:1.6">
               💡 為了保護資料庫，請<b>輸入營區名稱或選擇地區</b>後才會顯示結果。<br>
-              <span style="font-size:.78rem;color:#9ca3af">例如：輸入「尖石」、「清境」、「三乘山」⋯</span>
+              <span style="font-size:.78rem;opacity:.85">例如：輸入「尖石」、「清境」、「三乘山」⋯</span>
             </div>
             <div id="sitesList" class="cc-sites-list"></div>
           </div>
+
+          <!-- 2️⃣ 為什麼會跳電？知識卡 -->
+          <div class="cc-sh">⚡ 營區用電 — 為什麼會跳電？</div>
+          <hr class="cc-shdiv">
+          <div class="cc-kb"><h3>🔌 無熔絲開關（NFB）與迴路的真相</h3><p>營區的電源由<strong>無熔絲開關（NFB）</strong>保護，每個迴路有<strong>電流上限</strong>（常見 10A 或 15A）。<strong>同一迴路上的所有插座共享這個上限</strong>——同時使用的電器電流總和超過上限，就會跳電。</p></div>
+          <div class="cc-kb"><h3>📊 露營常見電器電流</h3><p>冷氣 ~3.9A、移動冰箱 ~0.4A、LED 燈 ~0.2A、手機 ~0.3A → <strong>合計約 4.8A，10A 內安全</strong>。<br>但<strong>電熱水壺（8A）、電磁爐（10A）、吹風機（10A）</strong>單一就會超標。</p></div>
+          <div class="cc-kb"><h3>⚠️ 看不見的風險：同迴路其他帳</h3><p>很多營區是<strong>多帳共用一個迴路</strong>。你只用 4.8A，但隔壁帳如果也帶冷氣＋電熱水壺，整個迴路就跳電。<br>👉 訂位前主動問營主：<strong>每帳獨立電箱還是共用？同帳區其他露友會帶冷氣嗎？</strong></p></div>
+          <div class="cc-kb"><h3>💡 安全策略</h3><p>1️⃣ 確認該迴路電流上限<br>2️⃣ 不要同時開電熱水壺／電磁爐／吹風機<br>3️⃣ 跟同帳區露友互相通知，錯開高耗電時段<br>4️⃣ 帶足夠長的延長線，必要時插到其他迴路</p></div>
+          <div class="cc-kb"><h3>🧮 電力計算公式</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。JUZ-400（425W）＋冰箱＋燈 ≈ <strong>5.3A</strong>，10A 電箱完全沒問題。只要不同時開電熱水壺即可。</p></div>
         </div>
 
       </div>
@@ -1149,7 +1205,27 @@ var TENTS_API = 'https://campcool-line-bot.a0920077473.workers.dev/public/tents'
 var tentBrandsLoaded = false;
 var tentCache = {}; // brand -> tents[]
 
+// 帳篷計算機：兩種模式（型號 / 尺寸）切換
+function setTcMode(m) {
+  if (m !== 'model' && m !== 'size') m = 'model';
+  var btns = document.querySelectorAll('.px-mode-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('active', btns[i].getAttribute('data-tcmode') === m);
+  }
+  var modelBox = document.getElementById('tcModeModel');
+  var sizeBox = document.getElementById('tcModeSize');
+  if (modelBox) modelBox.hidden = (m !== 'model');
+  if (sizeBox) sizeBox.hidden = (m !== 'size');
+  try { localStorage.setItem('tc_mode', m); } catch(e) {}
+  logEvent('tc_mode', m);
+}
+
 function initTentCalc() {
+  // 還原上次選的模式
+  try {
+    var savedMode = localStorage.getItem('tc_mode');
+    if (savedMode === 'model' || savedMode === 'size') setTcMode(savedMode);
+  } catch(e) {}
   if (tentBrandsLoaded) return;
   tentBrandsLoaded = true;
   fetch(TENTS_API + '/brands').then(function (r) { return r.json(); }).then(function (d) {
