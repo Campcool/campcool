@@ -408,6 +408,11 @@
   .cc-form-res .rbtn { display:inline-block; background:#06C755; color:#fff; font-weight:800; font-size:.88rem; text-decoration:none; padding:.6rem 1rem; border-radius:.6rem; }
   .cc-form-hint { font-size:.75rem; color:#6b7280; margin-top:.5rem; line-height:1.5; }
   .cc-modelinfo { display:none; margin-top:.4rem; font-size:.8rem; color:#047857; background:#f0fdf4; border:1px solid #a7f3d0; border-radius:.6rem; padding:.55rem .7rem; line-height:1.55; }
+  /* 選購指南：子分頁 */
+  .cc-sub-tabs{display:flex;gap:4px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:4px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.05);position:sticky;top:8px;z-index:5}
+  .cc-sub-tab{flex:1;padding:10px 4px;border:none;background:transparent;font-weight:700;color:#6b7280;cursor:pointer;border-radius:8px;font-size:.82rem;line-height:1.3}
+  .cc-sub-tab.active{color:#fff;background:linear-gradient(135deg,#7c3aed,#a855f7)}
+  .cc-wpanel[hidden]{display:none}
 
   /* 營區速查表 */
   .cc-sites-box { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:12px; margin-bottom:1rem; }
@@ -666,135 +671,173 @@
       </div>
       <div class="cc-body">
 
-        <div class="knowledge-banner">
-          <div class="kb-icon">📊</div>
-          <div>
-            <h3>2026 台灣露營移動冷氣選購指南</h3>
-            <p>600W 以下低功耗型號大評比 — BTU、功率、重量、尺寸完整比較</p>
+        <div class="cc-sub-tabs">
+          <button class="cc-sub-tab" data-wtab="btu" onclick="setWikiTab('btu')">📐 BTU 知識</button>
+          <button class="cc-sub-tab" data-wtab="tents" onclick="setWikiTab('tents')">🏕️ 帳篷→冷氣</button>
+          <button class="cc-sub-tab" data-wtab="power" onclick="setWikiTab('power')">⚡ 營區用電</button>
+        </div>
+
+        <!-- ───── Panel A：BTU 小知識 + 機型 BTU 表 ───── -->
+        <div id="wpanel-btu" class="cc-wpanel">
+
+          <div class="knowledge-banner">
+            <div class="kb-icon">📊</div>
+            <div>
+              <h3>2026 台灣露營移動冷氣選購指南</h3>
+              <p>600W 以下低功耗型號大評比 — BTU、功率、重量、尺寸完整比較</p>
+            </div>
           </div>
-        </div>
 
-        <a href="btu-guide.html" target="_blank" rel="noopener" class="cc-share-link">
-          <span style="font-size:1.5rem">📖</span>
-          <span style="flex:1">
-            <span style="display:block;font-size:.88rem;font-weight:800;color:#065f46">完整版選購指南 — 獨立文章</span>
-            <span style="display:block;font-size:.75rem;color:#059669;margin-top:2px">適合分享給朋友・LINE 傳送預覽更好看</span>
-          </span>
-          <span style="font-size:.75rem;background:#d1fae5;color:#047857;border-radius:8px;padding:3px 10px;font-weight:700;flex-shrink:0">分享 →</span>
-        </a>
+          <a href="btu-guide.html" target="_blank" rel="noopener" class="cc-share-link">
+            <span style="font-size:1.5rem">📖</span>
+            <span style="flex:1">
+              <span style="display:block;font-size:.88rem;font-weight:800;color:#065f46">完整版選購指南 — 獨立文章</span>
+              <span style="display:block;font-size:.75rem;color:#059669;margin-top:2px">適合分享給朋友・LINE 傳送預覽更好看</span>
+            </span>
+            <span style="font-size:.75rem;background:#d1fae5;color:#047857;border-radius:8px;padding:3px 10px;font-weight:700;flex-shrink:0">分享 →</span>
+          </a>
 
-        <div class="cc-kb"><h3>⚡ 30 秒懶人包</h3>
-          <ul class="cc-tldr">
-            <li>3×3 帳篷選 <strong>5100 BTU（JUZ-400）</strong>就夠；4×4 大帳選 <strong>6000 BTU（SAC688）</strong></li>
-            <li>營區 10A 電源<strong>不會跳電</strong>：冷氣＋冰箱＋燈＋手機約 4.8A（別同時用電熱水壺）。訂位前先和營區確認<strong>可用瓦數、能否帶冷氣</strong></li>
-            <li>不想半夜起來排水 → 選<strong>免排水的 JUZ-400</strong></li>
-          </ul>
-        </div>
-
-        <div class="cc-sh">📐 移動冷氣 BTU 市場比較</div>
-        <hr class="cc-shdiv">
-        <div class="cc-alert g"><span class="ic">💡</span><div>BTU 越高製冷越強，但重量與耗電也越高。5000 BTU 已足夠 3-4 人帳，6000 BTU 適合大帳或開口較多的帳篷。</div></div>
-        <div class="cc-tbl-wrap">
-          <table class="cc-tbl">
-            <thead><tr><th>帳篷大小</th><th>建議人數</th><th>建議 BTU</th><th>推薦機型</th></tr></thead>
-            <tbody>
-              <tr><td>270×270～300×300（約 3 坪以下）</td><td>2-4 人</td><td>約 5,000-5,100 BTU</td><td>艾比酷 JUZ-400</td></tr>
-              <tr><td>330×330～300×450（約 3-4 坪）</td><td>4-5 人</td><td>5,100-6,000 BTU</td><td>JUZ-400／SAC688</td></tr>
-              <tr><td>400×400 以上／兩房／開口大（約 4.8 坪以上）</td><td>5-8 人</td><td>6,000 BTU（或雙機）</td><td>山水 SAC688</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="btu-cover">
-          <img src="assets/og-cover.jpg" alt="2026台灣露營移動冷氣選購指南：600W以下低功耗型號大評比，包含BTU、功率、重量、尺寸完整比較表" width="1200" height="630" loading="lazy">
-        </div>
-
-        <div class="cc-sh">🧮 帳篷選機計算機</div>
-        <hr class="cc-shdiv">
-        <div class="cc-calc">
-          <h3>30 秒找出適合你的機型</h3>
-          <div class="sub">填入帳篷大小與睡覺人數，立即推薦艾比酷或山水。</div>
-          <label for="calcTent">帳篷大小（內帳／睡眠空間）</label>
-          <select id="calcTent">
-            <option value="2.2">小型寢室帳　約 270×270cm（2-3 人）</option>
-            <option value="2.7" selected>標準四人帳　約 300×300cm（3-4 人）</option>
-            <option value="3.5">一房一廳　約 330×330cm（4 人）</option>
-            <option value="4.0">大型一房一廳　約 300×450cm（4-5 人）</option>
-            <option value="4.8">大型／兩房帳　約 400×400cm（5-6 人）</option>
-            <option value="6.0">客廳帳／兩房一廳　440cm 以上（6 人以上）</option>
-          </select>
-          <label for="calcPpl">睡覺人數</label>
-          <select id="calcPpl">
-            <option>1</option><option>2</option><option selected>3</option>
-            <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
-          </select>
-          <button type="button" class="cc-calc-btn" onclick="calcRecommend()">🔍 推薦適合的機型</button>
-          <div id="calcRes" class="cc-calc-res" role="status" aria-live="polite"></div>
-        </div>
-
-        <div class="cc-sh">❄️ 我們的冷氣設備規格</div>
-        <hr class="cc-shdiv">
-        <div class="cc-pc">
-          <div class="cc-pc-head" style="background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(59,130,246,.05))">
-            <div class="cc-pc-brand" style="color:#2563eb">艾比酷 Iceco</div>
-            <div class="cc-pc-name">JUZ-400</div>
-            <div class="cc-pc-tag">輕量・零排水・3-4 人帳首選</div>
+          <div class="cc-kb"><h3>⚡ 30 秒懶人包</h3>
+            <ul class="cc-tldr">
+              <li>3×3 帳篷選 <strong>5100 BTU（JUZ-400）</strong>就夠；4×4 大帳選 <strong>6000 BTU（SAC688）</strong></li>
+              <li>營區 10A 電源<strong>不會跳電</strong>：冷氣＋冰箱＋燈＋手機約 4.8A（別同時用電熱水壺）。訂位前先和營區確認<strong>可用瓦數、能否帶冷氣</strong></li>
+              <li>不想半夜起來排水 → 選<strong>免排水的 JUZ-400</strong></li>
+            </ul>
           </div>
-          <div class="cc-pc-body">
-            <div class="cc-pc-row"><span class="k">冷房能力</span><span class="v">5100 BTU</span></div>
-            <div class="cc-pc-row"><span class="k">耗電量</span><span class="v">425W（約 3.9A）</span></div>
-            <div class="cc-pc-row"><span class="k">重量</span><span class="v">13 kg</span></div>
-            <div class="cc-pc-row"><span class="k">尺寸</span><span class="v">40×28.5×50.8 cm</span></div>
-            <div class="cc-pc-row"><span class="k">排水</span><span class="v">✅ 免排水（自動蒸發）</span></div>
-            <div class="cc-pc-row"><span class="k">適合</span><span class="v">3-5 坪密閉帳篷</span></div>
+
+          <div class="cc-sh">📐 移動冷氣 BTU 市場比較</div>
+          <hr class="cc-shdiv">
+          <div class="cc-alert g"><span class="ic">💡</span><div>BTU 越高製冷越強，但重量與耗電也越高。5000 BTU 已足夠 3-4 人帳，6000 BTU 適合大帳或開口較多的帳篷。</div></div>
+          <div class="cc-tbl-wrap">
+            <table class="cc-tbl">
+              <thead><tr><th>帳篷大小</th><th>建議人數</th><th>建議 BTU</th><th>推薦機型</th></tr></thead>
+              <tbody>
+                <tr><td>270×270～300×300（約 3 坪以下）</td><td>2-4 人</td><td>約 5,000-5,100 BTU</td><td>艾比酷 JUZ-400</td></tr>
+                <tr><td>330×330～300×450（約 3-4 坪）</td><td>4-5 人</td><td>5,100-6,000 BTU</td><td>JUZ-400／SAC688</td></tr>
+                <tr><td>400×400 以上／兩房／開口大（約 4.8 坪以上）</td><td>5-8 人</td><td>6,000 BTU（或雙機）</td><td>山水 SAC688</td></tr>
+              </tbody>
+            </table>
           </div>
-        </div>
-        <div class="cc-pc">
-          <div class="cc-pc-head" style="background:linear-gradient(135deg,rgba(5,150,105,.1),rgba(6,182,212,.05))">
-            <div class="cc-pc-brand" style="color:#059669">山水</div>
-            <div class="cc-pc-name">SAC688</div>
-            <div class="cc-pc-tag">強效製冷・5-6 人大帳首選</div>
+          <div class="btu-cover">
+            <img src="assets/og-cover.jpg" alt="2026台灣露營移動冷氣選購指南：600W以下低功耗型號大評比，包含BTU、功率、重量、尺寸完整比較表" width="1200" height="630" loading="lazy">
           </div>
-          <div class="cc-pc-body">
-            <div class="cc-pc-row"><span class="k">冷房能力</span><span class="v">6000 BTU</span></div>
-            <div class="cc-pc-row"><span class="k">耗電量</span><span class="v">530W（約 4.8A）</span></div>
-            <div class="cc-pc-row"><span class="k">重量</span><span class="v">17 kg</span></div>
-            <div class="cc-pc-row"><span class="k">尺寸</span><span class="v">36×48×49 cm</span></div>
-            <div class="cc-pc-row"><span class="k">排水</span><span class="v">⚠️ 需定期排水（每 3-5h）</span></div>
-            <div class="cc-pc-row"><span class="k">適合</span><span class="v">5-8 坪密閉帳篷</span></div>
+
+          <div class="cc-sh">❄️ 我們的冷氣設備規格</div>
+          <hr class="cc-shdiv">
+          <div class="cc-pc">
+            <div class="cc-pc-head" style="background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(59,130,246,.05))">
+              <div class="cc-pc-brand" style="color:#2563eb">艾比酷 Iceco</div>
+              <div class="cc-pc-name">JUZ-400</div>
+              <div class="cc-pc-tag">輕量・零排水・3-4 人帳首選</div>
+            </div>
+            <div class="cc-pc-body">
+              <div class="cc-pc-row"><span class="k">冷房能力</span><span class="v">5100 BTU</span></div>
+              <div class="cc-pc-row"><span class="k">耗電量</span><span class="v">425W（約 3.9A）</span></div>
+              <div class="cc-pc-row"><span class="k">重量</span><span class="v">13 kg</span></div>
+              <div class="cc-pc-row"><span class="k">尺寸</span><span class="v">40×28.5×50.8 cm</span></div>
+              <div class="cc-pc-row"><span class="k">排水</span><span class="v">✅ 免排水（自動蒸發）</span></div>
+              <div class="cc-pc-row"><span class="k">適合</span><span class="v">3-5 坪密閉帳篷</span></div>
+            </div>
           </div>
+          <div class="cc-pc">
+            <div class="cc-pc-head" style="background:linear-gradient(135deg,rgba(5,150,105,.1),rgba(6,182,212,.05))">
+              <div class="cc-pc-brand" style="color:#059669">山水</div>
+              <div class="cc-pc-name">SAC688</div>
+              <div class="cc-pc-tag">強效製冷・5-6 人大帳首選</div>
+            </div>
+            <div class="cc-pc-body">
+              <div class="cc-pc-row"><span class="k">冷房能力</span><span class="v">6000 BTU</span></div>
+              <div class="cc-pc-row"><span class="k">耗電量</span><span class="v">530W（約 4.8A）</span></div>
+              <div class="cc-pc-row"><span class="k">重量</span><span class="v">17 kg</span></div>
+              <div class="cc-pc-row"><span class="k">尺寸</span><span class="v">36×48×49 cm</span></div>
+              <div class="cc-pc-row"><span class="k">排水</span><span class="v">⚠️ 需定期排水（每 3-5h）</span></div>
+              <div class="cc-pc-row"><span class="k">適合</span><span class="v">5-8 坪密閉帳篷</span></div>
+            </div>
+          </div>
+
+          <div class="cc-kb"><h3>❄️ 冷氣怎麼運作？</h3><p>冷氣不是「製造冷空氣」，而是利用<strong>冷媒循環</strong>把帳篷裡的熱量帶走排到外面。<strong>排熱管一定要伸出帳篷外</strong>，否則完全不會涼。</p></div>
+          <div class="cc-kb"><h3>🏕️ 帳篷密封技巧</h3><p>帳篷越密封，冷氣效果越好。建議<strong>提前 15-20 分鐘開機預冷</strong>再進帳。黑膠帳或科技棉帳效果最佳。</p></div>
         </div>
 
-        <div class="cc-sh">🏕️ 可用冷氣露營區速查表</div>
-        <hr class="cc-shdiv">
-        <div class="cc-alert g"><span class="ic">📚</span><div>收錄 200+ 個全台知名露營區的<strong>是否可帶冷氣／供電狀況</strong>，資料來自各營區官網、粉專、訂位平台。下次出遊前先查一下，避免白跑。</div></div>
-        <div class="cc-sites-box">
-          <div class="cc-sites-stats" id="sitesStats">載入中…</div>
-          <div class="cc-sites-controls">
-            <input type="text" id="sitesQ" oninput="renderSites()" placeholder="🔍 輸入營區名稱或地區開始查詢">
-            <select id="sitesRegion" onchange="renderSites()">
-              <option value="">全部地區</option>
-              <option>宜蘭</option><option>桃園</option><option>新竹</option>
-              <option>苗栗</option><option>台中</option><option>南投</option>
+        <!-- ───── Panel B：帳篷 → 推薦冷氣 計算機 ───── -->
+        <div id="wpanel-tents" class="cc-wpanel" hidden>
+
+          <div class="cc-sh">🏕️ 從帳篷選冷氣（13 品牌 50 款資料庫）</div>
+          <hr class="cc-shdiv">
+          <div class="cc-alert g"><span class="ic">🤖</span><div>選你的帳篷<strong>品牌</strong>與<strong>型號</strong>，自動帶睡帳尺寸並推薦適合的冷氣。涵蓋 Snow Peak／Coody／KZM／Naturehike／Heimplanet／Dometic／DOD／Ogawa／Coleman／DARCHE／Vango／Zane Arts／LOGOS。</div></div>
+
+          <div class="cc-calc">
+            <h3>🔍 廠牌 → 型號 → 推薦冷氣</h3>
+            <div class="sub">資料即時從資料庫讀取。找不到型號可往下用「面積估算」。</div>
+            <label for="tcBrand">品牌</label>
+            <select id="tcBrand" onchange="onTentBrandChange()"><option value="">— 選擇品牌 —</option></select>
+            <label for="tcModel">型號</label>
+            <select id="tcModel" onchange="onTentModelChange()" disabled><option value="">— 先選品牌 —</option></select>
+            <div id="tcRes" class="cc-calc-res" role="status" aria-live="polite"></div>
+          </div>
+
+          <div class="cc-sh" style="margin-top:1.5rem">📐 找不到型號？用面積估算</div>
+          <hr class="cc-shdiv">
+          <div class="cc-calc">
+            <h3>30 秒找出適合你的機型</h3>
+            <div class="sub">不知道型號也沒關係，從帳篷大小與睡覺人數估算。</div>
+            <label for="calcTent">帳篷大小（內帳／睡眠空間）</label>
+            <select id="calcTent">
+              <option value="2.2">小型寢室帳　約 270×270cm（2-3 人）</option>
+              <option value="2.7" selected>標準四人帳　約 300×300cm（3-4 人）</option>
+              <option value="3.5">一房一廳　約 330×330cm（4 人）</option>
+              <option value="4.0">大型一房一廳　約 300×450cm（4-5 人）</option>
+              <option value="4.8">大型／兩房帳　約 400×400cm（5-6 人）</option>
+              <option value="6.0">客廳帳／兩房一廳　440cm 以上（6 人以上）</option>
             </select>
-            <select id="sitesStatus" onchange="renderSites()">
-              <option value="">全部狀態</option>
-              <option value="1">✓ 可帶冷氣</option>
-              <option value="0">✗ 不可帶</option>
-              <option value="?">❓ 未確認</option>
+            <label for="calcPpl">睡覺人數</label>
+            <select id="calcPpl">
+              <option>1</option><option>2</option><option selected>3</option>
+              <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
             </select>
+            <button type="button" class="cc-calc-btn" onclick="calcRecommend()">🔍 推薦適合的機型</button>
+            <div id="calcRes" class="cc-calc-res" role="status" aria-live="polite"></div>
           </div>
-          <div id="sitesHint" style="padding:14px 12px;color:#6b7280;font-size:.85rem;background:#f9fafb;border-radius:8px;line-height:1.6">
-            💡 為了保護資料庫，請<b>輸入營區名稱或選擇地區</b>後才會顯示結果。<br>
-            <span style="font-size:.78rem;color:#9ca3af">例如：輸入「尖石」、「清境」、「三乘山」⋯</span>
-          </div>
-          <div id="sitesList" class="cc-sites-list"></div>
         </div>
 
-        <div class="cc-sh">🧠 露營冷氣知識</div>
-        <hr class="cc-shdiv">
-        <div class="cc-kb"><h3>❄️ 冷氣怎麼運作？</h3><p>冷氣不是「製造冷空氣」，而是利用<strong>冷媒循環</strong>把帳篷裡的熱量帶走排到外面。<strong>排熱管一定要伸出帳篷外</strong>，否則完全不會涼。</p></div>
-        <div class="cc-kb"><h3>⚡ 電力計算：會跳電嗎？</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。JUZ-400＋冰箱＋燈 ≈ <strong>5.3A</strong>，10A 電箱完全沒問題。只要不同時開電熱水壺即可。</p></div>
-        <div class="cc-kb"><h3>🏕️ 帳篷密封技巧</h3><p>帳篷越密封，冷氣效果越好。建議<strong>提前 15-20 分鐘開機預冷</strong>再進帳。黑膠帳或科技棉帳效果最佳。</p></div>
+        <!-- ───── Panel C：營區用電小知識 + 速查表 ───── -->
+        <div id="wpanel-power" class="cc-wpanel" hidden>
+
+          <div class="cc-sh">⚡ 營區用電 — 為什麼會跳電？</div>
+          <hr class="cc-shdiv">
+          <div class="cc-kb"><h3>🔌 無熔絲開關（NFB）與迴路的真相</h3><p>營區的電源由<strong>無熔絲開關（NFB）</strong>保護，每個迴路有<strong>電流上限</strong>（常見 10A 或 15A）。<strong>同一迴路上的所有插座共享這個上限</strong>——同時使用的電器電流總和超過上限，就會跳電。</p></div>
+          <div class="cc-kb"><h3>📊 露營常見電器電流</h3><p>冷氣 ~3.9A、移動冰箱 ~0.4A、LED 燈 ~0.2A、手機 ~0.3A → <strong>合計約 4.8A，10A 內安全</strong>。<br>但<strong>電熱水壺（8A）、電磁爐（10A）、吹風機（10A）</strong>單一就會超標。</p></div>
+          <div class="cc-kb"><h3>⚠️ 看不見的風險：同迴路其他帳</h3><p>很多營區是<strong>多帳共用一個迴路</strong>。你只用 4.8A，但隔壁帳如果也帶冷氣＋電熱水壺，整個迴路就跳電。<br>👉 訂位前主動問營主：<strong>每帳獨立電箱還是共用？同帳區其他露友會帶冷氣嗎？</strong></p></div>
+          <div class="cc-kb"><h3>💡 安全策略</h3><p>1️⃣ 確認該迴路電流上限<br>2️⃣ 不要同時開電熱水壺／電磁爐／吹風機<br>3️⃣ 跟同帳區露友互相通知，錯開高耗電時段<br>4️⃣ 帶足夠長的延長線，必要時插到其他迴路</p></div>
+          <div class="cc-kb"><h3>🧮 電力計算公式</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。JUZ-400（425W）＋冰箱＋燈 ≈ <strong>5.3A</strong>，10A 電箱完全沒問題。只要不同時開電熱水壺即可。</p></div>
+
+          <div class="cc-sh">🏕️ 可用冷氣露營區速查表</div>
+          <hr class="cc-shdiv">
+          <div class="cc-alert y"><span class="ic">🤖</span><div><strong>AI 整理供參考</strong>：收錄 600+ 個全台知名露營區的「是否可帶冷氣／供電狀況」，資料由 AI 整合各營區官網、粉專、訂位平台公開資訊。<strong>實際配置與規則仍以洽詢營主為準。</strong></div></div>
+          <div class="cc-sites-box">
+            <div class="cc-sites-stats" id="sitesStats">載入中…</div>
+            <div class="cc-sites-controls">
+              <input type="text" id="sitesQ" oninput="renderSites()" placeholder="🔍 輸入營區名稱或地區開始查詢">
+              <select id="sitesRegion" onchange="renderSites()">
+                <option value="">全部地區</option>
+                <option>宜蘭</option><option>桃園</option><option>新竹</option>
+                <option>苗栗</option><option>台中</option><option>南投</option>
+              </select>
+              <select id="sitesStatus" onchange="renderSites()">
+                <option value="">全部狀態</option>
+                <option value="1">✓ 可帶冷氣</option>
+                <option value="0">✗ 不可帶</option>
+                <option value="?">❓ 未確認</option>
+              </select>
+            </div>
+            <div id="sitesHint" style="padding:14px 12px;color:#6b7280;font-size:.85rem;background:#f9fafb;border-radius:8px;line-height:1.6">
+              💡 為了保護資料庫，請<b>輸入營區名稱或選擇地區</b>後才會顯示結果。<br>
+              <span style="font-size:.78rem;color:#9ca3af">例如：輸入「尖石」、「清境」、「三乘山」⋯</span>
+            </div>
+            <div id="sitesList" class="cc-sites-list"></div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1084,6 +1127,129 @@ function calcRecommend() {
   logEvent('calculator_use', bkModel);
 }
 
+// ── 選購指南 子頁籤切換 ─────────────────────────────
+function setWikiTab(t) {
+  if (['btu','tents','power'].indexOf(t) === -1) t = 'btu';
+  var btns = document.querySelectorAll('.cc-sub-tab');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('active', btns[i].getAttribute('data-wtab') === t);
+  }
+  var panels = document.querySelectorAll('.cc-wpanel');
+  for (var j = 0; j < panels.length; j++) {
+    panels[j].hidden = (panels[j].id !== 'wpanel-' + t);
+  }
+  try { localStorage.setItem('wiki_subtab', t); } catch(e) {}
+  if (t === 'tents') initTentCalc();
+  if (t === 'power') loadSitesStats();
+  logEvent('wiki_subtab', t);
+}
+
+// ── 帳篷資料庫計算機 ────────────────────────────────
+var TENTS_API = 'https://campcool-line-bot.a0920077473.workers.dev/public/tents';
+var tentBrandsLoaded = false;
+var tentCache = {}; // brand -> tents[]
+
+function initTentCalc() {
+  if (tentBrandsLoaded) return;
+  tentBrandsLoaded = true;
+  fetch(TENTS_API + '/brands').then(function (r) { return r.json(); }).then(function (d) {
+    var sel = document.getElementById('tcBrand');
+    if (!sel) return;
+    var html = '<option value="">— 選擇品牌 —</option>';
+    (d.brands || []).forEach(function (b) {
+      html += '<option value="' + b.brand + '">' + b.brand + '（' + b.c + ' 款）</option>';
+    });
+    sel.innerHTML = html;
+  }).catch(function () {
+    tentBrandsLoaded = false;
+    var sel = document.getElementById('tcBrand');
+    if (sel) sel.innerHTML = '<option value="">— 載入失敗，請稍後再試 —</option>';
+  });
+}
+
+function onTentBrandChange() {
+  var brand = document.getElementById('tcBrand').value;
+  var msel = document.getElementById('tcModel');
+  var res = document.getElementById('tcRes');
+  if (res) { res.classList.remove('show'); res.innerHTML = ''; }
+  if (!brand) {
+    msel.innerHTML = '<option value="">— 先選品牌 —</option>';
+    msel.disabled = true;
+    return;
+  }
+  msel.disabled = true;
+  msel.innerHTML = '<option value="">載入中…</option>';
+  var apply = function (tents) {
+    var html = '<option value="">— 選擇型號 —</option>';
+    tents.forEach(function (t, idx) {
+      var size = t.size_text || ((t.length_cm && t.width_cm) ? (t.length_cm + '×' + t.width_cm + 'cm') : '');
+      html += '<option value="' + idx + '">' + t.model + (size ? '（' + size + '）' : '') + '</option>';
+    });
+    msel.innerHTML = html;
+    msel.disabled = false;
+  };
+  if (tentCache[brand]) { apply(tentCache[brand]); return; }
+  fetch(TENTS_API + '?brand=' + encodeURIComponent(brand))
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      tentCache[brand] = d.tents || [];
+      apply(tentCache[brand]);
+    })
+    .catch(function () {
+      msel.innerHTML = '<option value="">— 載入失敗 —</option>';
+      msel.disabled = true;
+    });
+}
+
+function onTentModelChange() {
+  var brand = document.getElementById('tcBrand').value;
+  var idx = document.getElementById('tcModel').value;
+  var res = document.getElementById('tcRes');
+  if (!res) return;
+  if (!brand || idx === '' || !tentCache[brand]) { res.classList.remove('show'); res.innerHTML = ''; return; }
+  var t = tentCache[brand][parseInt(idx, 10)];
+  if (!t) return;
+  var area = parseFloat(t.floor_area) || 0;
+  var cap = parseInt(t.capacity, 10) || 0;
+  var size = t.size_text || ((t.length_cm && t.width_cm) ? (t.length_cm + '×' + t.width_cm + 'cm') : '—');
+  var sizeM2 = area ? (area.toFixed(1) + ' ㎡（約 ' + (area * 0.3025).toFixed(1) + ' 坪）') : '—';
+  var big = area > 7 || cap >= 5;
+  var bkModel, color, bg, brd, modelLine, reason, note;
+  if (area > 10) {
+    bkModel = '山水 SAC688'; color = '#047857'; bg = '#ecfdf5'; brd = '#a7f3d0';
+    modelLine = '山水 SAC688・6000 BTU';
+    reason = '<b>' + t.brand + ' ' + t.model + '</b>（' + sizeM2 + '、' + (cap || '?') + ' 人）空間偏大，建議用 <b>6000 BTU</b> 強效製冷，並注意<b>加強內帳密封</b>（蓋住開口、關門簾）。';
+    note = '⚠️ SAC688 需每 3-5 小時排水一次；大型帳建議搭配延長線把排熱管伸到外帳外。';
+  } else if (big) {
+    bkModel = '山水 SAC688'; color = '#047857'; bg = '#ecfdf5'; brd = '#a7f3d0';
+    modelLine = '山水 SAC688・6000 BTU';
+    reason = '<b>' + t.brand + ' ' + t.model + '</b>（' + sizeM2 + '、' + (cap || '?') + ' 人）屬中大型帳，<b>6000 BTU</b> 製冷比較夠力。';
+    note = '⚠️ SAC688 需每 3-5 小時排水一次；兩台租金相同（兩天一夜 $1,000）。';
+  } else {
+    bkModel = '艾比酷 JUZ-400'; color = '#1d4ed8'; bg = '#eff6ff'; brd = '#bfdbfe';
+    modelLine = '艾比酷 JUZ-400・5100 BTU';
+    reason = '<b>' + t.brand + ' ' + t.model + '</b>（' + sizeM2 + '、' + (cap || '?') + ' 人）屬中小型帳，<b>5100 BTU</b> 製冷充足，且 <b>完全免排水</b>、輕巧好搬，最省心。';
+    note = '💡 完全免排水免顧；兩台租金相同（兩天一夜 $1,000）。';
+  }
+  res.style.background = bg; res.style.border = '1px solid ' + brd;
+  var html = '<div class="pick" style="color:' + color + '">✅ 為你推薦</div>' +
+    '<div class="model" style="color:' + color + '">' + modelLine + '</div>' +
+    '<div class="reason">' + reason + '<br><span style="color:#6b7280;font-size:.78rem">睡帳尺寸：' + size + '</span></div>' +
+    '<div class="note">' + note + '</div>' +
+    '<a class="rbtn" href="#booking" onclick="goBookingWithModel(\'' + bkModel + '\',\'tcalc_' + (bkModel === '山水 SAC688' ? 'sac688' : 'juz400') + '\');return false;">💬 預約這台</a>';
+  res.innerHTML = html;
+  res.classList.add('show');
+  logEvent('tent_calc_use', t.brand + ' ' + t.model + ' → ' + bkModel);
+}
+
+// 初始化選購指南子頁籤
+(function initWikiSubTab() {
+  var saved;
+  try { saved = localStorage.getItem('wiki_subtab'); } catch(e) {}
+  if (['btu','tents','power'].indexOf(saved) === -1) saved = 'btu';
+  setWikiTab(saved);
+})();
+
 // ── 預約表單：計數器、條件欄位、產生 LINE 訊息 ──────────────
 // 計數器：更新數字，值等於 min 時停用減號
 function adjustCounter(id, delta, min) {
@@ -1354,9 +1520,6 @@ var searchSites = debounce(function () {
 
 // 提供舊命名給 inline handler 使用
 function renderSites() { searchSites(); }
-
-// 進入網站只取統計
-loadSitesStats();
 </script>
 </body>
 </html>
