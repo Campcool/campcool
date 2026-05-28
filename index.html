@@ -419,51 +419,52 @@
   .cc-wpanel{background:#fff;border:1px solid #d8b4fe;border-top:3px solid #6d28d9;border-radius:0 0 14px 14px;padding:14px 12px 16px;margin-bottom:18px;box-shadow:0 6px 16px rgba(124,58,237,.08)}
   .cc-wpanel[hidden]{display:none}
 
-  /* 復古像素電玩風 */
-  .cc-pixel-box{background:linear-gradient(180deg,#1a0b3d,#2d1b69);border:4px solid #ffd60a;border-radius:0;padding:14px;margin:10px 0 16px;color:#fff;font-family:'VT323','Courier New','Noto Sans Mono',monospace;box-shadow:6px 6px 0 #000,inset 0 0 0 2px #1a0b3d,inset 0 0 0 4px #f72585;position:relative}
-  .cc-pixel-box::before{content:'';position:absolute;top:-4px;left:-4px;right:-4px;bottom:-4px;border:2px solid #000;pointer-events:none;border-radius:0}
-  .cc-pixel-box .px-title{font-family:'Press Start 2P','VT323',monospace;font-size:.78rem;letter-spacing:1px;color:#ffd60a;text-shadow:2px 2px 0 #000;margin-bottom:12px;padding-bottom:10px;border-bottom:2px dashed #f72585;line-height:1.5}
-  .cc-pixel-box .px-title .px-zh{display:block;font-family:'Noto Sans TC',sans-serif;font-size:.85rem;color:#9bf6ff;margin-top:4px;letter-spacing:0;font-weight:900;text-shadow:1px 1px 0 #000}
-  .cc-pixel-box .px-sub{font-family:'VT323',monospace;font-size:1rem;color:#9bf6ff;margin-bottom:10px;line-height:1.4}
-  .cc-pixel-box .px-alert{background:#0f0f23;border:2px solid #ffd60a;padding:8px 10px;margin-bottom:10px;color:#ffd60a;font-size:.78rem;line-height:1.6;font-family:'Noto Sans TC',sans-serif;font-weight:700}
-  .cc-pixel-box .px-alert b{color:#fff}
-  .cc-pixel-box .px-mode{display:flex;gap:6px;margin-bottom:12px}
-  .cc-pixel-box .px-mode-btn{flex:1;padding:9px 4px;background:#0f0f23;color:#9bf6ff;border:3px solid #9bf6ff;border-radius:0;font-family:'Press Start 2P','VT323',monospace;font-size:.62rem;letter-spacing:1px;cursor:pointer;line-height:1.5;font-weight:700}
-  .cc-pixel-box .px-mode-btn .px-zh{display:block;font-family:'Noto Sans TC',sans-serif;font-size:.78rem;margin-top:4px;letter-spacing:0;font-weight:900}
-  .cc-pixel-box .px-mode-btn.active{background:#f72585;color:#fff;border-color:#fff;box-shadow:3px 3px 0 #000}
-  .cc-pixel-box label{display:block;font-family:'Press Start 2P','VT323',monospace;font-size:.6rem;letter-spacing:1px;color:#9bf6ff;margin:10px 0 4px;text-shadow:1px 1px 0 #000;line-height:1.4}
-  .cc-pixel-box label .px-zh{font-family:'Noto Sans TC',sans-serif;font-size:.78rem;color:#ffd60a;margin-left:6px;letter-spacing:0;font-weight:800;text-shadow:none}
-  .cc-pixel-box select,.cc-pixel-box input[type=text]{width:100%;padding:10px 8px;background:#0f0f23;color:#9bf6ff;border:3px solid #f72585;border-radius:0;font-family:'VT323','Noto Sans TC',monospace;font-weight:700;font-size:1rem;-webkit-appearance:none;appearance:none}
-  .cc-pixel-box select:disabled{opacity:.5;cursor:not-allowed}
-  .cc-pixel-box select:focus,.cc-pixel-box input[type=text]:focus{outline:none;border-color:#ffd60a;box-shadow:0 0 0 2px #1a0b3d,0 0 0 4px #ffd60a}
-  .cc-pixel-btn{display:block;width:100%;margin-top:14px;padding:12px;background:#06d6a0;color:#0f0f23;border:3px solid #fff;border-radius:0;box-shadow:4px 4px 0 #000;font-family:'Press Start 2P','VT323',monospace;font-weight:900;cursor:pointer;font-size:.72rem;letter-spacing:1px;text-decoration:none;text-align:center}
-  .cc-pixel-btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #000}
-  /* 將既有 .cc-calc-res 在像素盒裡換皮 */
-  .cc-pixel-box .cc-calc-res{background:#0f0f23!important;border:3px solid #06d6a0!important;border-radius:0!important;color:#fff;font-family:'Noto Sans TC',sans-serif;margin-top:12px;padding:12px}
-  .cc-pixel-box .cc-calc-res .pick{color:#ffd60a!important;font-family:'Press Start 2P','VT323',monospace;font-size:.62rem;letter-spacing:1px;text-shadow:1px 1px 0 #000}
-  .cc-pixel-box .cc-calc-res .model{color:#06d6a0!important;font-family:'Press Start 2P','VT323',monospace;font-size:.9rem;text-shadow:2px 2px 0 #000;margin:10px 0;letter-spacing:1px}
-  .cc-pixel-box .cc-calc-res .reason{color:#fff!important;font-size:.85rem;line-height:1.7}
-  .cc-pixel-box .cc-calc-res .reason b{color:#ffd60a}
-  .cc-pixel-box .cc-calc-res .note{color:#ffd60a!important;font-size:.78rem;margin-top:8px;background:transparent!important;border:none!important;padding:0!important}
-  .cc-pixel-box .cc-calc-res .rbtn{display:inline-block;margin-top:12px;padding:10px 18px;background:#06C755;color:#fff;border:3px solid #fff;border-radius:0!important;box-shadow:4px 4px 0 #000;font-family:'Press Start 2P','VT323',monospace;font-size:.7rem;letter-spacing:1px;text-decoration:none;font-weight:900}
-  /* 像素風營區速查表 */
-  .cc-pixel-box .cc-sites-stats{font-family:'VT323',monospace;font-size:1rem;color:#ffd60a;letter-spacing:1px;background:#0f0f23;border:2px solid #ffd60a;padding:6px 10px;margin-bottom:10px;text-align:center}
-  .cc-pixel-box .cc-sites-stats b{color:#06d6a0;font-size:1.15rem}
-  .cc-pixel-box .cc-sites-controls{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-  .cc-pixel-box .cc-sites-list{max-height:420px;background:#0f0f23;border:3px solid #f72585;border-radius:0;font-family:'Noto Sans TC',sans-serif}
-  .cc-pixel-box .cc-site-item{border-bottom:1px dashed #f72585;color:#fff;padding:10px}
-  .cc-pixel-box .cc-site-name{color:#fff;font-weight:800}
-  .cc-pixel-box .cc-site-region{background:#2d1b69;color:#9bf6ff;border:1px solid #f72585}
-  .cc-pixel-box .cc-site-info{color:#9bf6ff}
-  .cc-pixel-box .cc-site-icon.y{color:#06d6a0;text-shadow:1px 1px 0 #000}
-  .cc-pixel-box .cc-site-icon.n{color:#ff006e;text-shadow:1px 1px 0 #000}
-  .cc-pixel-box .cc-site-icon.u{color:#ffd60a;text-shadow:1px 1px 0 #000}
-  .cc-pixel-box #sitesHint{background:#0f0f23!important;color:#9bf6ff!important;border:2px dashed #ffd60a;font-family:'Noto Sans TC',sans-serif;line-height:1.7}
-  .cc-pixel-box #sitesHint b{color:#ffd60a}
+  /* 復古像素風（柔和營地暖色系：深棕 + 米色 + 琥珀單色重點） */
+  .cc-pixel-box{background:#2c2620;border:2px solid #5a4d3e;border-radius:0;padding:14px;margin:10px 0 16px;color:#ece6d4;font-family:'VT323','Courier New','Noto Sans Mono',monospace;box-shadow:3px 3px 0 rgba(0,0,0,.25)}
+  .cc-pixel-box .px-title{font-family:'Press Start 2P','VT323',monospace;font-size:.7rem;letter-spacing:1px;color:#d6a050;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed #5a4d3e;line-height:1.5}
+  .cc-pixel-box .px-title .px-zh{display:block;font-family:'Noto Sans TC',sans-serif;font-size:.92rem;color:#ece6d4;margin-top:6px;letter-spacing:0;font-weight:800}
+  .cc-pixel-box .px-sub{font-family:'VT323',monospace;font-size:1rem;color:#a89880;margin-bottom:10px;line-height:1.4}
+  .cc-pixel-box .px-alert{background:rgba(214,160,80,.08);border:1px solid #5a4d3e;border-left:3px solid #d6a050;padding:9px 11px;margin-bottom:12px;color:#ece6d4;font-size:.78rem;line-height:1.65;font-family:'Noto Sans TC',sans-serif;font-weight:600}
+  .cc-pixel-box .px-alert b{color:#d6a050;font-weight:800}
+  .cc-pixel-box .px-mode{display:flex;gap:6px;margin-bottom:14px}
+  .cc-pixel-box .px-mode-btn{flex:1;padding:9px 4px;background:transparent;color:#a89880;border:1.5px solid #5a4d3e;border-radius:0;font-family:'Press Start 2P','VT323',monospace;font-size:.58rem;letter-spacing:1px;cursor:pointer;line-height:1.5;font-weight:700;transition:all .12s ease}
+  .cc-pixel-box .px-mode-btn .px-zh{display:block;font-family:'Noto Sans TC',sans-serif;font-size:.8rem;margin-top:4px;letter-spacing:0;font-weight:800}
+  .cc-pixel-box .px-mode-btn:hover{color:#ece6d4;border-color:#a89880}
+  .cc-pixel-box .px-mode-btn.active{background:#d6a050;color:#2c2620;border-color:#d6a050}
+  .cc-pixel-box label{display:block;font-family:'Press Start 2P','VT323',monospace;font-size:.56rem;letter-spacing:1px;color:#a89880;margin:12px 0 4px;line-height:1.4}
+  .cc-pixel-box label .px-zh{font-family:'Noto Sans TC',sans-serif;font-size:.82rem;color:#d6a050;margin-left:6px;letter-spacing:0;font-weight:800}
+  .cc-pixel-box select,.cc-pixel-box input[type=text]{width:100%;padding:10px;background:#3a3328;color:#ece6d4;border:1.5px solid #5a4d3e;border-radius:0;font-family:'Noto Sans TC','VT323',sans-serif;font-weight:600;font-size:.92rem;-webkit-appearance:none;appearance:none}
+  .cc-pixel-box select:disabled{opacity:.45;cursor:not-allowed;color:#a89880}
+  .cc-pixel-box select:focus,.cc-pixel-box input[type=text]:focus{outline:none;border-color:#d6a050;background:#3f3729}
+  .cc-pixel-btn{display:block;width:100%;margin-top:14px;padding:12px;background:#d6a050;color:#2c2620;border:none;border-radius:0;box-shadow:2px 2px 0 rgba(0,0,0,.3);font-family:'Press Start 2P','VT323',monospace;font-weight:900;cursor:pointer;font-size:.66rem;letter-spacing:1px;text-decoration:none;text-align:center;transition:transform .08s ease}
+  .cc-pixel-btn:hover{background:#e0ad5e}
+  .cc-pixel-btn:active{transform:translate(1px,1px);box-shadow:1px 1px 0 rgba(0,0,0,.3)}
+  /* 計算結果（在像素盒內換成柔和配色） */
+  .cc-pixel-box .cc-calc-res{background:#3a3328!important;border:1px solid #5a4d3e!important;border-left:3px solid #d6a050!important;border-radius:0!important;color:#ece6d4;font-family:'Noto Sans TC',sans-serif;margin-top:14px;padding:13px}
+  .cc-pixel-box .cc-calc-res .pick{color:#d6a050!important;font-family:'Press Start 2P','VT323',monospace;font-size:.58rem;letter-spacing:1px}
+  .cc-pixel-box .cc-calc-res .model{color:#ece6d4!important;font-family:'Press Start 2P','VT323',monospace;font-size:.82rem;margin:8px 0;letter-spacing:1px}
+  .cc-pixel-box .cc-calc-res .reason{color:#ece6d4!important;font-size:.85rem;line-height:1.7}
+  .cc-pixel-box .cc-calc-res .reason b{color:#d6a050}
+  .cc-pixel-box .cc-calc-res .note{color:#a89880!important;font-size:.78rem;margin-top:8px;background:transparent!important;border:none!important;padding:0!important}
+  .cc-pixel-box .cc-calc-res .rbtn{display:inline-block;margin-top:12px;padding:9px 18px;background:#06C755;color:#fff;border:none;border-radius:0!important;box-shadow:2px 2px 0 rgba(0,0,0,.3);font-family:'Press Start 2P','VT323',monospace;font-size:.62rem;letter-spacing:1px;text-decoration:none;font-weight:900}
+  /* 營區速查表 */
+  .cc-pixel-box .cc-sites-stats{font-family:'VT323',monospace;font-size:1rem;color:#ece6d4;letter-spacing:1px;background:rgba(214,160,80,.06);border:1px solid #5a4d3e;padding:8px 12px;margin-bottom:12px;text-align:center}
+  .cc-pixel-box .cc-sites-stats b{color:#d6a050;font-weight:700}
+  .cc-pixel-box .cc-sites-controls{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .cc-pixel-box .cc-sites-list{max-height:420px;background:#3a3328;border:1px solid #5a4d3e;border-radius:0;font-family:'Noto Sans TC',sans-serif}
+  .cc-pixel-box .cc-site-item{border-bottom:1px dashed #5a4d3e;color:#ece6d4;padding:10px}
+  .cc-pixel-box .cc-site-name{color:#ece6d4;font-weight:700}
+  .cc-pixel-box .cc-site-region{background:#5a4d3e;color:#ece6d4;border:none}
+  .cc-pixel-box .cc-site-info{color:#a89880}
+  .cc-pixel-box .cc-site-icon.y{color:#9eb19a}
+  .cc-pixel-box .cc-site-icon.n{color:#c98677}
+  .cc-pixel-box .cc-site-icon.u{color:#d6a050}
+  .cc-pixel-box #sitesHint{background:rgba(214,160,80,.06)!important;color:#a89880!important;border:1px dashed #5a4d3e;font-family:'Noto Sans TC',sans-serif;line-height:1.7}
+  .cc-pixel-box #sitesHint b{color:#d6a050}
   /* 像素風小窄螢幕微調 */
   @media (max-width:380px){
-    .cc-pixel-box .px-title{font-size:.68rem}
-    .cc-pixel-box .px-mode-btn{font-size:.55rem;padding:8px 2px}
+    .cc-pixel-box .px-title{font-size:.6rem}
+    .cc-pixel-box .px-mode-btn{font-size:.5rem;padding:8px 2px}
   }
 
   /* 營區速查表 */
