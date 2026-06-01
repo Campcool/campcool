@@ -277,12 +277,61 @@
   .cc-hero-cta:active { transform: translateY(1px); }
 
   /* ── Bottom nav ── */
-  .cc-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #0f1f14; border-top: 1px solid rgba(255,255,255,.08); box-shadow: 0 -6px 24px rgba(0,0,0,.4); display: flex; padding: 4px 0 6px; z-index: 200; }
-  .cc-nav-btn { flex: 1; padding: 10px 4px 12px; border: none; background: none; color: rgba(255,255,255,.45); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; border-top: 3px solid transparent; font-family: inherit; font-weight: 600; transition: color .2s; }
-  .cc-nav-btn .ico { width: 38px; height: 38px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; background: rgba(255,255,255,.07); transition: transform .15s, background .15s; }
-  .cc-nav-btn .lbl { font-size: .72rem; letter-spacing: .3px; line-height: 1; white-space: nowrap; }
-  .cc-nav-btn.active { color: var(--c); border-top-color: var(--c); }
-  .cc-nav-btn.active .ico { background: var(--bg); transform: translateY(-2px); }
+  .cc-nav {
+    position: fixed;
+    bottom: 8px; left: 8px; right: 8px;
+    background: linear-gradient(180deg, rgba(15,31,20,.78), rgba(15,31,20,.92));
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 22px;
+    box-shadow:
+      0 -2px 30px rgba(16,185,129,.06),
+      0 8px 24px rgba(0,0,0,.35),
+      inset 0 1px 0 rgba(255,255,255,.18);
+    display: flex;
+    padding: 6px 4px 8px;
+    z-index: 200;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .cc-nav-btn {
+    flex: 1;
+    padding: 8px 4px 6px;
+    border: none;
+    background: none;
+    color: rgba(255,255,255,.55);
+    cursor: pointer;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 3px;
+    font-family: inherit;
+    font-weight: 700;
+    transition: color .2s ease;
+    border-radius: 16px;
+    margin: 0 2px;
+  }
+  .cc-nav-btn .ico {
+    width: 42px; height: 42px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    border: 1px solid rgba(255,255,255,.06);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    transition: all .25s ease;
+    backdrop-filter: blur(6px);
+  }
+  .cc-nav-btn .lbl { font-size: .72rem; letter-spacing: .4px; line-height: 1; white-space: nowrap; }
+  .cc-nav-btn:hover { color: rgba(255,255,255,.85); }
+  .cc-nav-btn:hover .ico { transform: translateY(-1px); }
+  .cc-nav-btn.active { color: var(--c); }
+  .cc-nav-btn.active .ico {
+    background: linear-gradient(135deg, var(--bg), color-mix(in srgb, var(--c) 28%, transparent));
+    border: 1px solid color-mix(in srgb, var(--c) 50%, transparent);
+    transform: translateY(-3px);
+    box-shadow:
+      0 6px 16px color-mix(in srgb, var(--c) 28%, transparent),
+      inset 0 1px 0 rgba(255,255,255,.25);
+  }
 
   /* ── Product spec card ── */
   .cc-pc { background: white; border: 1px solid #d1fae5; border-radius: 1rem; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,.06); margin-bottom: .85rem; }
@@ -380,12 +429,54 @@
   .cc-calc-res .rbtn { display:inline-block; margin-top:.85rem; background:#06C755; color:#fff; font-weight:800; font-size:.86rem; text-decoration:none; padding:.6rem 1rem; border-radius:.6rem; }
 
   /* 以租代買 */
-  .cc-rentbuy { display:flex; flex-direction:column; gap:.6rem; margin-bottom:.9rem; }
-  .cc-rb-item { display:flex; gap:.7rem; align-items:flex-start; background:#fff; border:1px solid #e5e7eb; border-radius:.8rem; padding:.8rem .9rem; box-shadow:0 1px 4px rgba(0,0,0,.05); }
-  .cc-rb-item .ic { font-size:1.4rem; flex-shrink:0; line-height:1.2; }
-  .cc-rb-item .t { font-size:.9rem; font-weight:800; color:#1f2937; margin-bottom:.15rem; }
-  .cc-rb-item .d { font-size:.8rem; color:#4b5563; line-height:1.6; }
-  .cc-rb-item .d b { color:#c2410c; }
+  .cc-rentbuy { display:flex; flex-direction:column; gap:.9rem; margin-bottom:1.2rem; }
+  .cc-rb-item {
+    display:flex;
+    gap:1rem;
+    align-items:flex-start;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-left:4px solid #10b981;
+    border-radius:.9rem;
+    padding:1.05rem 1.1rem;
+    box-shadow:0 2px 6px rgba(0,0,0,.05);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .cc-rb-item:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 14px rgba(16,185,129,.12);
+    border-left-color:#059669;
+  }
+  .cc-rb-item .ic {
+    font-size:1.5rem;
+    flex-shrink:0;
+    line-height:1;
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 2px 6px rgba(16,185,129,.15), inset 0 1px 0 rgba(255,255,255,.6);
+    border: 1px solid rgba(167,243,208,.5);
+  }
+  .cc-rb-item .t {
+    font-size:.95rem;
+    font-weight:800;
+    color:#0f172a;
+    margin-bottom:.4rem;
+    letter-spacing:.01em;
+    line-height: 1.35;
+  }
+  .cc-rb-item .d {
+    font-size:.82rem;
+    color:#475569;
+    line-height:1.75;
+  }
+  .cc-rb-item .d b {
+    color:#c2410c;
+    background: linear-gradient(180deg, transparent 60%, rgba(254,215,170,.55) 60%);
+    padding: 0 2px;
+    font-weight: 800;
+  }
 
   /* 預約表單 */
   .cc-form { background:#fff; border:1px solid #e5e7eb; border-radius:1rem; padding:1.1rem; box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:1rem; }
@@ -489,22 +580,144 @@
   .cc-form-skip { font-size:.8rem; color:#475569; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:.6rem; padding:.6rem .75rem; margin-bottom:.7rem; line-height:1.7; }
   .cc-form-skip a { color:#047857; font-weight:800; text-decoration:none; white-space:nowrap; }
 
-  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; margin-bottom: 1.2rem; }
-  .why-card { background: white; border-radius: 18px; padding: 1.25rem .9rem; text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.07); border: 1px solid #d1fae5; }
-  .why-card .icon { font-size: 2.4rem; margin-bottom: .5rem; }
-  .why-card .title { font-size: 1.05rem; font-weight: 800; color: #059669; margin-bottom: .4rem; }
-  .why-card .desc { font-size: .78rem; color: #6b7280; line-height: 1.5; }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; margin-bottom: 1.4rem; }
+  .why-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.65));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 1.4rem 1rem 1.2rem;
+    text-align: center;
+    box-shadow: 0 8px 22px rgba(16,185,129,.1), inset 0 1px 0 rgba(255,255,255,.75);
+    border: 1px solid rgba(255,255,255,.7);
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .why-card::before {
+    content: attr(data-no);
+    position: absolute; top: 8px; right: 12px;
+    font-size: .7rem; font-weight: 900; letter-spacing: 1px;
+    color: rgba(15,23,42,.18);
+    font-family: 'Press Start 2P','VT323',monospace;
+  }
+  .why-card:hover { transform: translateY(-4px) rotate(-.4deg); box-shadow: 0 14px 30px rgba(16,185,129,.18), inset 0 1px 0 rgba(255,255,255,.85); }
+  .why-card .icon-wrap {
+    width: 60px; height: 60px; border-radius: 18px;
+    margin: 0 auto .7rem;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--ic-from), var(--ic-to));
+    box-shadow: 0 6px 14px var(--ic-shadow), inset 0 1px 0 rgba(255,255,255,.6);
+    transition: transform .25s ease;
+  }
+  .why-card:hover .icon-wrap { transform: scale(1.08) rotate(-6deg); }
+  .why-card .icon { font-size: 2rem; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,.18)); }
+  .why-card .title { font-size: 1rem; font-weight: 800; color: #0f172a; margin-bottom: .35rem; letter-spacing: .02em; }
+  .why-card .desc { font-size: .77rem; color: #475569; line-height: 1.6; }
+  .why-card.c-ice    { --ic-from:#bae6fd; --ic-to:#7dd3fc; --ic-shadow:rgba(14,165,233,.3); }
+  .why-card.c-loc    { --ic-from:#bbf7d0; --ic-to:#86efac; --ic-shadow:rgba(34,197,94,.3); }
+  .why-card.c-money  { --ic-from:#fed7aa; --ic-to:#fdba74; --ic-shadow:rgba(251,146,60,.3); }
+  .why-card.c-support{ --ic-from:#ddd6fe; --ic-to:#c4b5fd; --ic-shadow:rgba(139,92,246,.3); }
 
-  /* Map placeholder */
-  .map-placeholder { background: linear-gradient(135deg,#ecfdf5,#d1fae5); border-radius: 14px; padding: 1.2rem; margin-bottom: 1rem; border: 1px solid #a7f3d0; }
-  .loc-item { display: flex; align-items: flex-start; gap: 10px; padding: .65rem 0; border-bottom: 1px solid #e5e7eb; }
-  .loc-item:last-child { border: none; }
-  .loc-dot { width: 10px; height: 10px; border-radius: 50%; background: #059669; margin-top: 5px; flex-shrink: 0; }
-  .loc-name { font-size: 1.12rem; font-weight: 800; color: #064e3b; }
-  .loc-desc { font-size: .78rem; color: #059669; font-weight: 600; margin-top: 3px; }
-  .loc-pts { list-style: none; margin: .4rem 0 .3rem; padding: 0; }
-  .loc-pts li { font-size: .8rem; color: #374151; line-height: 1.55; padding: 2px 0; }
-  .loc-sub { font-size: .76rem; color: #6b7280; line-height: 1.55; }
+  /* 服務據點地圖 — 北台灣 + 6 pin */
+  .cc-map-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto 1.2rem;
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #dbeafe, #d1fae5);
+    box-shadow: 0 8px 26px rgba(16,185,129,.12), inset 0 1px 0 rgba(255,255,255,.5);
+    border: 1px solid rgba(255,255,255,.7);
+    aspect-ratio: 752 / 980;
+  }
+  .cc-map-wrap .cc-map-img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: saturate(.7) brightness(1.08);
+  }
+  .cc-map-wrap .cc-map-mask {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 35%;
+    background: linear-gradient(180deg, transparent, rgba(241,249,244,.7) 40%, rgba(241,249,244,.95) 100%);
+    pointer-events: none;
+  }
+  .cc-map-wrap .cc-map-fade-label {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .68rem;
+    color: #6b7280;
+    background: rgba(255,255,255,.85);
+    padding: 3px 10px;
+    border-radius: 10px;
+    letter-spacing: .02em;
+    border: 1px solid rgba(167,243,208,.5);
+    backdrop-filter: blur(4px);
+  }
+  .cc-map-pin {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background: linear-gradient(135deg, #fff, #f0fdf4);
+    padding: 4px 9px 4px 6px;
+    border-radius: 14px;
+    font-size: .72rem;
+    font-weight: 800;
+    color: #064e3b;
+    box-shadow: 0 4px 10px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.7);
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+    border: 1.5px solid #10b981;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, z-index 0s linear .18s;
+    z-index: 2;
+  }
+  .cc-map-pin::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid #10b981;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.15));
+  }
+  .cc-map-pin:hover, .cc-map-pin:focus {
+    transform: translate(-50%, -106%) scale(1.06);
+    box-shadow: 0 6px 14px rgba(16,185,129,.3), inset 0 1px 0 rgba(255,255,255,.8);
+    z-index: 10;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .cc-map-pin .pin-dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,.2); margin-right: 1px; }
+  /* 據點卡片（網格） */
+  .cc-loc-grid { display:grid; grid-template-columns: 1fr; gap: .75rem; margin-bottom: 1.2rem; }
+  @media (min-width:520px) { .cc-loc-grid { grid-template-columns: 1fr 1fr; } }
+  .cc-loc-card {
+    background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(236,253,245,.7));
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(167,243,208,.6);
+    border-radius: 14px;
+    padding: 1rem 1.05rem;
+    box-shadow: 0 4px 12px rgba(16,185,129,.08), inset 0 1px 0 rgba(255,255,255,.7);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .cc-loc-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(16,185,129,.15); }
+  .cc-loc-card .loc-name { font-size: 1.05rem; font-weight: 800; color: #064e3b; display: flex; align-items: center; gap: 6px; margin-bottom: .35rem; }
+  .cc-loc-card .loc-name .loc-pin { background: #10b981; color: #fff; width: 22px; height: 22px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: .8rem; box-shadow: 0 2px 5px rgba(16,185,129,.3); }
+  .cc-loc-card .loc-desc { font-size: .76rem; color: #059669; font-weight: 600; margin-bottom: .5rem; line-height: 1.55; }
+  .cc-loc-card .loc-pts { list-style: none; margin: 0 0 .4rem; padding: 0; }
+  .cc-loc-card .loc-pts li { font-size: .78rem; color: #374151; line-height: 1.65; padding: 1px 0; }
+  .cc-loc-card .loc-sub { font-size: .73rem; color: #6b7280; line-height: 1.55; padding-top: .35rem; border-top: 1px dashed rgba(167,243,208,.55); }
 
   /* Booking/Policy styles */
   .policy-block { background: white; border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: .85rem; border: 1px solid #e5e7eb; }
@@ -608,10 +821,10 @@
         <div class="cc-sh">為什麼選擇露涼社？</div>
         <hr class="cc-shdiv">
         <div class="why-grid">
-          <div class="why-card"><div class="icon">❄️</div><div class="title">強效冷房</div><div class="desc">5000～6000 BTU<br>適合 3-6 人帳篷</div></div>
-          <div class="why-card"><div class="icon">📍</div><div class="title">多點取還</div><div class="desc">雙北・新竹・台中<br>24H 便利取還</div></div>
-          <div class="why-card"><div class="icon">💰</div><div class="title">透明定價</div><div class="desc">兩天一夜 $1,000<br>無隱藏費用</div></div>
-          <div class="why-card"><div class="icon">🛠️</div><div class="title">專業支援</div><div class="desc">LINE 即時客服<br>使用問題快速解決</div></div>
+          <div class="why-card c-ice" data-no="01"><div class="icon-wrap"><span class="icon">❄️</span></div><div class="title">強效冷房</div><div class="desc">5000～6000 BTU<br>適合 3-6 人帳篷</div></div>
+          <div class="why-card c-loc" data-no="02"><div class="icon-wrap"><span class="icon">📍</span></div><div class="title">多點取還</div><div class="desc">雙北・新竹・台中<br>24H 便利取還</div></div>
+          <div class="why-card c-money" data-no="03"><div class="icon-wrap"><span class="icon">💰</span></div><div class="title">透明定價</div><div class="desc">兩天一夜 $1,000<br>無隱藏費用</div></div>
+          <div class="why-card c-support" data-no="04"><div class="icon-wrap"><span class="icon">🛠️</span></div><div class="title">專業支援</div><div class="desc">LINE 即時客服<br>使用問題快速解決</div></div>
         </div>
 
         <!-- Pricing -->
@@ -654,31 +867,43 @@
         <!-- Locations -->
         <div class="cc-sh" style="font-size:1.4rem">📍 服務據點分布</div>
         <hr class="cc-shdiv">
-        <div class="map-placeholder">
-          <div class="loc-item"><div class="loc-dot"></div><div>
-            <div class="loc-name">新竹／竹北</div>
-            <div class="loc-desc">📍 兩個取機點，皆近新竹好市多・快速道路／高速公路交流道</div>
-            <ul class="loc-pts">
-              <li>① 竹北 24H 社區寄櫃自取（時間彈性）</li>
-              <li>② 公道五路便利倉</li>
-            </ul>
-            <div class="loc-sub">前往尖石、五峰、南庄等山區營地最方便。</div>
-          </div></div>
-          <div class="loc-item"><div class="loc-dot"></div><div>
-            <div class="loc-name">雙北（內湖・士林・五股）</div>
-            <div class="loc-desc">📍 共三個取機點，皆鄰近國道交流道，市區面交方便</div>
+        <div class="cc-map-wrap" role="img" aria-label="服務據點地圖：嘉義以北含內湖、士林、五股、竹北、新竹、西屯">
+          <img class="cc-map-img" src="assets/taiwan_map.webp" alt="台灣地圖（標示露涼社服務據點：內湖、士林、五股、竹北、新竹、西屯）" loading="lazy" width="752" height="1392">
+          <!-- 6 個服務據點 pin（座標以 taiwan_map.webp 為基準，% 相對於外框） -->
+          <a class="cc-map-pin" href="#loc-shuangbei" style="top:9%;left:74%" title="內湖"><span class="pin-dot"></span>內湖</a>
+          <a class="cc-map-pin" href="#loc-shuangbei" style="top:13%;left:66%" title="士林"><span class="pin-dot"></span>士林</a>
+          <a class="cc-map-pin" href="#loc-shuangbei" style="top:17%;left:58%" title="五股"><span class="pin-dot"></span>五股</a>
+          <a class="cc-map-pin" href="#loc-hsinchu" style="top:23%;left:48%" title="竹北"><span class="pin-dot"></span>竹北</a>
+          <a class="cc-map-pin" href="#loc-hsinchu" style="top:28%;left:42%" title="新竹"><span class="pin-dot"></span>新竹</a>
+          <a class="cc-map-pin" href="#loc-taichung" style="top:42%;left:38%" title="西屯"><span class="pin-dot"></span>西屯</a>
+          <div class="cc-map-mask" aria-hidden="true"></div>
+          <div class="cc-map-fade-label">⛺ 服務範圍：嘉義以北</div>
+        </div>
+        <div class="cc-loc-grid">
+          <div class="cc-loc-card" id="loc-shuangbei">
+            <div class="loc-name"><span class="loc-pin">📍</span>雙北（內湖・士林・五股）</div>
+            <div class="loc-desc">共三個取機點，皆鄰近國道交流道，市區面交方便</div>
             <ul class="loc-pts">
               <li>① 內湖（鄰近內湖好市多）</li>
               <li>② 士林</li>
               <li>③ 五股</li>
             </ul>
             <div class="loc-sub">適合前往宜蘭、烏來、坪林、福隆一帶營區的露友。</div>
-          </div></div>
-          <div class="loc-item"><div class="loc-dot"></div><div>
-            <div class="loc-name">台中・西屯</div>
-            <div class="loc-desc">📍 台中・南投・苗栗中部露客最方便</div>
+          </div>
+          <div class="cc-loc-card" id="loc-hsinchu">
+            <div class="loc-name"><span class="loc-pin">📍</span>新竹／竹北</div>
+            <div class="loc-desc">兩個取機點，皆近新竹好市多・快速道路／高速公路交流道</div>
+            <ul class="loc-pts">
+              <li>① 竹北 24H 社區寄櫃自取（時間彈性）</li>
+              <li>② 公道五路便利倉</li>
+            </ul>
+            <div class="loc-sub">前往尖石、五峰、南庄等山區營地最方便。</div>
+          </div>
+          <div class="cc-loc-card" id="loc-taichung">
+            <div class="loc-name"><span class="loc-pin">📍</span>台中・西屯</div>
+            <div class="loc-desc">台中・南投・苗栗中部露客最方便</div>
             <div class="loc-sub">服務前往谷關、清境、合歡山、武陵、南投山區露營的中部露友。</div>
-          </div></div>
+          </div>
         </div>
         <p style="font-size:.78rem;color:#6b7280;line-height:1.65;margin-bottom:1rem">露涼社 CampCool 服務範圍涵蓋嘉義以北全台灣，含新竹市、竹北市、台北市（內湖・士林）、新北市（五股）、台中市（西屯）。實際取機點與時間請透過 LINE 確認。</p>
 
