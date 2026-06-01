@@ -619,86 +619,94 @@
   .why-card.c-money  { --ic-from:#fed7aa; --ic-to:#fdba74; --ic-shadow:rgba(251,146,60,.3); }
   .why-card.c-support{ --ic-from:#ddd6fe; --ic-to:#c4b5fd; --ic-shadow:rgba(139,92,246,.3); }
 
-  /* 服務據點地圖 — 北台灣 + 6 pin */
-  .cc-map-wrap {
-    position: relative;
-    width: 100%;
-    max-width: 380px;
-    margin: 0 auto 1.2rem;
-    border-radius: 18px;
-    overflow: hidden;
-    background: linear-gradient(180deg, #dbeafe, #d1fae5);
-    box-shadow: 0 8px 26px rgba(16,185,129,.12), inset 0 1px 0 rgba(255,255,255,.5);
+  /* 服務區段視覺（從北到南、無假地圖） */
+  .cc-zones {
+    background: linear-gradient(135deg, rgba(219,234,254,.6), rgba(209,250,229,.5));
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,.7);
-    aspect-ratio: 752 / 980;
+    border-radius: 18px;
+    padding: 18px 20px 20px;
+    margin: 0 auto 1.2rem;
+    max-width: 480px;
+    box-shadow: 0 8px 22px rgba(16,185,129,.08), inset 0 1px 0 rgba(255,255,255,.65);
+    position: relative;
   }
-  .cc-map-wrap .cc-map-img {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: saturate(.7) brightness(1.08);
+  .cc-zones-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
   }
-  .cc-map-wrap .cc-map-mask {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 35%;
-    background: linear-gradient(180deg, transparent, rgba(241,249,244,.7) 40%, rgba(241,249,244,.95) 100%);
-    pointer-events: none;
-  }
-  .cc-map-wrap .cc-map-fade-label {
-    position: absolute;
-    bottom: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: .68rem;
-    color: #6b7280;
-    background: rgba(255,255,255,.85);
-    padding: 3px 10px;
-    border-radius: 10px;
-    letter-spacing: .02em;
-    border: 1px solid rgba(167,243,208,.5);
-    backdrop-filter: blur(4px);
-  }
-  .cc-map-pin {
-    position: absolute;
-    transform: translate(-50%, -100%);
-    background: linear-gradient(135deg, #fff, #f0fdf4);
-    padding: 4px 9px 4px 6px;
+  .cc-zones-header .icon {
+    width: 46px; height: 46px;
+    background: linear-gradient(135deg, #34d399, #10b981);
     border-radius: 14px;
-    font-size: .72rem;
-    font-weight: 800;
-    color: #064e3b;
-    box-shadow: 0 4px 10px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.7);
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    white-space: nowrap;
-    border: 1.5px solid #10b981;
-    cursor: pointer;
-    transition: transform .18s ease, box-shadow .18s ease, z-index 0s linear .18s;
-    z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 10px rgba(16,185,129,.35), inset 0 1px 0 rgba(255,255,255,.5);
   }
-  .cc-map-pin::after {
-    content: '';
-    position: absolute;
-    bottom: -7px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0; height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 7px solid #10b981;
-    filter: drop-shadow(0 1px 1px rgba(0,0,0,.15));
+  .cc-zones-title { font-size: 1.05rem; font-weight: 800; color: #064e3b; line-height: 1.3; }
+  .cc-zones-sub { font-size: .77rem; color: #059669; font-weight: 600; margin-top: 1px; }
+  .cc-zone-row {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    position: relative;
   }
-  .cc-map-pin:hover, .cc-map-pin:focus {
-    transform: translate(-50%, -106%) scale(1.06);
-    box-shadow: 0 6px 14px rgba(16,185,129,.3), inset 0 1px 0 rgba(255,255,255,.8);
-    z-index: 10;
-    transition: transform .18s ease, box-shadow .18s ease;
+  .cc-zone-row + .cc-zone-row { margin-top: 10px; }
+  .cc-zone-rail {
+    flex-shrink: 0;
+    width: 32px;
+    position: relative;
+    display: flex; flex-direction: column; align-items: center;
   }
-  .cc-map-pin .pin-dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,.2); margin-right: 1px; }
+  .cc-zone-rail::before {
+    content: ''; position: absolute;
+    top: 12px; bottom: -10px;
+    left: 50%; transform: translateX(-50%);
+    width: 2px;
+    background: repeating-linear-gradient(180deg, rgba(16,185,129,.5) 0 4px, transparent 4px 8px);
+  }
+  .cc-zone-row:last-child .cc-zone-rail::before { display: none; }
+  .cc-zone-dot {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--c-from), var(--c-to));
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px var(--c-shadow), inset 0 1px 0 rgba(255,255,255,.4);
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+  .cc-zone-content {
+    flex: 1;
+    background: rgba(255,255,255,.7);
+    border: 1px solid rgba(255,255,255,.85);
+    border-radius: 12px;
+    padding: 10px 12px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 6px rgba(0,0,0,.04), inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .cc-zone-name { font-size: .92rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px; }
+  .cc-zone-name .badge {
+    font-size: .65rem; font-weight: 700;
+    padding: 1px 7px; border-radius: 8px;
+    background: var(--badge-bg); color: var(--badge-fg);
+    border: 1px solid var(--badge-border);
+  }
+  .cc-zone-cities { font-size: .78rem; color: #475569; margin-top: 3px; line-height: 1.55; }
+  .cc-zone-cities b { color: #064e3b; font-weight: 800; }
+  /* 北區 / 新竹 / 中區 配色 */
+  .cc-zone-row.z-north { --c-from:#34d399; --c-to:#10b981; --c-shadow:rgba(16,185,129,.35); --badge-bg:#dcfce7; --badge-fg:#15803d; --badge-border:#86efac; }
+  .cc-zone-row.z-hsinchu { --c-from:#60a5fa; --c-to:#3b82f6; --c-shadow:rgba(59,130,246,.35); --badge-bg:#dbeafe; --badge-fg:#1d4ed8; --badge-border:#93c5fd; }
+  .cc-zone-row.z-central { --c-from:#fbbf24; --c-to:#f59e0b; --c-shadow:rgba(245,158,11,.35); --badge-bg:#fef3c7; --badge-fg:#92400e; --badge-border:#fcd34d; }
+  .cc-zones-footer {
+    margin-top: 16px;
+    text-align: center;
+    font-size: .73rem;
+    color: #6b7280;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(167,243,208,.5);
+    letter-spacing: .03em;
+  }
   /* 據點卡片（網格） */
   .cc-loc-grid { display:grid; grid-template-columns: 1fr; gap: .75rem; margin-bottom: 1.2rem; }
   @media (min-width:520px) { .cc-loc-grid { grid-template-columns: 1fr 1fr; } }
@@ -867,17 +875,36 @@
         <!-- Locations -->
         <div class="cc-sh" style="font-size:1.4rem">📍 服務據點分布</div>
         <hr class="cc-shdiv">
-        <div class="cc-map-wrap" role="img" aria-label="服務據點地圖：嘉義以北含內湖、士林、五股、竹北、新竹、西屯">
-          <img class="cc-map-img" src="assets/taiwan_map.webp" alt="台灣地圖（標示露涼社服務據點：內湖、士林、五股、竹北、新竹、西屯）" loading="lazy" width="752" height="1392">
-          <!-- 6 個服務據點 pin（座標以 taiwan_map.webp 為基準，% 相對於外框） -->
-          <a class="cc-map-pin" href="#loc-shuangbei" style="top:9%;left:74%" title="內湖"><span class="pin-dot"></span>內湖</a>
-          <a class="cc-map-pin" href="#loc-shuangbei" style="top:13%;left:66%" title="士林"><span class="pin-dot"></span>士林</a>
-          <a class="cc-map-pin" href="#loc-shuangbei" style="top:17%;left:58%" title="五股"><span class="pin-dot"></span>五股</a>
-          <a class="cc-map-pin" href="#loc-hsinchu" style="top:23%;left:48%" title="竹北"><span class="pin-dot"></span>竹北</a>
-          <a class="cc-map-pin" href="#loc-hsinchu" style="top:28%;left:42%" title="新竹"><span class="pin-dot"></span>新竹</a>
-          <a class="cc-map-pin" href="#loc-taichung" style="top:42%;left:38%" title="西屯"><span class="pin-dot"></span>西屯</a>
-          <div class="cc-map-mask" aria-hidden="true"></div>
-          <div class="cc-map-fade-label">⛺ 服務範圍：嘉義以北</div>
+        <div class="cc-zones">
+          <div class="cc-zones-header">
+            <div class="icon">⛺</div>
+            <div>
+              <div class="cc-zones-title">嘉義以北全台灣</div>
+              <div class="cc-zones-sub">3 大區 · 6 個取機點</div>
+            </div>
+          </div>
+          <div class="cc-zone-row z-north">
+            <div class="cc-zone-rail"><div class="cc-zone-dot"></div></div>
+            <a class="cc-zone-content" href="#loc-shuangbei">
+              <div class="cc-zone-name">雙北 <span class="badge">3 點</span></div>
+              <div class="cc-zone-cities"><b>內湖</b>・<b>士林</b>・<b>五股</b></div>
+            </a>
+          </div>
+          <div class="cc-zone-row z-hsinchu">
+            <div class="cc-zone-rail"><div class="cc-zone-dot"></div></div>
+            <a class="cc-zone-content" href="#loc-hsinchu">
+              <div class="cc-zone-name">新竹 <span class="badge">2 點</span></div>
+              <div class="cc-zone-cities"><b>竹北</b>・<b>新竹市</b></div>
+            </a>
+          </div>
+          <div class="cc-zone-row z-central">
+            <div class="cc-zone-rail"><div class="cc-zone-dot"></div></div>
+            <a class="cc-zone-content" href="#loc-taichung">
+              <div class="cc-zone-name">台中 <span class="badge">1 點</span></div>
+              <div class="cc-zone-cities"><b>西屯</b></div>
+            </a>
+          </div>
+          <div class="cc-zones-footer">— 嘉義以南目前暫不開放 —</div>
         </div>
         <div class="cc-loc-grid">
           <div class="cc-loc-card" id="loc-shuangbei">
