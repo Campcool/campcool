@@ -235,11 +235,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* 全站文字縮放（1.5x 上限，手機 1.25x 起跳，自適應流暢） */
+  html { font-size: clamp(20px, 16px + 1vw, 24px); }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
     background: #f0fdf8;
     min-height: 100vh;
-    padding-bottom: 82px;
+    padding-bottom: 96px;
   }
   #app-root { display: flex; flex-direction: column; min-height: 100vh; }
 
@@ -262,9 +264,9 @@
   .cc-header-inner { max-width: 680px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
   .cc-logo { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; background: none; border: none; padding: 0; font-family: inherit; text-align: left; }
   .cc-logo img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
-  .cc-logo-main { font-size: 15px; font-weight: 800; color: #064e3b; line-height: 1.15; }
-  .cc-logo-sub { font-size: 10px; color: #059669; font-weight: 600; letter-spacing: .03em; }
-  .cc-line-btn { background: linear-gradient(135deg,#06C755,#00a844); color: white; border: none; border-radius: 20px; padding: 8px 16px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; box-shadow: 0 3px 10px rgba(6,199,85,.35); white-space: nowrap; }
+  .cc-logo-main { font-size: .95rem; font-weight: 800; color: #064e3b; line-height: 1.15; }
+  .cc-logo-sub { font-size: .64rem; color: #059669; font-weight: 600; letter-spacing: .03em; }
+  .cc-line-btn { background: linear-gradient(135deg,#06C755,#00a844); color: white; border: none; border-radius: 20px; padding: 8px 16px; font-size: .75rem; font-weight: 800; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; box-shadow: 0 3px 10px rgba(6,199,85,.35); white-space: nowrap; }
 
   /* ── Hero ── */
   .cc-hero { color: white; text-align: center; padding: 28px 20px 24px; position: relative; overflow: hidden; }
@@ -591,44 +593,6 @@
   .cc-form-skip { font-size:.8rem; color:#475569; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:.6rem; padding:.6rem .75rem; margin-bottom:.7rem; line-height:1.7; }
   .cc-form-skip a { color:#047857; font-weight:800; text-decoration:none; white-space:nowrap; }
 
-  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; margin-bottom: 1.4rem; }
-  .why-card {
-    position: relative;
-    background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.65));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 1.4rem 1rem 1.2rem;
-    text-align: center;
-    box-shadow: 0 8px 22px rgba(16,185,129,.1), inset 0 1px 0 rgba(255,255,255,.75);
-    border: 1px solid rgba(255,255,255,.7);
-    overflow: hidden;
-    transition: transform .2s ease, box-shadow .2s ease;
-  }
-  .why-card::before {
-    content: attr(data-no);
-    position: absolute; top: 8px; right: 12px;
-    font-size: .7rem; font-weight: 900; letter-spacing: 1px;
-    color: rgba(15,23,42,.18);
-    font-family: 'Press Start 2P','VT323',monospace;
-  }
-  .why-card:hover { transform: translateY(-4px) rotate(-.4deg); box-shadow: 0 14px 30px rgba(16,185,129,.18), inset 0 1px 0 rgba(255,255,255,.85); }
-  .why-card .icon-wrap {
-    width: 60px; height: 60px; border-radius: 18px;
-    margin: 0 auto .7rem;
-    display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, var(--ic-from), var(--ic-to));
-    box-shadow: 0 6px 14px var(--ic-shadow), inset 0 1px 0 rgba(255,255,255,.6);
-    transition: transform .25s ease;
-  }
-  .why-card:hover .icon-wrap { transform: scale(1.08) rotate(-6deg); }
-  .why-card .icon { font-size: 2rem; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,.18)); }
-  .why-card .title { font-size: 1rem; font-weight: 800; color: #0f172a; margin-bottom: .35rem; letter-spacing: .02em; }
-  .why-card .desc { font-size: .77rem; color: #475569; line-height: 1.6; }
-  .why-card.c-ice    { --ic-from:#bae6fd; --ic-to:#7dd3fc; --ic-shadow:rgba(14,165,233,.3); }
-  .why-card.c-loc    { --ic-from:#bbf7d0; --ic-to:#86efac; --ic-shadow:rgba(34,197,94,.3); }
-  .why-card.c-money  { --ic-from:#fed7aa; --ic-to:#fdba74; --ic-shadow:rgba(251,146,60,.3); }
-  .why-card.c-support{ --ic-from:#ddd6fe; --ic-to:#c4b5fd; --ic-shadow:rgba(139,92,246,.3); }
 
   /* 服務區段視覺（從北到南、無假地圖） */
   .cc-zones {
@@ -818,17 +782,7 @@
           <span style="color:#e11d48;font-size:20px;font-weight:800">›</span>
         </button>
 
-        <!-- Why Choose -->
-        <div class="cc-sh">為什麼選擇露涼社？</div>
-        <hr class="cc-shdiv">
-        <div class="why-grid">
-          <div class="why-card c-ice" data-no="01"><div class="icon-wrap"><span class="icon">❄️</span></div><div class="title">強效冷房</div><div class="desc">5000～6000 BTU<br>適合 3-6 人帳篷</div></div>
-          <div class="why-card c-loc" data-no="02"><div class="icon-wrap"><span class="icon">📍</span></div><div class="title">多點取還</div><div class="desc">雙北・新竹・台中<br>24H 便利取還</div></div>
-          <div class="why-card c-money" data-no="03"><div class="icon-wrap"><span class="icon">💰</span></div><div class="title">透明定價</div><div class="desc">兩天一夜 $1,000<br>無隱藏費用</div></div>
-          <div class="why-card c-support" data-no="04"><div class="icon-wrap"><span class="icon">🛠️</span></div><div class="title">專業支援</div><div class="desc">LINE 即時客服<br>使用問題快速解決</div></div>
-        </div>
-
-        <!-- Pricing -->
+        <!-- ① 透明租金方案 -->
         <div class="cc-sh">透明租金方案</div>
         <hr class="cc-shdiv">
         <div class="cc-price">
@@ -852,20 +806,7 @@
           </div>
         </div>
 
-        <!-- Rent vs Buy -->
-        <div class="cc-sh">💡 為什麼「以租代買」更聰明？</div>
-        <hr class="cc-shdiv">
-        <div class="cc-rentbuy">
-          <div class="cc-rb-item"><span class="ic">📉</span><div><div class="t">買一台動輒上萬，一落地就掉價</div><div class="d">市售移動冷氣 <b>$10,000 起跳</b>，一開封變二手只剩 <b>$7,000～8,000</b>，先賠 2-3 成。</div></div></div>
-          <div class="cc-rb-item"><span class="ic">📅</span><div><div class="t">一年露不到 5 次，租更划算</div><div class="d">偶爾露營的話，租金 × 次數 通常還是比買整台便宜，不必為了幾晚扛一台回家。</div></div></div>
-          <div class="cc-rb-item"><span class="ic">📦</span><div><div class="t">不佔家裡空間</div><div class="d">不用煩惱淡季的<b>收納、屯放與保養</b>，用完直接還我們就好。</div></div></div>
-          <div class="cc-rb-item"><span class="ic">🧪</span><div><div class="t">先租再決定，不怕踩雷</div><div class="d">用過喜歡再買也不遲，先花 <b>$1,000</b> 租一次試試最實際。</div></div></div>
-        </div>
-        <div style="text-align:center;margin-bottom:1rem">
-          <a href="#booking" onclick="goBooking('rentbuy');return false;" style="display:inline-block;background:#06C755;color:#fff;font-weight:800;font-size:.9rem;text-decoration:none;padding:.7rem 1.4rem;border-radius:.7rem;box-shadow:0 2px 8px rgba(6,199,85,.25)">💬 先花 $1,000 租一次試試</a>
-        </div>
-
-        <!-- Locations -->
+        <!-- ② 服務據點 -->
         <div class="cc-sh" style="font-size:1.4rem">📍 服務據點分布</div>
         <hr class="cc-shdiv">
         <div class="cc-zones">
@@ -937,6 +878,19 @@
             <img src="assets/review-05.jpg" alt="露友 LINE 好評截圖 5 — 涼度很可以" width="640" height="600" loading="lazy">
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 露友分享</span><span style="font-size:.7rem;color:#d1d5db">2026.06</span></div></div>
           </div>
+        </div>
+
+        <!-- ④ 以租代買 -->
+        <div class="cc-sh">💡 為什麼「以租代買」更聰明？</div>
+        <hr class="cc-shdiv">
+        <div class="cc-rentbuy">
+          <div class="cc-rb-item"><span class="ic">📉</span><div><div class="t">買一台動輒上萬，一落地就掉價</div><div class="d">市售移動冷氣 <b>$10,000 起跳</b>，一開封變二手只剩 <b>$7,000～8,000</b>，先賠 2-3 成。</div></div></div>
+          <div class="cc-rb-item"><span class="ic">📅</span><div><div class="t">一年露不到 5 次，租更划算</div><div class="d">偶爾露營的話，租金 × 次數 通常還是比買整台便宜，不必為了幾晚扛一台回家。</div></div></div>
+          <div class="cc-rb-item"><span class="ic">📦</span><div><div class="t">不佔家裡空間</div><div class="d">不用煩惱淡季的<b>收納、屯放與保養</b>，用完直接還我們就好。</div></div></div>
+          <div class="cc-rb-item"><span class="ic">🧪</span><div><div class="t">先租再決定，不怕踩雷</div><div class="d">用過喜歡再買也不遲，先花 <b>$1,000</b> 租一次試試最實際。</div></div></div>
+        </div>
+        <div style="text-align:center;margin-bottom:1rem">
+          <a href="#booking" onclick="goBooking('rentbuy');return false;" style="display:inline-block;background:#06C755;color:#fff;font-weight:800;font-size:.9rem;text-decoration:none;padding:.7rem 1.4rem;border-radius:.7rem;box-shadow:0 2px 8px rgba(6,199,85,.25)">💬 先花 $1,000 租一次試試</a>
         </div>
 
         <!-- Invite -->
