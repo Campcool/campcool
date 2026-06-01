@@ -276,61 +276,72 @@
   .cc-hero-cta { margin-top: 14px; position: relative; z-index: 1; display: inline-block; background: #fff; color: #047857; font-size: .95rem; font-weight: 800; border: none; border-radius: 999px; padding: .7rem 1.5rem; box-shadow: 0 4px 14px rgba(0,0,0,.2); cursor: pointer; }
   .cc-hero-cta:active { transform: translateY(1px); }
 
-  /* ── Bottom nav ── */
+  /* ── Bottom nav（滿版玻璃擬態）── */
   .cc-nav {
     position: fixed;
-    bottom: 8px; left: 8px; right: 8px;
-    background: linear-gradient(180deg, rgba(15,31,20,.78), rgba(15,31,20,.92));
-    backdrop-filter: blur(20px) saturate(1.4);
-    -webkit-backdrop-filter: blur(20px) saturate(1.4);
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: 22px;
-    box-shadow:
-      0 -2px 30px rgba(16,185,129,.06),
-      0 8px 24px rgba(0,0,0,.35),
-      inset 0 1px 0 rgba(255,255,255,.18);
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(180deg, rgba(22,40,30,.55), rgba(16,28,21,.72));
+    backdrop-filter: blur(28px) saturate(1.8);
+    -webkit-backdrop-filter: blur(28px) saturate(1.8);
+    border-top: 1px solid rgba(255,255,255,.16);
+    box-shadow: 0 -6px 30px rgba(0,0,0,.16);
     display: flex;
-    padding: 6px 4px 8px;
+    justify-content: center;
     z-index: 200;
-    max-width: 480px;
-    margin: 0 auto;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .cc-nav-inner {
+    display: flex;
+    width: 100%;
+    max-width: 540px;
+    padding: 8px 8px 9px;
   }
   .cc-nav-btn {
     flex: 1;
-    padding: 8px 4px 6px;
+    position: relative;
+    padding: 7px 4px 5px;
     border: none;
     background: none;
-    color: rgba(255,255,255,.55);
+    color: rgba(255,255,255,.6);
     cursor: pointer;
     display: flex; flex-direction: column; align-items: center;
-    gap: 3px;
+    gap: 4px;
     font-family: inherit;
     font-weight: 700;
     transition: color .2s ease;
     border-radius: 16px;
     margin: 0 2px;
   }
+  /* active 頂部彩色指示條 */
+  .cc-nav-btn.active::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: 50%; transform: translateX(-50%);
+    width: 30px; height: 3px;
+    border-radius: 0 0 4px 4px;
+    background: var(--c);
+    box-shadow: 0 0 10px var(--c), 0 0 4px var(--c);
+  }
   .cc-nav-btn .ico {
-    width: 42px; height: 42px; border-radius: 14px;
+    width: 44px; height: 44px; border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.4rem;
-    background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-    border: 1px solid rgba(255,255,255,.06);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
     transition: all .25s ease;
-    backdrop-filter: blur(6px);
   }
   .cc-nav-btn .lbl { font-size: .72rem; letter-spacing: .4px; line-height: 1; white-space: nowrap; }
-  .cc-nav-btn:hover { color: rgba(255,255,255,.85); }
-  .cc-nav-btn:hover .ico { transform: translateY(-1px); }
-  .cc-nav-btn.active { color: var(--c); }
+  .cc-nav-btn:hover { color: rgba(255,255,255,.9); }
+  .cc-nav-btn:hover .ico { transform: translateY(-1px); background: rgba(255,255,255,.1); }
+  .cc-nav-btn.active { color: var(--c); font-weight: 800; }
   .cc-nav-btn.active .ico {
-    background: linear-gradient(135deg, var(--bg), color-mix(in srgb, var(--c) 28%, transparent));
-    border: 1px solid color-mix(in srgb, var(--c) 50%, transparent);
-    transform: translateY(-3px);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--c) 92%, #fff), color-mix(in srgb, var(--c) 78%, #000));
+    border: 1px solid color-mix(in srgb, var(--c) 60%, #fff);
+    transform: translateY(-4px) scale(1.05);
     box-shadow:
-      0 6px 16px color-mix(in srgb, var(--c) 28%, transparent),
-      inset 0 1px 0 rgba(255,255,255,.25);
+      0 8px 20px color-mix(in srgb, var(--c) 45%, transparent),
+      inset 0 1px 0 rgba(255,255,255,.4);
   }
 
   /* ── Product spec card ── */
@@ -370,7 +381,7 @@
   .cc-linebanner a { background: white; color: #059669; padding: .65rem 1.2rem; border-radius: 30px; text-decoration: none; font-weight: 800; font-size: .88rem; white-space: nowrap; box-shadow: 0 3px 10px rgba(0,0,0,.15); flex-shrink: 0; }
 
   /* ── Pricing table ── */
-  .cc-price { background: rgba(255,255,255,.97); border-radius: 18px; overflow: hidden; box-shadow: 0 8px 28px rgba(0,0,0,.13); max-width: 480px; margin: 0 auto 1.5rem; }
+  .cc-price { background: rgba(255,255,255,.97); border-radius: 18px; overflow: hidden; box-shadow: 0 8px 28px rgba(0,0,0,.13); margin: 0 auto 1.5rem; }
   .cc-price-head { background: linear-gradient(135deg,#059669,#047857); color: white; text-align: center; padding: 13px 16px; }
   .cc-price-head .t { font-weight: 800; font-size: 1.05rem; }
   .cc-price-head .s { font-size: .75rem; opacity: .88; margin-top: 3px; }
@@ -627,7 +638,6 @@
     border-radius: 18px;
     padding: 18px 20px 20px;
     margin: 0 auto 1.2rem;
-    max-width: 480px;
     box-shadow: 0 8px 22px rgba(16,185,129,.08), inset 0 1px 0 rgba(255,255,255,.65);
     position: relative;
   }
@@ -1309,10 +1319,12 @@
 
   <!-- Bottom nav -->
   <nav class="cc-nav" role="tablist" aria-label="主要分頁">
-    <button class="cc-nav-btn" type="button" role="tab" data-tab="rental" style="--c:#34d399;--bg:rgba(52,211,153,.18)" onclick="setTab('rental')"><span class="ico">❄️</span><span class="lbl">租借方案</span></button>
-    <button class="cc-nav-btn" type="button" role="tab" data-tab="wiki" style="--c:#a78bfa;--bg:rgba(167,139,250,.18)" onclick="setTab('wiki')"><span class="ico">📊</span><span class="lbl">選購指南</span></button>
-    <button class="cc-nav-btn" type="button" role="tab" data-tab="booking" style="--c:#f87171;--bg:rgba(248,113,113,.18)" onclick="setTab('booking')"><span class="ico">📅</span><span class="lbl">預約方式</span></button>
-    <button class="cc-nav-btn" type="button" role="tab" data-tab="fridge" style="--c:#22d3ee;--bg:rgba(34,211,238,.18)" onclick="setTab('fridge')"><span class="ico">🧊</span><span class="lbl">冰箱出租</span></button>
+    <div class="cc-nav-inner">
+      <button class="cc-nav-btn" type="button" role="tab" data-tab="rental" style="--c:#34d399;--bg:rgba(52,211,153,.18)" onclick="setTab('rental')"><span class="ico">❄️</span><span class="lbl">租借方案</span></button>
+      <button class="cc-nav-btn" type="button" role="tab" data-tab="wiki" style="--c:#a78bfa;--bg:rgba(167,139,250,.18)" onclick="setTab('wiki')"><span class="ico">📊</span><span class="lbl">選購指南</span></button>
+      <button class="cc-nav-btn" type="button" role="tab" data-tab="booking" style="--c:#f87171;--bg:rgba(248,113,113,.18)" onclick="setTab('booking')"><span class="ico">📅</span><span class="lbl">預約方式</span></button>
+      <button class="cc-nav-btn" type="button" role="tab" data-tab="fridge" style="--c:#22d3ee;--bg:rgba(34,211,238,.18)" onclick="setTab('fridge')"><span class="ico">🧊</span><span class="lbl">冰箱出租</span></button>
+    </div>
   </nav>
 
 </div>
