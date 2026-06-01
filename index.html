@@ -692,8 +692,10 @@
     background: var(--badge-bg); color: var(--badge-fg);
     border: 1px solid var(--badge-border);
   }
-  .cc-zone-cities { font-size: .78rem; color: #475569; margin-top: 3px; line-height: 1.55; }
-  .cc-zone-cities b { color: #064e3b; font-weight: 800; }
+  .cc-zone-desc { font-size: .76rem; color: #059669; font-weight: 600; margin-top: 4px; line-height: 1.55; }
+  .cc-zone-pts { list-style: none; margin: 6px 0 0; padding: 0; }
+  .cc-zone-pts li { font-size: .79rem; color: #374151; line-height: 1.65; padding: 1px 0; }
+  .cc-zone-sub { font-size: .73rem; color: #6b7280; line-height: 1.55; margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(167,243,208,.55); }
   /* 北區 / 新竹 / 中區 配色 */
   .cc-zone-row.z-north { --c-from:#34d399; --c-to:#10b981; --c-shadow:rgba(16,185,129,.35); --badge-bg:#dcfce7; --badge-fg:#15803d; --badge-border:#86efac; }
   .cc-zone-row.z-hsinchu { --c-from:#60a5fa; --c-to:#3b82f6; --c-shadow:rgba(59,130,246,.35); --badge-bg:#dbeafe; --badge-fg:#1d4ed8; --badge-border:#93c5fd; }
@@ -707,25 +709,6 @@
     border-top: 1px dashed rgba(167,243,208,.5);
     letter-spacing: .03em;
   }
-  /* 據點卡片（網格） */
-  .cc-loc-grid { display:grid; grid-template-columns: 1fr; gap: .75rem; margin-bottom: 1.2rem; }
-  @media (min-width:520px) { .cc-loc-grid { grid-template-columns: 1fr 1fr; } }
-  .cc-loc-card {
-    background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(236,253,245,.7));
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(167,243,208,.6);
-    border-radius: 14px;
-    padding: 1rem 1.05rem;
-    box-shadow: 0 4px 12px rgba(16,185,129,.08), inset 0 1px 0 rgba(255,255,255,.7);
-    transition: transform .15s ease, box-shadow .15s ease;
-  }
-  .cc-loc-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(16,185,129,.15); }
-  .cc-loc-card .loc-name { font-size: 1.05rem; font-weight: 800; color: #064e3b; display: flex; align-items: center; gap: 6px; margin-bottom: .35rem; }
-  .cc-loc-card .loc-name .loc-pin { background: #10b981; color: #fff; width: 22px; height: 22px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: .8rem; box-shadow: 0 2px 5px rgba(16,185,129,.3); }
-  .cc-loc-card .loc-desc { font-size: .76rem; color: #059669; font-weight: 600; margin-bottom: .5rem; line-height: 1.55; }
-  .cc-loc-card .loc-pts { list-style: none; margin: 0 0 .4rem; padding: 0; }
-  .cc-loc-card .loc-pts li { font-size: .78rem; color: #374151; line-height: 1.65; padding: 1px 0; }
-  .cc-loc-card .loc-sub { font-size: .73rem; color: #6b7280; line-height: 1.55; padding-top: .35rem; border-top: 1px dashed rgba(167,243,208,.55); }
 
   /* Booking/Policy styles */
   .policy-block { background: white; border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: .85rem; border: 1px solid #e5e7eb; }
@@ -879,60 +862,46 @@
           <div class="cc-zones-header">
             <div class="icon">⛺</div>
             <div>
-              <div class="cc-zones-title">嘉義以北全台灣</div>
+              <div class="cc-zones-title">台中以北全台灣</div>
               <div class="cc-zones-sub">3 大區 · 6 個取機點</div>
             </div>
           </div>
           <div class="cc-zone-row z-north">
             <div class="cc-zone-rail"><div class="cc-zone-dot"></div></div>
-            <a class="cc-zone-content" href="#loc-shuangbei">
+            <div class="cc-zone-content">
               <div class="cc-zone-name">雙北 <span class="badge">3 點</span></div>
-              <div class="cc-zone-cities"><b>內湖</b>・<b>士林</b>・<b>五股</b></div>
-            </a>
+              <div class="cc-zone-desc">共三個取機點，皆鄰近國道交流道，市區面交方便</div>
+              <ul class="cc-zone-pts">
+                <li>① 內湖（鄰近內湖好市多）</li>
+                <li>② 士林</li>
+                <li>③ 五股</li>
+              </ul>
+              <div class="cc-zone-sub">適合前往宜蘭、新北、桃園營區的露友。</div>
+            </div>
           </div>
           <div class="cc-zone-row z-hsinchu">
             <div class="cc-zone-rail"><div class="cc-zone-dot"></div></div>
-            <a class="cc-zone-content" href="#loc-hsinchu">
-              <div class="cc-zone-name">新竹 <span class="badge">2 點</span></div>
-              <div class="cc-zone-cities"><b>竹北</b>・<b>新竹市</b></div>
-            </a>
+            <div class="cc-zone-content">
+              <div class="cc-zone-name">新竹／竹北 <span class="badge">2 點</span></div>
+              <div class="cc-zone-desc">兩個取機點，皆近新竹好市多・快速道路／高速公路交流道</div>
+              <ul class="cc-zone-pts">
+                <li>① 竹北 24H 社區寄櫃自取（時間彈性）</li>
+                <li>② 公道五路便利倉</li>
+              </ul>
+              <div class="cc-zone-sub">前往尖石、五峰、大湖、南庄等營地最方便。</div>
+            </div>
           </div>
           <div class="cc-zone-row z-central">
             <div class="cc-zone-rail"><div class="cc-zone-dot"></div></div>
-            <a class="cc-zone-content" href="#loc-taichung">
-              <div class="cc-zone-name">台中 <span class="badge">1 點</span></div>
-              <div class="cc-zone-cities"><b>西屯</b></div>
-            </a>
+            <div class="cc-zone-content">
+              <div class="cc-zone-name">台中・西屯 <span class="badge">1 點</span></div>
+              <div class="cc-zone-desc">台中・南投・苗栗中部露客最方便</div>
+              <div class="cc-zone-sub">適合前往谷關、清境、合歡山、武陵、南投的露友。</div>
+            </div>
           </div>
-          <div class="cc-zones-footer">— 嘉義以南目前暫不開放 —</div>
+          <div class="cc-zones-footer">— 台中以南目前暫不開放 —</div>
         </div>
-        <div class="cc-loc-grid">
-          <div class="cc-loc-card" id="loc-shuangbei">
-            <div class="loc-name"><span class="loc-pin">📍</span>雙北（內湖・士林・五股）</div>
-            <div class="loc-desc">共三個取機點，皆鄰近國道交流道，市區面交方便</div>
-            <ul class="loc-pts">
-              <li>① 內湖（鄰近內湖好市多）</li>
-              <li>② 士林</li>
-              <li>③ 五股</li>
-            </ul>
-            <div class="loc-sub">適合前往宜蘭、烏來、坪林、福隆一帶營區的露友。</div>
-          </div>
-          <div class="cc-loc-card" id="loc-hsinchu">
-            <div class="loc-name"><span class="loc-pin">📍</span>新竹／竹北</div>
-            <div class="loc-desc">兩個取機點，皆近新竹好市多・快速道路／高速公路交流道</div>
-            <ul class="loc-pts">
-              <li>① 竹北 24H 社區寄櫃自取（時間彈性）</li>
-              <li>② 公道五路便利倉</li>
-            </ul>
-            <div class="loc-sub">前往尖石、五峰、南庄等山區營地最方便。</div>
-          </div>
-          <div class="cc-loc-card" id="loc-taichung">
-            <div class="loc-name"><span class="loc-pin">📍</span>台中・西屯</div>
-            <div class="loc-desc">台中・南投・苗栗中部露客最方便</div>
-            <div class="loc-sub">服務前往谷關、清境、合歡山、武陵、南投山區露營的中部露友。</div>
-          </div>
-        </div>
-        <p style="font-size:.78rem;color:#6b7280;line-height:1.65;margin-bottom:1rem">露涼社 CampCool 服務範圍涵蓋嘉義以北全台灣，含新竹市、竹北市、台北市（內湖・士林）、新北市（五股）、台中市（西屯）。實際取機點與時間請透過 LINE 確認。</p>
+        <p style="font-size:.78rem;color:#6b7280;line-height:1.65;margin-bottom:1rem">露涼社 CampCool 服務範圍涵蓋台中以北全台灣，含台北市（內湖・士林）、新北市（五股）、新竹市、竹北市、台中市（西屯）。實際取機點與時間請透過 LINE 確認。</p>
 
         <!-- Reviews -->
         <div class="cc-sh">⭐ 露友真實好評</div>
