@@ -537,11 +537,24 @@
   .cc-form-hint { font-size:.75rem; color:#6b7280; margin-top:.5rem; line-height:1.5; }
   .cc-modelinfo { display:none; margin-top:.4rem; font-size:.8rem; color:#047857; background:#f0fdf4; border:1px solid #a7f3d0; border-radius:.6rem; padding:.55rem .7rem; line-height:1.55; }
   /* 選購指南：子分頁（連貫頁籤＋下方內容區） */
-  .cc-sub-tabs{display:flex;gap:6px;background:#f3e8ff;border:1px solid #d8b4fe;border-bottom:none;border-radius:14px 14px 0 0;padding:6px 6px 0;margin:0;position:sticky;top:8px;z-index:5}
-  .cc-sub-tab{flex:1;padding:12px 4px;border:none;background:transparent;font-weight:800;color:#6d28d9;cursor:pointer;border-radius:10px 10px 0 0;font-size:.82rem;line-height:1.3;position:relative;bottom:-1px;transition:all .15s ease}
-  .cc-sub-tab:hover{background:rgba(255,255,255,.5)}
-  .cc-sub-tab.active{color:#fff;background:linear-gradient(180deg,#7c3aed,#6d28d9);box-shadow:0 -2px 6px rgba(124,58,237,.25);transform:translateY(-2px)}
-  .cc-wpanel{background:#fff;border:1px solid #d8b4fe;border-top:3px solid #6d28d9;border-radius:0 0 14px 14px;padding:14px 12px 16px;margin-bottom:18px;box-shadow:0 6px 16px rgba(124,58,237,.08)}
+  /* 選購指南：三色子頁籤（一眼可區分） */
+  .cc-sub-tabs{display:flex;gap:6px;background:#f8fafc;border:1px solid #e2e8f0;border-bottom:none;border-radius:14px 14px 0 0;padding:6px 6px 0;margin:0;position:sticky;top:8px;z-index:5}
+  .cc-sub-tab{flex:1;padding:12px 4px;border:none;background:transparent;font-weight:800;cursor:pointer;border-radius:10px 10px 0 0;font-size:.82rem;line-height:1.3;position:relative;bottom:-1px;transition:all .15s ease}
+  .cc-sub-tab[data-wtab="btu"]   { color:#6d28d9 }
+  .cc-sub-tab[data-wtab="tents"] { color:#047857 }
+  .cc-sub-tab[data-wtab="power"] { color:#b45309 }
+  .cc-sub-tab[data-wtab="btu"]:hover  { background:rgba(124,58,237,.08) }
+  .cc-sub-tab[data-wtab="tents"]:hover{ background:rgba(16,185,129,.08) }
+  .cc-sub-tab[data-wtab="power"]:hover{ background:rgba(245,158,11,.08) }
+  .cc-sub-tab.active{color:#fff;transform:translateY(-2px)}
+  .cc-sub-tab[data-wtab="btu"].active   { background:linear-gradient(180deg,#7c3aed,#6d28d9); box-shadow:0 -2px 6px rgba(124,58,237,.28) }
+  .cc-sub-tab[data-wtab="tents"].active { background:linear-gradient(180deg,#10b981,#047857); box-shadow:0 -2px 6px rgba(16,185,129,.28) }
+  .cc-sub-tab[data-wtab="power"].active { background:linear-gradient(180deg,#f59e0b,#b45309); box-shadow:0 -2px 6px rgba(245,158,11,.28) }
+  /* 面板邊框跟隨當前頁籤色 */
+  .cc-wpanel{background:#fff;border:1px solid #e5e7eb;border-top:3px solid #6d28d9;border-radius:0 0 14px 14px;padding:14px 12px 16px;margin-bottom:18px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+  #wpanel-btu  {border-top-color:#6d28d9;border-color:#d8b4fe;box-shadow:0 6px 16px rgba(124,58,237,.08)}
+  #wpanel-tents{border-top-color:#047857;border-color:#a7f3d0;box-shadow:0 6px 16px rgba(16,185,129,.08)}
+  #wpanel-power{border-top-color:#b45309;border-color:#fde68a;box-shadow:0 6px 16px rgba(245,158,11,.08)}
   .cc-wpanel[hidden]{display:none}
 
   /* 復古像素風（柔和營地暖色系：深棕 + 米色 + 琥珀單色重點） */
@@ -818,6 +831,9 @@
   .cc-vs-card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0,0,0,.12); }
   .cc-vs-card.v-juz { border-color: #93c5fd; }
   .cc-vs-card.v-sac { border-color: #86efac; }
+  .cc-vs-headline { padding: 8px 10px; font-size: .86rem; font-weight: 900; text-align: center; letter-spacing: .02em; color: #fff; }
+  .cc-vs-card.v-juz .cc-vs-headline { background: linear-gradient(135deg,#3b82f6,#2563eb); text-shadow: 0 1px 0 rgba(0,0,0,.15); }
+  .cc-vs-card.v-sac .cc-vs-headline { background: linear-gradient(135deg,#10b981,#059669); text-shadow: 0 1px 0 rgba(0,0,0,.15); }
   .cc-vs-img {
     aspect-ratio: 1 / 1;
     overflow: hidden;
@@ -1101,15 +1117,12 @@
           <div class="cc-merge">
             <div class="cc-merge-tldr">
               <h3>⚡ 30 秒懶人包</h3>
-              <ul>
-                <li><strong>小帳（3×3 以下／1-4 人）</strong>選 <strong>艾比酷 JUZ-400・5100 BTU</strong>，免排水最省心</li>
-                <li><strong>大帳（4×4 以上／2-5 人）</strong>選 <strong>山水 SAC688・6300 BTU</strong>，製冷力更強</li>
-                <li>營區 10A 電源<strong>不會跳電</strong>：冷氣＋冰箱＋燈＋手機約 4.8A（別同時用電熱水壺）</li>
-              </ul>
+              <p style="margin:0;font-size:.86rem;color:#374151;line-height:1.7">挑機種「<strong>看帳篷大小</strong>」就對了 — 對應到下方兩款，左 JUZ-400 適合 1-4 人小帳、右 SAC688 適合 2-5 人大帳。</p>
             </div>
             <div class="cc-merge-divider">── 主打兩款・規格對比 ──</div>
             <div class="cc-vs">
               <div class="cc-vs-card v-juz">
+                <div class="cc-vs-headline">3×3 以下｜1-4 人</div>
                 <div class="cc-vs-img"><img src="assets/juz400_product.webp" alt="艾比酷 JUZ-400 露營移動冷氣" loading="lazy"></div>
                 <div class="cc-vs-name">艾比酷<br>JUZ-400</div>
                 <div class="cc-vs-tag">輕量・免排水首選</div>
@@ -1123,6 +1136,7 @@
                 <div class="cc-vs-suit">適合 1~4 人<br>3-5 坪密閉帳</div>
               </div>
               <div class="cc-vs-card v-sac">
+                <div class="cc-vs-headline">4×4 以上｜2-5 人</div>
                 <div class="cc-vs-img"><img src="assets/sac688_product.jpg" alt="山水 SAC688 露營移動冷氣" loading="lazy"></div>
                 <div class="cc-vs-name">山水<br>SAC688</div>
                 <div class="cc-vs-tag">強效製冷・大帳首選</div>
@@ -1138,10 +1152,14 @@
             </div>
           </div>
 
-          <!-- ④ 用電注意事項 -->
+          <!-- ④ 用電注意事項（含跳電要點 + 切換頁籤連結） -->
           <div class="cc-alert y">
             <span class="ic">⚡</span>
-            <div><strong>用電注意事項</strong>：訂位前<strong>務必與營區確認</strong>是否支援冷氣與可用瓦數（10A 或 15A 迴路）。詳細跳電原理與防範請參考下方「⚡ 營區用電與速查表」分頁。</div>
+            <div>
+              <strong>用電注意事項</strong>：營區 10A 電源<strong>不會跳電</strong>（冷氣＋冰箱＋燈＋手機約 4.8A，別同時用電熱水壺）。
+              訂位前務必<strong>與營區確認</strong>是否支援冷氣與可用瓦數（10A 或 15A 迴路）。
+              <a href="#" onclick="setWikiTab('power');event.preventDefault()" style="display:inline-block;margin-top:6px;color:#b45309;font-weight:800;text-decoration:underline">⚡ 點此切換到「營區用電與速查表」→</a>
+            </div>
           </div>
         </div>
 
