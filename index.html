@@ -388,14 +388,47 @@
   .cc-alert.c { background: #ecfeff; border-color: #67e8f9; color: #155e75; }
 
   /* ── Notice card ── */
-  .cc-notice { background: white; border-radius: .875rem; padding: .85rem 1rem; border: 1px solid #e5e7eb; border-left: 3px solid #0891b2; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
-  .cc-notice.c { border-left-color: #0891b2; }
-  .cc-notice.w { border-left-color: #d97706; }
-  .cc-notice.r { border-left-color: #dc2626; }
-  .cc-notice.g { border-left-color: #059669; }
-  .cc-notice h4 { font-size: .88rem; font-weight: 800; margin-bottom: .28rem; color: #1f2937; display: flex; align-items: center; gap: .3rem; }
-  .cc-notice ul { padding-left: .9rem; margin: 0; }
-  .cc-notice li { font-size: .83rem; color: #4b5563; line-height: 1.65; }
+  /* 使用注意：多巴胺淺色玻璃 */
+  .cc-notice {
+    background: linear-gradient(160deg, rgba(255,255,255,.92), rgba(248,250,252,.7));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 18px;
+    padding: 1rem 1.05rem 1rem 1.1rem;
+    border: 1.5px solid rgba(255,255,255,.7);
+    box-shadow:
+      0 8px 22px rgba(0,0,0,.06),
+      inset 0 1px 0 rgba(255,255,255,.75),
+      inset 4px 0 0 var(--accent, #06b6d4);
+    transition: transform .2s ease, box-shadow .2s ease;
+    position: relative;
+  }
+  .cc-notice:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.85), inset 4px 0 0 var(--accent, #06b6d4); }
+  .cc-notice.c { --accent: #06b6d4; background: linear-gradient(160deg, rgba(207,250,254,.85), rgba(255,255,255,.7)); }
+  .cc-notice.w { --accent: #f59e0b; background: linear-gradient(160deg, rgba(254,243,199,.85), rgba(255,255,255,.7)); }
+  .cc-notice.r { --accent: #f43f5e; background: linear-gradient(160deg, rgba(255,228,230,.85), rgba(255,255,255,.7)); }
+  .cc-notice.g { --accent: #10b981; background: linear-gradient(160deg, rgba(209,250,229,.85), rgba(255,255,255,.7)); }
+  .cc-notice.p { --accent: #a855f7; background: linear-gradient(160deg, rgba(243,232,255,.85), rgba(255,255,255,.7)); }
+  .cc-notice h4 {
+    font-size: .96rem;
+    font-weight: 900;
+    margin-bottom: .55rem;
+    color: #1f2937;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .cc-notice h4 .ico-bubble {
+    width: 30px; height: 30px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.5));
+    border: 1px solid rgba(255,255,255,.7);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.7);
+    flex-shrink: 0;
+  }
+  .cc-notice ul { padding-left: 1.1rem; margin: 0; }
+  .cc-notice li { font-size: .82rem; color: #374151; line-height: 1.7; padding: 1px 0; }
+  .cc-notice li strong { color: var(--accent); }
 
   /* ── LINE banner ── */
   .cc-linebanner { background: linear-gradient(135deg,#06C755 0%,#00a844 100%); border-radius: 20px; padding: 1rem 1.2rem; color: white; display: flex; align-items: center; justify-content: space-between; gap: .8rem; margin: 1.1rem 0; box-shadow: 0 6px 20px rgba(6,199,85,.35); }
@@ -431,6 +464,42 @@
   .cc-tbl th { background: #059669; color: white; padding: .48rem .8rem; text-align: left; font-weight: 600; }
   .cc-tbl td { padding: .44rem .8rem; border-bottom: 1px solid #f3f4f6; color: #4b5563; }
   .cc-tbl tr:nth-child(even) td { background: #f9fafb; }
+
+  /* 冰箱型號卡網格 */
+  .fr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 18px; }
+  @media (max-width: 420px){ .fr-grid { grid-template-columns: 1fr; } }
+  .fr-card {
+    background: linear-gradient(160deg, rgba(255,255,255,.95), rgba(240,253,250,.8));
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255,255,255,.7);
+    border-radius: 16px;
+    padding: 14px 14px 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.75);
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .fr-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.1); }
+  .fr-card::before {
+    content: '🧊';
+    position: absolute; top: -8px; right: -6px;
+    font-size: 3.5rem; opacity: .08;
+    pointer-events: none;
+    transform: rotate(15deg);
+  }
+  .fr-card .fr-brand { font-size: .7rem; font-weight: 800; letter-spacing: .04em; color: var(--fr-c, #059669); margin-bottom: 2px; }
+  .fr-card .fr-name { font-size: 1.05rem; font-weight: 900; color: #0f172a; margin-bottom: 8px; line-height: 1.25; }
+  .fr-card .fr-cap { font-size: 1.8rem; font-weight: 900; line-height: 1; color: var(--fr-c, #059669); margin: 4px 0 6px; letter-spacing: -.02em; }
+  .fr-card .fr-cap small { font-size: .72rem; font-weight: 700; color: #6b7280; margin-left: 3px; letter-spacing: 0; }
+  .fr-card .fr-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .fr-card .fr-pill { font-size: .7rem; font-weight: 700; padding: 3px 8px; border-radius: 8px; background: rgba(255,255,255,.7); border: 1px solid rgba(0,0,0,.06); color: #374151; }
+  .fr-card .fr-pill b { color: #1f2937; font-weight: 900; }
+  /* 5 個型號各自配色 */
+  .fr-card.f1 { --fr-c: #06b6d4; background: linear-gradient(160deg, rgba(207,250,254,.85), rgba(255,255,255,.75)); border-color: #a5f3fc; }
+  .fr-card.f2 { --fr-c: #3b82f6; background: linear-gradient(160deg, rgba(219,234,254,.85), rgba(255,255,255,.75)); border-color: #bfdbfe; }
+  .fr-card.f3 { --fr-c: #6366f1; background: linear-gradient(160deg, rgba(224,231,255,.85), rgba(255,255,255,.75)); border-color: #c7d2fe; }
+  .fr-card.f4 { --fr-c: #8b5cf6; background: linear-gradient(160deg, rgba(237,233,254,.85), rgba(255,255,255,.75)); border-color: #ddd6fe; }
+  .fr-card.f5 { --fr-c: #f59e0b; background: linear-gradient(160deg, rgba(254,243,199,.85), rgba(255,255,255,.75)); border-color: #fde68a; }
 
   /* Knowledge blocks */
   .cc-kb { background: white; border-radius: .875rem; border: 1px solid #e5e7eb; padding: 1rem 1.1rem; margin-bottom: .8rem; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
@@ -1393,26 +1462,62 @@
 
         <div class="cc-sh">📦 可租型號一覽</div>
         <hr class="cc-shdiv">
-        <div class="cc-tbl-wrap">
-          <table class="cc-tbl">
-            <thead><tr><th>品牌・型號</th><th>容量</th><th>重量</th><th>耗電</th></tr></thead>
-            <tbody>
-              <tr><td>冰虎 MC-20</td><td>20L</td><td>約 8 kg</td><td>約 25W</td></tr>
-              <tr><td>冰虎 TA-35</td><td>35L</td><td>約 14 kg</td><td>約 35W</td></tr>
-              <tr><td>冰虎 T50</td><td>50L</td><td>約 19 kg</td><td>約 50W</td></tr>
-              <tr><td>冰虎 T60</td><td>60L</td><td>約 22 kg</td><td>約 60W</td></tr>
-              <tr><td>艾比酷 LG-D36</td><td>36L（雙溫區）</td><td>約 15 kg</td><td>約 40W</td></tr>
-            </tbody>
-          </table>
+        <div class="fr-grid">
+          <div class="fr-card f1">
+            <div class="fr-brand">冰虎 ICEHU</div>
+            <div class="fr-name">MC-20</div>
+            <div class="fr-cap">20<small>L</small></div>
+            <div class="fr-meta">
+              <span class="fr-pill">重量 <b>8 kg</b></span>
+              <span class="fr-pill">耗電 <b>25W</b></span>
+            </div>
+          </div>
+          <div class="fr-card f2">
+            <div class="fr-brand">冰虎 ICEHU</div>
+            <div class="fr-name">TA-35</div>
+            <div class="fr-cap">35<small>L</small></div>
+            <div class="fr-meta">
+              <span class="fr-pill">重量 <b>14 kg</b></span>
+              <span class="fr-pill">耗電 <b>35W</b></span>
+            </div>
+          </div>
+          <div class="fr-card f3">
+            <div class="fr-brand">冰虎 ICEHU</div>
+            <div class="fr-name">T50</div>
+            <div class="fr-cap">50<small>L</small></div>
+            <div class="fr-meta">
+              <span class="fr-pill">重量 <b>19 kg</b></span>
+              <span class="fr-pill">耗電 <b>50W</b></span>
+            </div>
+          </div>
+          <div class="fr-card f4">
+            <div class="fr-brand">冰虎 ICEHU</div>
+            <div class="fr-name">T60</div>
+            <div class="fr-cap">60<small>L</small></div>
+            <div class="fr-meta">
+              <span class="fr-pill">重量 <b>22 kg</b></span>
+              <span class="fr-pill">耗電 <b>60W</b></span>
+            </div>
+          </div>
+          <div class="fr-card f5" style="grid-column:1/-1">
+            <div class="fr-brand">艾比酷 ICECO</div>
+            <div class="fr-name">LG-D36 <span style="display:inline-block;margin-left:6px;font-size:.65rem;background:#f59e0b;color:#fff;padding:2px 7px;border-radius:6px;vertical-align:3px;letter-spacing:.05em">雙溫區</span></div>
+            <div class="fr-cap">36<small>L</small></div>
+            <div class="fr-meta">
+              <span class="fr-pill">重量 <b>15 kg</b></span>
+              <span class="fr-pill">耗電 <b>40W</b></span>
+              <span class="fr-pill">冷藏 + 冷凍 雙區</span>
+            </div>
+          </div>
         </div>
 
         <div class="cc-sh">⚠️ 使用注意</div>
         <hr class="cc-shdiv">
         <div class="cc-grid">
-          <div class="cc-notice r"><h4>🚨 搬運後必看</h4><ul><li>靜置 <strong>30 分鐘以上</strong>再開機</li><li>保持直立，勿倒置超過 45°</li><li>直接開機可能損壞壓縮機</li></ul></div>
-          <div class="cc-notice c"><h4>🔌 電源設置</h4><ul><li>使用 110V 接地插座</li><li>延長線需 10A 以上</li><li>建議與冷氣分開插座</li></ul></div>
-          <div class="cc-notice c"><h4>🌡️ 溫度設定</h4><ul><li>冷藏：2°C～8°C</li><li>冷凍：-10°C～-18°C</li><li>避免頻繁開關蓋</li></ul></div>
-          <div class="cc-notice w"><h4>⚡ 用電注意</h4><ul><li>冷氣＋冰箱合計約 4-6A</li><li>勿同時使用電熱水壺</li><li>勿同時使用電磁爐</li></ul></div>
+          <div class="cc-notice r"><h4><span class="ico-bubble">🚨</span>搬運後必看</h4><ul><li>靜置 <strong>30 分鐘以上</strong>再開機</li><li>保持直立，勿倒置超過 45°</li><li>直接開機可能損壞壓縮機</li></ul></div>
+          <div class="cc-notice c"><h4><span class="ico-bubble">🔌</span>電源設置</h4><ul><li>使用 110V 接地插座</li><li>延長線需 <strong>10A 以上</strong></li><li>建議與冷氣分開插座</li></ul></div>
+          <div class="cc-notice g"><h4><span class="ico-bubble">🌡️</span>溫度設定</h4><ul><li>冷藏：<strong>2°C～8°C</strong></li><li>冷凍：<strong>-10°C～-18°C</strong></li><li>避免頻繁開關蓋</li></ul></div>
+          <div class="cc-notice w"><h4><span class="ico-bubble">⚡</span>用電注意</h4><ul><li>冷氣＋冰箱合計約 <strong>4-6A</strong></li><li>勿同時使用電熱水壺</li><li>勿同時使用電磁爐</li></ul></div>
         </div>
 
         <div class="cc-linebanner">
