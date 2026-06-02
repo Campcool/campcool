@@ -325,25 +325,46 @@
     box-shadow: 0 0 10px var(--c), 0 0 4px var(--c);
   }
   .cc-nav-btn .ico {
-    width: 44px; height: 44px; border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    width: 46px; height: 46px; border-radius: 16px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem;
-    background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.08);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
-    transition: all .25s ease;
+    font-size: 1.42rem;
+    /* 各按鈕套用自己的主題色玻璃果凍 */
+    background: linear-gradient(160deg, color-mix(in srgb, var(--c) 40%, transparent), color-mix(in srgb, var(--c) 16%, transparent));
+    border: 1px solid color-mix(in srgb, var(--c) 42%, transparent);
+    box-shadow:
+      inset 0 2px 4px rgba(255,255,255,.4),
+      inset 0 -4px 7px color-mix(in srgb, var(--c) 28%, transparent),
+      0 3px 9px color-mix(in srgb, var(--c) 22%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, background .25s ease;
+  }
+  /* 果凍頂部高光 */
+  .cc-nav-btn .ico::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 50%; transform: translateX(-50%);
+    width: 68%; height: 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,0));
+    border-radius: 50%;
+    pointer-events: none;
   }
   .cc-nav-btn .lbl { font-size: .72rem; letter-spacing: .4px; line-height: 1; white-space: nowrap; }
-  .cc-nav-btn:hover { color: rgba(255,255,255,.9); }
-  .cc-nav-btn:hover .ico { transform: translateY(-1px); background: rgba(255,255,255,.1); }
-  .cc-nav-btn.active { color: var(--c); font-weight: 800; }
+  .cc-nav-btn { color: color-mix(in srgb, var(--c) 62%, #ffffff); }
+  .cc-nav-btn:hover { color: color-mix(in srgb, var(--c) 78%, #ffffff); }
+  .cc-nav-btn:hover .ico { transform: translateY(-2px) scale(1.04); }
+  .cc-nav-btn:active .ico { transform: translateY(0) scale(.92); }
+  .cc-nav-btn.active { color: #fff; font-weight: 800; }
   .cc-nav-btn.active .ico {
-    background: linear-gradient(135deg, color-mix(in srgb, var(--c) 92%, #fff), color-mix(in srgb, var(--c) 78%, #000));
-    border: 1px solid color-mix(in srgb, var(--c) 60%, #fff);
-    transform: translateY(-4px) scale(1.05);
+    background: linear-gradient(160deg, color-mix(in srgb, var(--c) 96%, #fff), color-mix(in srgb, var(--c) 82%, #000));
+    border: 1px solid color-mix(in srgb, var(--c) 55%, #fff);
+    transform: translateY(-5px) scale(1.12);
     box-shadow:
-      0 8px 20px color-mix(in srgb, var(--c) 45%, transparent),
-      inset 0 1px 0 rgba(255,255,255,.4);
+      inset 0 2px 5px rgba(255,255,255,.55),
+      inset 0 -5px 9px color-mix(in srgb, var(--c) 45%, #000),
+      0 10px 24px color-mix(in srgb, var(--c) 55%, transparent);
   }
 
   /* ── Product spec card ── */
