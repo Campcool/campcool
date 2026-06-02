@@ -181,10 +181,29 @@
     .toc-card.t5{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-color:#e9d5ff;color:#6b21a8}
     .toc-card.t6{background:linear-gradient(135deg,#fff1f2,#ffe4e6);border-color:#fecdd3;color:#9f1239}
 
-    /* Sections */
-    .section{margin:32px 0}
-    .section h2{font-size:26px;font-weight:800;color:#065f46;padding-bottom:8px;border-bottom:3px solid #a7f3d0;margin-bottom:16px}
-    .section h3{font-size:21px;font-weight:700;color:#047857;margin:20px 0 8px}
+    /* Sections：QQ 果凍色卡 */
+    .section{
+      margin:18px 0;
+      border-radius:22px;
+      padding:24px 22px 20px;
+      border:1.5px solid;
+      position:relative;
+      box-shadow:inset 0 2px 8px rgba(255,255,255,.65), 0 8px 22px rgba(0,0,0,.06);
+      transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+    }
+    .section:hover{transform:translateY(-4px);box-shadow:inset 0 2px 8px rgba(255,255,255,.7), 0 16px 32px rgba(0,0,0,.12)}
+    .section h2{font-size:25px;font-weight:900;padding-bottom:12px;border-bottom:2px dashed rgba(0,0,0,.12);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+    .section h3{font-size:21px;font-weight:800;margin:20px 0 8px;color:inherit;opacity:.92}
+    /* 6 色果凍變體 */
+    .section.s1{background:linear-gradient(160deg,#f0f7ff,#dbeafe);border-color:#bfdbfe;color:#1e3a8a}
+    .section.s2{background:linear-gradient(160deg,#f0fdf6,#d1fae5);border-color:#a7f3d0;color:#065f46}
+    .section.s3{background:linear-gradient(160deg,#fffcf0,#fef3c7);border-color:#fde68a;color:#92400e}
+    .section.s4{background:linear-gradient(160deg,#f0feff,#cffafe);border-color:#a5f3fc;color:#155e75}
+    .section.s5{background:linear-gradient(160deg,#fbf6ff,#f3e8ff);border-color:#e9d5ff;color:#6b21a8}
+    .section.s6{background:linear-gradient(160deg,#fff5f6,#ffe4e6);border-color:#fecdd3;color:#9f1239}
+    .section h2 .sec-no{flex-shrink:0;width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 6px rgba(0,0,0,.08)}
+    /* 卡內文字統一深色確保可讀 */
+    .section p,.section li{color:#1f2937}
     p{margin-bottom:12px;font-size:19px}
     ul,ol{padding-left:20px;margin-bottom:12px}
     li{margin-bottom:6px;font-size:19px}
@@ -264,8 +283,8 @@
   </div>
 
   <!-- 1. BTU 是什麼 -->
-  <div class="section" id="what-is-btu">
-    <h2>1. BTU 是什麼？露營為何特別重要？</h2>
+  <div class="section s1" id="what-is-btu">
+    <h2><span class="sec-no">📊</span>BTU 是什麼？露營為何特別重要？</h2>
     <p><strong>BTU（British Thermal Unit，英熱單位）</strong>是冷氣製冷能力的計量單位。數值越高，每小時能移除的熱量越多，製冷效果越強。</p>
     <p>一般家用冷氣動輒 8,000～12,000 BTU，但露營冷氣受限於三個關鍵條件：</p>
     <ul>
@@ -281,8 +300,8 @@
   </div>
 
   <!-- 2. 需要幾 BTU -->
-  <div class="section" id="how-many-btu">
-    <h2>2. 我的帳篷需要幾 BTU？</h2>
+  <div class="section s2" id="how-many-btu">
+    <h2><span class="sec-no">🏕️</span>我的帳篷需要幾 BTU？</h2>
     <p>BTU 需求主要取決於帳篷空間大小與密閉程度，以下是實用對照：</p>
 
     <div class="btu-visual">
@@ -327,8 +346,8 @@
   </div>
 
   <!-- 3. 10A 夠用嗎 -->
-  <div class="section" id="power-safety">
-    <h2>3. 10A 電源夠用嗎？會不會跳電？</h2>
+  <div class="section s3" id="power-safety">
+    <h2><span class="sec-no">⚡</span>10A 電源夠用嗎？會不會跳電？</h2>
     <p>台灣大多數露營區提供 <strong>110V / 10A</strong>，最大可用功率約 <strong>1,100W</strong>。以下是一個典型帳篷的用電配置：</p>
 
     <div class="btu-visual">
@@ -379,8 +398,8 @@
   </div>
 
   <!-- 4. 免排水 -->
-  <div class="section" id="no-drain">
-    <h2>4. 免排水冷氣是什麼原理？</h2>
+  <div class="section s4" id="no-drain">
+    <h2><span class="sec-no">💧</span>免排水冷氣是什麼原理？</h2>
     <p>傳統移動冷氣運作時，會從空氣中除濕，這些冷凝水積在機器內，需要定時手動排掉——在帳篷裡非常麻煩，尤其半夜要起來排水。</p>
     <p><strong>免排水技術（Self-Evaporating）</strong>的運作原理：</p>
     <ol>
@@ -399,8 +418,8 @@
   </div>
 
   <!-- 5. 型號比較 -->
-  <div class="section" id="comparison">
-    <h2>5. 主流型號規格完整比較</h2>
+  <div class="section s5" id="comparison">
+    <h2><span class="sec-no">📋</span>主流型號規格完整比較</h2>
     <p>目前台灣露營市場最常見的兩款移動冷氣完整規格對比：</p>
 
     <div style="overflow-x:auto">
@@ -433,8 +452,8 @@
   </div>
 
   <!-- 6. 選購清單 -->
-  <div class="section" id="checklist">
-    <h2>6. 選購速查清單</h2>
+  <div class="section s6" id="checklist">
+    <h2><span class="sec-no">✅</span>選購速查清單</h2>
     <div class="btu-visual">
       <p style="font-weight:700;margin-bottom:14px;color:#065f46">租借或購買前，先確認這 6 件事 ✓</p>
       <div style="display:flex;flex-direction:column;gap:12px;font-size:18px">
