@@ -133,10 +133,10 @@
     }
     .logo-area{display:flex;align-items:center;gap:8px}
     .logo-area img{width:36px;height:36px;border-radius:8px;object-fit:cover}
-    .logo-text{font-weight:700;font-size:15px;color:#065f46}
+    .logo-text{font-weight:700;font-size:19px;color:#065f46}
     .line-btn{
       background:#06C755;color:#fff;border:none;border-radius:20px;
-      padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;
+      padding:8px 16px;font-size:17px;font-weight:600;cursor:pointer;
       text-decoration:none;display:inline-flex;align-items:center;gap:4px;
     }
 
@@ -147,65 +147,82 @@
     }
     .article-tag{
       background:rgba(255,255,255,.2);color:#fff;padding:4px 12px;
-      border-radius:20px;font-size:12px;font-weight:600;
+      border-radius:20px;font-size:16px;font-weight:600;
       display:inline-block;margin-bottom:16px;
     }
     .article-hero h1{font-size:clamp(22px,5vw,28px);font-weight:800;line-height:1.35;margin-bottom:12px}
-    .article-meta{font-size:13px;opacity:.85;display:flex;gap:16px;flex-wrap:wrap}
+    .article-meta{font-size:17px;opacity:.85;display:flex;gap:16px;flex-wrap:wrap}
 
     /* ── Body ── */
-    .article-body{max-width:680px;margin:0 auto;padding:0 20px 100px}
+    .article-body{max-width:680px;margin:0 auto;padding:0 20px 100px;font-size:20px}
+    .article-body p,.article-body li{font-size:20px;line-height:1.85}
 
-    /* TOC */
-    .toc{background:#fff;border:1px solid #a7f3d0;border-radius:12px;padding:20px;margin:24px 0}
-    .toc h3{font-size:14px;color:#059669;margin-bottom:12px;font-weight:700}
-    .toc ol{padding-left:20px}
-    .toc li{margin-bottom:8px}
-    .toc a{color:#047857;text-decoration:none;font-size:14px}
-    .toc a:hover{text-decoration:underline}
+    /* TOC：等寬色卡 + icon */
+    .toc{background:#fff;border:1px solid #a7f3d0;border-radius:14px;padding:20px;margin:24px 0}
+    .toc h3{font-size:19px;color:#059669;margin-bottom:14px;font-weight:800}
+    .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media(max-width:480px){.toc-grid{grid-template-columns:1fr}}
+    .toc-card{
+      display:flex;align-items:center;gap:10px;
+      padding:14px 14px;border-radius:12px;
+      text-decoration:none;color:#1f2937;font-weight:700;
+      border:1.5px solid;position:relative;overflow:hidden;
+      box-shadow:0 2px 8px rgba(0,0,0,.05);
+      transition:transform .15s ease,box-shadow .15s ease;
+    }
+    .toc-card:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.12)}
+    .toc-ico{font-size:24px;flex-shrink:0;line-height:1;width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.7);box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+    .toc-no{position:absolute;top:6px;right:9px;font-size:14px;font-weight:900;opacity:.28;font-family:ui-monospace,monospace}
+    .toc-txt{font-size:17px;line-height:1.35;font-weight:800}
+    .toc-card.t1{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#bfdbfe;color:#1e3a8a}
+    .toc-card.t2{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-color:#a7f3d0;color:#065f46}
+    .toc-card.t3{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-color:#fde68a;color:#92400e}
+    .toc-card.t4{background:linear-gradient(135deg,#ecfeff,#cffafe);border-color:#a5f3fc;color:#155e75}
+    .toc-card.t5{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-color:#e9d5ff;color:#6b21a8}
+    .toc-card.t6{background:linear-gradient(135deg,#fff1f2,#ffe4e6);border-color:#fecdd3;color:#9f1239}
 
     /* Sections */
     .section{margin:32px 0}
-    .section h2{font-size:20px;font-weight:800;color:#065f46;padding-bottom:8px;border-bottom:3px solid #a7f3d0;margin-bottom:16px}
-    .section h3{font-size:16px;font-weight:700;color:#047857;margin:20px 0 8px}
-    p{margin-bottom:12px;font-size:15px}
+    .section h2{font-size:26px;font-weight:800;color:#065f46;padding-bottom:8px;border-bottom:3px solid #a7f3d0;margin-bottom:16px}
+    .section h3{font-size:21px;font-weight:700;color:#047857;margin:20px 0 8px}
+    p{margin-bottom:12px;font-size:19px}
     ul,ol{padding-left:20px;margin-bottom:12px}
-    li{margin-bottom:6px;font-size:15px}
+    li{margin-bottom:6px;font-size:19px}
 
     /* Info boxes */
     .info-box{border-radius:0 8px 8px 0;padding:16px;margin:16px 0;border-left:4px solid #059669;background:#ecfdf5}
     .info-box.warning{background:#fffbeb;border-left-color:#d97706}
     .info-box.tip{background:#eff6ff;border-left-color:#3b82f6}
-    .info-box p{margin:0;font-size:14px}
-    .info-box strong{display:block;margin-bottom:4px;font-size:13px}
+    .info-box p{margin:0;font-size:18px}
+    .info-box strong{display:block;margin-bottom:4px;font-size:17px}
 
     /* Bar chart */
     .btu-visual{background:#fff;border-radius:12px;padding:20px;margin:16px 0;box-shadow:0 1px 8px rgba(0,0,0,.08)}
     .btu-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-    .btu-label{font-size:13px;width:110px;flex-shrink:0;font-weight:600}
+    .btu-label{font-size:17px;width:110px;flex-shrink:0;font-weight:600}
     .btu-bar-wrap{flex:1;background:#f0fdf8;border-radius:6px;height:28px;overflow:hidden}
-    .btu-bar{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;color:#fff;font-size:12px;font-weight:700}
+    .btu-bar{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;color:#fff;font-size:16px;font-weight:700}
 
     /* Comparison table */
-    .compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;border-radius:12px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+    .compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:18px;border-radius:12px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.08)}
     .compare-table thead{background:#059669;color:#fff}
     .compare-table th{padding:12px 10px;font-weight:700;text-align:center}
     .compare-table td{padding:10px;text-align:center;border-bottom:1px solid #d1fae5;background:#fff}
     .compare-table tr:last-child td{border-bottom:none}
     .model-name{font-weight:700;color:#047857}
-    .badge-green{background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:600}
-    .badge-blue{background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:600}
+    .badge-green{background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:10px;font-size:16px;font-weight:600}
+    .badge-blue{background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:10px;font-size:16px;font-weight:600}
 
     /* CTA */
     .rental-cta{background:linear-gradient(135deg,#059669,#047857);border-radius:16px;padding:28px 24px;text-align:center;color:#fff;margin:32px 0}
-    .rental-cta h3{font-size:18px;font-weight:800;margin-bottom:8px}
-    .rental-cta p{font-size:14px;opacity:.9;margin-bottom:20px}
+    .rental-cta h3{font-size:23px;font-weight:800;margin-bottom:8px}
+    .rental-cta p{font-size:18px;opacity:.9;margin-bottom:20px}
     .cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .btn-line{background:#06C755;color:#fff;padding:12px 24px;border-radius:24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block}
-    .btn-site{background:#fff;color:#059669;padding:12px 24px;border-radius:24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block}
+    .btn-line{background:#06C755;color:#fff;padding:12px 24px;border-radius:24px;font-weight:700;font-size:19px;text-decoration:none;display:inline-block}
+    .btn-site{background:#fff;color:#059669;padding:12px 24px;border-radius:24px;font-weight:700;font-size:19px;text-decoration:none;display:inline-block}
 
     /* Footer */
-    .article-footer{text-align:center;padding:24px;font-size:13px;color:#6b7280;border-top:1px solid #d1fae5;max-width:680px;margin:0 auto}
+    .article-footer{text-align:center;padding:24px;font-size:17px;color:#6b7280;border-top:1px solid #d1fae5;max-width:680px;margin:0 auto}
   </style>
 </head>
 <body>
@@ -233,28 +250,17 @@
 <!-- Article Body -->
 <div class="article-body">
 
-  <!-- 30 秒懶人包 / TL;DR -->
-  <div class="info-box tip">
-    <strong>⚡ 30 秒懶人包（TL;DR）</strong>
-    <ul style="margin:8px 0 0">
-      <li>3×3 帳篷選 <b>5,100 BTU（JUZ-400）</b>；4×4 大帳選 <b>6,300 BTU（SAC688）</b></li>
-      <li>營區 10A 電源<b>不會跳電</b>：冷氣＋冰箱＋燈＋手機約 4.8A（勿同時用電熱水壺）</li>
-      <li>不想半夜排水 → 選<b>免排水的 JUZ-400</b></li>
-      <li>一年露營少於 5 次，<b>租比買划算</b>（買一台約 $12,000–16,000）</li>
-    </ul>
-  </div>
-
-  <!-- TOC -->
+  <!-- TOC：等寬色卡 + icon -->
   <div class="toc">
     <h3>📋 本文目錄</h3>
-    <ol>
-      <li><a href="#what-is-btu">BTU 是什麼？露營為何特別重要？</a></li>
-      <li><a href="#how-many-btu">我的帳篷需要幾 BTU？</a></li>
-      <li><a href="#power-safety">10A 電源夠用嗎？會不會跳電？</a></li>
-      <li><a href="#no-drain">免排水冷氣是什麼原理？</a></li>
-      <li><a href="#comparison">主流型號規格完整比較</a></li>
-      <li><a href="#checklist">選購速查清單</a></li>
-    </ol>
+    <div class="toc-grid">
+      <a class="toc-card t1" href="#what-is-btu"><span class="toc-ico">📊</span><span class="toc-no">01</span><span class="toc-txt">BTU 是什麼？露營為何重要</span></a>
+      <a class="toc-card t2" href="#how-many-btu"><span class="toc-ico">🏕️</span><span class="toc-no">02</span><span class="toc-txt">我的帳篷需要幾 BTU？</span></a>
+      <a class="toc-card t3" href="#power-safety"><span class="toc-ico">⚡</span><span class="toc-no">03</span><span class="toc-txt">10A 電源會不會跳電？</span></a>
+      <a class="toc-card t4" href="#no-drain"><span class="toc-ico">💧</span><span class="toc-no">04</span><span class="toc-txt">免排水冷氣是什麼原理</span></a>
+      <a class="toc-card t5" href="#comparison"><span class="toc-ico">📋</span><span class="toc-no">05</span><span class="toc-txt">主流型號規格完整比較</span></a>
+      <a class="toc-card t6" href="#checklist"><span class="toc-ico">✅</span><span class="toc-no">06</span><span class="toc-txt">選購速查清單</span></a>
+    </div>
   </div>
 
   <!-- 1. BTU 是什麼 -->
@@ -326,7 +332,7 @@
     <p>台灣大多數露營區提供 <strong>110V / 10A</strong>，最大可用功率約 <strong>1,100W</strong>。以下是一個典型帳篷的用電配置：</p>
 
     <div class="btu-visual">
-      <p style="font-size:13px;color:#6b7280;margin-bottom:12px">📊 典型帳篷用電分配（10A 電源）</p>
+      <p style="font-size:17px;color:#6b7280;margin-bottom:12px">📊 典型帳篷用電分配（10A 電源）</p>
       <div class="btu-row">
         <div class="btu-label">移動冷氣</div>
         <div class="btu-bar-wrap">
@@ -431,7 +437,7 @@
     <h2>6. 選購速查清單</h2>
     <div class="btu-visual">
       <p style="font-weight:700;margin-bottom:14px;color:#065f46">租借或購買前，先確認這 6 件事 ✓</p>
-      <div style="display:flex;flex-direction:column;gap:12px;font-size:14px">
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:18px">
         <div style="display:flex;gap:10px">
           <span style="color:#059669;font-weight:700;flex-shrink:0">①</span>
           <span><strong>帳篷尺寸</strong>：長×寬各幾米？3×3 以下選 5,100 BTU，以上選 6,300 BTU</span>
@@ -471,7 +477,7 @@
   </div>
 
   <div style="text-align:center;margin-top:16px">
-    <a href="https://campcool.tw" style="color:#059669;font-size:14px">← 回露涼社首頁</a>
+    <a href="https://campcool.tw" style="color:#059669;font-size:18px">← 回露涼社首頁</a>
   </div>
 
 </div>

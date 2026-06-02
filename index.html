@@ -864,6 +864,21 @@
     .cc-vs-spec-row { font-size: .7rem; }
     .cc-vs-suit { font-size: .72rem; padding: 6px 8px; }
   }
+  /* 懶人包 + 規格合併段落 */
+  .cc-merge {
+    background: linear-gradient(180deg, #eff6ff, #f0fdf4);
+    border: 1.5px solid #bfdbfe;
+    border-radius: 18px;
+    padding: 16px 16px 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 6px 18px rgba(59,130,246,.1);
+  }
+  .cc-merge-tldr h3 { font-size: 1rem; font-weight: 900; color: #1e3a8a; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .cc-merge-tldr ul { list-style: none; margin: 0 0 14px; padding: 0; }
+  .cc-merge-tldr li { font-size: .82rem; color: #374151; line-height: 1.65; padding: 5px 0 5px 24px; position: relative; }
+  .cc-merge-tldr li::before { content: '✦'; position: absolute; left: 4px; top: 5px; color: #3b82f6; font-weight: 900; }
+  .cc-merge-tldr li strong { color: #1f2937; }
+  .cc-merge-divider { text-align: center; font-size: .8rem; font-weight: 800; color: #6b7280; margin: 4px 0 12px; }
   .cc-invite { background: linear-gradient(135deg,#f0fdf4,#dcfce7); border: 1.5px dashed #6ee7b7; border-radius: 12px; padding: 14px 16px; margin-bottom: 1rem; text-align: center; }
   .cc-review { border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.08); border: 1px solid #e5e7eb; background: white; }
   .cc-review img { width: 100%; display: block; height: auto; }
@@ -1077,45 +1092,49 @@
             <div class="cc-share-arrow" aria-hidden="true">→</div>
           </a>
 
-          <!-- ② 30 秒懶人包（含 BTU 建議） -->
-          <div class="cc-kb"><h3>⚡ 30 秒懶人包</h3>
-            <ul class="cc-tldr">
-              <li><strong>小帳（3×3 以下／1-4 人）</strong>選 <strong>艾比酷 JUZ-400・5100 BTU</strong>，免排水最省心</li>
-              <li><strong>大帳（4×4 以上／2-5 人）</strong>選 <strong>山水 SAC688・6300 BTU</strong>，製冷力更強</li>
-              <li>營區 10A 電源<strong>不會跳電</strong>：冷氣＋冰箱＋燈＋手機約 4.8A（別同時用電熱水壺）</li>
-              <li>訂位前先和營區確認<strong>可用瓦數、能否帶冷氣</strong></li>
-            </ul>
+          <!-- ② BTU 比較圖（推廣 OG 視覺） -->
+          <div class="btu-cover">
+            <img src="assets/og-cover.jpg" alt="2026 台灣露營移動冷氣選購指南：BTU、功率、重量、尺寸完整比較表" width="1200" height="630" loading="lazy">
           </div>
 
-          <!-- ③ 主打兩款對比卡 -->
-          <div class="cc-sh">❄️ 主打兩款・規格對比</div>
-          <hr class="cc-shdiv">
-          <div class="cc-vs">
-            <div class="cc-vs-card v-juz">
-              <div class="cc-vs-img"><img src="assets/juz400_product.webp" alt="艾比酷 JUZ-400 露營移動冷氣" loading="lazy"></div>
-              <div class="cc-vs-name">艾比酷<br>JUZ-400</div>
-              <div class="cc-vs-tag">輕量・免排水首選</div>
-              <div class="cc-vs-spec">
-                <div class="cc-vs-spec-row"><span class="k">冷房</span><span class="v">5100 BTU</span></div>
-                <div class="cc-vs-spec-row"><span class="k">耗電</span><span class="v">425W (3.9A)</span></div>
-                <div class="cc-vs-spec-row"><span class="k">重量</span><span class="v">13 kg</span></div>
-                <div class="cc-vs-spec-row"><span class="k">尺寸</span><span class="v">40×28.5×50.8</span></div>
-                <div class="cc-vs-spec-row"><span class="k">排水</span><span class="v">✅ 免排水</span></div>
-              </div>
-              <div class="cc-vs-suit">適合 1~4 人<br>3-5 坪密閉帳</div>
+          <!-- ③ 30 秒懶人包 + 兩款規格（合併為一個段落） -->
+          <div class="cc-merge">
+            <div class="cc-merge-tldr">
+              <h3>⚡ 30 秒懶人包</h3>
+              <ul>
+                <li><strong>小帳（3×3 以下／1-4 人）</strong>選 <strong>艾比酷 JUZ-400・5100 BTU</strong>，免排水最省心</li>
+                <li><strong>大帳（4×4 以上／2-5 人）</strong>選 <strong>山水 SAC688・6300 BTU</strong>，製冷力更強</li>
+                <li>營區 10A 電源<strong>不會跳電</strong>：冷氣＋冰箱＋燈＋手機約 4.8A（別同時用電熱水壺）</li>
+              </ul>
             </div>
-            <div class="cc-vs-card v-sac">
-              <div class="cc-vs-img"><img src="assets/sac688_product.jpg" alt="山水 SAC688 露營移動冷氣" loading="lazy"></div>
-              <div class="cc-vs-name">山水<br>SAC688</div>
-              <div class="cc-vs-tag">強效製冷・大帳首選</div>
-              <div class="cc-vs-spec">
-                <div class="cc-vs-spec-row"><span class="k">冷房</span><span class="v">6300 BTU</span></div>
-                <div class="cc-vs-spec-row"><span class="k">耗電</span><span class="v">530W (4.8A)</span></div>
-                <div class="cc-vs-spec-row"><span class="k">重量</span><span class="v">17 kg</span></div>
-                <div class="cc-vs-spec-row"><span class="k">尺寸</span><span class="v">36×48×49</span></div>
-                <div class="cc-vs-spec-row"><span class="k">排水</span><span class="v">⚠️ 每 3-5h</span></div>
+            <div class="cc-merge-divider">── 主打兩款・規格對比 ──</div>
+            <div class="cc-vs">
+              <div class="cc-vs-card v-juz">
+                <div class="cc-vs-img"><img src="assets/juz400_product.webp" alt="艾比酷 JUZ-400 露營移動冷氣" loading="lazy"></div>
+                <div class="cc-vs-name">艾比酷<br>JUZ-400</div>
+                <div class="cc-vs-tag">輕量・免排水首選</div>
+                <div class="cc-vs-spec">
+                  <div class="cc-vs-spec-row"><span class="k">冷房</span><span class="v">5100 BTU</span></div>
+                  <div class="cc-vs-spec-row"><span class="k">耗電</span><span class="v">425W (3.9A)</span></div>
+                  <div class="cc-vs-spec-row"><span class="k">重量</span><span class="v">13 kg</span></div>
+                  <div class="cc-vs-spec-row"><span class="k">尺寸</span><span class="v">40×28.5×50.8</span></div>
+                  <div class="cc-vs-spec-row"><span class="k">排水</span><span class="v">✅ 免排水</span></div>
+                </div>
+                <div class="cc-vs-suit">適合 1~4 人<br>3-5 坪密閉帳</div>
               </div>
-              <div class="cc-vs-suit">適合 2~5 人<br>5-8 坪密閉帳</div>
+              <div class="cc-vs-card v-sac">
+                <div class="cc-vs-img"><img src="assets/sac688_product.jpg" alt="山水 SAC688 露營移動冷氣" loading="lazy"></div>
+                <div class="cc-vs-name">山水<br>SAC688</div>
+                <div class="cc-vs-tag">強效製冷・大帳首選</div>
+                <div class="cc-vs-spec">
+                  <div class="cc-vs-spec-row"><span class="k">冷房</span><span class="v">6300 BTU</span></div>
+                  <div class="cc-vs-spec-row"><span class="k">耗電</span><span class="v">530W (4.8A)</span></div>
+                  <div class="cc-vs-spec-row"><span class="k">重量</span><span class="v">17 kg</span></div>
+                  <div class="cc-vs-spec-row"><span class="k">尺寸</span><span class="v">36×48×49</span></div>
+                  <div class="cc-vs-spec-row"><span class="k">排水</span><span class="v">⚠️ 每 3-5h</span></div>
+                </div>
+                <div class="cc-vs-suit">適合 2~5 人<br>5-8 坪密閉帳</div>
+              </div>
             </div>
           </div>
 
