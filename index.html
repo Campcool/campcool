@@ -138,7 +138,7 @@
       "name": "艾比酷 JUZ-400 需要排水嗎？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "不需要！艾比酷 JUZ-400 採用自動蒸發技術，冷凝水會自動蒸發排出，完全免排水。山水 SAC688 則需要每 3-5 小時手動排水一次。"
+        "text": "不需要！艾比酷 JUZ-400 採用自動蒸發技術，冷凝水會自動蒸發排出，完全免排水。山水 SAC688 出機會附排水管，現場接好順地形引流即可，不需要半夜起來倒水。"
       }
     },
     {
@@ -1131,7 +1131,7 @@
                   <div class="cc-vs-spec-row"><span class="k">耗電</span><span class="v">530W (4.8A)</span></div>
                   <div class="cc-vs-spec-row"><span class="k">重量</span><span class="v">17 kg</span></div>
                   <div class="cc-vs-spec-row"><span class="k">尺寸</span><span class="v">36×48×49</span></div>
-                  <div class="cc-vs-spec-row"><span class="k">排水</span><span class="v">⚠️ 每 3-5h</span></div>
+                  <div class="cc-vs-spec-row"><span class="k">排水</span><span class="v">附管・引流</span></div>
                 </div>
                 <div class="cc-vs-suit">適合 2~5 人<br>5-8 坪密閉帳</div>
               </div>
@@ -1504,7 +1504,7 @@ function calcRecommend() {
     html = '<div class="pick" style="color:#047857">✅ 為你推薦</div>' +
       '<div class="model" style="color:#047857">山水 SAC688・6300 BTU</div>' +
       '<div class="reason">你的帳篷約 <b>' + area + ' 坪</b>、<b>' + ppl + ' 人</b>，空間較大或人數較多，建議用 <b>6300 BTU</b> 強效製冷才夠力。</div>' +
-      '<div class="note">⚠️ SAC688 需每 3-5 小時排水一次；兩台租金相同（兩天一夜 $1,000）。</div>';
+      '<div class="note">💡 SAC688 出機會附排水管，現場接好順地形引流；兩台租金相同（兩天一夜 $1,000）。</div>';
   } else {
     res.style.background = '#eff6ff'; res.style.border = '1px solid #bfdbfe';
     html = '<div class="pick" style="color:#1d4ed8">✅ 為你推薦</div>' +
@@ -1631,12 +1631,12 @@ function onTentModelChange() {
     bkModel = '山水 SAC688'; color = '#047857'; bg = '#ecfdf5'; brd = '#a7f3d0';
     modelLine = '山水 SAC688・6300 BTU';
     reason = '<b>' + t.brand + ' ' + t.model + '</b>（' + sizeM2 + '、' + (cap || '?') + ' 人）空間偏大，建議用 <b>6300 BTU</b> 強效製冷，並注意<b>加強內帳密封</b>（蓋住開口、關門簾）。';
-    note = '⚠️ SAC688 需每 3-5 小時排水一次；大型帳建議搭配延長線把排熱管伸到外帳外。';
+    note = '💡 SAC688 出機會附排水管於現場引流；大型帳建議搭配延長線把排熱管伸到外帳外。';
   } else if (big) {
     bkModel = '山水 SAC688'; color = '#047857'; bg = '#ecfdf5'; brd = '#a7f3d0';
     modelLine = '山水 SAC688・6300 BTU';
     reason = '<b>' + t.brand + ' ' + t.model + '</b>（' + sizeM2 + '、' + (cap || '?') + ' 人）屬中大型帳，<b>6300 BTU</b> 製冷比較夠力。';
-    note = '⚠️ SAC688 需每 3-5 小時排水一次；兩台租金相同（兩天一夜 $1,000）。';
+    note = '💡 SAC688 出機會附排水管於現場引流；兩台租金相同（兩天一夜 $1,000）。';
   } else {
     bkModel = '艾比酷 JUZ-400'; color = '#1d4ed8'; bg = '#eff6ff'; brd = '#bfdbfe';
     modelLine = '艾比酷 JUZ-400・5100 BTU';
