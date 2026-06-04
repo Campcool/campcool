@@ -77,4 +77,32 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- 預約流程說明頁 -->
+  <url>
+    <loc>https://campcool.tw/how-it-works.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 客戶好評牆 -->
+  <url>
+    <loc>https://campcool.tw/reviews.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://campcool.tw/assets/review-01.jpg</image:loc>
+      <image:title>露涼社 CampCool 露友好評 - 新竹尖石</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://campcool.tw/assets/review-02.jpg</image:loc>
+      <image:title>露涼社 CampCool 露友好評 - 南投清境</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://campcool.tw/assets/review-03.jpg</image:loc>
+      <image:title>露涼社 CampCool 露友好評 - 宜蘭太平山</image:title>
+    </image:image>
+  </url>
 </urlset>
