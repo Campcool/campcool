@@ -748,7 +748,11 @@
   .cc-form-sec:first-of-type { border-top:none; padding-top:0; margin-top:.4rem; }
   .cc-form-sec .n { width:20px; height:20px; border-radius:6px; background:#059669; color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:900; flex-shrink:0; }
   /* 取機點按鈕群 */
-  .cc-pick-group { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:.3rem; }
+  .cc-pick-region { font-size:.74rem; font-weight:800; color:#047857; margin:.6rem 0 .2rem; letter-spacing:.02em; }
+  .cc-pick-region:first-of-type { margin-top:.3rem; }
+  .cc-pick-group { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:.2rem; }
+  .cc-pick-group:has(.cc-pick-btn:nth-child(2):last-child) { grid-template-columns:1fr 1fr; }
+  .cc-pick-group:has(.cc-pick-btn:nth-child(1):last-child) { grid-template-columns:1fr; }
   .cc-pick-btn { padding:.65rem .5rem; border:1.5px solid #d1d5db; border-radius:.7rem; background:#fff; color:#374151; font-family:inherit; font-weight:800; font-size:.86rem; cursor:pointer; line-height:1.25; transition:all .15s ease; display:flex; flex-direction:column; align-items:center; gap:2px; }
   .cc-pick-btn small { font-size:.66rem; font-weight:600; color:#9ca3af; }
   .cc-pick-btn:hover { border-color:#6ee7b7; background:#f0fdf4; }
@@ -1456,13 +1460,22 @@
 
           <div class="cc-form-sec"><span class="n">3</span>取機與營區</div>
           <label>取機點</label>
+          <div class="cc-pick-region">📍 雙北</div>
           <div class="cc-pick-group" id="pickGroup" role="group" aria-label="選擇取機點">
-            <button type="button" class="cc-pick-btn active" data-v="新竹／竹北" onclick="setPickup(this)">新竹／竹北</button>
-            <button type="button" class="cc-pick-btn" data-v="雙北（內湖・士林・五股）" onclick="setPickup(this)">雙北<small>內湖·士林·五股</small></button>
-            <button type="button" class="cc-pick-btn" data-v="台中・西屯" onclick="setPickup(this)">台中・西屯</button>
-            <button type="button" class="cc-pick-btn" data-v="其他（LINE 再討論）" onclick="setPickup(this)">其他<small>LINE 再討論</small></button>
+            <button type="button" class="cc-pick-btn" data-v="內湖" data-region="雙北" onclick="setPickup(this)">內湖</button>
+            <button type="button" class="cc-pick-btn" data-v="五股" data-region="雙北" onclick="setPickup(this)">五股</button>
+            <button type="button" class="cc-pick-btn" data-v="士林" data-region="雙北" onclick="setPickup(this)">士林</button>
           </div>
-          <input type="hidden" id="pickupSel" value="新竹／竹北">
+          <div class="cc-pick-region">📍 新竹</div>
+          <div class="cc-pick-group" role="group" aria-label="選擇取機點 - 新竹">
+            <button type="button" class="cc-pick-btn active" data-v="竹北" data-region="新竹" onclick="setPickup(this)">竹北</button>
+            <button type="button" class="cc-pick-btn" data-v="公道五路" data-region="新竹" onclick="setPickup(this)">公道五路</button>
+          </div>
+          <div class="cc-pick-region">📍 台中</div>
+          <div class="cc-pick-group" role="group" aria-label="選擇取機點 - 台中">
+            <button type="button" class="cc-pick-btn" data-v="西屯" data-region="台中" onclick="setPickup(this)">西屯</button>
+          </div>
+          <input type="hidden" id="pickupSel" value="竹北">
 
           <label for="bkSite">營區名稱<span id="bkSiteStatus" style="float:right;font-size:.78rem;font-weight:700"></span></label>
           <input type="text" id="bkSite" list="bkSiteList" oninput="checkBkSite()" placeholder="例如：尖石那羅、清境農場露營區">
@@ -1704,13 +1717,10 @@ function scrollToReviews() {
   if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// 取機點按鈕群：更新隱藏欄位值 + active 樣式
+// 取機點按鈕群：更新隱藏欄位值 + 跨群組清除 active
 function setPickup(btn) {
-  var group = document.getElementById('pickGroup');
-  if (group) {
-    var bs = group.querySelectorAll('.cc-pick-btn');
-    for (var i = 0; i < bs.length; i++) bs[i].classList.remove('active');
-  }
+  var bs = document.querySelectorAll('.cc-pick-btn');
+  for (var i = 0; i < bs.length; i++) bs[i].classList.remove('active');
   btn.classList.add('active');
   var hidden = document.getElementById('pickupSel');
   if (hidden) hidden.value = btn.getAttribute('data-v');
@@ -2002,8 +2012,8 @@ function submitBooking() {
 function resetBooking() {
   ['bkName', 'bkPhone', 'bkDate', 'bkSite', 'bkNote'].forEach(function (id) { var el = document.getElementById(id); if (el) el.value = ''; });
   var planSel = document.getElementById('planSel'); if (planSel) planSel.selectedIndex = 0;
-  var pickupSel = document.getElementById('pickupSel'); if (pickupSel) pickupSel.value = '新竹／竹北';
-  var pg = document.getElementById('pickGroup'); if (pg) { var pbs = pg.querySelectorAll('.cc-pick-btn'); for (var pi = 0; pi < pbs.length; pi++) pbs[pi].classList.toggle('active', pi === 0); }
+  var pickupSel = document.getElementById('pickupSel'); if (pickupSel) pickupSel.value = '竹北';
+  var pbs = document.querySelectorAll('.cc-pick-btn'); for (var pi = 0; pi < pbs.length; pi++) pbs[pi].classList.toggle('active', pbs[pi].getAttribute('data-v') === '竹北');
   var pickupWay = document.getElementById('pickupWay'); if (pickupWay) pickupWay.selectedIndex = 0;
   var modelSel = document.getElementById('modelSel'); if (modelSel) modelSel.selectedIndex = 0;
   onModelChange();
