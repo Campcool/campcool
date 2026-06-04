@@ -45,4 +45,28 @@
       <image:caption>5100 vs 6300 BTU 實測比較，10A 電源跳電風險說明，免排水原理圖解，主流型號規格對比表</image:caption>
     </image:image>
   </url>
+
+  <!-- 台北・新北地區落地頁 -->
+  <url>
+    <loc>https://campcool.tw/taipei.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 新竹・竹北地區落地頁 -->
+  <url>
+    <loc>https://campcool.tw/hsinchu.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 台中・西屯地區落地頁 -->
+  <url>
+    <loc>https://campcool.tw/taichung.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>

@@ -1100,6 +1100,17 @@
   .cc-updated-badge { display: inline-flex; align-items: center; gap: 4px; font-size: .68rem; font-weight: 700; padding: 3px 8px; border-radius: 8px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; margin-left: 6px; vertical-align: 2px; }
   .cc-updated-badge::before { content: '🔄'; font-size: .76rem; }
 
+  /* 預約表單營區下方細節區塊 */
+  .cc-site-detail { margin-top: .4rem; padding: .55rem .75rem; border-radius: .55rem; font-size: .78rem; line-height: 1.6; border: 1px solid; }
+  .cc-site-detail[hidden] { display: none; }
+  .cc-site-detail.d-y { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+  .cc-site-detail.d-n { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+  .cc-site-detail.d-u { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+  .cc-site-detail.d-x { background: #f9fafb; border-color: #e5e7eb; color: #6b7280; }
+  .cc-site-detail .sd-row { display: flex; gap: 6px; align-items: flex-start; margin-top: 3px; }
+  .cc-site-detail .sd-row:first-child { margin-top: 0; }
+  .cc-site-detail .sd-k { flex-shrink: 0; font-weight: 800; }
+
   /* 以租代買 — 對比表 */
   .cc-rb-compare {
     margin-top: 1rem;
@@ -1605,8 +1616,9 @@
           <input type="hidden" id="pickupSel" value="竹北">
 
           <label for="bkSite">營區名稱<span id="bkSiteStatus" style="float:right;font-size:.78rem;font-weight:700"></span></label>
-          <input type="text" id="bkSite" list="bkSiteList" oninput="checkBkSite()" placeholder="例如：尖石那羅、清境農場露營區">
+          <input type="text" id="bkSite" list="bkSiteList" oninput="checkBkSite()" placeholder="輸入 2 字以上自動帶出候選（如「尖石」「清境」）" autocomplete="off">
           <datalist id="bkSiteList"></datalist>
+          <div id="bkSiteDetail" class="cc-site-detail" hidden></div>
           <p class="cc-form-hint" style="margin-top:.3rem">填營區名稱會自動對照我們收錄的資料庫（200+ 筆），顯示能否帶冷氣。</p>
 
           <div class="cc-form-sec"><span class="n">4</span>設備需求</div>
@@ -1770,6 +1782,7 @@
       <div class="ft-row"><span class="k">📷 IG</span><a href="https://www.instagram.com/campcool2025" target="_blank" rel="noopener">@campcool2025</a></div>
       <div class="ft-row"><span class="k">🕒 回覆</span><span>平均 30 分鐘內・每日 09:00–22:00</span></div>
       <div class="ft-row"><span class="k">🌐 網站</span><span>campcool.tw</span></div>
+      <div class="ft-row" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12)"><span class="k">📍 各區資訊</span><span><a href="taipei.html">台北・新北</a> ・ <a href="hsinchu.html">新竹・竹北</a> ・ <a href="taichung.html">台中・西屯</a> ・ <a href="btu-guide.html">BTU 選購指南</a></span></div>
       <div class="cc-foot-copy">© 2026 露涼社 CampCool・台灣・本網站提供露營移動冷氣與移動冰箱租借服務</div>
     </div>
   </footer>
@@ -2252,21 +2265,65 @@ function debounce(fn, ms) {
 // 表單即時查（防抖 250ms）
 var checkBkSite = debounce(function () {
   var ind = document.getElementById('bkSiteStatus');
-  if (!ind) return;
+  var dlist = document.getElementById('bkSiteList');
+  var detail = document.getElementById('bkSiteDetail');
+  if (!ind || !dlist) return;
   var v = (document.getElementById('bkSite').value || '').trim();
-  if (!v) { ind.innerHTML = ''; return; }
+  // 清空
+  if (!v) { ind.innerHTML = ''; dlist.innerHTML = ''; if (detail) { detail.hidden = true; detail.innerHTML = ''; } return; }
+  // 輸入太短不打 API（節流）
+  if (v.length < 2) { ind.innerHTML = '<span style="color:#9ca3af">輸入 2 字以上自動建議</span>'; dlist.innerHTML = ''; return; }
   fetch(SITES_API + '?q=' + encodeURIComponent(v.toLowerCase()))
     .then(function (r) { return r.json(); })
     .then(function (d) {
       var ql = v.toLowerCase();
       var arr = d.sites || [];
+      // 1) 填入候選清單到瀏覽器原生 datalist（最多 10 筆，按名稱排序）
+      var seen = {};
+      var opts = arr
+        .filter(function (s) { var n = s.name || ''; if (!n || seen[n]) return false; seen[n] = 1; return true; })
+        .slice(0, 10)
+        .map(function (s) {
+          var tag = s.allows_ac === 1 ? ' ✓ 可帶' : s.allows_ac === 0 ? ' ✗ 不可' : ' ❓ 未確認';
+          return '<option value="' + escSites(s.name) + '">' + escSites((s.region || '') + tag) + '</option>';
+        });
+      dlist.innerHTML = opts.join('');
+      // 2) 尋找最佳匹配（完全相等 → 包含 → 第一筆）
       var m = arr.filter(function (s) { return (s.name || '').toLowerCase() === ql; })[0]
             || arr.filter(function (s) { var n = (s.name || '').toLowerCase(); return n && (ql.indexOf(n) >= 0 || n.indexOf(ql) >= 0); })[0];
-      if (!m) { ind.innerHTML = '<span style="color:#9ca3af">❓ 未收錄</span>'; return; }
-      if (m.allows_ac === 1) ind.innerHTML = '<span style="color:#047857">✓ 可帶冷氣' + (m.power_info ? '（' + escSites(String(m.power_info)).slice(0, 30) + '）' : '') + '</span>';
-      else if (m.allows_ac === 0) ind.innerHTML = '<span style="color:#b91c1c">✗ 不可帶冷氣</span>';
-      else ind.innerHTML = '<span style="color:#d97706">❓ 已收錄但未確認</span>';
-    }).catch(function () { ind.innerHTML = ''; });
+      // 3) 沒匹配：未收錄
+      if (!m) {
+        ind.innerHTML = '<span style="color:#9ca3af">❓ 未收錄</span>';
+        if (detail) {
+          detail.className = 'cc-site-detail d-x';
+          detail.innerHTML = '<div class="sd-row"><span class="sd-k">💡</span><span>此營區未在資料庫，<b>仍可預約</b>，我們會於 LINE 中與您確認電源狀況。</span></div>';
+          detail.hidden = false;
+        }
+        return;
+      }
+      // 4) 有匹配：依狀態顯示
+      if (m.allows_ac === 1) {
+        ind.innerHTML = '<span style="color:#047857">✓ 可帶冷氣</span>';
+        if (detail) detail.className = 'cc-site-detail d-y';
+      } else if (m.allows_ac === 0) {
+        ind.innerHTML = '<span style="color:#b91c1c">✗ 不可帶冷氣</span>';
+        if (detail) detail.className = 'cc-site-detail d-n';
+      } else {
+        ind.innerHTML = '<span style="color:#d97706">❓ 已收錄但未確認</span>';
+        if (detail) detail.className = 'cc-site-detail d-u';
+      }
+      // 5) 顯示細節（地區 / 電源 / 備註）
+      if (detail) {
+        var html = '';
+        if (m.region) html += '<div class="sd-row"><span class="sd-k">📍</span><span>' + escSites(m.region) + '</span></div>';
+        if (m.power_info) html += '<div class="sd-row"><span class="sd-k">⚡</span><span>' + escSites(m.power_info) + '</span></div>';
+        if (m.note) html += '<div class="sd-row"><span class="sd-k">📝</span><span>' + escSites(m.note) + '</span></div>';
+        if (m.allows_ac === 0) html += '<div class="sd-row"><span class="sd-k">💡</span><span>該營區不允許冷氣，建議換場地或來 LINE 討論替代方案。</span></div>';
+        if (m.allows_ac == null) html += '<div class="sd-row"><span class="sd-k">💡</span><span>已收錄但尚未確認電源狀況，建議您先與營主確認，或來 LINE 我們協助。</span></div>';
+        detail.innerHTML = html || '<div class="sd-row"><span>✓ 可預約</span></div>';
+        detail.hidden = !html;
+      }
+    }).catch(function () { ind.innerHTML = ''; if (detail) { detail.hidden = true; detail.innerHTML = ''; } });
 }, 250);
 
 // 速查表搜尋（防抖 300ms）
