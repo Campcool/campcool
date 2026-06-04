@@ -69,4 +69,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
+
+  <!-- 常見問題 FAQ 集中頁 -->
+  <url>
+    <loc>https://campcool.tw/faq.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
