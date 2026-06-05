@@ -298,7 +298,6 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   /* 全站文字縮放（1.5x 上限，手機 1.25x 起跳，自適應流暢） */
@@ -693,52 +692,50 @@
   .cc-wpanel[hidden]{display:none}
 
   /* 復古像素風（柔和營地暖色系：深棕 + 米色 + 琥珀單色重點） */
-  .cc-pixel-box{background:#2c2620;border:2px solid #5a4d3e;border-radius:0;padding:14px;margin:10px 0 16px;color:#ece6d4;font-family:'VT323','Courier New','Noto Sans Mono',monospace;box-shadow:3px 3px 0 rgba(0,0,0,.25)}
-  .cc-pixel-box .px-title{font-family:'Press Start 2P','VT323',monospace;font-size:.7rem;letter-spacing:1px;color:#d6a050;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed #5a4d3e;line-height:1.5}
-  .cc-pixel-box .px-title .px-zh{display:block;font-family:'Noto Sans TC',sans-serif;font-size:.92rem;color:#ece6d4;margin-top:6px;letter-spacing:0;font-weight:800}
-  .cc-pixel-box .px-sub{font-family:'VT323',monospace;font-size:1rem;color:#a89880;margin-bottom:10px;line-height:1.4}
-  .cc-pixel-box .px-alert{background:rgba(214,160,80,.08);border:1px solid #5a4d3e;border-left:3px solid #d6a050;padding:9px 11px;margin-bottom:12px;color:#ece6d4;font-size:.78rem;line-height:1.65;font-family:'Noto Sans TC',sans-serif;font-weight:600}
-  .cc-pixel-box .px-alert b{color:#d6a050;font-weight:800}
-  .cc-pixel-box .px-mode{display:flex;gap:6px;margin-bottom:14px}
-  .cc-pixel-box .px-mode-btn{flex:1;padding:9px 4px;background:transparent;color:#a89880;border:1.5px solid #5a4d3e;border-radius:0;font-family:'Press Start 2P','VT323',monospace;font-size:.58rem;letter-spacing:1px;cursor:pointer;line-height:1.5;font-weight:700;transition:all .12s ease}
-  .cc-pixel-box .px-mode-btn .px-zh{display:block;font-family:'Noto Sans TC',sans-serif;font-size:.8rem;margin-top:4px;letter-spacing:0;font-weight:800}
-  .cc-pixel-box .px-mode-btn:hover{color:#ece6d4;border-color:#a89880}
-  .cc-pixel-box .px-mode-btn.active{background:#d6a050;color:#2c2620;border-color:#d6a050}
-  .cc-pixel-box label{display:block;font-family:'Press Start 2P','VT323',monospace;font-size:.56rem;letter-spacing:1px;color:#a89880;margin:12px 0 4px;line-height:1.4}
-  .cc-pixel-box label .px-zh{font-family:'Noto Sans TC',sans-serif;font-size:.82rem;color:#d6a050;margin-left:6px;letter-spacing:0;font-weight:800}
-  .cc-pixel-box select,.cc-pixel-box input[type=text]{width:100%;padding:10px;background:#3a3328;color:#ece6d4;border:1.5px solid #5a4d3e;border-radius:0;font-family:'Noto Sans TC','VT323',sans-serif;font-weight:600;font-size:.92rem;-webkit-appearance:none;appearance:none}
-  .cc-pixel-box select:disabled{opacity:.45;cursor:not-allowed;color:#a89880}
-  .cc-pixel-box select:focus,.cc-pixel-box input[type=text]:focus{outline:none;border-color:#d6a050;background:#3f3729}
-  .cc-pixel-btn{display:block;width:100%;margin-top:14px;padding:12px;background:#d6a050;color:#2c2620;border:none;border-radius:0;box-shadow:2px 2px 0 rgba(0,0,0,.3);font-family:'Press Start 2P','VT323',monospace;font-weight:900;cursor:pointer;font-size:.66rem;letter-spacing:1px;text-decoration:none;text-align:center;transition:transform .08s ease}
-  .cc-pixel-btn:hover{background:#e0ad5e}
-  .cc-pixel-btn:active{transform:translate(1px,1px);box-shadow:1px 1px 0 rgba(0,0,0,.3)}
-  /* 計算結果（在像素盒內換成柔和配色） */
-  .cc-pixel-box .cc-calc-res{background:#3a3328!important;border:1px solid #5a4d3e!important;border-left:3px solid #d6a050!important;border-radius:0!important;color:#ece6d4;font-family:'Noto Sans TC',sans-serif;margin-top:14px;padding:13px}
-  .cc-pixel-box .cc-calc-res .pick{color:#d6a050!important;font-family:'Press Start 2P','VT323',monospace;font-size:.58rem;letter-spacing:1px}
-  .cc-pixel-box .cc-calc-res .model{color:#ece6d4!important;font-family:'Press Start 2P','VT323',monospace;font-size:.82rem;margin:8px 0;letter-spacing:1px}
-  .cc-pixel-box .cc-calc-res .reason{color:#ece6d4!important;font-size:.85rem;line-height:1.7}
-  .cc-pixel-box .cc-calc-res .reason b{color:#d6a050}
-  .cc-pixel-box .cc-calc-res .note{color:#a89880!important;font-size:.78rem;margin-top:8px;background:transparent!important;border:none!important;padding:0!important}
-  .cc-pixel-box .cc-calc-res .rbtn{display:inline-block;margin-top:12px;padding:9px 18px;background:#06C755;color:#fff;border:none;border-radius:0!important;box-shadow:2px 2px 0 rgba(0,0,0,.3);font-family:'Press Start 2P','VT323',monospace;font-size:.62rem;letter-spacing:1px;text-decoration:none;font-weight:900}
-  /* 營區速查表 */
-  .cc-pixel-box .cc-sites-stats{font-family:'VT323',monospace;font-size:1rem;color:#ece6d4;letter-spacing:1px;background:rgba(214,160,80,.06);border:1px solid #5a4d3e;padding:8px 12px;margin-bottom:12px;text-align:center}
-  .cc-pixel-box .cc-sites-stats b{color:#d6a050;font-weight:700}
+  /* 帳篷計算機與營區速查表（清新玻璃風，不再像素）*/
+  .cc-pixel-box{background:linear-gradient(135deg,#fff,#f0fdf4);border:1.5px solid #a7f3d0;border-radius:18px;padding:18px;margin:10px 0 16px;color:#1f2937;font-family:inherit;box-shadow:0 6px 18px rgba(16,185,129,.08),inset 0 1px 0 rgba(255,255,255,.7)}
+  .cc-pixel-box .px-title{font-size:1.05rem;font-weight:900;color:#047857;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed #a7f3d0;line-height:1.5;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .cc-pixel-box .px-title .px-zh{font-size:1.05rem;color:#047857;font-weight:900}
+  .cc-pixel-box .px-title::before{content:'';display:inline-block;width:6px;height:24px;background:linear-gradient(180deg,#10b981,#047857);border-radius:3px;margin-right:2px}
+  .cc-pixel-box .px-sub{font-size:.82rem;color:#6b7280;margin-bottom:10px;line-height:1.6}
+  .cc-pixel-box .px-alert{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid #a7f3d0;border-left:4px solid #10b981;border-radius:10px;padding:10px 14px;margin-bottom:14px;color:#065f46;font-size:.82rem;line-height:1.65;font-weight:600}
+  .cc-pixel-box .px-alert b{color:#047857;font-weight:800}
+  .cc-pixel-box .px-mode{display:flex;gap:8px;margin-bottom:14px}
+  .cc-pixel-box .px-mode-btn{flex:1;padding:12px 6px;background:#fff;color:#6b7280;border:1.5px solid #d1d5db;border-radius:12px;font-family:inherit;font-size:.84rem;font-weight:800;cursor:pointer;line-height:1.3;transition:all .15s ease;display:flex;flex-direction:column;align-items:center;gap:3px}
+  .cc-pixel-box .px-mode-btn .px-zh{font-size:.84rem;font-weight:800}
+  .cc-pixel-box .px-mode-btn:hover{color:#047857;border-color:#6ee7b7;background:#f0fdf4}
+  .cc-pixel-box .px-mode-btn.active{background:linear-gradient(135deg,#10b981,#047857);color:#fff;border-color:#047857;box-shadow:0 4px 10px rgba(16,185,129,.3)}
+  .cc-pixel-box label{display:block;font-size:.82rem;font-weight:800;color:#374151;margin:12px 0 5px}
+  .cc-pixel-box label .px-zh{font-size:.82rem;color:#374151;font-weight:800;margin-left:0}
+  .cc-pixel-box select,.cc-pixel-box input[type=text]{width:100%;padding:11px 12px;background:#fff;color:#1f2937;border:1.5px solid #d1d5db;border-radius:10px;font-family:inherit;font-weight:600;font-size:.92rem;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23047857' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+  .cc-pixel-box input[type=text]{background-image:none;padding-right:12px}
+  .cc-pixel-box select:disabled{opacity:.55;cursor:not-allowed;color:#9ca3af;background-color:#f9fafb}
+  .cc-pixel-box select:focus,.cc-pixel-box input[type=text]:focus{outline:none;border-color:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.12)}
+  .cc-pixel-btn{display:block;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#10b981,#047857);color:#fff;border:none;border-radius:12px;box-shadow:0 4px 12px rgba(16,185,129,.3);font-family:inherit;font-weight:900;cursor:pointer;font-size:.95rem;letter-spacing:.02em;text-decoration:none;text-align:center;transition:transform .1s ease,box-shadow .15s ease}
+  .cc-pixel-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,185,129,.4)}
+  .cc-pixel-btn:active{transform:translateY(0)}
+  /* 計算結果（在玻璃盒內保留乾淨配色） */
+  .cc-pixel-box .cc-calc-res{background:#fff!important;border:1.5px solid #a7f3d0!important;border-left:4px solid #10b981!important;border-radius:12px!important;color:#1f2937;font-family:inherit;margin-top:14px;padding:14px}
+  .cc-pixel-box .cc-calc-res .pick{color:#047857!important;font-family:inherit;font-size:.78rem;font-weight:800;letter-spacing:.04em}
+  .cc-pixel-box .cc-calc-res .model{color:#0f172a!important;font-family:inherit;font-size:1.1rem;margin:8px 0;font-weight:900;letter-spacing:0}
+  .cc-pixel-box .cc-calc-res .reason{color:#374151!important;font-size:.86rem;line-height:1.75}
+  .cc-pixel-box .cc-calc-res .reason b{color:#047857}
+  .cc-pixel-box .cc-calc-res .note{color:#6b7280!important;font-size:.78rem;margin-top:8px;background:transparent!important;border:none!important;padding:0!important}
+  .cc-pixel-box .cc-calc-res .rbtn{display:inline-block;margin-top:12px;padding:10px 22px;background:#06C755;color:#fff;border:none;border-radius:12px!important;box-shadow:0 4px 12px rgba(6,199,85,.3);font-family:inherit;font-size:.88rem;text-decoration:none;font-weight:900;letter-spacing:.02em}
+  /* 營區速查表（沿用同盒子，順手調乾淨）*/
+  .cc-pixel-box .cc-sites-stats{font-family:inherit;font-size:.86rem;color:#065f46;background:#fff;border:1px solid #a7f3d0;border-radius:10px;padding:10px 14px;margin-bottom:12px;text-align:center;font-weight:700}
+  .cc-pixel-box .cc-sites-stats b{color:#047857;font-weight:900;font-size:.96rem}
   .cc-pixel-box .cc-sites-controls{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-  .cc-pixel-box .cc-sites-list{max-height:420px;background:#3a3328;border:1px solid #5a4d3e;border-radius:0;font-family:'Noto Sans TC',sans-serif}
-  .cc-pixel-box .cc-site-item{border-bottom:1px dashed #5a4d3e;color:#ece6d4;padding:10px}
-  .cc-pixel-box .cc-site-name{color:#ece6d4;font-weight:700}
-  .cc-pixel-box .cc-site-region{background:#5a4d3e;color:#ece6d4;border:none}
-  .cc-pixel-box .cc-site-info{color:#a89880}
-  .cc-pixel-box .cc-site-icon.y{color:#9eb19a}
-  .cc-pixel-box .cc-site-icon.n{color:#c98677}
-  .cc-pixel-box .cc-site-icon.u{color:#d6a050}
-  .cc-pixel-box #sitesHint{background:rgba(214,160,80,.06)!important;color:#a89880!important;border:1px dashed #5a4d3e;font-family:'Noto Sans TC',sans-serif;line-height:1.7}
-  .cc-pixel-box #sitesHint b{color:#d6a050}
-  /* 像素風小窄螢幕微調 */
-  @media (max-width:380px){
-    .cc-pixel-box .px-title{font-size:.6rem}
-    .cc-pixel-box .px-mode-btn{font-size:.5rem;padding:8px 2px}
-  }
+  .cc-pixel-box .cc-sites-list{max-height:420px;background:#fff;border:1px solid #a7f3d0;border-radius:10px;font-family:inherit}
+  .cc-pixel-box .cc-site-item{border-bottom:1px solid #f3f4f6;color:#1f2937;padding:10px 12px}
+  .cc-pixel-box .cc-site-name{color:#1f2937;font-weight:800}
+  .cc-pixel-box .cc-site-region{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+  .cc-pixel-box .cc-site-info{color:#6b7280}
+  .cc-pixel-box .cc-site-icon.y{color:#047857}
+  .cc-pixel-box .cc-site-icon.n{color:#b91c1c}
+  .cc-pixel-box .cc-site-icon.u{color:#d97706}
+  .cc-pixel-box #sitesHint{background:#f9fafb!important;color:#374151!important;border:1px dashed #d1d5db;border-radius:8px;font-family:inherit;line-height:1.7}
+  .cc-pixel-box #sitesHint b{color:#047857}
 
   /* 營區速查表 */
   .cc-sites-box { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:12px; margin-bottom:1rem; }
@@ -1461,26 +1458,26 @@
         <div id="wpanel-tents" class="cc-wpanel" hidden>
 
           <div class="cc-pixel-box">
-            <div class="px-title">▶ TENT × A/C MATCHER<span class="px-zh">🏕️ 依帳篷推薦冷氣</span></div>
+            <div class="px-title"><span class="px-zh">🏕️ 依帳篷推薦冷氣</span></div>
             <div class="px-alert">🤖 13 品牌 50 款資料庫｜<b>找不到型號？切到「用尺寸」模式</b></div>
 
             <div class="px-mode" role="tablist" aria-label="計算模式">
-              <button type="button" class="px-mode-btn active" data-tcmode="model" onclick="setTcMode('model')">[A] FIND BY MODEL<span class="px-zh">📋 從型號找</span></button>
-              <button type="button" class="px-mode-btn" data-tcmode="size" onclick="setTcMode('size')">[B] BY SIZE<span class="px-zh">📐 用尺寸估算</span></button>
+              <button type="button" class="px-mode-btn active" data-tcmode="model" onclick="setTcMode('model')"><span class="px-zh">📋 從型號找</span></button>
+              <button type="button" class="px-mode-btn" data-tcmode="size" onclick="setTcMode('size')"><span class="px-zh">📐 用尺寸估算</span></button>
             </div>
 
             <!-- 模式 A：廠牌 → 型號 -->
             <div id="tcModeModel">
-              <label for="tcBrand">BRAND <span class="px-zh">品牌</span></label>
+              <label for="tcBrand">品牌</label>
               <select id="tcBrand" onchange="onTentBrandChange()"><option value="">— 選擇品牌 —</option></select>
-              <label for="tcModel">MODEL <span class="px-zh">型號</span></label>
+              <label for="tcModel">型號</label>
               <select id="tcModel" onchange="onTentModelChange()" disabled><option value="">— 先選品牌 —</option></select>
               <div id="tcRes" class="cc-calc-res" role="status" aria-live="polite"></div>
             </div>
 
             <!-- 模式 B：面積 + 人數 -->
             <div id="tcModeSize" hidden>
-              <label for="calcTent">TENT SIZE <span class="px-zh">帳篷大小</span></label>
+              <label for="calcTent">帳篷大小</label>
               <select id="calcTent">
                 <option value="2.2">小型寢室帳　約 270×270cm（2-3 人）</option>
                 <option value="2.7" selected>標準四人帳　約 300×300cm（3-4 人）</option>
@@ -1489,12 +1486,12 @@
                 <option value="4.8">大型／兩房帳　約 400×400cm（5-6 人）</option>
                 <option value="6.0">客廳帳／兩房一廳　440cm 以上（6 人以上）</option>
               </select>
-              <label for="calcPpl">PARTY <span class="px-zh">睡覺人數</span></label>
+              <label for="calcPpl">睡覺人數</label>
               <select id="calcPpl">
                 <option>1</option><option>2</option><option selected>3</option>
                 <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
               </select>
-              <button type="button" class="cc-pixel-btn" onclick="calcRecommend()">► START 推薦機型</button>
+              <button type="button" class="cc-pixel-btn" onclick="calcRecommend()">🔍 推薦機型</button>
               <div id="calcRes" class="cc-calc-res" role="status" aria-live="polite"></div>
             </div>
           </div>
@@ -1505,10 +1502,10 @@
 
           <!-- 1️⃣ 速查表優先放最上面（像素風） -->
           <div class="cc-pixel-box">
-            <div class="px-title">▶ CAMP SITE LOOKUP<span class="px-zh">🏕️ 可用冷氣露營區速查表 <span class="cc-updated-badge">最後更新 2026.06</span></span></div>
+            <div class="px-title"><span class="px-zh">🏕️ 可用冷氣露營區速查表 <span class="cc-updated-badge">最後更新 2026.06</span></span></div>
             <div class="px-alert">🤖 <b>AI 整理供參考</b>：收錄 600+ 個全台知名露營區的供電狀況，資料由 AI 整合各營區官網、粉專、訂位平台公開資訊。<b>實際配置仍以洽詢營主為準。</b></div>
 
-            <div class="cc-sites-stats" id="sitesStats">LOADING…</div>
+            <div class="cc-sites-stats" id="sitesStats">載入中…</div>
             <div class="cc-sites-controls">
               <input type="text" id="sitesQ" oninput="renderSites()" placeholder="🔍 輸入營區名稱或地區開始查詢">
               <select id="sitesRegion" onchange="renderSites()">
