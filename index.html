@@ -2345,7 +2345,8 @@ var searchSites = debounce(function () {
       var rows = (d.sites || []).filter(function (s) {
         // 客戶端只顯示已確認可帶/不可帶，過濾掉未確認 (NULL)
         if (s.allows_ac !== 1 && s.allows_ac !== 0) return false;
-        if (region && (s.region || '') !== region) return false;
+        // 地區用「包含」比對：選「苗栗」要能匹配「苗栗南庄」「苗栗大湖」等
+        if (region && (s.region || '').indexOf(region) < 0) return false;
         if (status === '1' && s.allows_ac !== 1) return false;
         if (status === '0' && s.allows_ac !== 0) return false;
         if (q && (s.name || '').toLowerCase().indexOf(q.toLowerCase()) < 0 && (s.region || '').toLowerCase().indexOf(q.toLowerCase()) < 0) return false;
