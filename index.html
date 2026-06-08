@@ -1517,7 +1517,6 @@
                 <option value="">全部狀態</option>
                 <option value="1">✓ 可帶冷氣</option>
                 <option value="0">✗ 不可帶</option>
-                <option value="?">❓ 未確認</option>
               </select>
             </div>
             <div id="sitesHint" style="padding:14px 12px;font-size:.85rem;line-height:1.6">
@@ -2245,12 +2244,13 @@ function loadSitesStats() {
     sitesStatsLoaded = true;
     var stats = document.getElementById('sitesStats');
     if (!stats) return;
-    var total = d.total || 0;
-    var can = 0, unk = 0, no = 0;
+    var can = 0, no = 0;
     (d.breakdown || []).forEach(function (b) {
-      if (b.allows_ac === 1) can += b.c; else if (b.allows_ac === 0) no += b.c; else unk += b.c;
+      if (b.allows_ac === 1) can += b.c; else if (b.allows_ac === 0) no += b.c;
     });
-    stats.innerHTML = '已收錄 <b>' + total + '</b> 個營區（<span style="color:#047857">✓ 可帶 ' + can + '</span>｜<span style="color:#d97706">❓ 待確認 ' + unk + '</span>'
+    // 只統計已確認的（可帶 + 不可帶），未確認的不對客戶顯示
+    var confirmed = can + no;
+    stats.innerHTML = '已確認 <b>' + confirmed + '</b> 個營區（<span style="color:#047857">✓ 可帶 ' + can + '</span>'
       + (no ? '｜<span style="color:#b91c1c">✗ 不可帶 ' + no + '</span>' : '') + '）';
   }).catch(function () {});
 }
@@ -2275,14 +2275,15 @@ var checkBkSite = debounce(function () {
     .then(function (r) { return r.json(); })
     .then(function (d) {
       var ql = v.toLowerCase();
-      var arr = d.sites || [];
+      // 客戶端只看「已確認可帶/不可帶」，未確認的視同未收錄
+      var arr = (d.sites || []).filter(function (s) { return s.allows_ac === 1 || s.allows_ac === 0; });
       // 1) 填入候選清單到瀏覽器原生 datalist（最多 10 筆，按名稱排序）
       var seen = {};
       var opts = arr
         .filter(function (s) { var n = s.name || ''; if (!n || seen[n]) return false; seen[n] = 1; return true; })
         .slice(0, 10)
         .map(function (s) {
-          var tag = s.allows_ac === 1 ? ' ✓ 可帶' : s.allows_ac === 0 ? ' ✗ 不可' : ' ❓ 未確認';
+          var tag = s.allows_ac === 1 ? ' ✓ 可帶' : ' ✗ 不可';
           return '<option value="' + escSites(s.name) + '">' + escSites((s.region || '') + tag) + '</option>';
         });
       dlist.innerHTML = opts.join('');
@@ -2299,16 +2300,13 @@ var checkBkSite = debounce(function () {
         }
         return;
       }
-      // 4) 有匹配：依狀態顯示
+      // 4) 有匹配：依狀態顯示（只會是 1 或 0，NULL 已在上方過濾掉視同未收錄）
       if (m.allows_ac === 1) {
         ind.innerHTML = '<span style="color:#047857">✓ 可帶冷氣</span>';
         if (detail) detail.className = 'cc-site-detail d-y';
-      } else if (m.allows_ac === 0) {
+      } else {
         ind.innerHTML = '<span style="color:#b91c1c">✗ 不可帶冷氣</span>';
         if (detail) detail.className = 'cc-site-detail d-n';
-      } else {
-        ind.innerHTML = '<span style="color:#d97706">❓ 已收錄但未確認</span>';
-        if (detail) detail.className = 'cc-site-detail d-u';
       }
       // 5) 顯示細節（地區 / 電源 / 備註）
       if (detail) {
@@ -2317,7 +2315,6 @@ var checkBkSite = debounce(function () {
         if (m.power_info) html += '<div class="sd-row"><span class="sd-k">⚡</span><span>' + escSites(m.power_info) + '</span></div>';
         if (m.note) html += '<div class="sd-row"><span class="sd-k">📝</span><span>' + escSites(m.note) + '</span></div>';
         if (m.allows_ac === 0) html += '<div class="sd-row"><span class="sd-k">💡</span><span>該營區不允許冷氣，建議換場地或來 LINE 討論替代方案。</span></div>';
-        if (m.allows_ac == null) html += '<div class="sd-row"><span class="sd-k">💡</span><span>已收錄但尚未確認電源狀況，建議您先與營主確認，或來 LINE 我們協助。</span></div>';
         detail.innerHTML = html || '<div class="sd-row"><span>✓ 可預約</span></div>';
         detail.hidden = !html;
       }
@@ -2346,10 +2343,11 @@ var searchSites = debounce(function () {
     .then(function (r) { return r.json(); })
     .then(function (d) {
       var rows = (d.sites || []).filter(function (s) {
+        // 客戶端只顯示已確認可帶/不可帶，過濾掉未確認 (NULL)
+        if (s.allows_ac !== 1 && s.allows_ac !== 0) return false;
         if (region && (s.region || '') !== region) return false;
         if (status === '1' && s.allows_ac !== 1) return false;
         if (status === '0' && s.allows_ac !== 0) return false;
-        if (status === '?' && s.allows_ac !== null && s.allows_ac !== undefined) return false;
         if (q && (s.name || '').toLowerCase().indexOf(q.toLowerCase()) < 0 && (s.region || '').toLowerCase().indexOf(q.toLowerCase()) < 0) return false;
         return true;
       });
