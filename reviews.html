@@ -106,7 +106,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
 .review-info{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
 .review-loc{font-size:.84rem;color:#1f2937;font-weight:800}
 .review-date{font-size:.74rem;color:#9ca3af;font-weight:600}
+.review-tag{font-size:.72rem;color:#047857;background:#ecfdf5;border:1px solid #6ee7b7;padding:2px 8px;border-radius:10px;font-weight:700}
 .review-note{font-size:.82rem;color:#4b5563;line-height:1.7;margin-top:8px;padding:8px 11px;background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 8px 8px 0}
+.google-review-cta{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1.5px solid #6ee7b7;border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.google-review-cta .gr-title{font-weight:800;color:#064e3b;font-size:.95rem;flex:1;min-width:0}
+.google-review-cta .gr-sub{font-size:.78rem;color:#065f46;margin-top:2px}
+.google-review-cta a{background:#fff;color:#065f46;border:1.5px solid #10b981;padding:8px 14px;border-radius:999px;text-decoration:none;font-weight:800;font-size:.85rem;display:inline-flex;align-items:center;gap:6px}
+.google-review-cta a:hover{background:#10b981;color:#fff}
 .invite{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px dashed #6ee7b7;border-radius:18px;padding:18px 20px;margin:1.4rem 0;text-align:center}
 .invite .t{font-size:1rem;color:#047857;font-weight:900;margin-bottom:5px}
 .invite .s{font-size:.82rem;color:#059669;line-height:1.7}
@@ -172,7 +178,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
       <div class="review-info">
         <span class="review-loc" itemprop="itemReviewed">📍 新竹尖石</span>
         <span class="review-date" itemprop="datePublished">2026.05</span>
+        <span class="review-tag">艾比酷 JUZ-400</span>
       </div>
+      <div class="review-note">亮點：免排水機型、適合中型帳篷、新竹尖石高海拔仍能維持涼爽。</div>
     </div>
   </article>
 
@@ -183,7 +191,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
       <div class="review-info">
         <span class="review-loc">📍 南投清境</span>
         <span class="review-date">2026.05</span>
+        <span class="review-tag">露友 LINE 回饋</span>
       </div>
+      <div class="review-note">亮點：高山露營降溫效果有感、取機交付流程順暢。</div>
     </div>
   </article>
 
@@ -194,7 +204,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
       <div class="review-info">
         <span class="review-loc">📍 宜蘭太平山</span>
         <span class="review-date">2026.04</span>
+        <span class="review-tag">親子露營</span>
       </div>
+      <div class="review-note">亮點：山區夜間溫差大，冷氣穩定運作整夜，適合家庭與親子露營。</div>
     </div>
   </article>
 
@@ -227,12 +239,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
     <div class="s">把帳篷清涼照／使用心得傳到我們 LINE<br>有機會刊登在<b>好評牆 + IG 頻道</b>，順便分享給更多露友</div>
   </div>
 
+  <div class="google-review-cta">
+    <div style="font-size:1.6rem">⭐</div>
+    <div class="gr-title">
+      想看更多公開好評？
+      <div class="gr-sub">租過露涼社的客戶也有在 Google 商家留下完整評論（含照片）</div>
+    </div>
+    <a href="https://g.page/r/CampCool/review" target="_blank" rel="noopener" onclick="if(window.gtag)gtag('event','google_review_click',{event_label:'reviews_page'});">📍 看 Google 評論</a>
+  </div>
+
   <div class="banner">
     <div>
       <div class="t">💬 看完好評想試試？LINE 直接詢問</div>
       <div class="s">兩天一夜 $1,000 起・連假熱門時段建議提前 2 週</div>
     </div>
-    <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener">立即詢問</a>
+    <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="if(window.gtag)gtag('event','line_click',{event_label:'reviews_banner'});">LINE 查檔期</a>
   </div>
 
   <div class="sh">⭐ 為什麼選露涼社？</div>

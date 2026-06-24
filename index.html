@@ -280,17 +280,8 @@
   ]
 }
 </script>
-<!-- BreadcrumbList -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "露涼社 CampCool 首頁", "item": "https://campcool.tw/"},
-    {"@type": "ListItem", "position": 2, "name": "露營冷氣 BTU 選購指南", "item": "https://campcool.tw/btu-guide.html"}
-  ]
-}
-</script>
+<!-- BreadcrumbList：首頁本身無上層階層，移除以避免錯誤暗示 BTU 指南為首頁子層級 -->
+<!-- 各子頁面（btu-guide.html / hsinchu.html 等）自帶 breadcrumb 指回首頁 -->
 <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
@@ -342,6 +333,12 @@
   .cc-hero-stat { margin-top: 10px; position: relative; z-index: 1; font-size: .75rem; opacity: .88; font-weight: 600; background: rgba(255,255,255,.15); display: inline-block; border-radius: 20px; padding: 3px 12px; }
   .cc-hero-cta { margin-top: 14px; position: relative; z-index: 1; display: inline-block; background: #fff; color: #047857; font-size: .95rem; font-weight: 800; border: none; border-radius: 999px; padding: .7rem 1.5rem; box-shadow: 0 4px 14px rgba(0,0,0,.2); cursor: pointer; }
   .cc-hero-cta:active { transform: translateY(1px); }
+  /* 快速詢問 pills（hero 下方，低摩擦 LINE 入口）*/
+  .cc-quick { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; position: relative; z-index: 1; }
+  .cc-quick button { background: rgba(255,255,255,.18); color: #fff; border: 1.5px solid rgba(255,255,255,.45); border-radius: 999px; padding: 5px 12px; font-size: .76rem; font-weight: 700; cursor: pointer; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); transition: background .15s; }
+  .cc-quick button:hover { background: rgba(255,255,255,.32); }
+  .cc-quick button:active { transform: translateY(1px); }
+  .cc-quick-hint { font-size: .7rem; color: rgba(255,255,255,.75); margin-top: 6px; }
 
   /* ── Bottom nav（滿版玻璃擬態）── */
   .cc-nav {
@@ -1172,7 +1169,13 @@
         <h1 class="cc-hero-title">❄️ 睡覺不悶熱，露營才好玩</h1>
         <p class="cc-hero-sub">兩天一夜 $1,000・新竹・台北・台中・24H 取還</p>
         <div class="cc-hero-stat">✅ 已服務 800+ 組露友</div>
-        <div><button type="button" class="cc-hero-cta" onclick="goBooking('hero')">💬 立即預約</button></div>
+        <div><button type="button" class="cc-hero-cta" onclick="goBooking('hero')">💬 LINE 查檔期</button></div>
+        <div class="cc-quick" aria-label="快速詢問">
+          <button type="button" onclick="quickAsk('schedule')">📅 只問檔期</button>
+          <button type="button" onclick="quickAsk('combo')">❄️ 冷氣 + 冰箱</button>
+          <button type="button" onclick="quickAsk('recommend')">🤔 不知道選哪台</button>
+        </div>
+        <div class="cc-quick-hint">點上方按鈕 → 開啟 LINE 並預填問題，貼出即可</div>
       </div>
       <div class="cc-body">
 
@@ -1235,7 +1238,7 @@
             </tbody>
           </table>
           <div class="cc-price-cta">
-            <button type="button" onclick="goBooking('pricing')">💬 立即預約・查詢檔期</button>
+            <button type="button" onclick="goBooking('pricing')">💬 LINE 查檔期 · 不強迫預約</button>
             <div class="cc-price-urgent">⚡ 連假熱門時段有限，建議提前 2 週預約</div>
             <div class="cc-price-note">無隱藏費用・透明定價・LINE 30 分鐘內回覆</div>
           </div>
@@ -1357,7 +1360,7 @@
             <div class="t">💬 現在詢問，今晚確認檔期</div>
             <div class="s">平均 30 分鐘回覆・問完沒有強迫預約</div>
           </div>
-          <a href="#booking" onclick="goBooking('linebanner');return false;">立即預約</a>
+          <a href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
       </div>
     </section>
@@ -1681,7 +1684,7 @@
             <div class="t">💬 現在詢問，今晚確認檔期</div>
             <div class="s">平均 30 分鐘回覆・問完沒有強迫預約</div>
           </div>
-          <a href="#booking" onclick="goBooking('linebanner');return false;">立即預約</a>
+          <a href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
       </div>
     </section>
@@ -1762,7 +1765,7 @@
             <div class="t">💬 現在詢問，今晚確認檔期</div>
             <div class="s">平均 30 分鐘回覆・問完沒有強迫預約</div>
           </div>
-          <a href="#booking" onclick="goBooking('linebanner');return false;">立即預約</a>
+          <a href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
       </div>
     </section>
@@ -1858,6 +1861,50 @@ function goBooking(source) {
     var el = document.getElementById('bookingForm');
     if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 60);
+}
+
+// 直接開 LINE 帶預填訊息（接 LINE Bot 自動建草稿流程）。
+// source 用於 GA4 歸因；message 為預填文字（會帶上「[來源:xxx]」讓 bot 端能識別來源）。
+function openLineWith(source, message) {
+  logLineClick(source || 'openLineWith', true);
+  var text = (message || '').trim();
+  // 在訊息開頭加入來源標記，bot 端 D1 訊息表會記錄，可供未命中分析查歸因
+  var tagged = '[來源:' + (source || 'web') + ']\n' + text;
+  // LINE 預填訊息格式：https://line.me/R/oaMessage/{basicId}/?{urlencodedText}
+  var url = 'https://line.me/R/oaMessage/%40campcool/?' + encodeURIComponent(tagged);
+  try { window.open(url, '_blank', 'noopener'); }
+  catch(e) { window.location.href = url; }
+}
+
+// 快速詢問：3 種預填模板（首頁 hero 下方的 pills 用）
+function quickAsk(type) {
+  var msg = '';
+  if (type === 'schedule') {
+    msg = '你好，我想問露營冷氣檔期：\n'
+        + '👤 稱呼：\n'
+        + '📱 手機：\n'
+        + '📅 日期區間：（例如 7/12-13）\n'
+        + '📍 取件地點：（內湖／士林／五股／竹北／新竹／西屯）\n'
+        + '⛺ 營區：\n'
+        + '🔧 希望機型：（艾比酷 JUZ-400 / 山水 SAC-688）';
+  } else if (type === 'combo') {
+    msg = '你好，想一起問冷氣 + 移動冰箱：\n'
+        + '👤 稱呼：\n'
+        + '📱 手機：\n'
+        + '📅 日期區間：\n'
+        + '📍 取件地點：\n'
+        + '❄️ 冷氣機型：（艾比酷 / 山水 / 兩款都可）\n'
+        + '🧊 需要冰箱：是\n'
+        + '⛺ 營區：';
+  } else if (type === 'recommend') {
+    msg = '你好，想麻煩幫我推薦機型：\n'
+        + '⛺ 帳篷型號或尺寸：\n'
+        + '👥 人數：\n'
+        + '📅 預計露營日期：\n'
+        + '📍 預計取件地點：\n'
+        + '營區（若已決定）：';
+  }
+  openLineWith('quick_' + type, msg);
 }
 
 // 捲動到好評區（首屏好評橫條點擊）
