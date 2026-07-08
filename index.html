@@ -296,6 +296,23 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "露涼社露營冷氣租借主題入口",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"露營冷氣租借","url":"https://campcool.tw/camping-ac-rental.html"},
+    {"@type":"ListItem","position":2,"name":"艾比酷 JUZ-400 露營冷氣","url":"https://campcool.tw/juz-400.html"},
+    {"@type":"ListItem","position":3,"name":"山水 SAC-688 露營冷氣","url":"https://campcool.tw/sac-688.html"},
+    {"@type":"ListItem","position":4,"name":"露營移動冰箱租借","url":"https://campcool.tw/camping-fridge-rental.html"},
+    {"@type":"ListItem","position":5,"name":"露營冷氣用電指南","url":"https://campcool.tw/camping-power-guide.html"},
+    {"@type":"ListItem","position":6,"name":"新竹竹北露營冷氣租借","url":"https://campcool.tw/areas/hsinchu.html"},
+    {"@type":"ListItem","position":7,"name":"台北露營冷氣租借","url":"https://campcool.tw/areas/taipei.html"},
+    {"@type":"ListItem","position":8,"name":"新北露營冷氣租借","url":"https://campcool.tw/areas/new-taipei.html"}
+  ]
+}
+</script>
 <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
@@ -1145,6 +1162,66 @@
   .cc-proof-cap .loc { color: #6b7280; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cc-proof-more { flex-shrink: 0; width: 92px; border-radius: 12px; border: 1.5px dashed #6ee7b7; background: #f0fdf4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; color: #047857; font-size: .72rem; font-weight: 800; }
   .cc-proof-more .arr { font-size: 1.2rem; }
+
+  .cc-seo-hub {
+    max-width: 680px;
+    margin: 0 auto 1rem;
+    padding: 0 .9rem;
+  }
+  .cc-seo-hub-box {
+    background: #ffffff;
+    border: 1px solid #d1fae5;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 8px 24px rgba(6, 95, 70, .08);
+  }
+  .cc-seo-hub h2 {
+    font-size: 1.1rem;
+    color: #064e3b;
+    margin: 0 0 6px;
+  }
+  .cc-seo-hub p {
+    color: #475569;
+    font-size: .78rem;
+    line-height: 1.65;
+    margin: 0 0 14px;
+  }
+  .cc-seo-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .cc-seo-link {
+    display: block;
+    min-height: 92px;
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    background: linear-gradient(160deg, #fff, #f8fafc);
+    color: #0f172a;
+    text-decoration: none;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .cc-seo-link:hover {
+    transform: translateY(-3px);
+    border-color: #6ee7b7;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, .1);
+  }
+  .cc-seo-link strong {
+    display: block;
+    color: #047857;
+    font-size: .82rem;
+    margin-bottom: 4px;
+  }
+  .cc-seo-link span {
+    display: block;
+    color: #64748b;
+    font-size: .68rem;
+    line-height: 1.45;
+  }
+  @media (max-width: 520px) {
+    .cc-seo-links { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -1773,6 +1850,21 @@
     </section>
 
   </div>
+
+  <section class="cc-seo-hub" aria-labelledby="seoHubTitle">
+    <div class="cc-seo-hub-box">
+      <h2 id="seoHubTitle">露營冷氣租借快速入口</h2>
+      <p>依照「機型、地區、用電、價格」整理重點頁面，方便露友快速判斷，也讓 Google 與 AI 更清楚理解露涼社的服務內容。</p>
+      <div class="cc-seo-links">
+        <a class="cc-seo-link" href="camping-ac-rental.html"><strong>露營冷氣租借</strong><span>價格、押金、適合帳篷與預約流程總整理。</span></a>
+        <a class="cc-seo-link" href="juz-400.html"><strong>艾比酷 JUZ-400</strong><span>適合 2-4 人帳，小家庭與一般睡帳優先看這台。</span></a>
+        <a class="cc-seo-link" href="sac-688.html"><strong>山水 SAC-688</strong><span>適合大帳、多人、寵物同帳與想要更強冷房力。</span></a>
+        <a class="cc-seo-link" href="camping-power-guide.html"><strong>露營冷氣用電</strong><span>110V、延長線、跳電風險與營區電力確認重點。</span></a>
+        <a class="cc-seo-link" href="areas/hsinchu.html"><strong>新竹・竹北取機</strong><span>竹北交流道、公道五路與新竹露營地區服務。</span></a>
+        <a class="cc-seo-link" href="faq.html"><strong>常見問題 FAQ</strong><span>租金、押金、取消、雨天改期與取還方式。</span></a>
+      </div>
+    </div>
+  </section>
 
   <!-- 聯絡資訊 / NAP（給 AI 與爬蟲讀得到的顯式資料）-->
   <footer class="cc-foot" aria-label="聯絡資訊">
