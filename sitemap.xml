@@ -105,4 +105,12 @@
       <image:title>露涼社 CampCool 露友好評 - 宜蘭太平山</image:title>
     </image:image>
   </url>
+
+  <!-- 冷氣壞了短期租借（居家急用線）-->
+  <url>
+    <loc>https://campcool.tw/emergency-ac.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
