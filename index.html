@@ -9,10 +9,21 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-18167565264');
+  window.CAMPCOOL_CONFIG = { ga4MeasurementId: '' };
+  fetch('https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727')
+    .then(function (response) { return response.ok ? response.json() : {}; })
+    .then(function (config) {
+      var id = String(config.ga4_measurement_id || '');
+      if (/^G-[A-Z0-9]+$/.test(id)) {
+        window.CAMPCOOL_CONFIG.ga4MeasurementId = id;
+        gtag('config', id);
+      }
+    })
+    .catch(function () {});
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>露涼社 CampCool｜露營冷氣出租・移動冰箱租借｜新竹・竹北・台北・台中</title>
-<meta name="description" content="露營想吹冷氣又怕跳電？露涼社 CampCool 露營冷氣出租：艾比酷 JUZ-400 免排水、山水 SAC688 強效製冷，新竹／竹北／台北／台中 24H 便利取還，兩天一夜 $1,000 起，透明定價無隱藏費用，LINE 30 分鐘內回覆。">
+<meta name="description" content="露營想吹冷氣又怕跳電？露涼社 CampCool 露營冷氣出租：艾比酷 JUZ-400 免排水、山水 SAC688 強效製冷，新竹／竹北／台北／台中預約取還，兩天一夜 $1,000 起，透明定價無隱藏費用，LINE 通常 1 小時內回覆。">
 <meta name="keywords" content="露營冷氣出租,移動冷氣租借,冷氣出租,JUZ-400,SAC688,冰箱出租,露營冰箱,BTU,新竹,竹北,台北,新北,台中,24H取還,免排水冷氣,露營,車宿">
 <link rel="canonical" href="https://campcool.tw/">
 <meta name="geo.region" content="TW">
@@ -166,7 +177,7 @@
       "name": "露涼社冷氣出租有哪些服務據點？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "目前服務據點包含：新竹、竹北（24H 社區寄櫃與公道五路便利倉，近新竹好市多與交流道）、台北（內湖近內湖好市多、士林）、新北（五股）、台中（西屯）。各據點皆鄰近國道交流道，提供 24H 便利取還服務，服務範圍涵蓋台中以北全台灣。"
+        "text": "目前服務據點包含：新竹、竹北（24H 社區寄櫃與公道五路便利倉，近新竹好市多與交流道）、台北（內湖近內湖好市多、士林）、新北（五股）、台中（西屯）。各據點採預約取還，主要服務北台灣與中部露營路線。"
       }
     },
     {
@@ -190,7 +201,7 @@
       "name": "怎麼預約？需要簽約嗎？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "透過 LINE 官方帳號告知露營日期、地點與需求即可，平均 30 分鐘內回覆並確認檔期，匯款後完成預約，免簽約。取機前 7 天以上取消全額退費。"
+        "text": "透過 LINE 官方帳號告知露營日期、地點與需求即可，通常 1 小時內回覆並確認檔期，匯款後完成預約，免簽約。一般取消於取機前 2 週可全額退費。"
       }
     },
     {
@@ -1428,7 +1439,7 @@
             </div>
             <button type="button" onclick="quickPlan('請幫我推薦')">💬 不確定方案，請幫我查檔期</button>
             <div class="cc-price-urgent">⚡ 連假熱門時段有限，建議提前 2 週預約</div>
-            <div class="cc-price-note">無隱藏費用・透明定價・LINE 30 分鐘內回覆</div>
+            <div class="cc-price-note">無隱藏費用・透明定價・LINE 通常 1 小時內回覆</div>
           </div>
         </div>
 
@@ -1439,7 +1450,7 @@
           <div class="cc-zones-header">
             <div class="icon">⛺</div>
             <div>
-              <div class="cc-zones-title">台中以北全台灣</div>
+              <div class="cc-zones-title">北台灣與中部露營路線</div>
               <div class="cc-zones-sub">3 大區 · 6 個取機點</div>
             </div>
           </div>
@@ -1546,7 +1557,7 @@
         <div class="cc-linebanner">
           <div>
             <div class="t">💬 現在詢問，今晚確認檔期</div>
-            <div class="s">平均 30 分鐘回覆・問完沒有強迫預約</div>
+            <div class="s">通常 1 小時內回覆・問完沒有強迫預約</div>
           </div>
           <a href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
@@ -1734,7 +1745,7 @@
     <section class="cc-page" data-tab="booking" hidden>
       <div class="cc-hero" style="background:linear-gradient(135deg,#7f1d1d,#dc2626)">
         <div class="cc-hero-ovl"></div>
-        <div class="cc-hero-badge">💬 LINE 30 分鐘內回覆</div>
+        <div class="cc-hero-badge">💬 LINE 通常 1 小時內回覆</div>
         <h2 class="cc-hero-title">📋 預約簡單，3 步驟搞定</h2>
         <p class="cc-hero-sub">LINE 詢問 → 確認檔期 → 付款完成，不用等</p>
       </div>
@@ -1779,7 +1790,7 @@
             <label for="pickupWay">取機方式</label>
             <select id="pickupWay">
               <option value="親自取還">親自至據點取還</option>
-              <option value="宅配到府">宅配到府（運費另計）</option>
+              <option value="預約自取">預約自取（目前不提供宅配）</option>
             </select>
           </div>
 
@@ -1869,9 +1880,10 @@
         <div class="policy-block">
           <h4>📅 取消政策</h4>
           <ul style="padding:0">
-            <li>取機前 <strong style="color:#059669">7 天以上</strong>取消：全額退費</li>
-            <li>取機前 <strong style="color:#d97706">3-6 天</strong>取消：退費 50%</li>
-            <li>取機前 <strong style="color:#dc2626">1-2 天</strong>取消：不予退費</li>
+            <li>取機前 <strong style="color:#059669">2 週以上</strong>取消：全額退費</li>
+            <li>取機前 <strong style="color:#d97706">1 週以上、未滿 2 週</strong>取消：退費 50%</li>
+            <li>取機前 <strong style="color:#d97706">3-6 天</strong>取消：退費 30%</li>
+            <li>取機前 <strong style="color:#dc2626">約 2 天內</strong>取消：不予退費</li>
             <li>遇天災、颱風等不可抗力：協商處理</li>
           </ul>
         </div>
@@ -1880,7 +1892,7 @@
         <div class="cc-linebanner">
           <div>
             <div class="t">💬 現在詢問，今晚確認檔期</div>
-            <div class="s">平均 30 分鐘回覆・問完沒有強迫預約</div>
+            <div class="s">通常 1 小時內回覆・問完沒有強迫預約</div>
           </div>
           <a href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
@@ -1961,7 +1973,7 @@
         <div class="cc-linebanner">
           <div>
             <div class="t">💬 現在詢問，今晚確認檔期</div>
-            <div class="s">平均 30 分鐘回覆・問完沒有強迫預約</div>
+            <div class="s">通常 1 小時內回覆・問完沒有強迫預約</div>
           </div>
           <a href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
@@ -1989,10 +2001,10 @@
   <footer class="cc-foot" aria-label="聯絡資訊">
     <div class="cc-foot-inner">
       <div class="ft-name">露涼社 CampCool <span class="ft-tag">露營冷氣・移動冰箱出租</span></div>
-      <div class="ft-row"><span class="k">📍 服務區域</span><span>台中以北全台灣・6 個取機點（雙北・新竹・台中）</span></div>
+      <div class="ft-row"><span class="k">📍 服務區域</span><span>北台灣與中部露營路線・6 個預約取機點（雙北・新竹・台中）</span></div>
       <div class="ft-row"><span class="k">💬 LINE</span><a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('footer', true)">@campcool（點擊加入）</a></div>
       <div class="ft-row"><span class="k">📷 IG</span><a href="https://www.instagram.com/campcool2025" target="_blank" rel="noopener">@campcool2025</a></div>
-      <div class="ft-row"><span class="k">🕒 回覆</span><span>平均 30 分鐘內・每日 09:00–22:00</span></div>
+      <div class="ft-row"><span class="k">🕒 回覆</span><span>通常 1 小時內・每日 09:00–22:00</span></div>
       <div class="ft-row"><span class="k">🌐 網站</span><span>campcool.tw</span></div>
       <div class="ft-row" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12)"><span class="k">📍 各區資訊</span><span><a href="taipei.html">台北・新北</a> ・ <a href="hsinchu.html">新竹・竹北</a> ・ <a href="taichung.html">台中・西屯</a></span></div>
       <div class="ft-row"><span class="k">📚 知識</span><span><a href="btu-guide.html">BTU 選購指南</a> ・ <a href="faq.html">常見問題 FAQ</a> ・ <a href="how-it-works.html">預約流程</a> ・ <a href="reviews.html">客戶好評</a></span></div>
@@ -2041,6 +2053,7 @@ var TAB_IDS = ['rental','wiki','booking','fridge'];
    只有「真的開啟 LINE 聯絡」的動作會回傳轉換（logLineClick 第二參數 true）；
    導向表單等導覽點擊只記 GA4，不算轉換，避免灌水。留空則完全不送轉換。 */
 var ADS_CONVERSION_LABEL = 'AW-18167565264/IyTqCO2sprIcENCX_NZD';
+var BOOKING_LEAD_API = 'https://campcool-line-bot.a0920077473.workers.dev/public/booking-leads';
 
 function logLineClick(source, convert) {
   try {
@@ -2051,16 +2064,54 @@ function logLineClick(source, convert) {
         event_label: source || 'unknown',
         value: 1,
       });
-      // Google Ads 轉換（僅「真的聯絡 LINE」且已填標籤時才送出）
-      if (convert && ADS_CONVERSION_LABEL) {
-        gtag('event', 'conversion', {
-          send_to: ADS_CONVERSION_LABEL,
-          value: 1000,
-          currency: 'TWD',
-        });
-      }
     }
   } catch(e) {}
+}
+
+function logLeadCaptured(leadId) {
+  try {
+    if (typeof gtag === 'undefined') return;
+    gtag('event', 'generate_lead', {
+      lead_id: leadId,
+      method: 'website_booking_form',
+      transport_type: 'beacon',
+    });
+    // 代表表單已成功寫入 D1，不是租金收入，因此不送固定金額。
+    if (ADS_CONVERSION_LABEL) {
+      gtag('event', 'conversion', {
+        send_to: ADS_CONVERSION_LABEL,
+        transaction_id: leadId,
+      });
+    }
+  } catch (e) {}
+}
+
+function bookingAttribution() {
+  var params = new URLSearchParams(location.search);
+  var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid'];
+  var result = {};
+  keys.forEach(function (key) {
+    var value = params.get(key);
+    if (value) result[key] = value.slice(0, 200);
+  });
+  return result;
+}
+
+function gaClientId() {
+  var match = document.cookie.match(/(?:^|;\s*)_ga=GA\d+\.\d+\.(\d+\.\d+)/);
+  return match ? match[1] : '';
+}
+
+function bookingIdempotencyKey() {
+  var key = '';
+  try { key = sessionStorage.getItem('campcool_booking_lead_key') || ''; } catch (e) {}
+  if (!key) {
+    key = (window.crypto && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : 'web_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 14);
+    try { sessionStorage.setItem('campcool_booking_lead_key', key); } catch (e) {}
+  }
+  return key.replace(/[^A-Za-z0-9_-]/g, '_');
 }
 
 // GA4 一般事件（非轉換，用於漏斗分析）
@@ -2395,10 +2446,17 @@ function onModelChange() {
 }
 
 // 送出：整理欄位成 LINE 訊息、複製並開啟 LINE
-function submitBooking() {
+async function submitBooking() {
   var g = function (id) { var el = document.getElementById(id); return el ? String(el.value).trim() : ''; };
   var t = function (id) { var el = document.getElementById(id); return el ? el.textContent.trim() : ''; };
   var res = document.getElementById('bkRes');
+  var bookingDate = g('bkDate');
+  if (!bookingDate) {
+    res.innerHTML = '<div class="rt">請先選擇取機日期，再送出預約詢問。</div>';
+    res.classList.add('show');
+    document.getElementById('bkDate').focus();
+    return;
+  }
 
   // 手機可先留空，不阻擋 LINE 詢問；正式建檔時再補即可。
   var phone = g('bkPhone');
@@ -2412,7 +2470,7 @@ function submitBooking() {
   var L1 = [];
   var name = g('bkName'); if (name) L1.push('👤 稱呼：' + name);
   L1.push('📱 手機：' + (phone || '（可於 LINE 內補）'));
-  L1.push('📅 取機日：' + (g('bkDate') || '（未填）'));
+  L1.push('📅 取機日：' + bookingDate);
   L1.push('📍 取機點：' + g('pickupSel'));
   var site = g('bkSite'); if (site) L1.push('⛺ 營區：' + site);
 
@@ -2430,26 +2488,74 @@ function submitBooking() {
   var people = g('peopleSel'); if (people) L2.push('😴 睡覺人數：' + people);
   var note = g('bkNote'); if (note) L2.push('📝 其他需求：' + note);
 
-  var msg = '【露涼社 預約詢問】\n\n' + L1.join('\n') + '\n\n' + L2.join('\n');
+  res.innerHTML = '<div class="rt">正在建立預約編號…</div>';
+  res.classList.add('show');
 
+  var payload = {
+    idempotency_key: bookingIdempotencyKey(),
+    company: '',
+    renter_name: name,
+    renter_contact: phone,
+    booking_date: bookingDate,
+    plan: planMap[plan] || plan,
+    pickup_way: plan === '其他' ? g('pickupWay') : '',
+    location: g('pickupSel'),
+    site: site,
+    tent: tent,
+    people: people,
+    model: model,
+    ac_qty: parseInt(t('acQty'), 10) || 0,
+    fridge_qty: parseInt(t('fridgeQty'), 10) || 0,
+    note: note,
+    source_page: location.pathname + location.hash,
+    landing_page: location.href,
+    referrer: document.referrer,
+    ga_client_id: gaClientId(),
+    attribution: bookingAttribution(),
+  };
+
+  var captured;
+  try {
+    var response = await fetch(BOOKING_LEAD_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    captured = await response.json();
+    if (!response.ok || !captured.ok || !captured.lead_id) throw new Error(captured.error || 'capture_failed');
+  } catch (error) {
+    res.innerHTML =
+      '<div class="rt">目前無法建立預約編號，資料尚未送出。</div>' +
+      '<div style="margin-top:.5rem">請稍後再試，或直接用 LINE 聯絡我們。</div>' +
+      '<a class="rbtn" href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick(\'booking_form_fallback\')">💬 直接開啟 LINE</a>';
+    logEvent('booking_lead_error', String(error && error.message || 'unknown').slice(0, 80));
+    res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  var leadId = captured.lead_id;
+  var msg = '【露涼社 預約詢問】\n線索編號：' + leadId + '\n\n' + L1.join('\n') + '\n\n' + L2.join('\n');
+  var lineUrl = 'https://line.me/R/oaMessage/%40campcool/?' + encodeURIComponent('[來源:booking_form]\n' + msg);
 
   res.innerHTML =
-    '<div class="rt">✅ 預約內容已整理好</div>' +
+    '<div class="rt">✅ 已建立預約編號 ' + leadId + '</div>' +
     '<pre id="bkMsg"></pre>' +
-    '<a class="rbtn" href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick(\'booking_form\', true)">💬 開啟 LINE 貼上送出</a>';
+    '<a class="rbtn" id="bkLineLink" target="_blank" rel="noopener">💬 開啟 LINE 送出預約</a>';
   res.querySelector('#bkMsg').textContent = msg;
-  res.classList.add('show');
+  var lineLink = res.querySelector('#bkLineLink');
+  lineLink.href = lineUrl;
+  lineLink.addEventListener('click', function () { logLineClick('booking_form_line_open'); });
 
   try {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(msg).then(function () {
         var rt = res.querySelector('.rt');
-        if (rt) rt.textContent = '✅ 已複製預約內容，開啟 LINE 貼上即可';
+        if (rt) rt.textContent = '✅ 已建立並複製預約編號 ' + leadId;
       }, function () {});
     }
   } catch (e) {}
 
-  logLineClick('booking_form_generate');
+  logLeadCaptured(leadId);
   res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
@@ -2474,6 +2580,7 @@ function resetBooking() {
   onPlanChange();
   var res = document.getElementById('bkRes');
   if (res) { res.classList.remove('show'); res.innerHTML = ''; }
+  try { sessionStorage.removeItem('campcool_booking_lead_key'); } catch (e) {}
 }
 
 // 分頁切換：顯示對應區塊、更新導覽列、寫入網址 hash 與 localStorage

@@ -59,7 +59,7 @@ const PricingTable = ({ onLineClick }) => (
         ⚡ 連假熱門時段有限，建議提前 2 週預約
       </div>
       <div style={{ textAlign: 'center', marginTop: 4, fontSize: '.72rem', color: '#9ca3af' }}>
-        無隱藏費用・透明定價・LINE 30 分鐘內回覆
+        無隱藏費用・透明定價・LINE 通常 1 小時內回覆
       </div>
     </div>
   </div>
@@ -78,7 +78,7 @@ const LineBanner = ({ onLineClick }) => (
         💬 現在詢問，今晚確認檔期
       </div>
       <div style={{ fontSize: '.75rem', opacity: .88, marginTop: 3, fontWeight: 600 }}>
-        平均 30 分鐘回覆・問完沒有強迫預約
+        通常 1 小時內回覆・問完沒有強迫預約
       </div>
     </div>
     <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener"

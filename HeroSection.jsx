@@ -18,7 +18,7 @@ const HERO_THEMES = {
   },
   booking: {
     gradient: 'linear-gradient(135deg,#7f1d1d,#dc2626)',
-    badge: '💬 LINE 30 分鐘內回覆',
+    badge: '💬 LINE 通常 1 小時內回覆',
     emoji: '📋',
     title: '預約簡單，3 步驟搞定',
     sub: 'LINE 詢問 → 確認檔期 → 付款完成，不用等',

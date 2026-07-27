@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://campcool.tw/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -49,7 +49,7 @@
   <!-- 台北・新北地區落地頁 -->
   <url>
     <loc>https://campcool.tw/taipei.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -57,7 +57,7 @@
   <!-- 新竹・竹北地區落地頁 -->
   <url>
     <loc>https://campcool.tw/hsinchu.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -65,7 +65,7 @@
   <!-- 台中・西屯地區落地頁 -->
   <url>
     <loc>https://campcool.tw/taichung.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -121,11 +121,8 @@
   <url><loc>https://campcool.tw/camping-fridge-rental.html</loc><lastmod>2026-07-08</lastmod><changefreq>monthly</changefreq><priority>0.78</priority></url>
   <url><loc>https://campcool.tw/camping-power-guide.html</loc><lastmod>2026-07-08</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
 
-  <!-- 新版地區頁 -->
-  <url><loc>https://campcool.tw/areas/taipei.html</loc><lastmod>2026-07-08</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <!-- 新北保留獨立意圖頁；台北、新竹、台中的 /areas/ 舊網址已收斂到主地區頁 -->
   <url><loc>https://campcool.tw/areas/new-taipei.html</loc><lastmod>2026-07-08</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://campcool.tw/areas/hsinchu.html</loc><lastmod>2026-07-08</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
-  <url><loc>https://campcool.tw/areas/taichung.html</loc><lastmod>2026-07-08</lastmod><changefreq>monthly</changefreq><priority>0.72</priority></url>
 
   <!-- AI / GEO 可讀資料 -->
   <url><loc>https://campcool.tw/llms.txt</loc><lastmod>2026-07-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
