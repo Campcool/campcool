@@ -51,6 +51,7 @@ for (const required of [
   '[來源:booking_form]',
   'cc-line-shimmer',
   'prefers-reduced-motion: reduce',
+  '竹北社區取件（預約制）',
   '通常 1 小時內回覆',
   '目前不提供宅配',
 ]) {
@@ -67,6 +68,14 @@ for (const forbidden of [
 }
 if (/value:\s*1000/.test(homepage)) {
   errors.push('index.html still assigns a fixed NT$1,000 value to a lead conversion');
+}
+
+const publicHtml = htmlFiles.map((file) => fs.readFileSync(file, 'utf8')).join('\n');
+if (/24\s*H/i.test(publicHtml)) {
+  errors.push('public HTML still advertises 24H pickup or return');
+}
+for (const forbidden of ['社區寄櫃', '寄櫃自取', '取件碼', '隨時自取']) {
+  if (publicHtml.includes(forbidden)) errors.push('public HTML still contains retired community locker copy: ' + forbidden);
 }
 
 if (errors.length) {
