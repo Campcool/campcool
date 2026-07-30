@@ -46,13 +46,24 @@ for (const duplicate of ['areas/taipei.html', 'areas/hsinchu.html', 'areas/taich
 
 const homepage = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 for (const required of [
-  '/public/booking-leads',
-  'generate_lead',
-  '線索編號：',
+  'booking_message_composed',
+  '內容只在此裝置整理',
+  '[來源:booking_form]',
+  'cc-line-shimmer',
+  'prefers-reduced-motion: reduce',
   '通常 1 小時內回覆',
   '目前不提供宅配',
 ]) {
   if (!homepage.includes(required)) errors.push('index.html missing required text: ' + required);
+}
+for (const forbidden of [
+  '/public/booking-leads',
+  'BOOKING_LEAD_API',
+  'renter_contact',
+  'ga_client_id',
+  'generate_lead',
+]) {
+  if (homepage.includes(forbidden)) errors.push('index.html still contains pre-LINE lead upload marker: ' + forbidden);
 }
 if (/value:\s*1000/.test(homepage)) {
   errors.push('index.html still assigns a fixed NT$1,000 value to a lead conversion');
@@ -62,5 +73,5 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exitCode = 1;
 } else {
-  console.log('Validated ' + htmlFiles.length + ' HTML files, inline scripts, JSON-LD, canonicals, sitemap, and booking funnel markers.');
+  console.log('Validated ' + htmlFiles.length + ' HTML files, inline scripts, JSON-LD, canonicals, sitemap, local-only booking, and LINE funnel markers.');
 }

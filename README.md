@@ -42,6 +42,11 @@ python3 -m http.server 8000   # then visit http://localhost:8000/
 - Product specs (BTU / 重量 / 耗電) must stay consistent between `index.html`
   and `btu-guide.html`. Current values match manufacturer data:
   JUZ-400 = 5100 BTU / 425W / 13kg; SAC688 = 6000 BTU / 530W / 17kg.
-- LINE click tracking fires a GA4 `line_click` event. To also send a Google Ads
-  conversion, set `ADS_CONVERSION_LABEL` in `index.html`.
+- The booking form only composes and copies a LINE message in the visitor's
+  browser. It does not upload contact details to Campcool; the customer must
+  confirm and send the message in LINE before Campcool receives it.
+- LINE click tracking fires a GA4 `line_click` event. Buttons that actually open
+  LINE also send a Google Ads conversion when `ADS_CONVERSION_LABEL` is set.
+- Primary LINE calls to action use a brief shimmer every three seconds and
+  disable the animation when the visitor prefers reduced motion.
 - Design: mobile-first (≤680px content width), system font stack, no custom fonts.

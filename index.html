@@ -356,6 +356,35 @@
   .cc-logo-main { font-size: .95rem; font-weight: 800; color: #064e3b; line-height: 1.15; }
   .cc-logo-sub { font-size: .64rem; color: #059669; font-weight: 600; letter-spacing: .03em; }
   .cc-line-btn { background: linear-gradient(135deg,#06C755,#00a844); color: white; border: none; border-radius: 20px; padding: 8px 16px; font-size: .75rem; font-weight: 800; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; box-shadow: 0 3px 10px rgba(6,199,85,.35); white-space: nowrap; }
+  .cc-line-shimmer {
+    --cc-shimmer-color: rgba(255,255,255,.82);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .cc-line-shimmer::after {
+    content: "";
+    position: absolute;
+    top: -45%;
+    bottom: -45%;
+    left: -65%;
+    width: 36%;
+    background: linear-gradient(90deg, transparent, var(--cc-shimmer-color), transparent);
+    opacity: 0;
+    transform: translateX(0) skewX(-18deg);
+    animation: ccLineShimmer 3s ease-in-out infinite;
+    animation-delay: var(--cc-shimmer-delay, 0s);
+    pointer-events: none;
+  }
+  .cc-header .cc-line-shimmer { --cc-shimmer-delay: -1.5s; }
+  .cc-hero-cta.cc-line-shimmer { --cc-shimmer-color: rgba(52,211,153,.5); }
+  .cc-fab-line.cc-line-shimmer { --cc-shimmer-delay: -.75s; }
+  @keyframes ccLineShimmer {
+    0%,72% { opacity: 0; transform: translateX(0) skewX(-18deg); }
+    77% { opacity: 1; }
+    95% { opacity: .95; transform: translateX(560%) skewX(-18deg); }
+    100% { opacity: 0; transform: translateX(560%) skewX(-18deg); }
+  }
 
   /* ── Hero ── */
   .cc-hero { color: white; text-align: center; padding: 28px 20px 24px; position: relative; overflow: hidden; }
@@ -762,8 +791,10 @@
   .cc-form-res.show { display:block; animation:ccfade .25s ease; }
   .cc-form-res .rt { font-size:.9rem; font-weight:800; color:#047857; margin-bottom:.3rem; }
   .cc-form-res pre { white-space:pre-wrap; word-break:break-word; font-family:inherit; font-size:.82rem; line-height:1.6; color:#374151; background:#fff; border:1px solid #e5e7eb; border-radius:.5rem; padding:.7rem; margin:.5rem 0 .7rem; }
-  .cc-form-res .rbtn { display:inline-block; background:#06C755; color:#fff; font-weight:800; font-size:.88rem; text-decoration:none; padding:.6rem 1rem; border-radius:.6rem; }
+  .cc-form-res .rbtn { display:inline-block; background:#06C755; color:#fff; font-weight:800; font-size:.88rem; text-decoration:none; padding:.6rem 1rem; border-radius:.6rem; margin:.25rem 0 .2rem; }
   .cc-form-hint { font-size:.75rem; color:#6b7280; margin-top:.5rem; line-height:1.5; }
+  .cc-local-only-note { display:flex; gap:.45rem; align-items:flex-start; margin-top:.85rem; padding:.65rem .75rem; border:1px solid #a7f3d0; border-radius:.65rem; background:#f0fdf4; color:#065f46; font-size:.78rem; font-weight:700; line-height:1.55; }
+  .cc-form-res .cc-local-state { font-size:.77rem; color:#4b5563; line-height:1.55; margin:.35rem 0 .55rem; }
   .cc-modelinfo { display:none; margin-top:.4rem; font-size:.8rem; color:#047857; background:#f0fdf4; border:1px solid #a7f3d0; border-radius:.6rem; padding:.55rem .7rem; line-height:1.55; }
   /* 選購指南：子分頁（連貫頁籤＋下方內容區） */
   /* 選購指南：三色子頁籤（一眼可區分） */
@@ -983,12 +1014,10 @@
     transition: transform .2s;
   }
   .cc-fab:hover { transform: scale(1.08); }
-  .cc-fab-line { background: #06C755; animation: ccPulse 5s ease-in-out infinite; }
+  .cc-fab-line { background: #06C755; }
   .cc-fab-ig { background: linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
-  @keyframes ccPulse {
-    0%,88%,100% { box-shadow: 0 4px 16px rgba(0,0,0,.28); }
-    92% { box-shadow: 0 0 0 8px rgba(6,199,85,.35), 0 4px 16px rgba(0,0,0,.28); }
-    96% { box-shadow: 0 0 0 14px rgba(6,199,85,.12), 0 4px 16px rgba(0,0,0,.28); }
+  @media (prefers-reduced-motion: reduce) {
+    .cc-line-shimmer::after { animation: none; }
   }
 
   /* OG/BTU 比較圖 */
@@ -1311,7 +1340,7 @@
           <span class="cc-logo-sub">露營冷氣・移動冰箱出租</span>
         </span>
       </button>
-      <button class="cc-line-btn" type="button" onclick="goBooking('header')">
+      <button class="cc-line-btn cc-line-shimmer" type="button" onclick="goBooking('header')">
         <span>💬</span> 詢問・預約
       </button>
     </div>
@@ -1327,7 +1356,7 @@
         <h1 class="cc-hero-title">露營冷氣租借｜露涼社 CampCool</h1>
         <p class="cc-hero-sub">睡覺不悶熱，露營才好玩・兩天一夜 $1,000 起</p>
         <div class="cc-hero-stat">✅ 已服務 800+ 組露友</div>
-        <div><button type="button" class="cc-hero-cta" onclick="goBooking('hero')">💬 LINE 查檔期</button></div>
+        <div><button type="button" class="cc-hero-cta cc-line-shimmer" onclick="goBooking('hero')">💬 LINE 查檔期</button></div>
         <div class="cc-quick" aria-label="快速詢問">
           <button type="button" onclick="quickAsk('schedule')">📅 只問檔期</button>
           <button type="button" onclick="quickAsk('combo')">❄️ 冷氣 + 冰箱</button>
@@ -1559,7 +1588,7 @@
             <div class="t">💬 現在詢問，今晚確認檔期</div>
             <div class="s">通常 1 小時內回覆・問完沒有強迫預約</div>
           </div>
-          <a href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
+          <a class="cc-line-shimmer" href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
       </div>
     </section>
@@ -1859,13 +1888,14 @@
           <label for="bkNote">其他租借需求</label>
           <textarea id="bkNote" placeholder="也可代租天幕、營柱、焚火台／觀火台、椅子、沙發等露營用品；或填人數、帳篷大小、特殊取還時間等（選填）"></textarea>
 
+          <p class="cc-local-only-note"><span aria-hidden="true">🔒</span><span>內容只在此裝置整理，不會上傳到 Campcool。開啟 LINE 後，由你確認並自行送出。</span></p>
           <div class="cc-form-actions">
-            <button type="button" class="cc-btn-primary" onclick="submitBooking()">產生 LINE 詢問訊息</button>
+            <button type="button" class="cc-btn-primary" onclick="submitBooking()">整理 LINE 詢問訊息</button>
             <button type="button" class="cc-btn-ghost" onclick="resetBooking()">重新填寫</button>
           </div>
 
           <div class="cc-form-res" id="bkRes" role="status" aria-live="polite"></div>
-          <p class="cc-form-hint">送出會幫你整理好預約內容，複製後開啟 LINE 貼上傳給我們即可（不會自動送出，你可再確認）。</p>
+          <p class="cc-form-hint">按下按鈕只會整理並複製訊息；你在 LINE 內送出後，我們才會收到資料。</p>
         </div>
 
         <div class="cc-sh">📋 預約流程</div>
@@ -1894,7 +1924,7 @@
             <div class="t">💬 現在詢問，今晚確認檔期</div>
             <div class="s">通常 1 小時內回覆・問完沒有強迫預約</div>
           </div>
-          <a href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
+          <a class="cc-line-shimmer" href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
       </div>
     </section>
@@ -1975,7 +2005,7 @@
             <div class="t">💬 現在詢問，今晚確認檔期</div>
             <div class="s">通常 1 小時內回覆・問完沒有強迫預約</div>
           </div>
-          <a href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
+          <a class="cc-line-shimmer" href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
       </div>
     </section>
@@ -2028,7 +2058,7 @@
 
 <!-- 浮動社交按鈕 -->
 <div class="cc-float">
-  <a href="https://lin.ee/8maotVi" class="cc-fab cc-fab-line" target="_blank" rel="noopener" title="LINE @Campcool" onclick="logLineClick('floating', true)">
+  <a href="https://lin.ee/8maotVi" class="cc-fab cc-fab-line cc-line-shimmer" target="_blank" rel="noopener" title="LINE @Campcool" aria-label="使用 LINE 聯絡 Campcool" onclick="logLineClick('floating', true)">
     <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
       <rect width="52" height="52" rx="26" fill="#06C755"/>
       <path d="M26 9C16.6 9 9 15.6 9 23.7c0 5.9 3.9 11 9.8 13.9l-1.2 6.2 6.8-2.5c.5.1 1 .1 1.6.1 9.4 0 17-6.6 17-14.7S35.4 9 26 9z" fill="white"/>
@@ -2053,7 +2083,6 @@ var TAB_IDS = ['rental','wiki','booking','fridge'];
    只有「真的開啟 LINE 聯絡」的動作會回傳轉換（logLineClick 第二參數 true）；
    導向表單等導覽點擊只記 GA4，不算轉換，避免灌水。留空則完全不送轉換。 */
 var ADS_CONVERSION_LABEL = 'AW-18167565264/IyTqCO2sprIcENCX_NZD';
-var BOOKING_LEAD_API = 'https://campcool-line-bot.a0920077473.workers.dev/public/booking-leads';
 
 function logLineClick(source, convert) {
   try {
@@ -2064,54 +2093,14 @@ function logLineClick(source, convert) {
         event_label: source || 'unknown',
         value: 1,
       });
+      if (convert && ADS_CONVERSION_LABEL) {
+        gtag('event', 'conversion', {
+          send_to: ADS_CONVERSION_LABEL,
+          transport_type: 'beacon',
+        });
+      }
     }
   } catch(e) {}
-}
-
-function logLeadCaptured(leadId) {
-  try {
-    if (typeof gtag === 'undefined') return;
-    gtag('event', 'generate_lead', {
-      lead_id: leadId,
-      method: 'website_booking_form',
-      transport_type: 'beacon',
-    });
-    // 代表表單已成功寫入 D1，不是租金收入，因此不送固定金額。
-    if (ADS_CONVERSION_LABEL) {
-      gtag('event', 'conversion', {
-        send_to: ADS_CONVERSION_LABEL,
-        transaction_id: leadId,
-      });
-    }
-  } catch (e) {}
-}
-
-function bookingAttribution() {
-  var params = new URLSearchParams(location.search);
-  var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid'];
-  var result = {};
-  keys.forEach(function (key) {
-    var value = params.get(key);
-    if (value) result[key] = value.slice(0, 200);
-  });
-  return result;
-}
-
-function gaClientId() {
-  var match = document.cookie.match(/(?:^|;\s*)_ga=GA\d+\.\d+\.(\d+\.\d+)/);
-  return match ? match[1] : '';
-}
-
-function bookingIdempotencyKey() {
-  var key = '';
-  try { key = sessionStorage.getItem('campcool_booking_lead_key') || ''; } catch (e) {}
-  if (!key) {
-    key = (window.crypto && crypto.randomUUID)
-      ? crypto.randomUUID()
-      : 'web_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 14);
-    try { sessionStorage.setItem('campcool_booking_lead_key', key); } catch (e) {}
-  }
-  return key.replace(/[^A-Za-z0-9_-]/g, '_');
 }
 
 // GA4 一般事件（非轉換，用於漏斗分析）
@@ -2121,7 +2110,7 @@ function logEvent(name, label) {
 
 // 引導至預約表單（不擋人：表單上方仍可直接跳 LINE）
 function goBooking(source) {
-  logLineClick(source || 'goBooking');
+  logEvent('booking_form_view', source || 'goBooking');
   setTab('booking', { noScroll: true });
   setTimeout(function () {
     var el = document.getElementById('bookingForm');
@@ -2488,74 +2477,29 @@ async function submitBooking() {
   var people = g('peopleSel'); if (people) L2.push('😴 睡覺人數：' + people);
   var note = g('bkNote'); if (note) L2.push('📝 其他需求：' + note);
 
-  res.innerHTML = '<div class="rt">正在建立預約編號…</div>';
-  res.classList.add('show');
-
-  var payload = {
-    idempotency_key: bookingIdempotencyKey(),
-    company: '',
-    renter_name: name,
-    renter_contact: phone,
-    booking_date: bookingDate,
-    plan: planMap[plan] || plan,
-    pickup_way: plan === '其他' ? g('pickupWay') : '',
-    location: g('pickupSel'),
-    site: site,
-    tent: tent,
-    people: people,
-    model: model,
-    ac_qty: parseInt(t('acQty'), 10) || 0,
-    fridge_qty: parseInt(t('fridgeQty'), 10) || 0,
-    note: note,
-    source_page: location.pathname + location.hash,
-    landing_page: location.href,
-    referrer: document.referrer,
-    ga_client_id: gaClientId(),
-    attribution: bookingAttribution(),
-  };
-
-  var captured;
-  try {
-    var response = await fetch(BOOKING_LEAD_API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    captured = await response.json();
-    if (!response.ok || !captured.ok || !captured.lead_id) throw new Error(captured.error || 'capture_failed');
-  } catch (error) {
-    res.innerHTML =
-      '<div class="rt">目前無法建立預約編號，資料尚未送出。</div>' +
-      '<div style="margin-top:.5rem">請稍後再試，或直接用 LINE 聯絡我們。</div>' +
-      '<a class="rbtn" href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick(\'booking_form_fallback\')">💬 直接開啟 LINE</a>';
-    logEvent('booking_lead_error', String(error && error.message || 'unknown').slice(0, 80));
-    res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    return;
-  }
-
-  var leadId = captured.lead_id;
-  var msg = '【露涼社 預約詢問】\n線索編號：' + leadId + '\n\n' + L1.join('\n') + '\n\n' + L2.join('\n');
+  var msg = '【露涼社 預約詢問】\n\n' + L1.join('\n') + '\n\n' + L2.join('\n');
   var lineUrl = 'https://line.me/R/oaMessage/%40campcool/?' + encodeURIComponent('[來源:booking_form]\n' + msg);
-
-  res.innerHTML =
-    '<div class="rt">✅ 已建立預約編號 ' + leadId + '</div>' +
-    '<pre id="bkMsg"></pre>' +
-    '<a class="rbtn" id="bkLineLink" target="_blank" rel="noopener">💬 開啟 LINE 送出預約</a>';
-  res.querySelector('#bkMsg').textContent = msg;
-  var lineLink = res.querySelector('#bkLineLink');
-  lineLink.href = lineUrl;
-  lineLink.addEventListener('click', function () { logLineClick('booking_form_line_open'); });
+  var copied = false;
 
   try {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(msg).then(function () {
-        var rt = res.querySelector('.rt');
-        if (rt) rt.textContent = '✅ 已建立並複製預約編號 ' + leadId;
-      }, function () {});
+      await navigator.clipboard.writeText(msg);
+      copied = true;
     }
   } catch (e) {}
 
-  logLeadCaptured(leadId);
+  res.innerHTML =
+    '<div class="rt">' + (copied ? '✅ 訊息已複製' : '✅ 訊息已在此裝置整理完成') + '</div>' +
+    '<div class="cc-local-state">資料尚未上傳；請開啟 LINE，確認內容後自行送出。</div>' +
+    '<a class="rbtn cc-line-shimmer" id="bkLineLink" target="_blank" rel="noopener">💬 開啟 LINE 確認並送出</a>' +
+    '<pre id="bkMsg"></pre>';
+  res.classList.add('show');
+  res.querySelector('#bkMsg').textContent = msg;
+  var lineLink = res.querySelector('#bkLineLink');
+  lineLink.href = lineUrl;
+  lineLink.addEventListener('click', function () { logLineClick('booking_form_line_open', true); });
+
+  logEvent('booking_message_composed', 'local_only');
   res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
@@ -2580,7 +2524,6 @@ function resetBooking() {
   onPlanChange();
   var res = document.getElementById('bkRes');
   if (res) { res.classList.remove('show'); res.innerHTML = ''; }
-  try { sessionStorage.removeItem('campcool_booking_lead_key'); } catch (e) {}
 }
 
 // 分頁切換：顯示對應區塊、更新導覽列、寫入網址 hash 與 localStorage
