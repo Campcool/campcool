@@ -6,6 +6,10 @@ fridge rental), serving 新竹・竹北・台北・新北・台中.
 
 Mobile-first, deployed via GitHub Pages (`CNAME` → campcool.tw).
 
+AI agents and automated maintainers should read [`AI-README.md`](AI-README.md)
+before changing booking privacy, LINE tracking, pickup policy, motion, or social
+share metadata.
+
 ## Pages
 | File | Description |
 |---|---|
