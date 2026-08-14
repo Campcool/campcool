@@ -491,8 +491,7 @@
     align-items: center;
     gap: 8px;
   }
-  .cc-ann-link,
-  .cc-ann-pause {
+  .cc-ann-link {
     min-height: 44px;
     border-radius: 999px;
     font-family: inherit;
@@ -509,13 +508,6 @@
     color: #047857;
     text-decoration: none;
     box-shadow: 0 5px 14px rgba(0,0,0,.14);
-  }
-  .cc-ann-pause {
-    min-width: 44px;
-    padding: 0 10px;
-    border: 1px solid rgba(255,255,255,.28);
-    background: rgba(255,255,255,.12);
-    color: #fff;
   }
   .cc-announcements:focus-within {
     outline: 3px solid rgba(52,211,153,.28);
@@ -1504,7 +1496,6 @@
           <div class="cc-ann-footer">
             <div class="cc-ann-dots" id="ccAnnDots" aria-label="公告切換"></div>
             <div class="cc-ann-actions">
-              <button class="cc-ann-pause" type="button" id="ccAnnPause" aria-pressed="false">暫停</button>
               <a class="cc-ann-link" id="ccAnnLink" href="#booking" onclick="goBooking('announcement');return false;">查詢檔期</a>
             </div>
           </div>
@@ -2299,13 +2290,11 @@ function initAnnouncements() {
   var text = document.getElementById('ccAnnText');
   var status = document.getElementById('ccAnnStatus');
   var dots = document.getElementById('ccAnnDots');
-  var pauseBtn = document.getElementById('ccAnnPause');
   var link = document.getElementById('ccAnnLink');
-  if (!box || !kind || !title || !text || !status || !dots || !pauseBtn || !link || !CC_ANNOUNCEMENTS.length) return;
+  if (!box || !kind || !title || !text || !status || !dots || !link || !CC_ANNOUNCEMENTS.length) return;
 
   var index = 0;
   var timer = null;
-  var paused = false;
   var reduceMotion = false;
   try { reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
 
@@ -2336,7 +2325,7 @@ function initAnnouncements() {
 
   function start() {
     stop();
-    if (paused || reduceMotion || CC_ANNOUNCEMENTS.length < 2) return;
+    if (reduceMotion || CC_ANNOUNCEMENTS.length < 2) return;
     timer = window.setInterval(function () { render(index + 1); }, 4000);
   }
 
@@ -2353,13 +2342,6 @@ function initAnnouncements() {
     dots.appendChild(btn);
   });
 
-  pauseBtn.addEventListener('click', function () {
-    paused = !paused;
-    pauseBtn.textContent = paused ? '播放' : '暫停';
-    pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
-    if (paused) stop(); else start();
-    logEvent('announcement_toggle', paused ? 'pause' : 'play');
-  });
   box.addEventListener('mouseenter', stop);
   box.addEventListener('mouseleave', start);
   box.addEventListener('focusin', stop);
