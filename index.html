@@ -402,6 +402,131 @@
   .cc-quick button:active { transform: translateY(1px); }
   .cc-quick-hint { font-size: .7rem; color: rgba(255,255,255,.75); margin-top: 6px; }
 
+  .cc-announcements {
+    position: relative;
+    z-index: 180;
+    margin: -2px 0 16px;
+    background: linear-gradient(160deg, #064e3b, #047857);
+    color: #fff;
+    border: 1px solid rgba(167,243,208,.75);
+    border-radius: 16px;
+    padding: 13px 14px 12px;
+    box-shadow: 0 10px 24px rgba(6,95,70,.15);
+    overflow: hidden;
+  }
+  .cc-ann-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 7px;
+  }
+  .cc-ann-kicker {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.22);
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+  }
+  .cc-ann-status {
+    font-size: .68rem;
+    color: rgba(255,255,255,.74);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .cc-ann-title {
+    font-size: .96rem;
+    font-weight: 900;
+    line-height: 1.35;
+    margin-bottom: 4px;
+  }
+  .cc-ann-text {
+    font-size: .76rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,.86);
+    min-height: 2.45em;
+  }
+  .cc-ann-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .cc-ann-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cc-ann-dot {
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cc-ann-dot::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.44);
+    transition: width .18s ease, background .18s ease;
+  }
+  .cc-ann-dot[aria-current="true"]::before {
+    width: 22px;
+    background: #fff;
+  }
+  .cc-ann-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cc-ann-link,
+  .cc-ann-pause {
+    min-height: 44px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: .72rem;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .cc-ann-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 14px;
+    background: #fff;
+    color: #047857;
+    text-decoration: none;
+    box-shadow: 0 5px 14px rgba(0,0,0,.14);
+  }
+  .cc-ann-pause {
+    min-width: 44px;
+    padding: 0 10px;
+    border: 1px solid rgba(255,255,255,.28);
+    background: rgba(255,255,255,.12);
+    color: #fff;
+  }
+  .cc-announcements:focus-within {
+    outline: 3px solid rgba(52,211,153,.28);
+    outline-offset: 3px;
+  }
+  @media (max-width: 420px) {
+    .cc-ann-footer { align-items: stretch; flex-direction: column; gap: 8px; }
+    .cc-ann-actions { justify-content: space-between; }
+    .cc-ann-link { flex: 1; }
+  }
+
   .cc-decision {
     margin: -8px 0 16px;
     background: #fff;
@@ -1004,7 +1129,7 @@
   /* ── 浮動社交按鈕 ── */
   .cc-float {
     position: fixed; right: 14px; bottom: 100px;
-    display: flex; flex-direction: column; gap: 12px; z-index: 9999;
+    display: flex; flex-direction: column; gap: 12px; z-index: 160;
   }
   .cc-fab {
     width: 52px; height: 52px; border-radius: 50%;
@@ -1016,6 +1141,9 @@
   .cc-fab:hover { transform: scale(1.08); }
   .cc-fab-line { background: #06C755; }
   .cc-fab-ig { background: linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+  @media (max-width: 640px) {
+    .cc-float { display: none; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .cc-line-shimmer::after { animation: none; }
   }
@@ -1365,6 +1493,22 @@
         <div class="cc-quick-hint">點上方按鈕 → 開啟 LINE 並預填問題，貼出即可</div>
       </div>
       <div class="cc-body">
+
+        <section class="cc-announcements" aria-labelledby="ccAnnTitle" aria-live="polite">
+          <div class="cc-ann-head">
+            <span class="cc-ann-kicker" id="ccAnnKind">最新公告</span>
+            <span class="cc-ann-status" id="ccAnnStatus">1 / 4</span>
+          </div>
+          <h2 class="cc-ann-title" id="ccAnnTitle">本週熱門檔期請先詢問</h2>
+          <p class="cc-ann-text" id="ccAnnText">週末與連假詢問量較高，建議先用 LINE 確認 JUZ-400、SAC-688 與冰箱檔期。</p>
+          <div class="cc-ann-footer">
+            <div class="cc-ann-dots" id="ccAnnDots" aria-label="公告切換"></div>
+            <div class="cc-ann-actions">
+              <button class="cc-ann-pause" type="button" id="ccAnnPause" aria-pressed="false">暫停</button>
+              <a class="cc-ann-link" id="ccAnnLink" href="#booking" onclick="goBooking('announcement');return false;">查詢檔期</a>
+            </div>
+          </div>
+        </section>
 
         <div class="cc-decision" aria-label="快速選擇適合的露營冷氣">
           <div class="cc-decision-head">
@@ -2083,6 +2227,36 @@ var TAB_IDS = ['rental','wiki','booking','fridge'];
    只有「真的開啟 LINE 聯絡」的動作會回傳轉換（logLineClick 第二參數 true）；
    導向表單等導覽點擊只記 GA4，不算轉換，避免灌水。留空則完全不送轉換。 */
 var ADS_CONVERSION_LABEL = 'AW-18167565264/IyTqCO2sprIcENCX_NZD';
+var CC_ANNOUNCEMENTS = [
+  {
+    kind: '檔期提醒',
+    title: '本週熱門檔期請先詢問',
+    text: '週末與連假詢問量較高，建議先用 LINE 確認 JUZ-400、SAC-688 與冰箱檔期。',
+    cta: '查詢檔期',
+    source: 'announcement_schedule'
+  },
+  {
+    kind: '活動公告',
+    title: '露營照片回傳活動',
+    text: '租借後把冷氣實拍或清涼照傳到 LINE，有機會登上官網好評牆與 IG 頻道。',
+    cta: '了解活動',
+    source: 'announcement_review'
+  },
+  {
+    kind: '滿租提醒',
+    title: '熱門營區檔期陸續額滿',
+    text: '尖石、清境、谷關等熱門營區假日需求集中；不確定能不能帶冷氣，也可以先請我們幫你查。',
+    cta: '請我們查',
+    source: 'announcement_sites'
+  },
+  {
+    kind: '取件提醒',
+    title: '新竹、台北、台中取件請提早排',
+    text: '多點取件皆採預約制，越接近出發日越容易滿租，建議確認營區後就先保留設備。',
+    cta: '預約詢問',
+    source: 'announcement_pickup'
+  }
+];
 
 function logLineClick(source, convert) {
   try {
@@ -2116,6 +2290,83 @@ function goBooking(source) {
     var el = document.getElementById('bookingForm');
     if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 60);
+}
+
+function initAnnouncements() {
+  var box = document.querySelector('.cc-announcements');
+  var kind = document.getElementById('ccAnnKind');
+  var title = document.getElementById('ccAnnTitle');
+  var text = document.getElementById('ccAnnText');
+  var status = document.getElementById('ccAnnStatus');
+  var dots = document.getElementById('ccAnnDots');
+  var pauseBtn = document.getElementById('ccAnnPause');
+  var link = document.getElementById('ccAnnLink');
+  if (!box || !kind || !title || !text || !status || !dots || !pauseBtn || !link || !CC_ANNOUNCEMENTS.length) return;
+
+  var index = 0;
+  var timer = null;
+  var paused = false;
+  var reduceMotion = false;
+  try { reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+
+  function render(next) {
+    index = (next + CC_ANNOUNCEMENTS.length) % CC_ANNOUNCEMENTS.length;
+    var item = CC_ANNOUNCEMENTS[index];
+    kind.textContent = item.kind;
+    title.textContent = item.title;
+    text.textContent = item.text;
+    status.textContent = (index + 1) + ' / ' + CC_ANNOUNCEMENTS.length;
+    link.textContent = item.cta || '查詢檔期';
+    link.onclick = function () {
+      goBooking(item.source || 'announcement');
+      return false;
+    };
+    var btns = dots.querySelectorAll('button');
+    for (var i = 0; i < btns.length; i++) {
+      var on = i === index;
+      btns[i].setAttribute('aria-current', on ? 'true' : 'false');
+      btns[i].setAttribute('aria-label', '查看公告 ' + (i + 1) + '：' + CC_ANNOUNCEMENTS[i].title);
+    }
+  }
+
+  function stop() {
+    if (timer) window.clearInterval(timer);
+    timer = null;
+  }
+
+  function start() {
+    stop();
+    if (paused || reduceMotion || CC_ANNOUNCEMENTS.length < 2) return;
+    timer = window.setInterval(function () { render(index + 1); }, 4000);
+  }
+
+  dots.innerHTML = '';
+  CC_ANNOUNCEMENTS.forEach(function (item, i) {
+    var btn = document.createElement('button');
+    btn.className = 'cc-ann-dot';
+    btn.type = 'button';
+    btn.addEventListener('click', function () {
+      render(i);
+      start();
+      logEvent('announcement_dot', item.title);
+    });
+    dots.appendChild(btn);
+  });
+
+  pauseBtn.addEventListener('click', function () {
+    paused = !paused;
+    pauseBtn.textContent = paused ? '播放' : '暫停';
+    pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    if (paused) stop(); else start();
+    logEvent('announcement_toggle', paused ? 'pause' : 'play');
+  });
+  box.addEventListener('mouseenter', stop);
+  box.addEventListener('mouseleave', start);
+  box.addEventListener('focusin', stop);
+  box.addEventListener('focusout', start);
+
+  render(0);
+  start();
 }
 
 // 直接開 LINE 帶預填訊息（接 LINE Bot 自動建草稿流程）。
@@ -2556,6 +2807,8 @@ function setTab(id, opts) {
   var id = TAB_IDS.indexOf(fromHash) !== -1 ? fromHash : (TAB_IDS.indexOf(saved) !== -1 ? saved : 'rental');
   setTab(id, { noScroll: true });
 })();
+
+initAnnouncements();
 
 // 支援瀏覽器上一頁／分享連結直接深連結到分頁
 window.addEventListener('hashchange', function () {
