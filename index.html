@@ -355,7 +355,7 @@
   .cc-logo img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
   .cc-logo-main { font-size: .95rem; font-weight: 800; color: #064e3b; line-height: 1.15; }
   .cc-logo-sub { font-size: .64rem; color: #059669; font-weight: 600; letter-spacing: .03em; }
-  .cc-line-btn { background: linear-gradient(135deg,#06C755,#00a844); color: white; border: none; border-radius: 20px; padding: 8px 16px; font-size: .75rem; font-weight: 800; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; box-shadow: 0 3px 10px rgba(6,199,85,.35); white-space: nowrap; }
+  .cc-line-btn { min-height: 44px; background: linear-gradient(135deg,#06C755,#00a844); color: white; border: none; border-radius: 22px; padding: 8px 16px; font-size: .75rem; font-weight: 800; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; box-shadow: 0 3px 10px rgba(6,199,85,.35); white-space: nowrap; }
   .cc-line-shimmer {
     --cc-shimmer-color: rgba(255,255,255,.82);
     position: relative;
@@ -397,7 +397,7 @@
   .cc-hero-cta:active { transform: translateY(1px); }
   /* 快速詢問 pills（hero 下方，低摩擦 LINE 入口）*/
   .cc-quick { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; position: relative; z-index: 1; }
-  .cc-quick button { background: rgba(255,255,255,.18); color: #fff; border: 1.5px solid rgba(255,255,255,.45); border-radius: 999px; padding: 5px 12px; font-size: .76rem; font-weight: 700; cursor: pointer; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); transition: background .15s; }
+  .cc-quick button { min-height: 44px; background: rgba(255,255,255,.18); color: #fff; border: 1.5px solid rgba(255,255,255,.45); border-radius: 999px; padding: 7px 14px; font-size: .76rem; font-weight: 700; cursor: pointer; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); transition: background .15s; }
   .cc-quick button:hover { background: rgba(255,255,255,.32); }
   .cc-quick button:active { transform: translateY(1px); }
   .cc-quick-hint { font-size: .7rem; color: rgba(255,255,255,.75); margin-top: 6px; }
@@ -896,7 +896,7 @@
   .cc-counter-row { display:flex; align-items:center; justify-content:space-between; margin-top:.9rem; }
   .cc-counter-label { font-size:.86rem; font-weight:700; color:#374151; }
   .cc-counter { display:flex; align-items:center; border:1.5px solid #d1d5db; border-radius:.6rem; overflow:hidden; }
-  .cc-counter button { width:42px; height:42px; border:none; background:#f0fdf4; color:#059669; font-size:1.2rem; font-weight:800; cursor:pointer; line-height:1; }
+  .cc-counter button { width:44px; min-width:44px; height:44px; border:none; background:#f0fdf4; color:#059669; font-size:1.2rem; font-weight:800; cursor:pointer; line-height:1; }
   .cc-counter button:disabled { color:#cbd5e1; background:#f8fafc; cursor:not-allowed; }
   .cc-counter span { min-width:46px; text-align:center; font-size:1rem; font-weight:800; color:#1f2937; }
   .cc-cond { display:none; margin-top:.5rem; padding:.85rem; border:1px dashed #6ee7b7; border-radius:.7rem; background:#f0fdf4; }
@@ -1529,13 +1529,13 @@
         </div>
 
         <!-- 首屏好評縮圖橫條（社會證明前置） -->
-        <a href="#" onclick="scrollToReviews();return false;" style="display:block;text-decoration:none;color:inherit">
+        <a href="#reviews" onclick="scrollToReviews();return false;" style="display:block;text-decoration:none;color:inherit">
           <div style="font-size:.8rem;font-weight:800;color:#047857;margin:2px 0 6px;display:flex;align-items:center;gap:5px">⭐ 露友真實回饋 <span style="font-size:.7rem;color:#9ca3af;font-weight:600">（點看更多）</span></div>
           <div class="cc-proof-strip" aria-label="露友好評縮圖">
-            <span class="cc-proof-item"><img src="assets/review-04.jpg" alt="露友好評：效果很好" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">效果很好</span></span></span>
-            <span class="cc-proof-item"><img src="assets/review-05.jpg" alt="露友好評：涼度很可以" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">涼度很可以</span></span></span>
-            <span class="cc-proof-item"><img src="assets/review-01.jpg" alt="露友好評：新竹尖石" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">📍 新竹尖石</span></span></span>
-            <span class="cc-proof-item"><img src="assets/review-02.jpg" alt="露友好評：南投清境" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">📍 南投清境</span></span></span>
+            <span class="cc-proof-item"><img src="assets/review-04.jpg" alt="露友好評：效果很好" width="638" height="473" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">效果很好</span></span></span>
+            <span class="cc-proof-item"><img src="assets/review-05.jpg" alt="露友好評：涼度很可以" width="656" height="531" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">涼度很可以</span></span></span>
+            <span class="cc-proof-item"><img src="assets/review-01.jpg" alt="露友好評：新竹尖石" width="681" height="624" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">📍 新竹尖石</span></span></span>
+            <span class="cc-proof-item"><img src="assets/review-02.jpg" alt="露友好評：南投清境" width="644" height="469" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">📍 南投清境</span></span></span>
             <span class="cc-proof-more"><span class="arr">→</span>更多好評</span>
           </div>
         </a>
@@ -1780,7 +1780,7 @@
             <div class="cc-vs">
               <div class="cc-vs-card v-juz">
                 <div class="cc-vs-headline">3×3 以下｜1-4 人</div>
-                <div class="cc-vs-img"><img src="assets/juz400_product.webp" alt="艾比酷 JUZ-400 露營移動冷氣" loading="lazy"></div>
+                <div class="cc-vs-img"><img src="assets/juz400_product.webp" alt="艾比酷 JUZ-400 露營移動冷氣" width="1000" height="1000" loading="lazy"></div>
                 <div class="cc-vs-name">艾比酷<br>JUZ-400</div>
                 <div class="cc-vs-tag">輕量・免排水首選</div>
                 <div class="cc-vs-spec">
@@ -1794,7 +1794,7 @@
               </div>
               <div class="cc-vs-card v-sac">
                 <div class="cc-vs-headline">4×4 以上｜2-5 人</div>
-                <div class="cc-vs-img"><img src="assets/sac688_product.jpg" alt="山水 SAC688 露營移動冷氣" loading="lazy"></div>
+                <div class="cc-vs-img"><img src="assets/sac688_product.jpg" alt="山水 SAC688 露營移動冷氣" width="1000" height="1000" loading="lazy"></div>
                 <div class="cc-vs-name">山水<br>SAC688</div>
                 <div class="cc-vs-tag">強效製冷・大帳首選</div>
                 <div class="cc-vs-spec">
@@ -1815,7 +1815,7 @@
             <div>
               <strong>用電注意事項</strong>：營區 10A 電源<strong>不會跳電</strong>（冷氣＋冰箱＋燈＋手機約 4.8A，別同時用電熱水壺）。
               訂位前務必<strong>與營區確認</strong>是否支援冷氣與可用瓦數（10A 或 15A 迴路）。
-              <a href="#" onclick="setWikiTab('power');event.preventDefault()" style="display:inline-block;margin-top:6px;color:#b45309;font-weight:800;text-decoration:underline">⚡ 點此切換到「營區用電與速查表」→</a>
+              <button type="button" onclick="setWikiTab('power')" style="display:inline-block;min-height:44px;margin-top:6px;color:#b45309;font-weight:800;text-decoration:underline;background:none;border:none;padding:6px 0;font:inherit;cursor:pointer;text-align:left">⚡ 點此切換到「營區用電與速查表」→</button>
             </div>
           </div>
         </div>
