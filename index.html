@@ -1492,7 +1492,7 @@
             <span class="cc-ann-status" id="ccAnnStatus">1 / 5</span>
           </div>
           <h2 class="cc-ann-title" id="ccAnnTitle">父親節抽 3天2夜冷氣免費租</h2>
-          <p class="cc-ann-text" id="ccAnnText">FB / IG 各抽 2 名，追蹤 + 分享即可參加，8/23 截止。日期平假日皆可，以 LINE 詢問檔期為主。</p>
+          <p class="cc-ann-text" id="ccAnnText">FB / IG 各抽 2 名，追蹤 + 分享即可參加，8/23 截止。平假日皆可，檔期請先用 LINE 詢問。</p>
           <div class="cc-ann-footer">
             <div class="cc-ann-dots" id="ccAnnDots" aria-label="公告切換"></div>
             <div class="cc-ann-actions">
@@ -2222,7 +2222,7 @@ var CC_ANNOUNCEMENTS = [
   {
     kind: '抽獎活動',
     title: '父親節抽 3天2夜冷氣免費租',
-    text: 'FB / IG 各抽 2 名，追蹤 + 分享即可參加，8/23 截止。日期平假日皆可，以 LINE 詢問檔期為主。',
+    text: 'FB / IG 各抽 2 名，追蹤 + 分享即可參加，8/23 截止。平假日皆可，檔期請先用 LINE 詢問。',
     cta: '查詢檔期',
     source: 'announcement_giveaway'
   },
@@ -2840,7 +2840,11 @@ function loadSitesStats() {
     var confirmed = can + no;
     stats.innerHTML = '已確認 <b>' + confirmed + '</b> 個營區（<span style="color:#047857">✓ 可帶 ' + can + '</span>'
       + (no ? '｜<span style="color:#b91c1c">✗ 不可帶 ' + no + '</span>' : '') + '）';
-  }).catch(function () {});
+  }).catch(function () {
+    // 查詢失敗不要卡在「載入中…」，明講狀況並保留 LINE 這條路
+    var stats = document.getElementById('sitesStats');
+    if (stats) stats.innerHTML = '⚠️ 營區統計暫時無法載入，可直接用 LINE 問我們該營區能不能帶冷氣。';
+  });
 }
 
 // debounce helper
@@ -2906,7 +2910,15 @@ var checkBkSite = debounce(function () {
         detail.innerHTML = html || '<div class="sd-row"><span>✓ 可預約</span></div>';
         detail.hidden = !html;
       }
-    }).catch(function () { ind.innerHTML = ''; if (detail) { detail.hidden = true; detail.innerHTML = ''; } });
+    }).catch(function () {
+      // 查詢失敗時不要靜默無回應，明確告知仍可預約，避免客戶以為表單壞掉而離開
+      ind.innerHTML = '<span style="color:#b45309">⚠️ 查詢暫時失敗</span>';
+      if (detail) {
+        detail.className = 'cc-site-detail d-u';
+        detail.innerHTML = '<div class="sd-row"><span class="sd-k">💡</span><span>營區資料庫暫時連不上，<b>不影響預約</b>；送出後我們會在 LINE 中與您確認該營區的電源狀況。</span></div>';
+        detail.hidden = false;
+      }
+    });
 }, 250);
 
 // 速查表搜尋（防抖 300ms）
