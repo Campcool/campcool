@@ -44,10 +44,10 @@ Instagram：https://www.instagram.com/campcool2025
 - 移動冰箱租借：https://campcool.tw/camping-fridge-rental.html
 - 露營用電指南：https://campcool.tw/camping-power-guide.html
 - BTU 選購完整攻略：https://campcool.tw/btu-guide.html
-- 台北露營冷氣租借：https://campcool.tw/areas/taipei.html
+- 台北露營冷氣租借：https://campcool.tw/taipei.html
 - 新北露營冷氣租借：https://campcool.tw/areas/new-taipei.html
-- 新竹露營冷氣租借：https://campcool.tw/areas/hsinchu.html
-- 台中露營冷氣租借：https://campcool.tw/areas/taichung.html
+- 新竹露營冷氣租借：https://campcool.tw/hsinchu.html
+- 台中露營冷氣租借：https://campcool.tw/taichung.html
 - 價格資料：https://campcool.tw/pricing.md
 - 服務資料：https://campcool.tw/services.md
 - 地區資料：https://campcool.tw/areas.md

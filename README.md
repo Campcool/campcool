@@ -45,7 +45,7 @@ python3 -m http.server 8000   # then visit http://localhost:8000/
 ## Notes
 - Product specs (BTU / 重量 / 耗電) must stay consistent between `index.html`
   and `btu-guide.html`. Current values match manufacturer data:
-  JUZ-400 = 5100 BTU / 425W / 13kg; SAC688 = 6000 BTU / 530W / 17kg.
+  JUZ-400 = 5100 BTU / 425W / 13kg; SAC688 = 6300 BTU / 530W / 17kg.
 - The booking form only composes and copies a LINE message in the visitor's
   browser. It does not upload contact details to Campcool; the customer must
   confirm and send the message in LINE before Campcool receives it.
