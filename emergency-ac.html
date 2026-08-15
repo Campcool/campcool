@@ -83,6 +83,17 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-18167565264');
+  window.CAMPCOOL_CONFIG = { ga4MeasurementId: '' };
+  fetch('https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727')
+    .then(function (response) { return response.ok ? response.json() : {}; })
+    .then(function (config) {
+      var id = String(config.ga4_measurement_id || '');
+      if (/^G-[A-Z0-9]+$/.test(id)) {
+        window.CAMPCOOL_CONFIG.ga4MeasurementId = id;
+        gtag('config', id);
+      }
+    })
+    .catch(function () {});
 </script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -252,7 +263,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
   <div class="foot-inner">
     <div class="name">🏕️ 露涼社 CampCool</div>
     <div>移動冷氣・移動冰箱短期租借｜露營 × 居家急用</div>
-    <div class="row"><span class="k">💬 LINE</span><a href="https://lin.ee/8maotVi" target="_blank" rel="noopener">@campcool（點擊加入）</a></div>
+    <div class="row"><span class="k">💬 LINE</span><a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logEmergencyLine('footer');">@campcool（點擊加入）</a></div>
     <div class="row"><span class="k">📍 據點</span><span>內湖・士林・五股・竹北・新竹・西屯</span></div>
     <div class="row"><span class="k">📚 知識</span><span><a href="btu-guide.html">BTU 指南</a> ・ <a href="faq.html">FAQ</a> ・ <a href="reviews.html">客戶好評</a></span></div>
     <div class="copy">© 2026 露涼社 CampCool・本頁為移動冷氣租借服務，非冷氣維修服務。</div>
@@ -266,6 +277,9 @@ function logEmergencyLine(spot){
   try {
     if (typeof gtag !== 'undefined') {
       gtag('event', 'line_click', { event_category: 'contact', event_label: 'emergency_' + spot, value: 1 });
+      if (ADS_CONVERSION_LABEL) {
+        gtag('event', 'conversion', { send_to: ADS_CONVERSION_LABEL, transport_type: 'beacon' });
+      }
     }
   } catch(e) {}
 }

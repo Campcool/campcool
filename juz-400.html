@@ -2,7 +2,26 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18167565264"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18167565264');
+  window.CAMPCOOL_CONFIG = { ga4MeasurementId: '' };
+  fetch('https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727')
+    .then(function (response) { return response.ok ? response.json() : {}; })
+    .then(function (config) {
+      var id = String(config.ga4_measurement_id || '');
+      if (/^G-[A-Z0-9]+$/.test(id)) {
+        window.CAMPCOOL_CONFIG.ga4MeasurementId = id;
+        gtag('config', id);
+      }
+    })
+    .catch(function () {});
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
   <title>JUZ-400 露營冷氣租借｜免排水・2-4人帳｜露涼社</title>
   <meta name="description" content="艾比酷 JUZ-400 露營冷氣租借，5100 BTU、免排水，適合 2-4 人帳與一般睡帳。露涼社提供北台灣預約取件。">
   <link rel="canonical" href="https://campcool.tw/juz-400.html">
@@ -10,8 +29,25 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"艾比酷 JUZ-400 露營冷氣租借","brand":"艾比酷","description":"5100 BTU、免排水，適合 2-4 人帳與一般睡帳。","offers":{"@type":"Offer","priceCurrency":"TWD","price":"1000","availability":"https://schema.org/InStock","url":"https://campcool.tw/juz-400.html"}}</script>
 </head>
 <body><main class="wrap">
-  <div class="hero"><h1>JUZ-400 露營冷氣租借</h1><p>JUZ-400 是露營新手與一般睡帳常用機型。重點是免排水、操作簡單，適合 2-4 人帳。</p><a class="btn" href="https://lin.ee/8maotVi">LINE 詢問 JUZ 檔期</a></div>
+  <div class="hero"><h1>JUZ-400 露營冷氣租借</h1><p>JUZ-400 是露營新手與一般睡帳常用機型。重點是免排水、操作簡單，適合 2-4 人帳。</p><a class="btn" href="https://lin.ee/8maotVi" onclick="logLineClick('juz_400_1', true)">LINE 詢問 JUZ 檔期</a></div>
   <section class="grid"><div class="card"><h2>適合誰</h2><p>2-4 人帳、一般睡帳、親子露營、新手露營。</p></div><div class="card"><h2>主要優點</h2><p>5100 BTU、免排水、相對輕巧，取機後容易操作。</p></div><div class="card"><h2>租金</h2><p>2天1夜 $1,000；3天2夜 $1,300；押金 $3,000。</p></div></section>
   <section><h2>什麼情況改選 SAC-688？</h2><p>若是 4-6 人帳、大帳、客廳帳、多人或寵物同帳，建議看 <a href="/sac-688.html">SAC-688</a>。不確定時，提供帳篷型號讓露涼社判斷。</p></section>
   <section><a href="/camping-ac-rental.html">露營冷氣租借總覽</a>｜<a href="/">回首頁</a></section>
-</main></body></html>
+</main><script>
+/* LINE 點擊追蹤：只有真正開啟 LINE 的動作回傳 Google Ads 轉換，導覽點擊只記 GA4 */
+var ADS_CONVERSION_LABEL = 'AW-18167565264/IyTqCO2sprIcENCX_NZD';
+function logLineClick(source, convert) {
+  try {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'line_click', { event_category: 'contact', event_label: source || 'unknown', value: 1 });
+      if (convert && ADS_CONVERSION_LABEL) {
+        gtag('event', 'conversion', { send_to: ADS_CONVERSION_LABEL, transport_type: 'beacon' });
+      }
+    }
+  } catch (e) {}
+}
+function logEvent(name, label) {
+  try { if (typeof gtag !== 'undefined') gtag('event', name, label ? { event_label: label } : {}); } catch (e) {}
+}
+</script>
+</body></html>

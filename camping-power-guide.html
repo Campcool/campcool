@@ -2,7 +2,26 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18167565264"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18167565264');
+  window.CAMPCOOL_CONFIG = { ga4MeasurementId: '' };
+  fetch('https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727')
+    .then(function (response) { return response.ok ? response.json() : {}; })
+    .then(function (config) {
+      var id = String(config.ga4_measurement_id || '');
+      if (/^G-[A-Z0-9]+$/.test(id)) {
+        window.CAMPCOOL_CONFIG.ga4MeasurementId = id;
+        gtag('config', id);
+      }
+    })
+    .catch(function () {});
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
   <title>露營冷氣用電指南｜跳電、延長線、營區供電｜露涼社</title>
   <meta name="description" content="露營冷氣用電指南：移動冷氣耗電約 425-530W，建議使用粗芯動力延長線並確認營區 110V 供電。">
   <link rel="canonical" href="https://campcool.tw/camping-power-guide.html">
@@ -10,8 +29,25 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"露營冷氣會跳電嗎？","acceptedAnswer":{"@type":"Answer","text":"移動冷氣耗電約 425-530W，多數 110V 營區插座可使用。仍建議確認營區供電並避免與高耗電設備共用插座。"}},{"@type":"Question","name":"露營冷氣需要什麼延長線？","acceptedAnswer":{"@type":"Answer","text":"建議自備粗芯動力延長線 10-15M，避免細線或老舊捲線盤造成發熱或跳電。"}}]}</script>
 </head>
 <body><main class="wrap">
-  <header><h1>露營冷氣用電指南</h1><p>移動冷氣是真壓縮機設備，使用前要確認營區供電、插座距離與延長線規格。</p><a class="btn" href="https://lin.ee/8maotVi">LINE 詢問營區能否使用</a></header>
+  <header><h1>露營冷氣用電指南</h1><p>移動冷氣是真壓縮機設備，使用前要確認營區供電、插座距離與延長線規格。</p><a class="btn" href="https://lin.ee/8maotVi" onclick="logLineClick('camping_power_guide_1', true)">LINE 詢問營區能否使用</a></header>
   <section class="grid"><div class="card"><h2>耗電量</h2><p>移動冷氣約 425-530W，約 4-5A。</p></div><div class="card"><h2>延長線</h2><p>建議粗芯動力延長線 10-15M。</p></div><div class="card"><h2>避免跳電</h2><p>不要與電鍋、吹風機、電磁爐等高耗電設備共用同一插座。</p></div></section>
   <section><h2>營區不確定能不能用？</h2><p>提供營區名稱、日期與帳篷大小，露涼社可協助判斷是否適合使用移動冷氣。</p></section>
   <section><a href="/camping-ac-rental.html">查看露營冷氣租借</a>｜<a href="/">回首頁</a></section>
-</main></body></html>
+</main><script>
+/* LINE 點擊追蹤：只有真正開啟 LINE 的動作回傳 Google Ads 轉換，導覽點擊只記 GA4 */
+var ADS_CONVERSION_LABEL = 'AW-18167565264/IyTqCO2sprIcENCX_NZD';
+function logLineClick(source, convert) {
+  try {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'line_click', { event_category: 'contact', event_label: source || 'unknown', value: 1 });
+      if (convert && ADS_CONVERSION_LABEL) {
+        gtag('event', 'conversion', { send_to: ADS_CONVERSION_LABEL, transport_type: 'beacon' });
+      }
+    }
+  } catch (e) {}
+}
+function logEvent(name, label) {
+  try { if (typeof gtag !== 'undefined') gtag('event', name, label ? { event_label: label } : {}); } catch (e) {}
+}
+</script>
+</body></html>

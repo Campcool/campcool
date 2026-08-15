@@ -2,6 +2,25 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18167565264"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18167565264');
+  window.CAMPCOOL_CONFIG = { ga4MeasurementId: '' };
+  fetch('https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727')
+    .then(function (response) { return response.ok ? response.json() : {}; })
+    .then(function (config) {
+      var id = String(config.ga4_measurement_id || '');
+      if (/^G-[A-Z0-9]+$/.test(id)) {
+        window.CAMPCOOL_CONFIG.ga4MeasurementId = id;
+        gtag('config', id);
+      }
+    })
+    .catch(function () {});
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>露涼社 CampCool 客戶好評牆｜真實 LINE 截圖 + 評價｜★ 4.95 ★</title>
 <meta name="description" content="露涼社 CampCool 真實客戶好評！露營族 5 星評價、LINE 對話截圖、各地區（新竹尖石、南投清境、宜蘭太平山）使用心得。已服務 800+ 組露友，平均評分 4.95/5，看真實回饋再決定。">
@@ -141,7 +160,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
       <img src="assets/logo.jpg" alt="露涼社 CampCool Logo" width="38" height="38">
       <span><span class="n">露涼社 CampCool</span><br><span class="s">露營冷氣・移動冰箱出租</span></span>
     </a>
-    <a class="line-cta" href="https://lin.ee/8maotVi" target="_blank" rel="noopener">💬 詢問</a>
+    <a class="line-cta" href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('reviews_1', true)">💬 詢問</a>
   </div>
 </header>
 
@@ -245,7 +264,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
       想看更多公開好評？
       <div class="gr-sub">租過露涼社的客戶也有在 Google 商家留下完整評論（含照片）</div>
     </div>
-    <a href="https://g.page/r/CampCool/review" target="_blank" rel="noopener" onclick="if(window.gtag)gtag('event','google_review_click',{event_label:'reviews_page'});">📍 看 Google 評論</a>
+    <a href="https://g.page/r/CampCool/review" target="_blank" rel="noopener" onclick="logEvent('google_review_click', 'reviews_page')">📍 看 Google 評論</a>
   </div>
 
   <div class="banner">
@@ -253,7 +272,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
       <div class="t">💬 看完好評想試試？LINE 直接詢問</div>
       <div class="s">兩天一夜 $1,000 起・連假熱門時段建議提前 2 週</div>
     </div>
-    <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="if(window.gtag)gtag('event','line_click',{event_label:'reviews_banner'});">LINE 查檔期</a>
+    <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('reviews_banner', true)">LINE 查檔期</a>
   </div>
 
   <div class="sh">⭐ 為什麼選露涼社？</div>
@@ -287,12 +306,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
   <div class="foot-inner">
     <div class="name">露涼社 CampCool</div>
     <div class="row"><span class="k">📍 服務區域</span><span>北台灣與中部露營路線・6 個預約取機點（雙北・新竹・台中）</span></div>
-    <div class="row"><span class="k">💬 LINE</span><a href="https://lin.ee/8maotVi" target="_blank" rel="noopener">@campcool（點擊加入）</a></div>
+    <div class="row"><span class="k">💬 LINE</span><a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('reviews_2', true)">@campcool（點擊加入）</a></div>
     <div class="row"><span class="k">📷 IG</span><a href="https://www.instagram.com/campcool2025" target="_blank" rel="noopener">@campcool2025</a></div>
     <div class="row"><span class="k">🕒 回覆</span><span>通常 1 小時內・每日 09:00–22:00</span></div>
     <div class="copy">© 2026 露涼社 CampCool・客戶好評牆・★ 4.95 平均評分</div>
   </div>
 </footer>
 
+<script>
+/* LINE 點擊追蹤：只有真正開啟 LINE 的動作回傳 Google Ads 轉換，導覽點擊只記 GA4 */
+var ADS_CONVERSION_LABEL = 'AW-18167565264/IyTqCO2sprIcENCX_NZD';
+function logLineClick(source, convert) {
+  try {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'line_click', { event_category: 'contact', event_label: source || 'unknown', value: 1 });
+      if (convert && ADS_CONVERSION_LABEL) {
+        gtag('event', 'conversion', { send_to: ADS_CONVERSION_LABEL, transport_type: 'beacon' });
+      }
+    }
+  } catch (e) {}
+}
+function logEvent(name, label) {
+  try { if (typeof gtag !== 'undefined') gtag('event', name, label ? { event_label: label } : {}); } catch (e) {}
+}
+</script>
 </body>
 </html>

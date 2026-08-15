@@ -2,6 +2,25 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18167565264"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18167565264');
+  window.CAMPCOOL_CONFIG = { ga4MeasurementId: '' };
+  fetch('https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727')
+    .then(function (response) { return response.ok ? response.json() : {}; })
+    .then(function (config) {
+      var id = String(config.ga4_measurement_id || '');
+      if (/^G-[A-Z0-9]+$/.test(id)) {
+        window.CAMPCOOL_CONFIG.ga4MeasurementId = id;
+        gtag('config', id);
+      }
+    })
+    .catch(function () {});
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>露營冷氣租借常見問題 FAQ｜露涼社 CampCool</title>
 <meta name="description" content="露營冷氣租借常見問題完整解答：BTU 怎麼選、會跳電嗎、免排水原理、預約流程、押金退費、損壞理賠、各地區取機、過夜安全...20+ 題一次看懂。露涼社 CampCool 露營冷氣與移動冰箱出租專業 FAQ。">
@@ -119,7 +138,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
       <img src="assets/logo.jpg" alt="露涼社 CampCool Logo" width="38" height="38">
       <span><span class="n">露涼社 CampCool</span><br><span class="s">露營冷氣・移動冰箱出租</span></span>
     </a>
-    <a class="line-cta" href="https://lin.ee/8maotVi" target="_blank" rel="noopener">💬 詢問</a>
+    <a class="line-cta" href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('faq_1', true)">💬 詢問</a>
   </div>
 </header>
 
@@ -177,7 +196,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
       <div class="t">💬 還有其他問題？LINE 通常 1 小時內回覆</div>
       <div class="s">問完沒有強迫預約・連假熱門時段建議提前 2 週</div>
     </div>
-    <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener">立即詢問</a>
+    <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('faq_2', true)">立即詢問</a>
   </div>
 
   <div class="related">
@@ -196,12 +215,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
   <div class="foot-inner">
     <div class="name">露涼社 CampCool</div>
     <div class="row"><span class="k">📍 服務區域</span><span>北台灣與中部露營路線・6 個預約取機點（雙北・新竹・台中）</span></div>
-    <div class="row"><span class="k">💬 LINE</span><a href="https://lin.ee/8maotVi" target="_blank" rel="noopener">@campcool（點擊加入）</a></div>
+    <div class="row"><span class="k">💬 LINE</span><a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('faq_3', true)">@campcool（點擊加入）</a></div>
     <div class="row"><span class="k">📷 IG</span><a href="https://www.instagram.com/campcool2025" target="_blank" rel="noopener">@campcool2025</a></div>
     <div class="row"><span class="k">🕒 回覆</span><span>通常 1 小時內・每日 09:00–22:00</span></div>
     <div class="copy">© 2026 露涼社 CampCool・露營冷氣 FAQ・台灣全區服務</div>
   </div>
 </footer>
 
+<script>
+/* LINE 點擊追蹤：只有真正開啟 LINE 的動作回傳 Google Ads 轉換，導覽點擊只記 GA4 */
+var ADS_CONVERSION_LABEL = 'AW-18167565264/IyTqCO2sprIcENCX_NZD';
+function logLineClick(source, convert) {
+  try {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'line_click', { event_category: 'contact', event_label: source || 'unknown', value: 1 });
+      if (convert && ADS_CONVERSION_LABEL) {
+        gtag('event', 'conversion', { send_to: ADS_CONVERSION_LABEL, transport_type: 'beacon' });
+      }
+    }
+  } catch (e) {}
+}
+function logEvent(name, label) {
+  try { if (typeof gtag !== 'undefined') gtag('event', name, label ? { event_label: label } : {}); } catch (e) {}
+}
+</script>
 </body>
 </html>

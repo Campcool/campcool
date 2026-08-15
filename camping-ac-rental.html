@@ -2,7 +2,26 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18167565264"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18167565264');
+  window.CAMPCOOL_CONFIG = { ga4MeasurementId: '' };
+  fetch('https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727')
+    .then(function (response) { return response.ok ? response.json() : {}; })
+    .then(function (config) {
+      var id = String(config.ga4_measurement_id || '');
+      if (/^G-[A-Z0-9]+$/.test(id)) {
+        window.CAMPCOOL_CONFIG.ga4MeasurementId = id;
+        gtag('config', id);
+      }
+    })
+    .catch(function () {});
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
   <title>露營冷氣租借｜JUZ-400・SAC-688｜露涼社 CampCool</title>
   <meta name="description" content="露涼社提供北台灣露營冷氣租借，JUZ-400 適合 2-4 人帳，SAC-688 適合 4-6 人帳與大帳。2天1夜 1000 元，3天2夜 1300 元。">
   <link rel="canonical" href="https://campcool.tw/camping-ac-rental.html">
@@ -14,7 +33,7 @@
   <header>
     <h1>露營冷氣租借</h1>
     <p>露涼社提供 JUZ-400 與 SAC-688 移動冷氣租借，依帳篷大小、人數、營區供電與怕熱程度協助推薦機型。</p>
-    <div class="cta"><a class="btn" href="https://lin.ee/8maotVi">LINE 詢問檔期</a><a class="btn alt" href="/">回首頁</a></div>
+    <div class="cta"><a class="btn" href="https://lin.ee/8maotVi" onclick="logLineClick('camping_ac_rental_1', true)">LINE 詢問檔期</a><a class="btn alt" href="/">回首頁</a></div>
   </header>
   <section class="grid">
     <div class="card"><h2>2天1夜</h2><div class="price">$1,000</div><p>一般週末短露營常用方案。</p></div>
@@ -29,5 +48,22 @@
     </div>
   </section>
   <section><h2>預約需要提供什麼</h2><p>請提供日期區間、取件點、營區、帳篷大小或睡幾人、希望機型與手機。不確定機型時，直接提供帳篷型號即可。</p></section>
-</main></body>
+</main><script>
+/* LINE 點擊追蹤：只有真正開啟 LINE 的動作回傳 Google Ads 轉換，導覽點擊只記 GA4 */
+var ADS_CONVERSION_LABEL = 'AW-18167565264/IyTqCO2sprIcENCX_NZD';
+function logLineClick(source, convert) {
+  try {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'line_click', { event_category: 'contact', event_label: source || 'unknown', value: 1 });
+      if (convert && ADS_CONVERSION_LABEL) {
+        gtag('event', 'conversion', { send_to: ADS_CONVERSION_LABEL, transport_type: 'beacon' });
+      }
+    }
+  } catch (e) {}
+}
+function logEvent(name, label) {
+  try { if (typeof gtag !== 'undefined') gtag('event', name, label ? { event_label: label } : {}); } catch (e) {}
+}
+</script>
+</body>
 </html>
