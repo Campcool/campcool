@@ -153,7 +153,7 @@
       "name": "露營冷氣會跳電嗎？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "不會。台灣一般營區提供 10A 電源，艾比酷 JUZ-400 耗電約 3.9A，加上冰箱、燈光、手機充電合計約 5.3A，完全在安全範圍內。只要不同時使用電熱水壺或電磁爐即可。訂位前建議與營區確認可用瓦數。"
+        "text": "不會。台灣一般營區提供 10A 電源，艾比酷 JUZ-400 耗電約 3.9A，加上冰箱、燈光、手機充電合計約 4.8A，完全在安全範圍內。只要不同時使用電熱水壺或電磁爐即可。訂位前建議與營區確認可用瓦數。"
       }
     },
     {
@@ -1594,6 +1594,7 @@
               <tr><td class="period">兩天一夜</td><td class="price">$1,000</td><td class="desc">週末首選</td></tr>
               <tr class="hl"><td class="period"><span class="tag">熱門</span>三天兩夜</td><td class="price">$1,300</td><td class="desc">連假最划算 🔥</td></tr>
               <tr><td class="period">每延長一天</td><td class="price">+$300</td><td class="desc">彈性加購</td></tr>
+              <tr><td class="period">押金（每台）</td><td class="price">$3,000</td><td class="desc">歸還檢查無損即退</td></tr>
             </tbody>
           </table>
           <div class="cc-price-cta">
@@ -1603,7 +1604,8 @@
             </div>
             <button type="button" onclick="quickPlan('請幫我推薦')">💬 不確定方案，請幫我查檔期</button>
             <div class="cc-price-urgent">⚡ 連假熱門時段有限，建議提前 2 週預約</div>
-            <div class="cc-price-note">無隱藏費用・透明定價・LINE 通常 1 小時內回覆</div>
+            <div class="cc-price-note">租金含移動冷氣主機、排風管、使用說明與開機測試；營區電費與動力延長線需自備（建議粗芯 10-15M）。</div>
+            <div class="cc-price-note">押金現金可當場退、匯款約 1-3 個工作天・無隱藏費用・透明定價・LINE 通常 1 小時內回覆</div>
           </div>
         </div>
 
@@ -1720,8 +1722,8 @@
 
         <div class="cc-linebanner">
           <div>
-            <div class="t">💬 現在詢問，今晚確認檔期</div>
-            <div class="s">通常 1 小時內回覆・問完沒有強迫預約</div>
+            <div class="t">💬 先問檔期，不用先付款</div>
+            <div class="s">09:00-22:00 通常 1 小時內回覆・問完沒有強迫預約</div>
           </div>
           <a class="cc-line-shimmer" href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
@@ -1899,7 +1901,7 @@
           <div class="cc-kb"><h3>📊 露營常見電器電流</h3><p>冷氣 ~3.9A、移動冰箱 ~0.4A、LED 燈 ~0.2A、手機 ~0.3A → <strong>合計約 4.8A，10A 內安全</strong>。<br>但<strong>電熱水壺（8A）、電磁爐（10A）、吹風機（10A）</strong>單一就會超標。</p></div>
           <div class="cc-kb"><h3>⚠️ 看不見的風險：同迴路其他帳</h3><p>很多營區是<strong>多帳共用一個迴路</strong>。你只用 4.8A，但隔壁帳如果也帶冷氣＋電熱水壺，整個迴路就跳電。<br>👉 訂位前主動問營主：<strong>每帳獨立電箱還是共用？同帳區其他露友會帶冷氣嗎？</strong></p></div>
           <div class="cc-kb"><h3>💡 安全策略</h3><p>1️⃣ 確認該迴路電流上限<br>2️⃣ 不要同時開電熱水壺／電磁爐／吹風機<br>3️⃣ 跟同帳區露友互相通知，錯開高耗電時段<br>4️⃣ 帶足夠長的延長線，必要時插到其他迴路</p></div>
-          <div class="cc-kb"><h3>🧮 電力計算公式</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。JUZ-400（425W）＋冰箱＋燈 ≈ <strong>5.3A</strong>，10A 電箱完全沒問題。只要不同時開電熱水壺即可。</p></div>
+          <div class="cc-kb"><h3>🧮 電力計算公式</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。JUZ-400（425W）＋冰箱＋燈＋手機 ≈ <strong>4.8A</strong>，10A 電箱完全沒問題。只要不同時開電熱水壺即可。</p></div>
         </div>
 
       </div>
@@ -1951,11 +1953,7 @@
                 <button type="button" onclick="adjustCounter('rentDays',1,3)" aria-label="增加天數">＋</button>
               </div>
             </div>
-            <label for="pickupWay">取機方式</label>
-            <select id="pickupWay">
-              <option value="親自取還">親自至據點取還</option>
-              <option value="預約自取">預約自取（目前不提供宅配）</option>
-            </select>
+            <p class="cc-form-hint" style="margin-top:.6rem">取件一律預約制據點面交，目前不提供宅配、郵寄或送到營區。</p>
           </div>
 
           <div class="cc-form-sec"><span class="n">3</span>取機與營區</div>
@@ -1981,7 +1979,7 @@
           <input type="text" id="bkSite" list="bkSiteList" oninput="checkBkSite()" placeholder="輸入 2 字以上自動帶出候選（如「尖石」「清境」）" autocomplete="off">
           <datalist id="bkSiteList"></datalist>
           <div id="bkSiteDetail" class="cc-site-detail" hidden></div>
-          <p class="cc-form-hint" style="margin-top:.3rem">填營區名稱會自動對照我們收錄的資料庫（200+ 筆），顯示能否帶冷氣。</p>
+          <p class="cc-form-hint" style="margin-top:.3rem">填營區名稱會自動對照我們收錄的資料庫（600+ 筆），顯示能否帶冷氣。</p>
 
           <div class="cc-form-sec"><span class="n">4</span>設備需求</div>
           <label for="bkTent">帳篷型號／大小</label>
@@ -2012,7 +2010,7 @@
           </div>
 
           <div class="cc-counter-row">
-            <span class="cc-counter-label">移動冰箱台數（$800／台）</span>
+            <span class="cc-counter-label">移動冰箱台數（$800／次）</span>
             <div class="cc-counter">
               <button type="button" id="fridgeQty-minus" onclick="adjustCounter('fridgeQty',-1,0)" aria-label="減少冰箱台數" disabled>－</button>
               <span id="fridgeQty">0</span>
@@ -2037,7 +2035,7 @@
         <hr class="cc-shdiv">
         <div class="policy-block step-row"><div class="step-ico">💬</div><div><div class="step-no">STEP 01</div><div class="step-title">LINE 詢問</div><div class="step-desc">告知露營日期、地點、人數與需求</div></div></div>
         <div class="policy-block step-row"><div class="step-ico">📅</div><div><div class="step-no">STEP 02</div><div class="step-title">確認檔期</div><div class="step-desc">我們確認存量並報價，通常 1 小時內回覆</div></div></div>
-        <div class="policy-block step-row"><div class="step-ico">💳</div><div><div class="step-no">STEP 03</div><div class="step-title">付款確認</div><div class="step-desc">匯款或轉帳後傳截圖確認，預約完成</div></div></div>
+        <div class="policy-block step-row"><div class="step-ico">💳</div><div><div class="step-no">STEP 03</div><div class="step-title">付款確認</div><div class="step-desc">匯款租金 ＋ 押金（每台 $3,000）後傳截圖確認，預約完成</div></div></div>
         <div class="policy-block step-row"><div class="step-ico">🚗</div><div><div class="step-no">STEP 04</div><div class="step-title">取機出發</div><div class="step-desc">約定時間至據點取機，附使用說明</div></div></div>
 
         <div class="cc-sh">💰 退費規則</div>
@@ -2049,15 +2047,24 @@
             <li>取機前 <strong style="color:#d97706">1 週以上、未滿 2 週</strong>取消：退費 50%</li>
             <li>取機前 <strong style="color:#d97706">3-6 天</strong>取消：退費 30%</li>
             <li>取機前 <strong style="color:#dc2626">約 2 天內</strong>取消：不予退費</li>
-            <li>遇天災、颱風等不可抗力：協商處理</li>
+            <li>遇颱風、豪大雨、交通中斷等不可抗力：可提供公告或截圖協商</li>
+          </ul>
+        </div>
+        <div class="policy-block">
+          <h4>🔐 押金退還</h4>
+          <ul style="padding:0">
+            <li>押金<strong style="color:#059669">每台 $3,000</strong>，於預約付款時一併收取</li>
+            <li>歸還時檢查外觀、配件與開機狀況，確認無損後退還</li>
+            <li>現金可當場退，匯款通常約 <strong>1-3 個工作天</strong></li>
+            <li>明顯人為損壞或遺失，會依實際狀況在押金額度內協商</li>
           </ul>
         </div>
         <div class="cc-alert y"><span class="ic">⚠️</span><div>連假檔期熱門，建議提前 2-3 週預約。旺季可能無法臨時配合，請見諒。</div></div>
 
         <div class="cc-linebanner">
           <div>
-            <div class="t">💬 現在詢問，今晚確認檔期</div>
-            <div class="s">通常 1 小時內回覆・問完沒有強迫預約</div>
+            <div class="t">💬 先問檔期，不用先付款</div>
+            <div class="s">09:00-22:00 通常 1 小時內回覆・問完沒有強迫預約</div>
           </div>
           <a class="cc-line-shimmer" href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
@@ -2073,7 +2080,7 @@
         <p class="cc-hero-sub">20L～60L 多款冰箱，冷藏冷凍都行，搭冷氣一起租更划算</p>
       </div>
       <div class="cc-body">
-        <div class="cc-alert g"><span class="ic">💰</span><div><strong>統一定價：$800 元／次</strong><br>連續假期不限日期，一律 $800。依詢問時檔期存量為主，請提前透過 LINE 確認。</div></div>
+        <div class="cc-alert g"><span class="ic">💰</span><div><strong>統一定價：$800 元／次</strong><br>連假不限天數，一律 $800。依詢問時檔期存量為主，請提前透過 LINE 確認。</div></div>
 
         <div class="cc-sh">📦 可租型號一覽</div>
         <hr class="cc-shdiv">
@@ -2137,8 +2144,8 @@
 
         <div class="cc-linebanner">
           <div>
-            <div class="t">💬 現在詢問，今晚確認檔期</div>
-            <div class="s">通常 1 小時內回覆・問完沒有強迫預約</div>
+            <div class="t">💬 先問檔期，不用先付款</div>
+            <div class="s">09:00-22:00 通常 1 小時內回覆・問完沒有強迫預約</div>
           </div>
           <a class="cc-line-shimmer" href="#booking" onclick="goBooking('linebanner');return false;">LINE 查檔期</a>
         </div>
@@ -2157,7 +2164,7 @@
         <a class="cc-seo-link" href="sac-688.html"><strong>山水 SAC-688</strong><span>適合大帳、多人、寵物同帳與想要更強冷房力。</span></a>
         <a class="cc-seo-link" href="camping-power-guide.html"><strong>露營冷氣用電</strong><span>110V、延長線、跳電風險與營區電力確認重點。</span></a>
         <a class="cc-seo-link" href="hsinchu.html"><strong>新竹・竹北取機</strong><span>竹北交流道、公道五路與新竹露營地區服務。</span></a>
-        <a class="cc-seo-link" href="faq.html"><strong>常見問題 FAQ</strong><span>租金、押金、取消、雨天改期與取還方式。</span></a>
+        <a class="cc-seo-link" href="faq.html"><strong>常見問題 FAQ</strong><span>租金、押金、取消退費與取還方式。</span></a>
       </div>
     </div>
   </section>
@@ -2708,7 +2715,6 @@ async function submitBooking() {
   L2.push('🗓 方案：' + (planMap[plan] || plan));
   if (plan === '其他') {
     L2.push('　└ 租借天數：' + t('rentDays') + ' 天');
-    L2.push('　└ 取機方式：' + g('pickupWay'));
   }
   L2.push('❄️ 冷氣：' + t('acQty') + ' 台');
   if (parseInt(t('fridgeQty'), 10) > 0) L2.push('🧊 移動冰箱：' + t('fridgeQty') + ' 台');
@@ -2750,7 +2756,6 @@ function resetBooking() {
   var peopleSel = document.getElementById('peopleSel'); if (peopleSel) peopleSel.selectedIndex = 0;
   var pickupSel = document.getElementById('pickupSel'); if (pickupSel) pickupSel.value = '竹北';
   var pbs = document.querySelectorAll('.cc-pick-btn'); for (var pi = 0; pi < pbs.length; pi++) pbs[pi].classList.toggle('active', pbs[pi].getAttribute('data-v') === '竹北');
-  var pickupWay = document.getElementById('pickupWay'); if (pickupWay) pickupWay.selectedIndex = 0;
   var modelSel = document.getElementById('modelSel'); if (modelSel) modelSel.selectedIndex = 0;
   onModelChange();
 
