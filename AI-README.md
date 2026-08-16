@@ -355,6 +355,88 @@ Manus 為各分頁補上 `<h1 class="cc-sr-only">`，但文字與其下方可見
 電吉拉容量以 **1024Wh** 為準（宣傳圖機身標籤另標 AC180P 1440Wh，
 老闆確認採 1024Wh）。
 
+## 給 Manus 的回饋：五個被忽略的點與修正方式
+
+本節針對 `536108c`…`82cc154`（嚴謹級衝刺）的複驗結果。**工程能力沒有問題**——
+`.nojekyll`、刪除死重圖、CI 門禁、`--selftest` 防假綠機制都是實打實的貢獻，
+`.nojekyll` 更是前一位維護者沒看到的真問題。以下記錄的是**方法上的盲點**，
+目的是讓下一輪不再重演，不是否定成果。
+
+### 盲點一：宣稱的涵蓋範圍大於實際涵蓋範圍
+
+同一個模式出現兩次：
+
+| 斷言 | 宣稱 | 實際 |
+|---|---|---|
+| 第 12 條 | 「小物品項數 = 16（產品合約）」 | 只讀 `index.html`，未比對 `pricing.md` |
+| 第 14 條 | 「areas 殘頁必須 noindex」 | 規則本身是 Google 反模式，越通過越危險 |
+
+後果：G40 復古 LED 燈串加進 `index.html` 與 `llms.txt`、漏掉 `pricing.md`，
+三份價目表不一致，而驗證全程綠燈。
+
+**修正方式**：寫斷言時問自己「這條規則涵蓋幾個檔案／幾條路徑？名字有沒有
+誇大？」。產品類斷言必須列舉**所有**應同步的來源。第 12 條已擴充為
+index／pricing.md／llms.txt 三處比對，並實測「移除 G40 → exit 1」證明非假綠。
+
+### 盲點二：只做靜態檢查，沒做行為驗證
+
+CSP 是本輪最嚴重的問題，而它**無法用讀原始碼或跑 validate 發現**——
+必須真的開瀏覽器、監聽 `securitypolicyviolation` 事件才看得到：
+
+```js
+document.addEventListener('securitypolicyviolation',
+  e => console.log(e.blockedURI, e.violatedDirective));
+navigator.sendBeacon('https://www.googleadservices.com/pagead/conversion/…');
+// → blocked by connect-src
+```
+
+關鍵知識點：`gtag` 的 conversion 使用 `transport_type: 'beacon'`，
+`navigator.sendBeacon` 受 **`connect-src`** 管轄，**不是** `img-src`。
+CSP 只放行 `google-analytics.com` 時，GA4 進得去、Ads 轉換全部失敗——
+症狀是「報表有流量、Ads 沒轉換」，很難從程式碼看出來。
+
+**修正方式**：任何動到 CSP、第三方資源、beacon／fetch 目標的變更，
+一律以瀏覽器實測收尾。已在 `## 2026-08-16 改版基準` 寫入維護規則。
+
+### 盲點三：優化指標而非優化使用者
+
+為了消除 axe 的 `page-has-heading-one` 提示，為每個分頁補了
+`<h1 class="cc-sr-only">`——但文字與其下方可見的 `<h2>` **完全相同**。
+axe 分數變好看了，實際上螢幕閱讀器會**連續讀到兩次相同標題**，
+且單一網址出現 4 個 h1。這是 axe 抓不到、但真實使用者會遇到的問題。
+
+**修正方式**：無障礙修正除了看掃描器分數，要檢查無障礙樹的實際朗讀順序
+（`getComputedAccessibleNode` 或直接看 DOM 順序），確認沒有製造重複或冗餘。
+另外要知道：`page-has-heading-one` 是 **best-practice**，不是 WCAG AA 條款，
+不值得為它犧牲 SEO 或製造新問題。
+
+### 盲點四：新增 SEO 指令前未確認是否為反模式
+
+`noindex` 與 `rel=canonical` 並存是 Google 官方明確建議避免的組合：
+canonical 要求把權重併入目標頁，noindex 要求不索引，訊號衝突時
+**noindex 可能被套用到 canonical 目標**。這三個殘頁的 canonical 目標
+正是 `taipei.html`／`hsinchu.html`／`taichung.html` 三個真實地區著陸頁。
+
+**修正方式**：加入 `noindex`、`nofollow`、`canonical`、`hreflang` 這類
+索引指令前，先確認組合是否被官方建議避免。轉址殘頁只需 canonical，
+且它們本來就不在 sitemap 內。
+
+### 盲點五：測試工具部署到正式站
+
+`assets/axe-core.min.js`（540KB）被提交進 repo，公開可存取於
+`campcool.tw/assets/axe-core.min.js`，且未附第三方授權檔。
+雖然沒有頁面引用、不影響載入效能，但這是不該出現在正式站的東西。
+
+**修正方式**：測試／掃描工具放 `scripts/.cache/`（已 gitignore）或以
+devDependency 管理。`scripts/_a11y_scan.py` 本來就有「檔案不存在時自動
+從 CDN 下載」的分支，移除後功能不受影響。
+
+### 一句話總結
+
+**綠燈不等於正確。** 本輪五個問題裡，有四個在 validate 全綠、axe 零 issue
+的狀態下存在。下次交付「滿分」「零 issue」時，建議自己抽一兩條斷言反過來
+測「這條真的抓得到嗎」，以及對任何影響金流或索引的變更做一次瀏覽器實測。
+
 ## 修改時的事實優先順序
 
 遇到文件或程式內容不一致時，依下列順序判斷：
@@ -389,7 +471,34 @@ git diff --check
 
 - `5e3424f`：預約內容改為本機整理，修正 LINE 轉換時機並加入 3 秒流光。
 - `945d9a1`：移除 24H 社區寄櫃承諾，保留竹北社區預約取件。
-- 2026-08-16 共 20 個提交：跨頁事實一致性、押金與租金範圍揭露、
-  13 頁補齊轉換追蹤、無障礙與行動裝置修正、結構化資料去重、
-  圖片 webp 化、機型尺寸分界統一、冰箱分頁改版為「其它小物」
-  （15 品項、分類抽屜、勾選帶入表單）。
+### 2026-08-16（第一輪，Claude）
+
+共 21 個提交：跨頁事實一致性（用電 5.3A→4.8A、BTU 6000→6300）、
+押金與租金範圍揭露、13 頁補齊 LINE 轉換追蹤、無障礙與行動裝置修正、
+結構化資料去重、圖片 webp 化、機型尺寸分界統一、
+冰箱分頁改版為「其它小物」（15 品項、分類抽屜、勾選帶入表單）。
+
+### 2026-08-16（第二輪，Manus）
+
+`536108c`…`82cc154` 共 26 個提交：`.nojekyll`、刪除死重圖、
+CI 門禁、validate 擴充至 20 項斷言 + `--selftest`、補齊商品照、
+WCAG 掃描與對比度修正、meta CSP、手機排版根因修復、
+新增第 16 品項 G40 復古 LED 燈串 $200。
+
+### 2026-08-16（第三輪，Claude 複驗與修正）
+
+- `510c907`：修正 CSP 擋住 Google Ads 轉換回傳（14 頁補上
+  `googleadservices.com`／`googleads.g.doubleclick.net`／`www.google.com`
+  等網域至 `script-src` 與 `connect-src`）；移除三個 areas 殘頁的
+  `noindex`（與 canonical 並存有把 noindex 傳染給目標頁的風險），
+  並將 validate 第 14 條反轉為「canonical 與 noindex 不得並存」；
+  `pricing.md` 補上 G40。
+- `08fe6ef`：移除 3 個與可見 h2 內容重複的 sr-only h1（h1 回到 1 個）；
+  `assets/axe-core.min.js` 自 repo 移除，掃描快取改至 `scripts/.cache/`。
+- `dad69ea`：validate 第 12 條產品合約擴充為 index／pricing.md／llms.txt
+  三處同步比對，並實測非假綠（移除 G40 → exit 1，還原 → exit 0）；
+  修正檔頭註解「品項數 = 15」與實際 16 項不符。
+
+驗收方式：`node scripts/validate-site.mjs`（20 項斷言）、
+`--selftest`（5 情境）、Playwright 390×844 實機操作、
+瀏覽器 `securitypolicyviolation` 事件實測。
