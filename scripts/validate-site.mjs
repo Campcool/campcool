@@ -126,8 +126,8 @@ for (const contract of calcContract) {
 // 16 坪以上必須有明確拒租文案
 if (!/16/.test(homepage)) errors.push('index.html: calculator missing 16-ping rejection constant');
 
-// ── 12. 小物品項數 = 15（產品合約，改動任一品項都要連動更新）─────
-// 僅數 ad-name 不夠：單品項改名 ad-name 總數不變。必須逐項驗證 15 品項全在。
+// ── 12. 小物品項數 = 16（產品合約，改動任一品項都要連動更新）─────
+// 僅數 ad-name 不夠：單品項改名 ad-name 總數不變。必須逐項驗證 16 品項全在。
 const addonContract = [
   'C40 移動冰箱 40L',
   '5×8 黑膠天幕',
@@ -141,20 +141,21 @@ const addonContract = [
   '渦輪扇',
   '五米黃光燈條',
   '十米黃光燈條',
+  'G40 復古 LED 燈串',
   '持久帳篷小燈',
   '動力延長線（綠）5M',
   '動力延長線（綠）10M',
 ];
 const addonCount = (homepage.match(/class="ad-name">/g) || []).length;
-if (addonCount !== 15) errors.push('index.html: addon count is ' + addonCount + ' but product contract requires 15');
+if (addonCount !== 16) errors.push('index.html: addon count is ' + addonCount + ' but product contract requires 16');
 for (const addon of addonContract) {
   if (!homepage.includes(addon)) errors.push('index.html: product-contract addon missing: ' + addon);
 }
 const llms = fs.readFileSync(path.join(root, 'llms.txt'), 'utf8');
-if (!llms.includes('15 品項')) errors.push('llms.txt: missing explicit 15-item declaration');
-// llms.txt 小物價格表必須覆蓋 15 品項（至少 15 個含「$」與數字的中價描述）
+if (!llms.includes('16 品項')) errors.push('llms.txt: missing explicit 16-item declaration');
+// llms.txt 小物價格表必須覆蓋 16 品項（至少 16 個含「$」與數字的中價描述）
 const llmsPrices = (llms.match(/\$\s?[0-9][0-9,]+/g) || []).length;
-if (llmsPrices < 15) errors.push('llms.txt: price table covers only ' + llmsPrices + ' items but requires at least 15');
+if (llmsPrices < 16) errors.push('llms.txt: price table covers only ' + llmsPrices + ' items but requires at least 16');
 
 // ── 13. GA4 config endpoint 統一版號（14 頁，ID 由 campcool-bot Worker 注入）─
 const configEndpoint = '/public/config?v=20260727';
@@ -205,7 +206,7 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exitCode = 1;
 } else {
-  console.log('Validated ' + htmlFiles.length + ' HTML files, inline scripts, JSON-LD, canonicals, sitemap, local-only booking, LINE funnel, dead-weight images, calculator thresholds, 15-addon product contract, config endpoint coverage, duplicate-area noindex, review webp policy, llms.txt freshness, and git tracking.');
+  console.log('Validated ' + htmlFiles.length + ' HTML files, inline scripts, JSON-LD, canonicals, sitemap, local-only booking, LINE funnel, dead-weight images, calculator thresholds, 16-addon product contract, config endpoint coverage, duplicate-area noindex, review webp policy, llms.txt freshness, and git tracking.');
 }
 
 // ── 18. --selftest 防假綠模式 ───────────────────────────────────
