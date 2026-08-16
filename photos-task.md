@@ -117,3 +117,37 @@ addon-fridge-c40 / addon-tarp-58 / addon-tarp-butterfly / addon-blackdog-dome / 
 6. validate + selftest 已在本輪驗證通過（ALL-GREEN），commit 後 CI 應全綠
 7. 交付訊息語言：繁體中文，簡潔幽默，附對照圖
 8. 10M 裁框最終：(0.02, 0.345, 0.515, 0.825)，右上角黑點為插頭本體材質非文字，可接受，已定稿
+
+## 燈條替換（逐浪天下，2026-08-16 第三輪）
+用戶糾正：燈條要「逐浪天下」（逐露天下 CAMP WORLD）的 5M/10M 款。
+
+### 候選圖評估
+| 檔 | 來源 | 評估 |
+|---|---|---|
+| jnBDDsem5UGO.webp (640×640) | momo 逐露天下極光燈條10米套餐 | 黑底產品照：收納盤+盤繞燈條（無字，可用，裁左半主體）★ 10M |
+| RHl9wNOh1mUj.webp (640×640) | momo 逐露天下極光燈條5米套餐 | 同款黑底產品照 ★ 5M |
+| 3V7zbJvrELUD.jpg (640×640) | PChome 逐露天下極光 5米 | 含「專利燈條 極光」行銷字，不可直接用 |
+| 7eTMrqAzpdZA.jpg (800×800) | 逐露天下極光LED燈條 | 帳篷實景+「全台最亮燈條」標籤，裁字麻煩 |
+| TSxSHXPVDVM2.jpg (1024×1024) | 逐露天下黑焰LED燈條 | 「黑焰」另一系列，與頁面已用款不同 |
+| GCUbWWieX22X.jpg / fhgOOYJgOT2k.jpg | 非逐露天下，淘汰 |
+
+### 決策
+- 5M ← RHl9wNOh1mUj.webp；10M ← jnBDDsem5UGO.webp（同系列黑底官方照，無行銷字）
+- 處理：裁右側留白或縮放置中、320×320 webp、檔名 addon-lamp-5m.webp / addon-lamp-10m.webp 覆蓋
+- 頁面引用已是這兩檔名，只需覆蓋圖檔 → validate + selftest → commit push → CI
+
+### 修正（第一輪裁框錯誤）
+RHl9wNOh1mUj（5M）全圖左半是乾淨燈條特寫（三段橫條），右半與頂部是廣告文字。可行：裁 (0.0, 0.42, 0.52, 0.62) 取中段黑焰燈條？太窄。更好的：裁左半直條 (0.0, 0.12, 0.34, 0.88) 得 217×486 直條燈條特寫。
+jnBDDsem5UGO（10M）是晶片廣告圖，完全無產品 → 改用 7eTMrqAzpdZA（逐露天下極光 800×800，帳篷實景，裁頂部黃色標籤）或 TSxSHXPVDVM2 黑焰系列。
+待辦：重新裁 → 視覺確認 → 覆蓋 → commit。
+
+確認：jnBDDsem5UGO 全圖為「CAMP WORLD 逐露天下」晶片廣告，無燈條主體，放棄。
+10M 改用 7eTMrqAzpdZA.jpg（800×800，逐露天下官方極光燈條實景圖，頂部有「全台最亮燈條」黃色標籤需裁除）。
+
+### 燈條替換完成狀態（2026-08-16）
+- 5M ← RHl9wNOh1mUj.webp 裁 (0,0.31,0.34,0.88)，三段燈條特寫黑底，乾淨定稿
+- 10M ← 7eTMrqAzpdZA.jpg 裁 (0,0.30,1,1)，逐露天下極光帳篷黃光實景，乾淨定稿
+- 兩張均為逐露天下（CAMP WORLD）官方圖，符合用戶指定品牌
+- 檔名 addon-lamp-5m.webp / addon-lamp-10m.webp 直接覆蓋，頁面引用無需改
+- 剩餘：commit push → CI → AI-README 更新（燈條品牌註記）→ 交付
+- AI-README 商品照段落現文：「五米／十米黃光燈條」+「燈條與製冰機圖取自網路商品圖，正式營業前建議以自家庫存品照片替換」——更新品牌名為逐露天下
