@@ -219,6 +219,8 @@ flowchart LR
 2. **逐字斷行**：`.ad-name` 缺換行控制。修法：`word-break:keep-all; overflow-wrap:break-word`，中文字只在詞界換行。
 3. **容器無收邊**：`.ad-card` 與 `.ad-drawer` 補 `overflow:hidden`；`.ad-price` 改 `flex:0 0 auto` 強制不縮。手機 520px 以下同步降級：圖 100px、品名 1rem、價格 1.2rem、pill 0.66rem。commit 後以 390px 與 360px 雙 viewport playwright 截圖逐卡驗證通過（`scripts/_shot_addons.py`、`scripts/_shot_360.py`），validate 20 項與 selftest 4 破壞全綠。接手注意：此組 CSS 規則（1361-1385 行、1432 行）是 16 張卡片的骨架，改動品名/價格字級前務必同步檢視手機降級 block 並重跑雙 viewport 驗證。
 
+**防字級放大溢出（2026-08-16，commit b07f419）**：老闆再報「價格還是被切」，本輪抓出上一輪沒看到的真根因：老闆手機開了**系統字級放大（約 1.15-1.25 倍）**，本地標準渲染重現不出；且上一輪 overflow 檢查程式有盲點——它只量卡片外框右界（卡本身沒超寬），內容溢出被 `overflow:hidden` 切掉反而顯示 0 issues。本輪解法四重保險：① `.ad-head` 改 `flex-direction:column`（品牌→品名→價格直排，三者都是全寬行，不再互相搶右欄空間）；② `.ad-price` 去 `nowrap` 改 `word-break:keep-all; overflow-wrap:break-word`（價格極窄時可在／前斷行）；③ 新增 **container query**（`.ad-drawer { container-type:inline-size }`，`@container (max-width:300px)`）：字級放大把佈局視口壓縮時，卡片自動改成上圖下文垂直排、圖 100% 寬、文字全寬——媒體查詢偵測不到 zoom，容器查詢量的是卡自身 CSS px，偵測得到；④ 手機 520px 以下圖 96px、價格 1.15rem。已用 `scripts/_final_check.py` 跑 8 情境（412/390/360 標準 × 1.15/1.25/1.3/1.4/1.5 zoom）共 128 卡次檢查，0 issues。validate 20 項與 selftest 4 破壞全綠。接手注意：zoom 類問題的驗證務必在 playwright 用 `documentElement.style.zoom` 模擬字級放大，不能只看標準 viewport。
+
 **租借保障文案（2026-08-16）**：刪除原冰箱注意事項四張卡，改為整體租借保障兩條：①商品有問題請於抵達營區時立即反應；②不清楚使用方式請與店家詢問或上網搜尋，使用不當導致故障將酌收費用。
 
 **已決策定案**（不需再問）：機型分界 3×3、評價來源為 LINE、
