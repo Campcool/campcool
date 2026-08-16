@@ -7,7 +7,8 @@ PAGES = ['index', 'taipei', 'hsinchu', 'taichung', 'faq',
          'how-it-works', 'reviews', 'btu-guide', 'juz-400', 'sac-688',
          'camping-ac-rental', 'camping-fridge-rental', 'camping-power-guide']
 
-AXE_LOCAL = os.path.join(os.path.dirname(__file__), '../assets/axe-core.min.js')
+# 快取於 scripts/.cache（不進 git、不部署到正式站）；不存在時自動下載
+AXE_LOCAL = os.path.join(os.path.dirname(__file__), '.cache/axe-core.min.js')
 
 TABS = {'index': ['rental', 'wiki', 'booking', 'fridge']}
 

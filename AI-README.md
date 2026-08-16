@@ -277,7 +277,7 @@ G40 復古 LED 燈串 $200（老闆確認之新品項）已寫入 `index.html` �
 修正：`pricing.md` 補上該品項。**新增或改價品項時，
 `index.html`／`pricing.md`／`llms.txt` 三處必須同步。**
 
-### 🟠 待處理一：sr-only h1 與可見 h2 內容重複
+### 🟠 已修正四：sr-only h1 與可見 h2 內容重複
 
 Manus 為各分頁補上 `<h1 class="cc-sr-only">`，但文字與其下方可見的
 `<h2 class="cc-hero-title">` **完全相同**：
@@ -288,17 +288,25 @@ Manus 為各分頁補上 `<h1 class="cc-sr-only">`，但文字與其下方可見
 ```
 
 `.cc-sr-only` 是視覺隱藏但仍存在於無障礙樹，因此螢幕閱讀器會**連續讀到兩次
-相同標題**——原意是修無障礙，實際製造了新的無障礙問題。
-同時單一網址現有 **4 個 h1**。
+相同標題**——原意是修無障礙，實際製造了新的無障礙問題；同時單一網址出現 4 個 h1。
 
-建議修法：刪除 3 個 sr-only h1，改將各分頁 hero 的 `h2` 保留為區段標題即可；
-若要讓每個 tab 都有明確標題層級，正確做法是 h1 只留首頁主標題，其餘用 h2。
+修正：移除 3 個 sr-only h1 與已無使用者的 `.cc-sr-only` 樣式。
+現為 **1 個 h1**（首頁 hero 的「露營冷氣租借｜露涼社 CampCool」），
+各分頁以 hero 的 h2 作為區段標題。四個分頁實測皆無標題跳級。
 
-### 🟡 待處理二：`assets/axe-core.min.js`（540KB）
+> 保留可見 h1 而非改用 sr-only h1 的理由：可見且含關鍵字的 h1 對 SEO 較有利。
+> 切換到非預設分頁時無障礙樹中沒有 h1，屬 axe `page-has-heading-one`
+> best-practice 提示，非 WCAG AA 失敗，權衡後接受。
+> **不要再為各分頁補 h1**——那會重現本問題。
 
-無障礙測試工具被提交進 repo 並公開可存取（`campcool.tw/assets/axe-core.min.js`）。
-目前沒有任何頁面引用，不影響載入效能，但測試工具不應部署到正式站，
-且未附第三方授權檔。建議移出 `assets/`，改置於 `scripts/` 或以 devDependency 管理。
+### 🟡 已修正五：`assets/axe-core.min.js`（540KB）
+
+無障礙測試工具原被提交進 repo 並公開可存取（`campcool.tw/assets/axe-core.min.js`），
+未附第三方授權檔。
+
+修正：自 repo 移除；`scripts/_a11y_scan.py` 的快取位置改為 `scripts/.cache/`
+（已加入 `.gitignore`）。該腳本本來就會在檔案不存在時自動從 CDN 下載，
+掃描功能不受影響，正式站也不再對外提供測試工具。
 
 ### 複驗方法
 
