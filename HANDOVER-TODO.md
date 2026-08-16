@@ -7,37 +7,25 @@
 
 ---
 
-## 一、需要圖片（交接 Codex／需本機影像工具）
+## 一、圖片相關
 
-本 session 的執行環境沒有影像轉檔工具（無 cwebp／PIL），且不應把他站商品照放上商業網站，
-因此以下項目只完成版面與欄位預留，圖片本身需另行產出。
+### ✅ 1-3. 圖片壓縮（2026-08-16 已完成，不需交接）
 
-### 1. 縮小 header logo（優先）
+本 session 後來成功安裝 sharp（含 libvips），已自行完成轉檔：
 
-| 項目 | 內容 |
-|---|---|
-| 產出檔 | `assets/logo-88.webp`（或 .png），**88×88**（44px @2x），目標 3-6KB |
-| 現況問題 | 8 個頁面的 header 都用 `assets/logo.jpg`（**1024×1024 / 68KB**）硬塞進 44px 框 |
-| 要改的地方 | 各頁 header `<img>` 的 `src`；另 `btu-guide.html` 的 logo `width/height` 由 1024 改 36 |
-| **不要改** | `assets/logo.jpg` 檔案本身要保留，且 7 處 JSON-LD 的 `logo` 欄位仍指向它（Google 建議 logo 用較大尺寸） |
+| 檔案 | 前 | 後 | 節省 |
+|---|---|---|---|
+| `assets/logo-88.webp`（新增，88×88） | logo.jpg 68KB | **2KB** | 97% |
+| `assets/sac688_product.webp`（新增，640×640） | 83KB | **19KB** | 77% |
+| `assets/og-cover.webp`（新增，1200×630） | 253KB | **125KB** | 51% |
 
-### 2. SAC688 產品圖轉 webp
+已套用：8 個頁面的 header logo 全部改用 `logo-88.webp`；首頁對比卡改用
+`sac688_product.webp`；首頁頁內插圖改用 `og-cover.webp`。
+`btu-guide.html` 原本宣告 1024×1024 卻只顯示 36px，已改為 36×36。
 
-| 項目 | 內容 |
-|---|---|
-| 產出檔 | `assets/sac688_product.webp`，**640×640** |
-| 現況問題 | `sac688_product.jpg` **82KB**，同一格並排的 `juz400_product.webp` 只要 **12KB** |
-| 要改的地方 | `index.html` 對比卡的 `<img src>` |
-| **不要改** | `assets/sac688_product.jpg` 要保留，Product JSON-LD 的 `image` 仍指向它 |
-
-### 3. og-cover 頁內插圖轉 webp
-
-| 項目 | 內容 |
-|---|---|
-| 產出檔 | `assets/og-cover.webp`，**1200×630** |
-| 現況問題 | `og-cover.jpg` **253KB**，被當成頁內 `<img>` 直接顯示 |
-| 要改的地方 | 只改 `index.html` 頁內 `<img>` 的 src（或用 `<picture>` 包 webp + jpg fallback），保持 `width="1200" height="630" loading="lazy"` |
-| **不要改** | `og:image` / `twitter:image` / JSON-LD `image` 一律維持指向 `.jpg`（社群平台對 webp 支援不一） |
+**維持不動**（刻意保留 .jpg）：`og:image`／`twitter:image`／所有 JSON-LD 的
+`logo` 與 `image` 欄位——社群平台與 Google 對 webp 支援不一，原始 .jpg 檔案
+也全數保留未刪。
 
 ### 4. 「其它小物」14 品項實拍照（新需求）
 
