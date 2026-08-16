@@ -1,0 +1,38 @@
+name: Site check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Anti-false-green self-test
+        run: node scripts/validate-site.mjs --selftest
+
+      - name: Full site validation (20 assertions)
+        run: node scripts/validate-site.mjs
+
+      - name: GA4 config endpoint probe
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727")
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::warning::Config endpoint returned HTTP $HTTP_CODE (Worker may be down)"
+          else
+            echo "Config endpoint OK (HTTP 200)"
+          fi
+          BODY=$(curl -s "https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727")
+          echo "$BODY" | node -e "
+            const data = JSON.parse(require('fs').readFileSync('/dev/stdin', 'utf8'));
+            if (!('ga4_measurement_id' in data)) throw new Error('endpoint contract broken: missing ga4_measurement_id key');
+            console.log('Endpoint contract OK:', JSON.stringify(data));
+          "

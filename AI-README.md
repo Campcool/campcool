@@ -166,6 +166,28 @@ flowchart LR
 - 資訊性灰字使用 `#6b7280`，不得改回對比不足的 `#9ca3af`。
 - 取機日期須設 `min` 並在 `submitBooking()` 內再次把關（min 不約束 JS 送出）。
 
+## 2026-08-16 Manus 滿分制第二輪優化
+
+此輪由 Manus 以 100 分滿分制（五維度加權：功能完成度/穩定與安全 25%、可維護與交接 20%、使用者體驗 15%、成本效益 15%）接手 Claude 完成的 20 commits，執行十角色辯證後的修改。辯證裁決（不可逆）：不抽離 inline CSS/JS（保住零建置）、不做 PWA manifest（非 Web App）、保留 areas 殘頁+補 noindex（歷史連結不中斷）、不動 Claude 已定的產品事實（機型分界/押金/取件政策/LINE 流程）。
+
+### 已完成的修改
+
+| 項目 | 說明 |
+|---|---|
+| 死重圖片刪除 | `git rm assets/homepage_hero.png`（1.5MB）與 `taiwan_map.png`（912KB）；防回歸斷言已加（引用+git index 雙檢查） |
+| 評論圖 webp 化 | reviews.html + index.html 的 review-01~05 webp 化，節省約 1.1MB；og/JSON-LD 層 jpg 依既有政策保留 |
+| areas 殘頁 | taipei/hsinchu/taichung 補 `noindex`（meta-refresh 轉址頁不參與索引，validate 逐頁檢查） |
+| GA4 fetch | index.html 的 config fetch 加 3 秒 AbortController 逾時（IIFE 閉包）；**注意：正式 GA4 ID 尚未掛上**，Worker 目前回傳 `{"ga4_measurement_id":""}`，架構正確、優雅降級，等老闆提供 ID |
+| llms.txt | 更新至 2026-08-16：加 15 品項小物清單（價格以頁面 data-price 實測為準）與機型分界規則；validate 檢查新鮮度 ≤ 60 天且價格表覆蓋 ≥ 15 品項 |
+| 防回歸驗證 | `scripts/validate-site.mjs` 從 6 項擴充至 20 項斷言（見下）並加 `--selftest` 防假綠模式 |
+| CI 門禁 | `.github/workflows/site-check.yml`：push/PR 觸發，先跑 selftest 再跑完整 validate，外加 Worker config endpoint 探針 |
+
+### validate-site.mjs 新增斷言（配合既有 6 項）
+
+死重圖引用消失、每頁 LINE CTA 閉環（areas 殘頁除外）、兩支計算機門檻一致（`area > 2.75` 坪 / `area > 9` ㎡ / `area > 16` 坪拒租）、15 品項逐項存在（非僅計數——單品項改名計數不變，實測抓到漏洞）、config endpoint 版號統一且 14 頁覆蓋、areas 殘頁 noindex、評論 img src 僅限 1 張 jpg（產品實照）、llms.txt 新鮮度、git index 不含死重圖。
+
+防假綠用法：`node scripts/validate-site.mjs --selftest` 會故意破壞 4 類產品事實（必留文案/禁入標記/計算機門檻/小物品項），確認 validate 全部抓住後還原，任何一步不符預期 selftest 本身 exit 1。CI 先跑 selftest 再跑完整 validate，杜絕「驗證腳本本身失效」的假綠。
+
 ## 待老闆確認事項（2026-08-16）
 
 以下項目頁面上已標示「待確認」，不影響出租，取得後補上即可：

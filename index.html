@@ -10,8 +10,12 @@
   gtag('js', new Date());
   gtag('config', 'AW-18167565264');
   window.CAMPCOOL_CONFIG = { ga4MeasurementId: '' };
-  fetch('https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727')
-    .then(function (response) { return response.ok ? response.json() : {}; })
+  (function () {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 3000);
+    ctrl.signal.addEventListener('abort', function () { clearTimeout(timer); });
+    fetch('https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727', { signal: ctrl.signal })
+    .then(function (response) { clearTimeout(timer); return response.ok ? response.json() : {}; })
     .then(function (config) {
       var id = String(config.ga4_measurement_id || '');
       if (/^G-[A-Z0-9]+$/.test(id)) {
@@ -20,6 +24,7 @@
       }
     })
     .catch(function () {});
+  })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>露涼社 CampCool｜露營冷氣出租・移動冰箱租借｜新竹・竹北・台北・台中</title>
@@ -1535,10 +1540,10 @@
         <a href="#reviews" onclick="scrollToReviews();return false;" style="display:block;text-decoration:none;color:inherit">
           <div style="font-size:.8rem;font-weight:800;color:#047857;margin:2px 0 6px;display:flex;align-items:center;gap:5px">⭐ 露友真實回饋 <span style="font-size:.7rem;color:#6b7280;font-weight:600">（點看更多）</span></div>
           <div class="cc-proof-strip" aria-label="露友好評縮圖">
-            <span class="cc-proof-item"><img src="assets/review-04.jpg" alt="露友好評：效果很好" width="638" height="473" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">效果很好</span></span></span>
-            <span class="cc-proof-item"><img src="assets/review-05.jpg" alt="露友好評：涼度很可以" width="656" height="531" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">涼度很可以</span></span></span>
-            <span class="cc-proof-item"><img src="assets/review-01.jpg" alt="露友好評：新竹尖石" width="681" height="624" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">📍 新竹尖石</span></span></span>
-            <span class="cc-proof-item"><img src="assets/review-02.jpg" alt="露友好評：南投清境" width="644" height="469" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">📍 南投清境</span></span></span>
+            <span class="cc-proof-item"><img src="assets/review-04.webp" alt="露友好評：效果很好" width="638" height="473" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">效果很好</span></span></span>
+            <span class="cc-proof-item"><img src="assets/review-05.webp" alt="露友好評：涼度很可以" width="656" height="531" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">涼度很可以</span></span></span>
+            <span class="cc-proof-item"><img src="assets/review-01.webp" alt="露友好評：新竹尖石" width="681" height="624" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">📍 新竹尖石</span></span></span>
+            <span class="cc-proof-item"><img src="assets/review-02.webp" alt="露友好評：南投清境" width="644" height="469" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">📍 南投清境</span></span></span>
             <span class="cc-proof-more"><span class="arr">→</span>更多好評</span>
           </div>
         </a>
@@ -1664,23 +1669,23 @@
         <hr class="cc-shdiv">
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1rem">
           <div class="cc-review">
-            <img src="assets/review-01.jpg" alt="露友 LINE 好評截圖 1" width="681" height="624" loading="lazy">
+            <img src="assets/review-01.webp" alt="露友 LINE 好評截圖 1" width="681" height="624" loading="lazy">
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 新竹尖石</span><span style="font-size:.7rem;color:#d1d5db">2026.05</span></div></div>
           </div>
           <div class="cc-review">
-            <img src="assets/review-02.jpg" alt="露友 LINE 好評截圖 2" width="644" height="469" loading="lazy">
+            <img src="assets/review-02.webp" alt="露友 LINE 好評截圖 2" width="644" height="469" loading="lazy">
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 南投清境</span><span style="font-size:.7rem;color:#d1d5db">2026.05</span></div></div>
           </div>
           <div class="cc-review">
-            <img src="assets/review-03.jpg" alt="露友 LINE 好評截圖 3" width="640" height="528" loading="lazy">
+            <img src="assets/review-03.webp" alt="露友 LINE 好評截圖 3" width="640" height="528" loading="lazy">
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 宜蘭太平山</span><span style="font-size:.7rem;color:#d1d5db">2026.04</span></div></div>
           </div>
           <div class="cc-review">
-            <img src="assets/review-04.jpg" alt="露友 LINE 好評截圖 4 — 效果很好" width="638" height="473" loading="lazy">
+            <img src="assets/review-04.webp" alt="露友 LINE 好評截圖 4 — 效果很好" width="638" height="473" loading="lazy">
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 露友分享</span><span style="font-size:.7rem;color:#d1d5db">2026.05</span></div></div>
           </div>
           <div class="cc-review">
-            <img src="assets/review-05.jpg" alt="露友 LINE 好評截圖 5 — 涼度很可以" width="656" height="531" loading="lazy">
+            <img src="assets/review-05.webp" alt="露友 LINE 好評截圖 5 — 涼度很可以" width="656" height="531" loading="lazy">
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 露友分享</span><span style="font-size:.7rem;color:#d1d5db">2026.06</span></div></div>
           </div>
         </div>
