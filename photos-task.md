@@ -56,3 +56,50 @@ validate-site.mjs 已完成：addonContract 16 品項（G40 復古 LED 燈串 �
 
 剩：llms.txt 更新（品項數+價格 $200）、node --check inline JS、run validate + selftest、git add -A commit push、CI 確認、AI-README 更新、交付。
 CI 前輪 c3e3321 已 success（Site check）；Pages 部署當時 in_progress。
+
+## 第五輪：左右兩欄佈局改造（2026-08-16）
+用戶第二輪反饋：圖仍只佔一點點，要求平行兩張卡片佈局「左圖、右邊品名/價格/規格」。
+
+### 已完成（CSS，index.html 1361-1392 行）
+- .ad-card：align-items:stretch、gap 12→14px
+- .ad-photo：92×92 → 120×120、align-self:center（與右側等高中置）
+- .ad-info：flex column gap 7px
+- 新增 .ad-head { display:flex; justify-content:space-between }：品名（.ad-title 內含 .ad-brand+.ad-name）在左、價格 .ad-price 1.35rem 在右
+- .ad-name 1.1rem / .ad-pill .7rem padding 4px 9px / .ad-note .8rem line-height 1.6
+- 手機 @media max-width 520px 維持 1fr 單欄（ad-grid 已是單欄，圖 120px 仍適用）
+
+### 尚未做（HTML 需配合 .ad-head/.ad-title 包裝）
+每張卡片 ad-info 內的 ad-brand + ad-name 需包進 <span class="ad-title">，並在 ad-info 開頭包 <span class="ad-head">（含 title + price）。
+16 張卡片位置（index.html）：約 2150-2330 行。結構：
+<label class="ad-card a-xxx">
+  <input checkbox> <span class="ad-photo"><img></span>
+  <span class="ad-info">
+    <span class="ad-brand">...</span><span class="ad-name">...</span>
+    <span class="ad-meta">pills...</span>
+    <span class="ad-note">...</span>
+  </span>
+  <span class="ad-price">$xxx<small>／次</small></span>
+  <span class="ad-tick">✓</span>
+</label>
+改法（Python 腳本）：把 ad-info 開頭的 ad-brand+ad-name 包 <span class="ad-head"><span class="ad-title">...title...</span>price 移到 head 內。
+注意：ad-price 現位於 ad-info 之後（1388 行 CSS flex 順序），需改成 head 內右側。
+
+### 之後步驟
+- 視覺驗證（瀏覽器截圖，可用 manus-analyze 或 export 對比）
+- validate + selftest + JS 語法 → commit → push → CI
+- AI-README 更新（UI 改 ad-photo 120px + ad-head/ad-title CSS 新結構）
+- 交付
+
+## 第五輪視覺驗證結論（2026-08-16，playwright 截圖）
+截圖：/tmp/addons_section.png（780×12210），段裁 /tmp/seg_top.png /tmp/seg_bot.png。
+佈局已生效：左圖右文兩欄平行，圖佔卡左側整欄（120px 等高中置），品名/價格右上、spec 右欄。整體 OK。
+
+待修小問題：
+1. 電吉拉 mini 卡：標籤多行換行撐出卡右緣（「輸出 1800W UPS 不…45 分鐘回充 80%」）。
+2. 製冰機卡：標籤同樣溢出（「自動清洗…一體式管位 360°」）。
+修法：.ad-pill 加 word-break/white-space:nowrap 或限制 pill 寬；更穩健 = 給 .ad-meta 容納 nowrap 並允許換行到整行但不溢出。
+之後：重截驗證 → validate+selftest → commit push → CI → AI-README → 交付。
+
+## 第六輪：pill nowrap 修復驗證（2026-08-16）
+電吉拉卡：pill 已 nowrap 整齊排列，標籤不再換行溢出，品名/價格/規格完整。截圖實際寬 780px（裁 1560 超寬致右半黑，重裁時寬用 780）。座標需乘 2。
+製冰機卡 pill 正常 nowrap 無溢出，修復完成。下一：commit push → CI → AI-README → 交付。
