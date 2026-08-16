@@ -3,7 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18167565264"></script>
+<script>
+  (function () {
+    var loaded = false;
+    function loadGtag() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18167565264';
+      s.async = true;
+      document.head.appendChild(s);
+    }
+    var timer = setTimeout(loadGtag, 2500);
+    var onFirst = function () {
+      clearTimeout(timer);
+      loadGtag();
+      document.removeEventListener('pointerdown', onFirst);
+      document.removeEventListener('keydown', onFirst);
+      document.removeEventListener('scroll', onFirst);
+    };
+    document.addEventListener('pointerdown', onFirst, { passive: true });
+    document.addEventListener('keydown', onFirst, { passive: true });
+    document.addEventListener('scroll', onFirst, { passive: true });
+  })();
+</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -99,7 +122,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
 .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit}
 .logo img{width:38px;height:38px;border-radius:9px;object-fit:cover}
 .logo .n{font-size:.95rem;font-weight:900;color:#064e3b;line-height:1.15}
-.logo .s{font-size:.66rem;color:#059669;font-weight:600}
+.logo .s{font-size:.68rem;color:#047857;font-weight:600}
 .line-cta{background:linear-gradient(135deg,#06C755,#00a844);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:.78rem;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:5px;box-shadow:0 3px 10px rgba(6,199,85,.35);white-space:nowrap}
 .hero{background:linear-gradient(135deg,#7c2d12,#f59e0b);color:#fff;padding:36px 20px 30px;position:relative}
 .hero-inner{max-width:720px;margin:0 auto}
@@ -124,21 +147,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
 .review-stars{font-size:1.1rem;color:#f59e0b;letter-spacing:2px;line-height:1}
 .review-info{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
 .review-loc{font-size:.84rem;color:#1f2937;font-weight:800}
-.review-date{font-size:.74rem;color:#9ca3af;font-weight:600}
+.review-date{font-size:.74rem;color:#6b7280;font-weight:600}
 .review-tag{font-size:.72rem;color:#047857;background:#ecfdf5;border:1px solid #6ee7b7;padding:2px 8px;border-radius:10px;font-weight:700}
 .review-note{font-size:.82rem;color:#4b5563;line-height:1.7;margin-top:8px;padding:8px 11px;background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 8px 8px 0}
 .google-review-cta{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1.5px solid #6ee7b7;border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .google-review-cta .gr-title{font-weight:800;color:#064e3b;font-size:.95rem;flex:1;min-width:0}
 .google-review-cta .gr-sub{font-size:.78rem;color:#065f46;margin-top:2px}
-.google-review-cta a{background:#fff;color:#065f46;border:1.5px solid #10b981;padding:8px 14px;border-radius:999px;text-decoration:none;font-weight:800;font-size:.85rem;display:inline-flex;align-items:center;gap:6px}
+.google-review-cta a{background:#fff;color:#047857;border:1.5px solid #10b981;padding:8px 14px;border-radius:999px;text-decoration:none;font-weight:800;font-size:.85rem;display:inline-flex;align-items:center;gap:6px}
 .google-review-cta a:hover{background:#10b981;color:#fff}
 .invite{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px dashed #6ee7b7;border-radius:18px;padding:18px 20px;margin:1.4rem 0;text-align:center}
 .invite .t{font-size:1rem;color:#047857;font-weight:900;margin-bottom:5px}
-.invite .s{font-size:.82rem;color:#059669;line-height:1.7}
+.invite .s{font-size:.82rem;color:#047857;line-height:1.7}
 .banner{background:linear-gradient(135deg,#06C755 0%,#00a844 100%);border-radius:20px;padding:22px 22px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:.8rem;margin:1.6rem 0;box-shadow:0 8px 22px rgba(6,199,85,.35);flex-wrap:wrap}
 .banner .t{font-size:1rem;font-weight:900;line-height:1.4}
 .banner .s{font-size:.78rem;opacity:.92;margin-top:4px}
-.banner a{background:#fff;color:#059669;padding:.7rem 1.4rem;border-radius:30px;text-decoration:none;font-weight:900;font-size:.92rem;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.15)}
+.banner a{background:#fff;color:#047857;padding:.7rem 1.4rem;border-radius:30px;text-decoration:none;font-weight:900;font-size:.92rem;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.15)}
 .related{background:#fff;border:1px solid #fde68a;border-radius:14px;padding:14px 16px;margin-top:1rem}
 .related h3{font-size:.95rem;color:#92400e;font-weight:900;margin-bottom:8px}
 .related ul{padding-left:1.1rem;margin:0;font-size:.86rem;line-height:1.85}
@@ -192,7 +215,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans
   <hr class="shdiv">
 
   <article class="review" itemscope itemtype="https://schema.org/Review">
-    <img src="assets/review-01.webp" alt="露友 LINE 好評截圖：新竹尖石露營使用艾比酷 JUZ-400 心得" width="681" height="624" loading="lazy">
+    <img src="assets/review-01.webp" alt="露友 LINE 好評截圖：新竹尖石露營使用艾比酷 JUZ-400 心得" width="681" height="624" fetchpriority="high">
     <div class="review-meta">
       <div class="review-stars" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating"><span itemprop="ratingValue" style="display:none">5</span>★★★★★</div>
       <div class="review-info">

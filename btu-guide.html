@@ -3,7 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18167565264"></script>
+<script>
+  (function () {
+    var loaded = false;
+    function loadGtag() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18167565264';
+      s.async = true;
+      document.head.appendChild(s);
+    }
+    var timer = setTimeout(loadGtag, 2500);
+    var onFirst = function () {
+      clearTimeout(timer);
+      loadGtag();
+      document.removeEventListener('pointerdown', onFirst);
+      document.removeEventListener('keydown', onFirst);
+      document.removeEventListener('scroll', onFirst);
+    };
+    document.addEventListener('pointerdown', onFirst, { passive: true });
+    document.addEventListener('keydown', onFirst, { passive: true });
+    document.addEventListener('scroll', onFirst, { passive: true });
+  })();
+</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -154,7 +177,7 @@
     .logo-area img{width:36px;height:36px;border-radius:8px;object-fit:cover}
     .logo-text{font-weight:700;font-size:19px;color:#065f46}
     .line-btn{
-      background:#06C755;color:#fff;border:none;border-radius:20px;
+      background:#047857;color:#fff;border:none;border-radius:20px;
       padding:8px 16px;font-size:17px;font-weight:600;cursor:pointer;
       text-decoration:none;display:inline-flex;align-items:center;gap:4px;
     }
@@ -178,7 +201,7 @@
 
     /* TOC：等寬色卡 + icon */
     .toc{background:#fff;border:1px solid #a7f3d0;border-radius:14px;padding:20px;margin:24px 0}
-    .toc h3{font-size:19px;color:#059669;margin-bottom:14px;font-weight:800}
+    .toc h2{font-size:19px;color:#047857;margin-bottom:14px;font-weight:800}
     .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     @media(max-width:480px){.toc-grid{grid-template-columns:1fr}}
     .toc-card{
@@ -256,8 +279,8 @@
     .rental-cta h3{font-size:23px;font-weight:800;margin-bottom:8px}
     .rental-cta p{font-size:18px;opacity:.9;margin-bottom:20px}
     .cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .btn-line{background:#06C755;color:#fff;padding:12px 24px;border-radius:24px;font-weight:700;font-size:19px;text-decoration:none;display:inline-block}
-    .btn-site{background:#fff;color:#059669;padding:12px 24px;border-radius:24px;font-weight:700;font-size:19px;text-decoration:none;display:inline-block}
+    .btn-line{background:#047857;color:#fff;padding:12px 24px;border-radius:24px;font-weight:700;font-size:19px;text-decoration:none;display:inline-block}
+    .btn-site{background:#fff;color:#047857;padding:12px 24px;border-radius:24px;font-weight:700;font-size:19px;text-decoration:none;display:inline-block}
 
     /* Footer */
     .article-footer{text-align:center;padding:24px;font-size:17px;color:#6b7280;border-top:1px solid #d1fae5;max-width:680px;margin:0 auto}
@@ -275,6 +298,7 @@
 </header>
 
 <!-- Article Hero -->
+<main>
 <div class="article-hero">
   <span class="article-tag">📚 露營冷氣知識</span>
   <h1>帳篷冷氣幾 BTU 才夠用？<br>2026 露營移動冷氣選購完整攻略</h1>
@@ -290,7 +314,7 @@
 
   <!-- TOC：等寬色卡 + icon -->
   <div class="toc">
-    <h3>📋 本文目錄</h3>
+    <h2>📋 本文目錄</h2>
     <div class="toc-grid">
       <a class="toc-card t1" href="#what-is-btu"><span class="toc-ico">📊</span><span class="toc-no">01</span><span class="toc-txt">BTU 是什麼？露營為何重要</span></a>
       <a class="toc-card t2" href="#how-many-btu"><span class="toc-ico">🏕️</span><span class="toc-no">02</span><span class="toc-txt">我的帳篷需要幾 BTU？</span></a>
@@ -451,7 +475,7 @@
     <h2><span class="sec-no">📋</span>主流型號規格完整比較</h2>
     <p>目前台灣露營市場最常見的兩款移動冷氣完整規格對比：</p>
 
-    <div style="overflow-x:auto">
+    <div style="overflow-x:auto" tabindex="0" role="region" aria-label="機型規格比較表（可橫向捲動）">
       <table class="compare-table">
         <thead>
           <tr>
@@ -531,6 +555,7 @@
 </div>
 
 <!-- Footer -->
+</main>
 <footer class="article-footer">
   <p>© 2026 露涼社 CampCool｜露營冷氣出租・移動冰箱租借</p>
   <p style="margin-top:4px">新竹・竹北・台北・台中</p>

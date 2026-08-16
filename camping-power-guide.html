@@ -3,7 +3,30 @@
 <head>
   <meta charset="utf-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18167565264"></script>
+<script>
+  (function () {
+    var loaded = false;
+    function loadGtag() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18167565264';
+      s.async = true;
+      document.head.appendChild(s);
+    }
+    var timer = setTimeout(loadGtag, 2500);
+    var onFirst = function () {
+      clearTimeout(timer);
+      loadGtag();
+      document.removeEventListener('pointerdown', onFirst);
+      document.removeEventListener('keydown', onFirst);
+      document.removeEventListener('scroll', onFirst);
+    };
+    document.addEventListener('pointerdown', onFirst, { passive: true });
+    document.addEventListener('keydown', onFirst, { passive: true });
+    document.addEventListener('scroll', onFirst, { passive: true });
+  })();
+</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -25,7 +48,7 @@
   <title>露營冷氣用電指南｜跳電、延長線、營區供電｜露涼社</title>
   <meta name="description" content="露營冷氣用電指南：移動冷氣耗電約 425-530W，建議使用粗芯動力延長線並確認營區 110V 供電。">
   <link rel="canonical" href="https://campcool.tw/camping-power-guide.html">
-  <style>body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Segoe UI",sans-serif;background:#fff7ed;color:#2b1908;line-height:1.7}.wrap{max-width:900px;margin:auto;padding:28px 18px}header,section{background:#fff;border:1px solid #fed7aa;border-radius:16px;padding:22px;margin:0 0 16px}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:0 0 12px}.btn{display:inline-block;background:#ea580c;color:#fff;text-decoration:none;font-weight:900;border-radius:10px;padding:12px 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{background:#fffaf5;border:1px solid #fed7aa;border-radius:14px;padding:16px}a{color:#c2410c;font-weight:800}</style>
+  <style>body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Segoe UI",sans-serif;background:#fff7ed;color:#2b1908;line-height:1.7}.wrap{max-width:900px;margin:auto;padding:28px 18px}header,section{background:#fff;border:1px solid #fed7aa;border-radius:16px;padding:22px;margin:0 0 16px}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:0 0 12px}.btn{display:inline-block;background:#c2410c;color:#fff;text-decoration:none;font-weight:900;border-radius:10px;padding:12px 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{background:#fffaf5;border:1px solid #fed7aa;border-radius:14px;padding:16px}a{color:#c2410c;font-weight:800}</style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"露營冷氣會跳電嗎？","acceptedAnswer":{"@type":"Answer","text":"移動冷氣耗電約 425-530W，多數 110V 營區插座可使用。仍建議確認營區供電並避免與高耗電設備共用插座。"}},{"@type":"Question","name":"露營冷氣需要什麼延長線？","acceptedAnswer":{"@type":"Answer","text":"建議自備粗芯動力延長線 10-15M，避免細線或老舊捲線盤造成發熱或跳電。"}}]}</script>
 </head>
 <body><main class="wrap">

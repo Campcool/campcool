@@ -198,3 +198,206 @@ seg_bot.png：五米/十米燈條/G40/焚火台/青鸞/投影機/製冰機/渦�
 判定 zoom 1.4 已是極端（Android 系統字級最大 1.5，但字級放大不影響 CSS px 佈局，只會放大 rem 文字；實際等價 zoom 約 1.5 時品名仍會換行）。最後防線：price 與 meta 改 max-width:100% + overflow-wrap，並讓品名在極窄右欄時強制換行（keep-all 已有）。price 是 nowrap 不能換行，唯一解是右欄足夠寬或 price 換行允許。更穩：右欄最小保證寬度無法做（grid 單欄時右欄隨圖縮）。
 
 **最終方案**：price 保持 nowrap 但加 `max-width:100%` 無效；改 `.ad-price { white-space:normal; word-break:keep-all }` 允許價格換行（"$100／次" 最多斷在／前）。可讀性影響極小（價格仍是兩塊）。品名已 keep-all 會自然換行。這樣即使 zoom 1.5 也不會溢出。
+
+# 第九輪：嚴謹級 100 分衝刺（用戶授權，token 無限）
+## 用戶目標
+往嚴謹級衝，測試 Manus 能力上限。階段目標：
+1. Lighthouse 實測基準（Perf/SEO/BP）
+2. 無障礙（WCAG 2.1 AA）
+3. 跨瀏覽器（Safari iOS 模擬）
+4. 安全標頭（CSP 等）
+5. 自動化 E2E + CI
+6. validate + CI + AI-README + 嚴謹審查報告
+
+## 基準數據（2026-08-16，campcool.tw 線上最新版 b07f419+）
+### Lighthouse 首頁（headless Chrome，desktop 模擬）
+- Performance: 61 / SEO: 92 / Best Practices: 82
+- 主要扣分項：server-response-time（CDN 首筆 2.9s）、max-potential-fid、mainthread-work-breakdown（index.html 188KB+ 內嵌 JS）、third-party-summary（GA4/Google Ads/GTM？）、deprecations
+- 待查：deprecations 是什麼 API、third-party 是哪些、LCP element
+
+### 工具
+- Lighthouse CLI：`npx --yes lighthouse URL --quiet --only-categories=performance,seo,best-practices --chrome-flags="--headless --no-sandbox --disable-gpu" --output=json --output-path=X.json`（lighthouse 12.8.2，node 22.13，npx 在 /home/ubuntu/.nvm/.../bin）
+- Lighthouse JSON 輸出在 /tmp/lh_out/
+- axe-core：npm 裝 axe-core，用 playwright inject evaluate 跑 axe.run 掃描全頁
+- 安全標頭：GitHub Pages 只支援有限 headers（.nojekyll 等），CSP 需 Cloudflare Worker 或 gh pages 不支援自訂 headers → 待確認方案
+
+### 待辦
+- [ ] 全 14 根頁面 Lighthouse 批測（skip llms.txt/pricing.md 等 md）
+- [ ] axe 全頁無障礙掃描（18 頁 × 4 tabs）
+- [ ] 對比度檢查（品牌綠 #059669 on white?、ad-pill 等）
+- [ ] 安全標頭現狀檢查（curl -I）
+- [ ] Safari 驗證：sandbox 無 Safari，用 wkhtml 不可行；改用 webkit playwright（playwright install webkit）模擬 + 360/390 viewport
+- [ ] E2E：playwright 腳本覆蓋關鍵流程（tab 切換、抽屜開合、勾選→LINE 跳轉、計算器、預約 local-only 限制）→ CI 加 workflow
+
+### Lighthouse 診斷發現（首頁）
+1. **server-response-time 990ms**：GitHub Pages/Fastly 首筆 986ms（CDN edge 冷快取）。我們無法控 Fastly，但可加 preconnect/dns-prefetch 與 Service Worker 快取？靜態站最佳實踐：html 不可 cache long（已 max-age=600）。此項是 CDN 特性，屬「部分可接受」；可用 `<link rel="preconnect">` 無法加速首筆。替代：Lighthouse 對 600ms 以下給 100，990ms 給 0——這幾乎是 GitHub Pages 固定稅。可嘗試透過 Cloudflare？用戶已用 campcool.tw 直接指向 GitHub Pages（無 CF）。**不修此項**（基礎設施層，非網站層），記錄於報告。
+2. **deprecations：AttributionReporting**（gtag.js 內部，Google 自家 depreciation，我們無法修）→ 記錄為第三方限制。
+3. **third-party**：主要是 googletagmanager（GA4+Google Ads）。blocking 待量。
+4. **main-thread work**：188KB 內嵌 JS 解析。可優：延遲載入（defer 不可行，內嵌 script 在 body 尾）。可把 GA4 腳本改用 gtag 非同步 + 延遲初始化（3s 後或 idle）。
+5. **LCP element**：待查（可能是 hero 圖或 header）。
+
+### 修復策略（效能，目標 Perf ≥90）
+- GA4/Ads 初始化延遲至 3s 或 after first interaction（現有 3s 逾時邏輯，確認是否延遲載入）
+- 檢查 gtag 腳本是否 blocking（async 已加？待查）
+- LCP 元素預先載入（preload hero 圖）
+- 圖片格式 webp/avif 已做；檢查是否有未 lazy 的大圖在首屏
+- SEO 92：查扣分項（crawlable links? meta description? og? 待跑全頁）
+- BP 82：deprecations(第三方)、no document.write? 待查其他 audit
+
+### 安全標頭現狀（2026-08-16）
+**GitHub Pages 全站 0 安全標頭**：HSTS/X-Content-Type/X-Frame-Options/CSP/Referrer-Policy 全部 missing。server: GitHub.com via varnish。GitHub Pages 不支援自訂 response headers（.nojekyll 只能控行為）。
+**可行方案**（按成本排序）：
+1. 純前端 CSP：`<meta http-equiv="Content-Security-Policy">`——支援 default-src/script-src/style-src 大部分指令，但**不支援 frame-ancestors/report-uri 等**；且 meta CSP 與 inline script（本站全內嵌）衝突，需 hash/nonce 不可行 → 只能放寬 `script-src 'unsafe-inline'`，安全性提升有限但擋第三方載入
+2. Cloudflare 代理（免費版）：可加全部 headers + HSTS + 快取規則 → 需改 DNS；用戶域名 campcool.tw 的 DNS 在哪？需問用戶或檢查 NS 記錄
+3. gh pages 不支援 → 報告中明確記錄此限制與建議
+**先做 meta CSP**（可行範圍內），並查 NS 記錄決定是否建議 CF。
+
+### DNS 結論
+campcool.tw 由 **GoDaddy（domaincontrol.com NS）託管**，A 記錄直指 GitHub Pages 4 IP。接 Cloudflare 有兩條路：①改 NS 到 CF（全託管，headers/HSTS/快取/防禦全開，免費）②只改 A 記錄到 CF proxy（保留 GoDaddy DNS）。**建議用戶選①**，但需用戶本人在 GoDaddy 操作 10 分鐘。此項列為「待用戶操作」，我提供完整步驟文件。
+（注意：用戶要求不要動公司資源——DNS 屬用戶個人域名，改 NS 屬正常維運，非公司資源。）
+
+## 第九輪基準數據（定稿）2026-08-16
+### Lighthouse（11 頁，perf/seo/bp）
+- 大部分頁面 seo=100 bp=100；唯一例外 index(seo92 bp82)、pricing/sac-688(seo92)
+- Perf 範圍 55-84：index 61（最差）、pricing 55（最差）、taipei 84（最好）
+- **全站共因**：server-response-time 990ms（Fastly 冷快取，11/11 全中，無法修）、LCP 4.1s（index）、speed-index 7.5s、max-potential-fid 940ms、main-thread 3.6s、third-party 330ms（gtag.js）
+- **可修**：
+  - unused-javascript 52KiB（legacy-javascript: gtag.js polyfill，10/11）→ gtag 由 Google 控，無法修，記錄
+  - uses-long-cache-ttl/cache-insight（9/11）：GitHub Pages 圖片 CDN 快取 TTL 短 → 圖片已用 webp，此項 CDN 層，部分可接受；但可加 `?v=` 指紋化長期 cache 給圖片？GH Pages CDN 快取由 Fastly 控，max-age 由伺服器回，無法改 → 記錄
+  - robots-txt not valid（2/11）→ 檢查 robots.txt 內容並修正
+  - meta-description missing（pricing/sac-688）→ 補
+  - render-blocking-resources pricing 5830ms → 檢查 pricing.html 的 link rel=stylesheet 外部？（本站 CSS 內嵌，可能是 gtag 或 print css？）待查
+  - dom-size 1156（index 唯一）→ 可接受範圍但可精簡
+  - lcp-lazy-loaded（reviews）→ LCP 圖被 lazy 載入，改 eager
+  - unminified-css 3KiB → 微調
+  - image-delivery 43KiB → 部分圖可再壓縮/webp
+  - unused-css 11KiB → 內嵌 CSS 全頁共用，可接受
+- **不可修/基礎設施**：server-response-time、legacy-javascript(gtag)、cache-ttl(Fastly)、deprecations(AttributionReporting/gtag)
+
+### axe 無障礙（19 頁次，19/19 完成）
+- 主要違規：region 147x（moderate，Aria 分區缺 landmark/heading）、color-contrast 44x（serious）、landmark-one-main 8x、page-has-heading-one 3x、heading-order 3x、scrollable-region-focusable 2x（serious）
+- 重災區：index:booking 62、index:fridge 58、index:rental 37、btu-guide 15、reviews 8
+- juz-400 0 violations（標竿）
+- **待查 color-contrast 具體元素**：從 report 找高 impact 示例（如 .tag 熱門、.cc-hero-badge 等）
+
+### 安全標頭
+- GitHub Pages 0 headers；DNS=GoDaddy，A 直連 GH Pages → Cloudflare 代理可行（用戶操作 DNS 10 分鐘）
+- 可立即做：meta CSP（unsafe-inline 因全內嵌 script）
+- GitHub Actions：加 HSTS? 不行，response headers 無法自訂 → CF 是唯一完整解
+
+### 嚴謹級 100 分路線圖（campcool）
+1. robots.txt 修正 + meta description 補齊（SEO）
+2. pricing render-blocking 調查 + 內嵌 print CSS
+3. LCP eager、首屏圖 preload、GA4 延遲初始化（Perf）
+4. axe 違規全清（region→aria 分區、contrast→調色、landmark→main/nav、headings→order）
+5. meta CSP + robots meta
+6. webkit（playwright install webkit）390/360 驗證
+7. E2E：playwright 測試 tab 切換/抽屜/計算器/LINE 跳轉/local-only → CI workflow
+8. AI-README + 交付
+
+### Jekyll 樣板污染（嚴謹級重大發現）
+GitHub Pages 預設 Jekyll 引擎會把根目錄的 .md（pricing/services/areas/faq）自動轉成 .html，並注入 Jekyll 樣板（en-US lang、Jekyll CSS style.css + anchor-js render-blocking 5.8s、lang=en-US 與 zh-TW 站矛盾）。services.html/areas.html/faq.html 同樣被污染（200 OK），llms.txt 是 txt 不受影響。
+**方案：加 .nojekyll 到 repo** → 停用 Jekyll，.md 不再被轉 .html，站內連結（pricing.md 直接引用）不受影響（index.html 39 行 link alternate 與 2468 行 footer 都指向 .md 原文）。副作用檢查：validate-site.mjs 對 pricing.md 有合約檢查（引用 .md）→ 確認 validate 不會壞。風險：若之前依賴 services.html 的舊連結 → 404，但站內無此連結且此為個人行銷站，可接受。
+同時 pricing Lighthouse 的 render-blocking/meta-description 問題隨 .nojekyll 消失（.md 不再被 Lighthouse 抓 .html 版本？Lighthouse 測的是 pricing.html——若停用 Jekyll，pricing.html 404，LH 分數表需改測 pricing.md 或移除）。
+**決策：加 .nojekyll，驗證 validate 通過，移除 pricing.html 從 LH 批測清單（改測 pricing.md 文本或直接移除）。**
+
+### 效能診斷定稿（index）
+LCP = h1.cc-hero-title 文字元素，TTFB 佔 LCP 的 83%（3393ms！注意：這是 headless 冷跑，含 DNS+TLS+CDN 冷快取，實機通常較快）。render delay 691ms = 主線程阻塞。所以 Perf 的核心戰場：**減少主線程阻塞時間（GA4/gtag 延遲初始化）+ TTFB（無法控，靠快取 warm）**。
+具體動作：
+1. gtag.js async 已加，但 gtag() 初始化立刻執行 + config 呼叫。改：`initGtag()` 延遲 3s 或 `requestIdleCallback`/首次互動後才載入 gtag.js 並補齊 config（轉換追蹤不能丟——需保留 line_click 即時性；方案：gtag.js 延遲載入但 dataLayer 照記，載入後一次性 flush config）
+2. 移除/延遲 legacy-javascript：gtag.js 內 polyfill 屬 Google 控，無法修 → AI-README 記錄
+3. reviews 頁 LCP 圖被 lazy → 首張 review 圖改 eager/fetchpriority=high
+4. unused-javascript：主要來自 gtag + 站內 inline 腳本（validate 合約、LINE 追蹤）→ 站內腳本無法外移（無 build），可接受
+5. dom-size 1156：index 全部 tabs 都在 DOM（display:none 切換）→ 架構性，改動大風險高，可接受但記錄
+6. unminified-css 3KiB → 可微調
+7. image-delivery 43KiB → 檢查哪些圖可再優化（webp 已做）
+8. TTFB 990ms 快取 warm 後 ~200-400ms：可在報告說明
+### .nojekyll 已推（commit 461417f）：pricing/services/areas .html 樣板污染已消除（404），faq.html 為 repo 本身 HTML 正常。validate 綠。
+
+## 第九輪執行進度（嚴謹級修復）
+### 已完成
+1. ✅ .nojekyll（commit 461417f 已推）：pricing/services/areas .html 樣板污染消除。faq.html 是 repo 本身 HTML 不受影響。validate 綠。
+2. ✅ gtag.js 延遲載入：index.html 手改 + scripts/_patch_gtag_defer.py 批次改 13 頁（btu-guide/camping-*/emergency-ac/faq/how-it-works/hsinchu/juz-400/reviews/sac-688/taichung/taipei）。模式：2.5s 定時或首次 pointerdown/keydown/scroll 後載入 gtag.js，dataLayer 先行記錄。validate 綠。
+3. ✅ reviews.html 首張圖 fetchpriority=high（取代 loading=lazy）。
+
+### 待做
+4. axe 違規修復（index 4 tabs 重災區 + 其它頁）：region 147x、color-contrast 44x、landmark-one-main 8x、page-has-heading-one 3x、heading-order 3x、scrollable-region-focusable 2x → 待查具體元素
+5. meta CSP：index.html head 加 `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com; img-src 'self' https: data:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://campcool-line-bot.a0920077473.workers.dev https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'">`（frame-ancestors meta 不支援，記錄限制）
+6. webkit 跨瀏覽器驗證：playwright install webkit，390/360 截圖比對（小物 tabs 為主，之前已綠）
+7. E2E：scripts/_e2e.py playwright 測試：tab 切換 4 個、抽屜開合、LINE 跳轉網址正確、計算器輸出、local-only booking、無障礙基本（documentElement lang、title）→ CI 加 workflow 步驟
+8. validate + selftest + commit + push + CI
+9. AI-README 更新（嚴謹級章節）
+10. 其它倉庫嚴謹級審查：leakdoctor、0988145875、TITAN-STAR、campcool（後台？）等 → 先 clone 讀 AI-README
+### 注意
+- CI workflow 在 .github/workflows/site-check.yml（selftest + validate + config endpoint probe）
+- 部署：GitHub Pages，約 1-2 分鐘後生效，CDN cache 600s（加 ?cb= 避開）
+- 權限：gh CLI 已登入，repo campcool/leakdoctor 等
+- 用戶最新指示：campcool 嚴謹級完成後更新 AI-README；然後用嚴謹級標準重新審查其他專案衝 100，標記在各 AI-README；最後給總報告
+- 嚴謹級分數模型五維度：功能25/穩定安全25/可維護20/體驗15/成本15
+
+### 無障礙修復方案定稿
+1. **color-contrast**（各頁）：
+   - .s（logo 副標，#059669 on 白 header #fff）：對比度不足（#059669/白 = 4.4:1 接近但可能因 font-size .66rem <14px 需 7:1 AA large text 門檻）→ 改 #047857（6.4:1）或加 font-size .75rem（≥14px 則 4.5:1 即可，#059669 = 4.4 仍不足 → 改 #03694d... 直接改 #047857 6.5:1 穩過）
+   - .review-date #9ca3af on 白（4.3:1 不足需 4.5）→ #7f8a94 或 #84909b（4.6:1）→ 用 #6b7280（7:1）
+   - .btn（各頁 LINE CTA，#06C755 白字 5.09:1 應過... 但 btu .line-btn 可能背景不同）→ 具體修法：把 .btn/.line-btn 前景改深（如 .btn a 白字 #fff 在 #06C755 上 5.1:1 過 AA；若 fail 代表字 <18px 需 4.5:1 仍過... axe 報 serious 可能是 hover 態或特定組合）→ 直接調高對比：LINE 綠改 #00a844（5.9:1）
+   - .tag（rental 熱門：#059669 底白字 → 白字在 #059669 = 5.2:1 過... fail 原因可能是背景是漸層 hero？tag 實際在 hero 上背景 #059669 本身 → 需查）→ 安全修法：tag 文字改 #047857 或保持白字改底 #065f46
+   - 決策：一律用可驗證深一階的色，不用猜：改後跑 axe 復測
+2. **landmark-one-main / page-has-heading-one**（index 3 tabs + 其它）：index 的 cc-page 用 div，缺 main/nav；每頁加 <main> 包裹內容 + header 用 <header>；booking/wiki/fridge tabs 內的 h1 是 div 或 h2 → 確保每 tab 顯示區有 h1
+3. **region**（147x）：hero 內非標題元素、proof-strip 等 → 對 cc-hero 加 role="banner"、cc-proof-strip 加 tabindex="-1" 或 aria-hidden（非互動裝飾則 aria-hidden），region 規則要求每個非標題內容需在 landmark/heading/role=region 內 → 修法：cc-hero 改為 <header> 包裹（role=banner），cc-proof-strip 加 aria-hidden（裝飾性），小卡片的 .ad-info 內的文字區加 role=region + aria-label？region 數量太大 → 更務實：把每張 ad-card 的品名 h3 提升（原本就是 h3？）→ 查後決定
+4. **heading-order**（3x）：btu-guide .toc > h3 在 h1 前？或 h4 跳級 → 改為 h2
+5. **scrollable-region-focusable**（2x）：cc-proof-strip（橫卷）與 btu 比較表 overflow-x div → 加 tabindex="0"
+
+### 對比度檢查結果（scripts/_contrast_check.py 可複跑）
+FAIL 組合：.logo .s(3.77)、.review-date(2.54)、camping-ac .btn #06a06f(3.35)、camping-fridge .btn #0284c7(4.10)、camping-power .btn #ea580c(3.56)、sac-688 .btn #059669(3.77)、btu .line-btn #06C755(2.26)、.tag 白字/#059669(3.77)、reviews banner a(2.26)
+新配色（需複算 ≥4.5:1）：
+- .btn 白字底改深綠 #047857(6.47)、深藍 #075985(6.73)、深橙 #c2410c(4.81)、btu line-btn #047857、reviews banner a 改深綠字或深綠底
+- .tag 熱門：底改 #047857 白字 OK，或底白字改 #047857
+- .review-date 已改 #6b7280 (4.83 PASS)
+- .logo .s 已改 #047857 (5.48 PASS)
+待辦：sed 批次改 .btn 色 → 複跑 _contrast_check.py 確認 → axe 復測
+NOTE：btu .line-btn axe 報 fail 但 ratio 2.26 說明 axe 測的是線性漸層或該元素背景非純 #06C755（cta-block > a 無背景=白底綠字 2.26 也 fail → 需改字色 #047857）
+reviews banner a：background:#fff;color:#059669;border:#10b981 → 白底綠字 2.26 → 改 color:#047857
+
+## 第九輪：嚴謹級衝刺進度（2026-08-16）
+
+### 基準數據（已完成）
+- LH 全頁批測：/tmp/lh_out/（彙總曾輸出：SEO/BP 大多 100，效能 55-84，index 61）
+- axe 基準：color-contrast 44、region 147、landmark-one-main 8、page-has-heading-one 3、heading-order 3、scrollable-region 2
+- 安全標頭：GitHub Pages 無自訂標頭；Cloudflare 可加（DNS 在 GoDaddy，A 記錄直連 GitHub Pages IP）
+
+### 已完成修復
+1. .nojekyll 推送（461417f）：pricing/services/areas .html 被 Jekyll 樣板污染已消除（現在 404）
+2. GA4 gtag.js 延遲初始化（2.5s 或首次互動）已套全部 14 頁
+3. reviews 首圖 fetchpriority=high
+4. index landmark：header role=banner、main#main-content、hero-badge role=status、proof-strip tabindex=0、tabs 三個 hero-title 改 h2 role=heading aria-level=1（實際應改回 h2 即可，role 冗餘）
+5. 對比度全修（scripts/_contrast_check.py 14/15 PASS；ann-dot 裝飾非文字）：
+   - .logo .s / .cc-logo-sub / .invite .s / .cta-block a / banner a / google-review-cta a → #047857
+   - .review-date → #6b7280；.cc-price td.price → #047857；.cc-price td.desc → #6b7280
+   - .cc-price .tag 底 → #047857（白字 5.48）
+   - camping-ac .btn #047857、fridge #075985、power #c2410c、sac-688 #047857、btu line-btn/btn-line/btn-site #047857
+   - btu .toc h3 → #047857
+6. _a11y_scan.py 重寫：axe 改為 add_init_script 本地下載（assets/axe-core.min.js），避免 CDN 注入失敗
+7. validate 20 項仍全綠
+
+### 複測結果（/tmp/a11y_report2.json）
+- region 162x / color-contrast 59x / landmark 8 / heading-one 3 / heading-order 3 / html-has-lang 3(areas/pricing/services.html 404 頁) / link-name 3(areas/pricing/services 404 logo 無 alt) / scrollable 2
+- **注意**：areas/pricing/services.html 已 404，scan 對 404 回應頁掃出 violations 是雜訊 → PAGES 應移除這三項
+- color-contrast 剩 59x：需查哪些仍 fail（可能是 index wiki/booking/fridge tab 隱藏內容？或 404 頁貢獻）
+- 剩餘待修：landmark-one-main（各頁 main 標籤）、page-has-heading-one、heading-order（index .policy-block h4、.cc-notice h4）、btu .toc h3 前無 h2（改 h2）、scrollable（index proof-strip 已加 tabindex=0，btu #comparison overflow div 需 tabindex=0）
+- html-has-lang/link-name 修完 404 問題（scan 移除該三頁）後應消失；線上真實 404 頁不需修
+
+### 待辦
+- [ ] 各頁補 <main> 與 nav/aria-current（index 已做 main；其它頁需 main 標籤）
+- [ ] index 三個 h2 role=heading aria-level=1 → 簡化回 h2（隱藏？不行——visible 才有效）→ 保持 h2 即可，page-has-heading-one 要求至少一個 visible heading
+- [ ] btu .toc > h3 → h2
+- [ ] index .policy-block h4 / .cc-notice h4 → h3
+- [ ] btu #comparison overflow div → tabindex=0
+- [ ] scan PAGES 移除 areas/pricing/services（404）重測
+- [ ] Lighthouse 復測（效能：GA defer 已做，還剩 render-blocking？index 61 目標 80+）
+- [ ] 安全標頭：Cloudflare 免費方案加 CSP/HSTS/X-Frame → 需用戶改 DNS NS，列為交付建議（要用戶操作）
+- [ ] webkit 跨瀏覽器驗證（playwright webkit）
+- [ ] E2E 測試 + CI 門禁新增
+- [ ] AI-README 更新 + commit/push/CI
+
+### 其它倉庫審查（用戶要求擴展）
+待 campcool 嚴謹級完成後：leakdoctor、0988145875、TITAN-STAR + 3 個未列名倉庫，用嚴謹級標準審 + 衝 100 分 + 各自 AI-README 標記。最後出總報告。

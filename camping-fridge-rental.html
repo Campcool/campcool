@@ -3,7 +3,30 @@
 <head>
   <meta charset="utf-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18167565264"></script>
+<script>
+  (function () {
+    var loaded = false;
+    function loadGtag() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18167565264';
+      s.async = true;
+      document.head.appendChild(s);
+    }
+    var timer = setTimeout(loadGtag, 2500);
+    var onFirst = function () {
+      clearTimeout(timer);
+      loadGtag();
+      document.removeEventListener('pointerdown', onFirst);
+      document.removeEventListener('keydown', onFirst);
+      document.removeEventListener('scroll', onFirst);
+    };
+    document.addEventListener('pointerdown', onFirst, { passive: true });
+    document.addEventListener('keydown', onFirst, { passive: true });
+    document.addEventListener('scroll', onFirst, { passive: true });
+  })();
+</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -25,7 +48,7 @@
   <title>露營移動冰箱租借｜食材飲料母乳保冷｜露涼社</title>
   <meta name="description" content="露涼社提供露營移動冰箱租借，適合食材、飲料、母乳、副食品與漁獲保冷。租金 800 元/次，連假不限天數。">
   <link rel="canonical" href="https://campcool.tw/camping-fridge-rental.html">
-  <style>body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Segoe UI",sans-serif;background:#f0f9ff;color:#102033;line-height:1.7}.wrap{max-width:900px;margin:auto;padding:28px 18px}header,section{background:#fff;border:1px solid #cdeafe;border-radius:16px;padding:22px;margin:0 0 16px}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:0 0 12px}.btn{display:inline-block;background:#0284c7;color:#fff;text-decoration:none;font-weight:900;border-radius:10px;padding:12px 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{background:#f8fcff;border:1px solid #cdeafe;border-radius:14px;padding:16px}a{color:#0369a1;font-weight:800}</style>
+  <style>body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Segoe UI",sans-serif;background:#f0f9ff;color:#102033;line-height:1.7}.wrap{max-width:900px;margin:auto;padding:28px 18px}header,section{background:#fff;border:1px solid #cdeafe;border-radius:16px;padding:22px;margin:0 0 16px}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:0 0 12px}.btn{display:inline-block;background:#075985;color:#fff;text-decoration:none;font-weight:900;border-radius:10px;padding:12px 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{background:#f8fcff;border:1px solid #cdeafe;border-radius:14px;padding:16px}a{color:#0369a1;font-weight:800}</style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"露營移動冰箱租借","provider":{"@type":"LocalBusiness","name":"露涼社 CampCool","url":"https://campcool.tw"},"offers":{"@type":"Offer","price":"800","priceCurrency":"TWD"}}</script>
 </head>
 <body><main class="wrap">
