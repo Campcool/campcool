@@ -1360,6 +1360,17 @@
   .ad-cat::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,#a7f3d0,transparent); }
   .ad-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   @media (max-width:520px){ .ad-grid { grid-template-columns:1fr; } }
+  @media (max-width:520px){
+    .ad-photo { width:100px; height:100px; border-radius:12px; }
+    .ad-card { padding:12px; gap:12px; }
+    .ad-info { gap:6px; }
+    .ad-name { font-size:1rem; line-height:1.35; }
+    .ad-brand { font-size:.68rem; }
+    .ad-price { font-size:1.2rem; }
+    .ad-pill { font-size:.66rem; padding:3px 8px; }
+    .ad-head { gap:8px; }
+    .ad-tick { width:20px; height:20px; font-size:.72rem; top:7px; right:7px; }
+  }
   .ad-card {
     display:flex; align-items:stretch; gap:14px;
     background:linear-gradient(160deg,rgba(255,255,255,.96),rgba(240,253,250,.75));
@@ -1379,11 +1390,11 @@
   .ad-photo img { width:100%; height:100%; object-fit:cover; display:block; }
   .ad-ph-ico { font-size:1.6rem; line-height:1; }
   .ad-info { flex:1; min-width:0; display:flex; flex-direction:column; gap:7px; }
-  .ad-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
-  .ad-title { min-width:0; }
+  .ad-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; min-width:0; }
+  .ad-title { min-width:0; display:flex; flex-direction:column; gap:2px; }
   .ad-brand { font-size:.7rem; font-weight:800; color:#059669; letter-spacing:.04em; }
-  .ad-name { font-size:1.1rem; font-weight:900; color:#0f172a; line-height:1.25; margin:2px 0 0; }
-  .ad-price { flex-shrink:0; align-self:flex-start; font-size:1.35rem; font-weight:900; color:#047857; white-space:nowrap; line-height:1.2; }
+  .ad-name { font-size:1.1rem; font-weight:900; color:#0f172a; line-height:1.3; margin:0; word-break:keep-all; overflow-wrap:break-word; }
+  .ad-price { flex:0 0 auto; align-self:flex-start; font-size:1.35rem; font-weight:900; color:#047857; white-space:nowrap; line-height:1.2; }
   .ad-price small { font-size:.65rem; font-weight:700; color:#6b7280; margin-left:1px; }
   .ad-meta { display:flex; flex-wrap:wrap; gap:5px; }
   .ad-pill { font-size:.7rem; font-weight:700; padding:4px 9px; border-radius:8px; background:rgba(255,255,255,.9); border:1px solid rgba(0,0,0,.06); color:#374151; white-space:nowrap; }
@@ -1404,7 +1415,7 @@
   .ad-card.a-fun .ad-brand, .ad-card.a-fun .ad-price { color:#6d28d9; }
 
   /* 其它小物：分類抽屜 */
-  .ad-drawer { background:#fff; border:1.5px solid #d1fae5; border-radius:14px; margin-bottom:10px; overflow:hidden; box-shadow:0 4px 12px rgba(6,95,70,.05); }
+  .ad-drawer { background:#fff; border:1.5px solid #d1fae5; border-radius:14px; margin-bottom:10px; overflow:hidden; box-shadow:0 4px 12px rgba(6,95,70,.05); min-width:0; }
   .ad-drawer summary { display:flex; align-items:center; gap:10px; padding:14px 14px; cursor:pointer; list-style:none; min-height:56px; font-family:inherit; }
   .ad-drawer summary::-webkit-details-marker { display:none; }
   .ad-drawer summary:hover { background:#f0fdf4; }
@@ -1418,7 +1429,7 @@
   .ad-drawer .ad-grid { padding:10px; }
 
   /* 可勾選卡片 */
-  .ad-card { position:relative; cursor:pointer; user-select:none; }
+  .ad-card { position:relative; cursor:pointer; user-select:none; overflow:hidden; }
   .ad-card .ad-chk { position:absolute; opacity:0; width:0; height:0; pointer-events:none; }
   .ad-card .ad-photo, .ad-card .ad-info, .ad-card .ad-price { pointer-events:none; }
   .ad-info { display:block; }

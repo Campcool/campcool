@@ -103,3 +103,47 @@ CI 前輪 c3e3321 已 success（Site check）；Pages 部署當時 in_progress�
 ## 第六輪：pill nowrap 修復驗證（2026-08-16）
 電吉拉卡：pill 已 nowrap 整齊排列，標籤不再換行溢出，品名/價格/規格完整。截圖實際寬 780px（裁 1560 超寬致右半黑，重裁時寬用 780）。座標需乘 2。
 製冰機卡 pill 正常 nowrap 無溢出，修復完成。下一：commit push → CI → AI-README → 交付。
+
+## 第七輪：用戶實機截圖 1000033500.jpg（手機 15:59，viewport 約 390-412px 寬）
+用戶反饋「還是排版問題，徹底檢查根因」。截圖關鍵觀察：
+1. C40 卡：品名「C40 移動冰箱 40L」斷成 4 行（每行 1-2 字），品牌「冰虎 ALPICOOL」斷 2 行，價格 $800 被右緣切掉一半
+2. 5×8 天幕卡：品牌「遮蔽」直式斷行（「遮/蔽」上下排），品名「5×8 黑膠天幕」斷 2 行，$600 完整但靠右緣
+3. 第一張截圖：簡易焚火台卡「尺寸待確認*」黃色標籤斷 2 行且撐出卡右緣
+4. 我的本地 playwright 390px 截圖沒有這些問題——關鍵差：用戶用 Android 瀏覽器，viewport 寬可能 < 390（或 360），且用戶截圖中 card 內容明顯超出螢幕（價格被切）→ 卡片容器在某個寬度下無溢出保護。
+根因假說：
+- .ad-name 1.1rem 在窄屏（360px）+ 長品名「C40 移動冰箱 40L」（8字×1.1rem≈寬>卡片可用寬）→ 逐字斷行
+- .ad-price white-space:nowrap 但 .ad-head 沒 min-width 限制→ flex 項目被擠到卡片外，溢出容器（overflow 未 hidden）
+- .ad-meta pills nowrap 單行多 pill 總寬>卡片寬→溢出
+- viewport meta 已設？index.html 應有 <meta name=viewport> 但需確認（若缺 → 手機不縮放致寬度計算全錯，這是最大嫌疑！）
+要查：viewport meta、body 寬度、ad-card 寬度來源（ad-grid grid-template-columns? flex?）、ad-head gap 與 flex-basis。
+
+## 根因確診（第七輪）
+viewport meta 有（width=device-width）。用戶 viewport 約 390px。
+真正的根因：`<label class="ad-card">` 包裹 `<input type=checkbox>`。瀏覽器預設 `<label>` 對 inline-block checkbox 的行為 + **1363 行 `.ad-card { display:flex }` 與 1421 行 `.ad-card { position:relative }` 兩次定義**——CSS 級聯後 flex 生效（1421 在 1363 後，但 1421 沒覆寫 display，兩規則皆套用）。
+核心問題：`.ad-card` 沒有 `overflow:hidden` 且 flex 子項（.ad-info 內容）寬度不受限：
+- `.ad-name`（1.1rem、900）與 `.ad-brand` 沒有 `min-width:0` 限制 → flex 子項預設 min-width:auto（不允許縮小於內容），品名長時 flex 容器被撐寬超過 grid 格寬，內容溢出標籤容器 → 用戶截圖看到卡片內容超出螢幕、價格被切。
+- `.ad-head` 沒 overflow/ellipsis 保護，斷字靠瀏覽器預設 word-break。
+- 用戶截圖品名逐字換行：因為 .ad-head display:flex 內 .ad-title min-width:0 已設但 .ad-name 無 word-break，且卡片被撐寬後文字仍逐字換行——實際因 font 回退/換行規則。
+修復方案（一次到位）：
+1. .ad-card 加 overflow:hidden
+2. .ad-info 加 min-width:0（現已有）；.ad-name / .ad-brand 加 overflow-wrap:anywhere 或保持 nowrap？——要解決逐字斷行，給 .ad-name 合理的字級（手機降為 1rem）+ overflow-wrap:break-word
+3. .ad-price flex-shrink:0 保留
+4. .ad-head 加 min-width:0（flex 子項）
+5. @media max-width:520px 時 .ad-photo 縮到 100px、.ad-name 1rem、.ad-price 1.2rem
+6. 移除 .ad-tick 絕對定位在右上與 .ad-head 的 justify-between 衝突？——.ad-tick absolute top/right，不影響。
+先寫 CSS 再逐卡 390 與 360 雙 viewport 驗證。
+
+## 第七輪 CSS 修正已套用（尚未驗證/commit）
+- .ad-head 加 min-width:0；.ad-title flex column min-width:0
+- .ad-name：word-break:keep-all + overflow-wrap:break-word（解決逐字斷行），margin 0
+- .ad-card 加 overflow:hidden；.ad-drawer 加 min-width:0
+- .ad-price flex:0 0 auto（不縮）
+- 待做：① 手機 @media max-width:520px 加 .ad-photo 100px/.ad-name 1rem/.ad-price 1.2rem 降級 ② playwright 逐卡雙 viewport（390/360）驗證 ③ validate+selftest ④ commit push CI ⑤ AI-README ⑥ 交付（附件用逐卡驗證圖 /tmp/addons_section.png 與 fix_*.png）
+- 截圖腳本：scripts/_shot_addons.py（切 fridge tab 開全 drawer 截其它小物 section，存 /tmp/addons_section.png）；裁段：scripts/_crop_addons.py
+- 卡片 rect 座標（390×900 邏輯 px，截圖 dsf=2 需乘 2，寬 780）：C40冰箱2078→662*2? 實測清單：C40 662/287、5×8天幕1041、蝶形1314、黑狗1588、電吉拉2078、延長5M2468、10M2630、五米燈2872、十米燈3080、G40 3262、持久小燈3531、焚火台3980、青鸞4194、投影機4665、製冰機5036、渦輪扇5225（top, height）
+- 上次 commit c31fb01（佈局改造）、1e1db9b（AI-README）已 push，CI 全綠。本輪若成功將是第三個 commit。
+
+## 第七輪 CSS 修正後驗證（390px，seg_top/seg_bot）
+seg_top.png：C40 品名「C40 移動冰箱 40L」正常斷行兩行內（非逐字）、品牌「冰虎 ALPICOOL」一行、價格 $800 完整不切、右欄 pills 正常。5×8 黑膠天幕：品牌「遮蔽」一行、品名正常。蝶形/黑狗/電吉拉/延長線卡皆左圖右文整齊，pill nowrap 無溢出。
+seg_bot.png：五米/十米燈條/G40/焚火台/青鸞/投影機/製冰機/渦輪扇皆正常，「尺寸待確認*」標籤 nowrap 於單行（焚火台段）。
+待補：360px viewport 雙驗證 + validate/selftest + commit。
