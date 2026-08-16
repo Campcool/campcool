@@ -1,0 +1,60 @@
+name: Validate and deploy
+
+# 直推 main 模式的安全網：檢查全過才部署。
+# 任一檢查失敗 → deploy job 不執行 → 線上維持前一個正常版本。
+# 產品負責人無需人工核准，壞版本也不會上線。
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時多次推送時，只部署最新一次；進行中的舊部署不中斷（避免站台空窗）
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Anti-false-green self-test
+        run: node scripts/validate-site.mjs --selftest
+
+      - name: Full site validation
+        run: node scripts/validate-site.mjs
+
+      - name: Install Playwright
+        run: pip install playwright && playwright install --with-deps chromium
+
+      - name: E2E core-flow tests
+        run: python3 scripts/e2e-test.py
+
+  deploy:
+    name: Deploy to Pages
+    needs: validate
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

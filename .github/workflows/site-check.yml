@@ -1,9 +1,10 @@
 name: Site check
 
+# push 到 main 時由 deploy.yml 驗證並把關部署，此處只負責 PR 與手動觸發，
+# 避免同一次推送重複跑兩輪檢查。
 on:
-  push:
-    branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   validate:

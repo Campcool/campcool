@@ -22,10 +22,26 @@
   在自身驗證全綠的狀態下讓 Google Ads 轉換回傳全部失敗，事後複驗才發現。
   若當時正在投放，該期間的轉換數據已無法追回。
 
-### 規則一：不直推 main
+### 規則一：可直推 main，但事後必須互相複驗
 
-一律開分支，由**另一方複驗後**才合併。這是三條規則裡最重要的一條——
-上述兩次事故若有複驗都不會發生。
+**產品負責人已明確決定採用直推模式**（要求每次 PR 核准會讓他成為部署瓶頸）。
+因此各代理可直接推送 main，但必須理解其代價與配套：
+
+- **審查發生在部署之後**。GitHub Pages 一經推送即上線，風險不是零，
+  而是「暴露時間 = 到下次複驗為止」。CSP 事件即為此模式下的實例。
+- **因此配套為兩層**：
+  1. **CI 門禁擋部署**——`.github/workflows/deploy.yml` 先跑
+     validate + selftest + E2E，全過才部署。檢查未過時 deploy job 不執行，
+     **線上維持前一個正常版本**，壞版本不會上線（無需人工介入）。
+
+     > ⚠️ 此門禁需要 GitHub Pages 的來源設為 **GitHub Actions**
+     > （Settings → Pages → Build and deployment → Source）。
+     > 若仍為 "Deploy from a branch"，Pages 會**繞過 CI 直接部署**，
+     > 門禁形同虛設。此為一次性設定。
+  2. **交叉複驗**——他方代理接手時，應先看上一輪的變更是否引入問題，
+     特別是規則二列出的四類。
+- **退版方式**：`git revert <commit> && git push origin main`，
+  CI 通過後自動重新部署上一個正常版本。
 
 ### 規則二：四類變更必須做行為驗證，不能只跑 validate
 
@@ -59,8 +75,13 @@
 git pull origin main                      # 規則三
 node scripts/validate-site.mjs            # 20 項斷言
 node scripts/validate-site.mjs --selftest # 確認驗證非假綠
+python3 scripts/e2e-test.py               # 核心流程 E2E
 # 若屬規則二的四類變更，另加瀏覽器實測
+git push origin main                      # CI 會再跑一次；未過則不部署
 ```
+
+推送後請確認 Actions 為綠燈。若為紅燈代表**部署已被擋下、線上仍是舊版**，
+請修正後重推，不要放著不管。
 
 ## 2026-07-30 改版基準
 
