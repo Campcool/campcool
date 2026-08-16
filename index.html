@@ -320,17 +320,15 @@
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   /* 全站文字縮放（1.5x 上限，手機 1.25x 起跳，自適應流暢） */
-  html { font-size: clamp(20px, 16px + 1vw, 24px); }
+  html { font-size: clamp(20px, 16px + 1vw, 24px); scroll-padding-top: 72px; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
     background: #f0fdf8;
     min-height: 100vh;
-    padding-bottom: 96px;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
   }
   #app-root { display: flex; flex-direction: column; min-height: 100vh; }
 
@@ -499,6 +497,7 @@
     font-weight: 900;
     cursor: pointer;
   }
+  .cc-ann-toggle { background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.3); }
   .cc-ann-link {
     display: inline-flex;
     align-items: center;
@@ -660,7 +659,7 @@
   }
 
   @media (min-width: 900px) {
-    body { padding-bottom: 72px; }
+    body { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
     .cc-nav { background: linear-gradient(180deg, rgba(22,40,30,.32), rgba(16,28,21,.46)); }
     .cc-nav-inner { max-width: 540px; padding: 7px 12px; }
     .cc-nav-btn { padding: 3px 8px 4px; gap: 3px; }
@@ -762,7 +761,7 @@
   .cc-price-pick span { display:block; font-size:.68rem; color:#64748b; font-weight:700; line-height:1.35; }
   .cc-price-pick:hover { background:#ecfdf5; transform:translateY(-2px); box-shadow:0 8px 18px rgba(5,150,105,.12); }
   .cc-price-urgent { text-align: center; margin-top: 8px; font-size: .75rem; color: #dc2626; font-weight: 700; }
-  .cc-price-note { text-align: center; margin-top: 4px; font-size: .72rem; color: #9ca3af; }
+  .cc-price-note { text-align: center; margin-top: 4px; font-size: .72rem; color: #6b7280; }
 
   /* Fridge table */
   .cc-tbl-wrap { width: 100%; overflow-x: auto; border-radius: .5rem; margin: .6rem 0; }
@@ -889,6 +888,7 @@
 
   /* 預約表單 */
   .cc-form { background:#fff; border:1px solid #e5e7eb; border-radius:1rem; padding:1.1rem; box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:1rem; }
+  .cc-form-sublabel { display:block; font-size:.84rem; font-weight:700; color:#374151; margin:.85rem 0 .35rem; }
   .cc-form label { display:block; font-size:.84rem; font-weight:700; color:#374151; margin:.85rem 0 .35rem; }
   .cc-form input[type=text], .cc-form input[type=tel], .cc-form input[type=date], .cc-form select, .cc-form textarea { width:100%; padding:.6rem .7rem; font-size:.92rem; border:1.5px solid #d1d5db; border-radius:.6rem; background:#fff; color:#1f2937; font-family:inherit; -webkit-appearance:none; appearance:none; }
   .cc-form input:focus, .cc-form select:focus, .cc-form textarea:focus { outline:none; border-color:#059669; box-shadow:0 0 0 3px rgba(5,150,105,.12); }
@@ -915,7 +915,7 @@
   .cc-modelinfo { display:none; margin-top:.4rem; font-size:.8rem; color:#047857; background:#f0fdf4; border:1px solid #a7f3d0; border-radius:.6rem; padding:.55rem .7rem; line-height:1.55; }
   /* 選購指南：子分頁（連貫頁籤＋下方內容區） */
   /* 選購指南：三色子頁籤（一眼可區分） */
-  .cc-sub-tabs{display:flex;gap:6px;background:#f8fafc;border:1px solid #e2e8f0;border-bottom:none;border-radius:14px 14px 0 0;padding:6px 6px 0;margin:0;position:sticky;top:8px;z-index:5}
+  .cc-sub-tabs{display:flex;gap:6px;background:#f8fafc;border:1px solid #e2e8f0;border-bottom:none;border-radius:14px 14px 0 0;padding:6px 6px 0;margin:0;position:sticky;top:69px;z-index:90}
   .cc-sub-tab{flex:1;padding:12px 4px;border:none;background:transparent;font-weight:800;cursor:pointer;border-radius:10px 10px 0 0;font-size:.82rem;line-height:1.3;position:relative;bottom:-1px;transition:all .15s ease}
   .cc-sub-tab[data-wtab="btu"]   { color:#6d28d9 }
   .cc-sub-tab[data-wtab="tents"] { color:#047857 }
@@ -1012,7 +1012,7 @@
   .cc-pick-group:has(.cc-pick-btn:nth-child(2):last-child) { grid-template-columns:1fr 1fr; }
   .cc-pick-group:has(.cc-pick-btn:nth-child(1):last-child) { grid-template-columns:1fr; }
   .cc-pick-btn { padding:.65rem .5rem; border:1.5px solid #d1d5db; border-radius:.7rem; background:#fff; color:#374151; font-family:inherit; font-weight:800; font-size:.86rem; cursor:pointer; line-height:1.25; transition:all .15s ease; display:flex; flex-direction:column; align-items:center; gap:2px; }
-  .cc-pick-btn small { font-size:.66rem; font-weight:600; color:#9ca3af; }
+  .cc-pick-btn small { font-size:.66rem; font-weight:600; color:#6b7280; }
   .cc-pick-btn:hover { border-color:#6ee7b7; background:#f0fdf4; }
   .cc-pick-btn.active { border-color:#059669; background:linear-gradient(135deg,#ecfdf5,#d1fae5); color:#065f46; box-shadow:0 2px 8px rgba(5,150,105,.18); }
   .cc-pick-btn.active small { color:#059669; }
@@ -1120,7 +1120,7 @@
 
   /* ── 浮動社交按鈕 ── */
   .cc-float {
-    position: fixed; right: 14px; bottom: 100px;
+    position: fixed; right: 14px; bottom: calc(104px + env(safe-area-inset-bottom));
     display: flex; flex-direction: column; gap: 12px; z-index: 160;
   }
   .cc-fab {
@@ -1135,9 +1135,6 @@
   .cc-fab-ig { background: linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
   @media (max-width: 640px) {
     .cc-float { display: none; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .cc-line-shimmer::after { animation: none; }
   }
 
   /* OG/BTU 比較圖 */
@@ -1252,7 +1249,7 @@
   }
   .cc-vs-spec { padding: 8px 10px 4px; flex: 1; }
   .cc-vs-spec-row { display: flex; justify-content: space-between; gap: 4px; padding: 3px 0; font-size: .74rem; line-height: 1.5; }
-  .cc-vs-spec-row .k { color: #9ca3af; font-weight: 600; flex-shrink: 0; }
+  .cc-vs-spec-row .k { color: #6b7280; font-weight: 600; flex-shrink: 0; }
   .cc-vs-spec-row .v { color: #1f2937; font-weight: 700; text-align: right; }
   .cc-vs-suit {
     margin: 0 10px 10px;
@@ -1444,6 +1441,13 @@
   @media (max-width: 520px) {
     .cc-seo-links { grid-template-columns: 1fr; }
   }
+
+  /* 減少動態效果偏好：置於樣式表最後，確保能覆寫前面所有動畫宣告 */
+  @media (prefers-reduced-motion: reduce) {
+    .cc-line-shimmer::after { animation: none; }
+    .cc-share-icon { animation: none; }
+    .cc-calc-res.show, .cc-form-res.show { animation: none; }
+  }
 </style>
 </head>
 <body>
@@ -1486,7 +1490,7 @@
       </div>
       <div class="cc-body">
 
-        <section class="cc-announcements" aria-labelledby="ccAnnTitle" aria-live="polite">
+        <section class="cc-announcements" aria-labelledby="ccAnnTitle">
           <div class="cc-ann-head">
             <span class="cc-ann-kicker" id="ccAnnKind">抽獎活動</span>
             <span class="cc-ann-status" id="ccAnnStatus">1 / 5</span>
@@ -1496,6 +1500,7 @@
           <div class="cc-ann-footer">
             <div class="cc-ann-dots" id="ccAnnDots" aria-label="公告切換"></div>
             <div class="cc-ann-actions">
+              <button type="button" class="cc-ann-link cc-ann-toggle" id="ccAnnToggle" aria-pressed="false">暫停輪播</button>
               <a class="cc-ann-link" id="ccAnnLink" href="#booking" onclick="goBooking('announcement');return false;">查詢檔期</a>
             </div>
           </div>
@@ -1530,7 +1535,7 @@
 
         <!-- 首屏好評縮圖橫條（社會證明前置） -->
         <a href="#reviews" onclick="scrollToReviews();return false;" style="display:block;text-decoration:none;color:inherit">
-          <div style="font-size:.8rem;font-weight:800;color:#047857;margin:2px 0 6px;display:flex;align-items:center;gap:5px">⭐ 露友真實回饋 <span style="font-size:.7rem;color:#9ca3af;font-weight:600">（點看更多）</span></div>
+          <div style="font-size:.8rem;font-weight:800;color:#047857;margin:2px 0 6px;display:flex;align-items:center;gap:5px">⭐ 露友真實回饋 <span style="font-size:.7rem;color:#6b7280;font-weight:600">（點看更多）</span></div>
           <div class="cc-proof-strip" aria-label="露友好評縮圖">
             <span class="cc-proof-item"><img src="assets/review-04.jpg" alt="露友好評：效果很好" width="638" height="473" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">效果很好</span></span></span>
             <span class="cc-proof-item"><img src="assets/review-05.jpg" alt="露友好評：涼度很可以" width="656" height="531" loading="lazy"><span class="cc-proof-cap"><span class="star">★★★★★</span><span class="loc">涼度很可以</span></span></span>
@@ -1673,11 +1678,11 @@
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 宜蘭太平山</span><span style="font-size:.7rem;color:#d1d5db">2026.04</span></div></div>
           </div>
           <div class="cc-review">
-            <img src="assets/review-04.jpg" alt="露友 LINE 好評截圖 4 — 效果很好" width="640" height="600" loading="lazy">
+            <img src="assets/review-04.jpg" alt="露友 LINE 好評截圖 4 — 效果很好" width="638" height="473" loading="lazy">
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 露友分享</span><span style="font-size:.7rem;color:#d1d5db">2026.05</span></div></div>
           </div>
           <div class="cc-review">
-            <img src="assets/review-05.jpg" alt="露友 LINE 好評截圖 5 — 涼度很可以" width="640" height="600" loading="lazy">
+            <img src="assets/review-05.jpg" alt="露友 LINE 好評截圖 5 — 涼度很可以" width="656" height="531" loading="lazy">
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 露友分享</span><span style="font-size:.7rem;color:#d1d5db">2026.06</span></div></div>
           </div>
         </div>
@@ -1741,9 +1746,9 @@
       <div class="cc-body">
 
         <div class="cc-sub-tabs">
-          <button class="cc-sub-tab" data-wtab="btu" onclick="setWikiTab('btu')">📐 BTU 小知識</button>
-          <button class="cc-sub-tab" data-wtab="tents" onclick="setWikiTab('tents')">🏕️ 依帳篷推薦冷氣</button>
-          <button class="cc-sub-tab" data-wtab="power" onclick="setWikiTab('power')">⚡ 營區用電與速查表</button>
+          <button class="cc-sub-tab" aria-pressed="true" data-wtab="btu" onclick="setWikiTab('btu')">📐 BTU 小知識</button>
+          <button class="cc-sub-tab" aria-pressed="false" data-wtab="tents" onclick="setWikiTab('tents')">🏕️ 依帳篷推薦冷氣</button>
+          <button class="cc-sub-tab" aria-pressed="false" data-wtab="power" onclick="setWikiTab('power')">⚡ 營區用電與速查表</button>
         </div>
 
         <!-- ───── Panel A：BTU 小知識 + 機型 BTU 表 ───── -->
@@ -1829,9 +1834,9 @@
             <div class="px-title"><span class="px-zh">🏕️ 依帳篷推薦冷氣</span></div>
             <div class="px-alert">🤖 13 品牌 50 款資料庫｜<b>找不到型號？切到「用尺寸」模式</b></div>
 
-            <div class="px-mode" role="tablist" aria-label="計算模式">
-              <button type="button" class="px-mode-btn active" data-tcmode="model" onclick="setTcMode('model')"><span class="px-zh">📋 從型號找</span></button>
-              <button type="button" class="px-mode-btn" data-tcmode="size" onclick="setTcMode('size')"><span class="px-zh">📐 用尺寸估算</span></button>
+            <div class="px-mode" role="group" aria-label="計算模式">
+              <button type="button" class="px-mode-btn active" aria-pressed="true" data-tcmode="model" onclick="setTcMode('model')"><span class="px-zh">📋 從型號找</span></button>
+              <button type="button" class="px-mode-btn" aria-pressed="false" data-tcmode="size" onclick="setTcMode('size')"><span class="px-zh">📐 用尺寸估算</span></button>
             </div>
 
             <!-- 模式 A：廠牌 → 型號 -->
@@ -1875,13 +1880,13 @@
 
             <div class="cc-sites-stats" id="sitesStats">載入中…</div>
             <div class="cc-sites-controls">
-              <input type="text" id="sitesQ" oninput="renderSites()" placeholder="🔍 輸入營區名稱或地區開始查詢">
-              <select id="sitesRegion" onchange="renderSites()">
+              <input type="text" id="sitesQ" oninput="renderSites()" aria-label="營區名稱或地區" autocomplete="off" placeholder="🔍 輸入營區名稱或地區開始查詢">
+              <select id="sitesRegion" onchange="renderSites()" aria-label="篩選地區">
                 <option value="">全部地區</option>
                 <option>宜蘭</option><option>桃園</option><option>新竹</option>
                 <option>苗栗</option><option>台中</option><option>南投</option>
               </select>
-              <select id="sitesStatus" onchange="renderSites()">
+              <select id="sitesStatus" onchange="renderSites()" aria-label="篩選供電狀態">
                 <option value="">全部狀態</option>
                 <option value="1">✓ 可帶冷氣</option>
                 <option value="0">✗ 不可帶</option>
@@ -1902,6 +1907,14 @@
           <div class="cc-kb"><h3>⚠️ 看不見的風險：同迴路其他帳</h3><p>很多營區是<strong>多帳共用一個迴路</strong>。你只用 4.8A，但隔壁帳如果也帶冷氣＋電熱水壺，整個迴路就跳電。<br>👉 訂位前主動問營主：<strong>每帳獨立電箱還是共用？同帳區其他露友會帶冷氣嗎？</strong></p></div>
           <div class="cc-kb"><h3>💡 安全策略</h3><p>1️⃣ 確認該迴路電流上限<br>2️⃣ 不要同時開電熱水壺／電磁爐／吹風機<br>3️⃣ 跟同帳區露友互相通知，錯開高耗電時段<br>4️⃣ 帶足夠長的延長線，必要時插到其他迴路</p></div>
           <div class="cc-kb"><h3>🧮 電力計算公式</h3><p><strong>功率（W）÷ 110V = 電流（A）</strong>。JUZ-400（425W）＋冰箱＋燈＋手機 ≈ <strong>4.8A</strong>，10A 電箱完全沒問題。只要不同時開電熱水壺即可。</p></div>
+        </div>
+
+        <div class="cc-linebanner">
+          <div>
+            <div class="t">💬 看完還是不確定？直接問</div>
+            <div class="s">09:00-22:00 通常 1 小時內回覆・問完沒有強迫預約</div>
+          </div>
+          <a class="cc-line-shimmer" href="#booking" onclick="goBooking('wiki_banner');return false;">LINE 查檔期</a>
         </div>
 
       </div>
@@ -1957,21 +1970,21 @@
           </div>
 
           <div class="cc-form-sec"><span class="n">3</span>取機與營區</div>
-          <label>取機點</label>
+          <div class="cc-form-sublabel" id="pickupLabel">取機點</div>
           <div class="cc-pick-region">📍 雙北</div>
-          <div class="cc-pick-group" id="pickGroup" role="group" aria-label="選擇取機點">
-            <button type="button" class="cc-pick-btn" data-v="內湖" data-region="雙北" onclick="setPickup(this)">內湖</button>
-            <button type="button" class="cc-pick-btn" data-v="五股" data-region="雙北" onclick="setPickup(this)">五股</button>
-            <button type="button" class="cc-pick-btn" data-v="士林" data-region="雙北" onclick="setPickup(this)">士林</button>
+          <div class="cc-pick-group" id="pickGroup" role="group" aria-labelledby="pickupLabel">
+            <button type="button" class="cc-pick-btn" aria-pressed="false" data-v="內湖" data-region="雙北" onclick="setPickup(this)">內湖</button>
+            <button type="button" class="cc-pick-btn" aria-pressed="false" data-v="五股" data-region="雙北" onclick="setPickup(this)">五股</button>
+            <button type="button" class="cc-pick-btn" aria-pressed="false" data-v="士林" data-region="雙北" onclick="setPickup(this)">士林</button>
           </div>
           <div class="cc-pick-region">📍 新竹</div>
           <div class="cc-pick-group" role="group" aria-label="選擇取機點 - 新竹">
-            <button type="button" class="cc-pick-btn active" data-v="竹北" data-region="新竹" onclick="setPickup(this)">竹北</button>
-            <button type="button" class="cc-pick-btn" data-v="公道五路" data-region="新竹" onclick="setPickup(this)">公道五路</button>
+            <button type="button" class="cc-pick-btn active" aria-pressed="true" data-v="竹北" data-region="新竹" onclick="setPickup(this)">竹北</button>
+            <button type="button" class="cc-pick-btn" aria-pressed="false" data-v="公道五路" data-region="新竹" onclick="setPickup(this)">公道五路</button>
           </div>
           <div class="cc-pick-region">📍 台中</div>
           <div class="cc-pick-group" role="group" aria-label="選擇取機點 - 台中">
-            <button type="button" class="cc-pick-btn" data-v="西屯" data-region="台中" onclick="setPickup(this)">西屯</button>
+            <button type="button" class="cc-pick-btn" aria-pressed="false" data-v="西屯" data-region="台中" onclick="setPickup(this)">西屯</button>
           </div>
           <input type="hidden" id="pickupSel" value="竹北">
 
@@ -2187,12 +2200,12 @@
   </footer>
 
   <!-- Bottom nav -->
-  <nav class="cc-nav" role="tablist" aria-label="主要分頁">
+  <nav class="cc-nav" aria-label="主要分頁">
     <div class="cc-nav-inner">
-      <button class="cc-nav-btn" type="button" role="tab" data-tab="rental" style="--c:#34d399;--bg:rgba(52,211,153,.18)" onclick="setTab('rental')"><span class="ico">❄️</span><span class="lbl">租借方案</span></button>
-      <button class="cc-nav-btn" type="button" role="tab" data-tab="wiki" style="--c:#a78bfa;--bg:rgba(167,139,250,.18)" onclick="setTab('wiki')"><span class="ico">📊</span><span class="lbl">選購指南</span></button>
-      <button class="cc-nav-btn" type="button" role="tab" data-tab="booking" style="--c:#f87171;--bg:rgba(248,113,113,.18)" onclick="setTab('booking')"><span class="ico">📅</span><span class="lbl">預約方式</span></button>
-      <button class="cc-nav-btn" type="button" role="tab" data-tab="fridge" style="--c:#22d3ee;--bg:rgba(34,211,238,.18)" onclick="setTab('fridge')"><span class="ico">🧊</span><span class="lbl">冰箱出租</span></button>
+      <button class="cc-nav-btn" type="button" data-tab="rental" style="--c:#34d399;--bg:rgba(52,211,153,.18)" onclick="setTab('rental')"><span class="ico">❄️</span><span class="lbl">租借方案</span></button>
+      <button class="cc-nav-btn" type="button" data-tab="wiki" style="--c:#a78bfa;--bg:rgba(167,139,250,.18)" onclick="setTab('wiki')"><span class="ico">📊</span><span class="lbl">選購指南</span></button>
+      <button class="cc-nav-btn" type="button" data-tab="booking" style="--c:#f87171;--bg:rgba(248,113,113,.18)" onclick="setTab('booking')"><span class="ico">📅</span><span class="lbl">預約方式</span></button>
+      <button class="cc-nav-btn" type="button" data-tab="fridge" style="--c:#22d3ee;--bg:rgba(34,211,238,.18)" onclick="setTab('fridge')"><span class="ico">🧊</span><span class="lbl">冰箱出租</span></button>
     </div>
   </nav>
 
@@ -2282,6 +2295,11 @@ function logLineClick(source, convert) {
   } catch(e) {}
 }
 
+// 使用者偏好減少動態效果：捲動一律瞬移，避免暈眩
+var CC_REDUCE_MOTION = false;
+try { CC_REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+function ccScrollBehavior() { return CC_REDUCE_MOTION ? 'auto' : 'smooth'; }
+
 // GA4 一般事件（非轉換，用於漏斗分析）
 function logEvent(name, label) {
   try { if (typeof gtag !== 'undefined') gtag('event', name, label ? { event_label: label } : {}); } catch(e) {}
@@ -2293,7 +2311,7 @@ function goBooking(source) {
   setTab('booking', { noScroll: true });
   setTimeout(function () {
     var el = document.getElementById('bookingForm');
-    if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (el && el.scrollIntoView) el.scrollIntoView({ behavior: ccScrollBehavior(), block: 'start' });
   }, 60);
 }
 
@@ -2309,8 +2327,8 @@ function initAnnouncements() {
 
   var index = 0;
   var timer = null;
-  var reduceMotion = false;
-  try { reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+  var paused = false;
+  var reduceMotion = CC_REDUCE_MOTION;
 
   function render(next) {
     index = (next + CC_ANNOUNCEMENTS.length) % CC_ANNOUNCEMENTS.length;
@@ -2339,7 +2357,7 @@ function initAnnouncements() {
 
   function start() {
     stop();
-    if (reduceMotion || CC_ANNOUNCEMENTS.length < 2) return;
+    if (paused || reduceMotion || CC_ANNOUNCEMENTS.length < 2) return;
     timer = window.setInterval(function () { render(index + 1); }, 4000);
   }
 
@@ -2355,6 +2373,16 @@ function initAnnouncements() {
     });
     dots.appendChild(btn);
   });
+
+  var toggle = document.getElementById('ccAnnToggle');
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      paused = !paused;
+      toggle.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      toggle.textContent = paused ? '繼續輪播' : '暫停輪播';
+      if (paused) stop(); else start();
+    });
+  }
 
   box.addEventListener('mouseenter', stop);
   box.addEventListener('mouseleave', start);
@@ -2413,14 +2441,15 @@ function quickAsk(type) {
 function scrollToReviews() {
   if (typeof logEvent === 'function') logEvent('proof_strip_click');
   var el = document.getElementById('reviews');
-  if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (el && el.scrollIntoView) el.scrollIntoView({ behavior: ccScrollBehavior(), block: 'start' });
 }
 
 // 取機點按鈕群：更新隱藏欄位值 + 跨群組清除 active
 function setPickup(btn) {
   var bs = document.querySelectorAll('.cc-pick-btn');
-  for (var i = 0; i < bs.length; i++) bs[i].classList.remove('active');
+  for (var i = 0; i < bs.length; i++) { bs[i].classList.remove('active'); bs[i].setAttribute('aria-pressed', 'false'); }
   btn.classList.add('active');
+  btn.setAttribute('aria-pressed', 'true');
   var hidden = document.getElementById('pickupSel');
   if (hidden) hidden.value = btn.getAttribute('data-v');
 }
@@ -2502,7 +2531,9 @@ function setWikiTab(t) {
   if (['btu','tents','power'].indexOf(t) === -1) t = 'btu';
   var btns = document.querySelectorAll('.cc-sub-tab');
   for (var i = 0; i < btns.length; i++) {
-    btns[i].classList.toggle('active', btns[i].getAttribute('data-wtab') === t);
+    var onTab = btns[i].getAttribute('data-wtab') === t;
+    btns[i].classList.toggle('active', onTab);
+    btns[i].setAttribute('aria-pressed', onTab ? 'true' : 'false');
   }
   var panels = document.querySelectorAll('.cc-wpanel');
   for (var j = 0; j < panels.length; j++) {
@@ -2524,7 +2555,9 @@ function setTcMode(m) {
   if (m !== 'model' && m !== 'size') m = 'model';
   var btns = document.querySelectorAll('.px-mode-btn');
   for (var i = 0; i < btns.length; i++) {
-    btns[i].classList.toggle('active', btns[i].getAttribute('data-tcmode') === m);
+    var onMode = btns[i].getAttribute('data-tcmode') === m;
+    btns[i].classList.toggle('active', onMode);
+    btns[i].setAttribute('aria-pressed', onMode ? 'true' : 'false');
   }
   var modelBox = document.getElementById('tcModeModel');
   var sizeBox = document.getElementById('tcModeSize');
@@ -2686,11 +2719,21 @@ async function submitBooking() {
   var g = function (id) { var el = document.getElementById(id); return el ? String(el.value).trim() : ''; };
   var t = function (id) { var el = document.getElementById(id); return el ? el.textContent.trim() : ''; };
   var res = document.getElementById('bkRes');
+  var dateEl = document.getElementById('bkDate');
   var bookingDate = g('bkDate');
-  if (!bookingDate) {
-    res.innerHTML = '<div class="rt">請先選擇取機日期，再送出預約詢問。</div>';
+  var showFieldError = function (msg) {
+    res.innerHTML = '<div class="rt">' + msg + '</div>';
     res.classList.add('show');
-    document.getElementById('bkDate').focus();
+    res.scrollIntoView({ behavior: ccScrollBehavior(), block: 'nearest' });
+    if (dateEl) dateEl.focus();
+  };
+  if (!bookingDate) {
+    showFieldError('請先選擇取機日期，再送出預約詢問。');
+    return;
+  }
+  // min 只約束日期選擇器，此表單以 JS 送出，必須另外把關
+  if (dateEl && dateEl.min && bookingDate < dateEl.min) {
+    showFieldError('取機日期不能早於今天，請重新選擇。');
     return;
   }
 
@@ -2746,7 +2789,7 @@ async function submitBooking() {
   lineLink.addEventListener('click', function () { logLineClick('booking_form_line_open', true); });
 
   logEvent('booking_message_composed', 'local_only');
-  res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  res.scrollIntoView({ behavior: ccScrollBehavior(), block: 'nearest' });
 }
 
 // 重新填寫：計數器回預設、清空欄位、收起條件區與結果
@@ -2755,7 +2798,12 @@ function resetBooking() {
   var planSel = document.getElementById('planSel'); if (planSel) planSel.selectedIndex = 0;
   var peopleSel = document.getElementById('peopleSel'); if (peopleSel) peopleSel.selectedIndex = 0;
   var pickupSel = document.getElementById('pickupSel'); if (pickupSel) pickupSel.value = '竹北';
-  var pbs = document.querySelectorAll('.cc-pick-btn'); for (var pi = 0; pi < pbs.length; pi++) pbs[pi].classList.toggle('active', pbs[pi].getAttribute('data-v') === '竹北');
+  var pbs = document.querySelectorAll('.cc-pick-btn');
+  for (var pi = 0; pi < pbs.length; pi++) {
+    var isDefault = pbs[pi].getAttribute('data-v') === '竹北';
+    pbs[pi].classList.toggle('active', isDefault);
+    pbs[pi].setAttribute('aria-pressed', isDefault ? 'true' : 'false');
+  }
   var modelSel = document.getElementById('modelSel'); if (modelSel) modelSel.selectedIndex = 0;
   onModelChange();
 
@@ -2783,14 +2831,15 @@ function setTab(id, opts) {
   for (var j = 0; j < btns.length; j++) {
     var on = btns[j].getAttribute('data-tab') === id;
     btns[j].classList.toggle('active', on);
-    btns[j].setAttribute('aria-selected', on ? 'true' : 'false');
+    if (on) btns[j].setAttribute('aria-current', 'page');
+    else btns[j].removeAttribute('aria-current');
   }
   try { localStorage.setItem('cc_tab', id); } catch(e) {}
   if (('#' + id) !== location.hash) {
     try { history.replaceState(null, '', '#' + id); } catch(e) { location.hash = id; }
   }
   logEvent('tab_view', id);
-  if (!opts.noScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (!opts.noScroll) window.scrollTo({ top: 0, behavior: ccScrollBehavior() });
 }
 
 // 初始分頁：優先網址 hash，其次上次瀏覽，預設租借方案
@@ -2803,6 +2852,15 @@ function setTab(id, opts) {
 })();
 
 initAnnouncements();
+
+// 取機日期下限設為今天（用本地時區，避免 UTC 位移少一天）
+(function initBookingDateMin() {
+  var d = document.getElementById('bkDate');
+  if (!d) return;
+  var n = new Date();
+  n.setMinutes(n.getMinutes() - n.getTimezoneOffset());
+  d.min = n.toISOString().slice(0, 10);
+})();
 
 // 支援瀏覽器上一頁／分享連結直接深連結到分頁
 window.addEventListener('hashchange', function () {
@@ -2867,7 +2925,7 @@ var checkBkSite = debounce(function () {
   // 清空
   if (!v) { ind.innerHTML = ''; dlist.innerHTML = ''; if (detail) { detail.hidden = true; detail.innerHTML = ''; } return; }
   // 輸入太短不打 API（節流）
-  if (v.length < 2) { ind.innerHTML = '<span style="color:#9ca3af">輸入 2 字以上自動建議</span>'; dlist.innerHTML = ''; return; }
+  if (v.length < 2) { ind.innerHTML = '<span style="color:#6b7280">輸入 2 字以上自動建議</span>'; dlist.innerHTML = ''; return; }
   fetch(SITES_API + '?q=' + encodeURIComponent(v.toLowerCase()))
     .then(function (r) { return r.json(); })
     .then(function (d) {
@@ -2889,7 +2947,7 @@ var checkBkSite = debounce(function () {
             || arr.filter(function (s) { var n = (s.name || '').toLowerCase(); return n && (ql.indexOf(n) >= 0 || n.indexOf(ql) >= 0); })[0];
       // 3) 沒匹配：未收錄
       if (!m) {
-        ind.innerHTML = '<span style="color:#9ca3af">❓ 未收錄</span>';
+        ind.innerHTML = '<span style="color:#6b7280">❓ 未收錄</span>';
         if (detail) {
           detail.className = 'cc-site-detail d-x';
           detail.innerHTML = '<div class="sd-row"><span class="sd-k">💡</span><span>此營區未在資料庫，<b>仍可預約</b>，我們會於 LINE 中與您確認電源狀況。</span></div>';
@@ -2942,8 +3000,8 @@ var searchSites = debounce(function () {
   if (hint) hint.style.display = 'none';
   // 用最具識別性的關鍵字向 API 查（地區或文字）
   var searchTerm = q || region || '';
-  if (!searchTerm) { list.innerHTML = '<div style="padding:12px;color:#9ca3af;font-size:.85rem">請輸入營區名稱或選擇地區</div>'; return; }
-  list.innerHTML = '<div style="padding:12px;color:#9ca3af;font-size:.85rem">查詢中…</div>';
+  if (!searchTerm) { list.innerHTML = '<div style="padding:12px;color:#6b7280;font-size:.85rem">請輸入營區名稱或選擇地區</div>'; return; }
+  list.innerHTML = '<div style="padding:12px;color:#6b7280;font-size:.85rem">查詢中…</div>';
   fetch(SITES_API + '?q=' + encodeURIComponent(searchTerm.toLowerCase()))
     .then(function (r) { return r.json(); })
     .then(function (d) {
@@ -2957,7 +3015,7 @@ var searchSites = debounce(function () {
         if (q && (s.name || '').toLowerCase().indexOf(q.toLowerCase()) < 0 && (s.region || '').toLowerCase().indexOf(q.toLowerCase()) < 0) return false;
         return true;
       });
-      if (!rows.length) { list.innerHTML = '<div style="padding:12px;color:#9ca3af;font-size:.85rem">沒有符合的營區</div>'; return; }
+      if (!rows.length) { list.innerHTML = '<div style="padding:12px;color:#6b7280;font-size:.85rem">沒有符合的營區</div>'; return; }
       list.innerHTML = rows.map(function (s) {
         var cls = (s.allows_ac === 1) ? 'y' : (s.allows_ac === 0) ? 'n' : 'u';
         var icon = (s.allows_ac === 1) ? '✓' : (s.allows_ac === 0) ? '✗' : '❓';
