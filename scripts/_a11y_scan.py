@@ -59,7 +59,7 @@ async def main():
                 except Exception as e:
                     print(f"{page} ERROR: {e}", flush=True)
         await b.close()
-        json.dump(report, open('/tmp/a11y_report4.json', 'w'), ensure_ascii=False, indent=1)
+        json.dump(report, open('/tmp/a11y_report5.json', 'w'), ensure_ascii=False, indent=1)
         from collections import Counter
         c = Counter()
         for k, vs in report.items():

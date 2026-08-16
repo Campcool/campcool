@@ -419,3 +419,24 @@ scan 已改寫入 /tmp/a11y_report4.json（注意 _a11y_scan.py 內寫死 report
 | heading-order | 3 | index wiki/booking/fridge 內 h3 在 h2 role=heading aria-level=1 之後仍算跳級？實際上 .knowledge-banner>div>h3、.policy-block:nth-child(13)>h3、.cc-notice.r>h3——前序元素非 h1/h2 | index 三 tab 的 hero-title h2 role=heading aria-level=1 應改回真正 <h1>（只顯示主 tab），或用 h1 隱藏 |
 
 heading-order 根因：index 每 tab 用 <h2 role="heading" aria-level="1"> 偽裝 h1，但 aria-level 不改變 DOM 層級，axe 按 DOM 順序算 h2→h3 跳級。正解：每 tab 保留一個真實 <h1>（其它 tab 的 h1 用 visually-hidden 樣式而非 role 偽裝）。
+
+### 第五輪線上掃描結果（/tmp/a11y_report5.json，commit 87f914a 已部署）
+heading-order 全清（0x）、landmark 0x、heading-one 0x、scrollable 0x。剩餘：color-contrast 19x（serious）+ region 7x（moderate）。
+scan 腳本輸出路徑目前寫死 /tmp/a11y_report5.json（scripts/_a11y_scan.py 行 62）。
+待辦：定位 19 color-contrast + 7 region 具體來源 → 修 → 提交 → 再掃。
+region 7x：axe 的 region 規則要求所有內容在 landmark/region 內，index tab 切頁後隱藏內容仍被算（setTab 後掃？scan 只掃默認 rental tab——region 可能來自 rental tab 隱藏 sections 外的內容）。region moderate 可接受，但 serious 必須清。
+
+### 第九輪嚴謹級進度快照（context 壓縮前保存）
+已推送 commits：87f914a（heading 連續化+殘留對比度）。第五輪線上掃描（/tmp/a11y_report5.json）剩 19 color-contrast + 7 region。
+已完成修複（尚未推送）：
+1. index.html：評論日期 #d1d5db→#6b7280（6處，含 reviews.html 嘗試編輯但該檔無此字串——reviews.html 不需改）、booking strong #059669→#047857（2處）、line-cta 未動
+2. btu-guide.html：btu-bar 第 2 條漸層 #34d399→#10b981 起點（白字對比修復）
+3. taipei/hsinchu/taichung：.line-cta 背景 #06C755→#047857 深綠漸層（白字保留）
+4. taipei.html：<section class="hero" aria-label="台北服務介紹">（region 修復 1/7）
+5. hsinchu/taichung 的 section.hero 也應補 aria-label（scan 只報 taipei，因其餘頁 section 可能已有 main 包裹？需確認）
+待辦：
+- hsinchu.html/taichung.html 檢查 section 有無 aria-label，沒有就補
+- commit+push → 等部署（~90s）→ 重跑 scan（scripts/_a11y_scan.py 輸出路徑已改 /tmp/a11y_report5.json）→ 驗證 0 serious
+- 掃完 0 serious → 繼續 Phase 3：meta CSP、webkit 跨瀏覽器驗證、E2E + CI
+- 完成後更新 AI-README + photos-task.md 標記第九輪完成
+- Phase 5-7：其它倉庫（leakdoctor、0988145875、TITAN-STAR 等，gh repo list 查全名單）嚴謹級審查衝 100，各倉 AI-README 標記，最後總報告
