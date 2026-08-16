@@ -11,6 +11,57 @@
 - `*.jsx` 是早期元件參考，不會載入正式網站。修改正式介面時，必須先改實際使用中的 HTML。
 - `scripts/validate-site.mjs` 是網站內容、內嵌腳本、JSON-LD、canonical、sitemap 與重要產品規則的防回歸檢查。
 
+## 多方協作規則（Claude／Codex／Manus 一體適用）
+
+本專案同時有多個 AI 代理維護。以下規則**不是針對任何一方**，是三方共同的
+防護欄，來自兩次實際教訓：
+
+- **campcool-bot 資料消失**：兩個代理各自從本機副本推送，約 7,000 行的版本
+  被約 3,000 行的版本整個覆蓋。
+- **CSP 擋掉 Ads 轉換**（本 repo，2026-08-16）：變更直推 main 並部署，
+  在自身驗證全綠的狀態下讓 Google Ads 轉換回傳全部失敗，事後複驗才發現。
+  若當時正在投放，該期間的轉換數據已無法追回。
+
+### 規則一：不直推 main
+
+一律開分支，由**另一方複驗後**才合併。這是三條規則裡最重要的一條——
+上述兩次事故若有複驗都不會發生。
+
+### 規則二：四類變更必須做行為驗證，不能只跑 validate
+
+| 變更類型 | 必要驗證 |
+|---|---|
+| CSP、第三方資源、beacon／fetch 目標 | 瀏覽器監聽 `securitypolicyviolation`，實際觸發一次轉換 |
+| 索引指令（noindex／canonical／hreflang／robots） | 確認組合非官方反模式，並檢查 canonical 目標不受牽連 |
+| 轉換追蹤（gtag／logLineClick／conversion label） | 實際點擊出口，確認事件與 conversion 都送出 |
+| 價格、品項、押金、規格 | `index.html`／`pricing.md`／`llms.txt` 三處同步，並跑 validate 第 12 條 |
+
+理由：這四類的錯誤**看原始碼與跑靜態驗證都看不出來**，但會直接影響金流或索引。
+
+### 規則三：開工前先 `git pull` main
+
+最便宜的防覆蓋手段。若本機副本已落後多個提交，先同步再改，
+不要在舊基礎上大幅改寫後整檔覆蓋。
+
+### 分工建議（按檢查類型，而非按檔案）
+
+`index.html` 已逾 3,000 行且各方都需修改，按檔案切割不可行。建議按性質分工：
+
+| 代理 | 適合負責 |
+|---|---|
+| Manus | 系統性掃描、工具鏈、CI、無障礙與效能的地毯式清理 |
+| Codex | 產品與 UX 演進、版面改造 |
+| Claude | 商業事實一致性、行為驗證、跨方交叉複驗 |
+
+### 合併前檢查清單
+
+```bash
+git pull origin main                      # 規則三
+node scripts/validate-site.mjs            # 20 項斷言
+node scripts/validate-site.mjs --selftest # 確認驗證非假綠
+# 若屬規則二的四類變更，另加瀏覽器實測
+```
+
 ## 2026-07-30 改版基準
 
 ### 預約資料與 LINE 流程
