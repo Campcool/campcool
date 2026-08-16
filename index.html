@@ -1358,19 +1358,19 @@
   /* 其它小物加購卡 */
   .ad-cat { font-size:.8rem; font-weight:900; color:#047857; margin:14px 0 8px; display:flex; align-items:center; gap:6px; }
   .ad-cat::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,#a7f3d0,transparent); }
-  .ad-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .ad-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   @media (max-width:520px){ .ad-grid { grid-template-columns:1fr; } }
   .ad-card {
-    display:flex; align-items:center; gap:10px;
+    display:flex; align-items:center; gap:12px;
     background:linear-gradient(160deg,rgba(255,255,255,.96),rgba(240,253,250,.75));
-    border:1.5px solid #d1fae5; border-radius:14px; padding:10px 12px 10px 10px;
+    border:1.5px solid #d1fae5; border-radius:14px; padding:14px;
     box-shadow:0 4px 12px rgba(6,95,70,.06), inset 0 1px 0 rgba(255,255,255,.7);
     transition:transform .15s ease, box-shadow .15s ease;
   }
   .ad-card:hover { transform:translateY(-2px); box-shadow:0 10px 22px rgba(6,95,70,.12); }
   /* 照片欄位：目前放示意圖示，之後放實拍只要把 <img> 塞進 .ad-photo */
   .ad-photo {
-    flex-shrink:0; width:56px; height:56px; border-radius:12px;
+    flex-shrink:0; width:92px; height:92px; border-radius:14px;
     background:linear-gradient(135deg,#ecfdf5,#d1fae5);
     border:1px solid rgba(167,243,208,.8);
     display:flex; align-items:center; justify-content:center; overflow:hidden;
@@ -1378,14 +1378,14 @@
   .ad-photo img { width:100%; height:100%; object-fit:cover; display:block; }
   .ad-ph-ico { font-size:1.6rem; line-height:1; }
   .ad-info { flex:1; min-width:0; }
-  .ad-brand { font-size:.64rem; font-weight:800; color:#059669; letter-spacing:.04em; }
-  .ad-name { font-size:.92rem; font-weight:900; color:#0f172a; line-height:1.25; margin:1px 0 4px; }
+  .ad-brand { font-size:.72rem; font-weight:800; color:#059669; letter-spacing:.04em; }
+  .ad-name { font-size:1.05rem; font-weight:900; color:#0f172a; line-height:1.3; margin:2px 0 6px; }
   .ad-meta { display:flex; flex-wrap:wrap; gap:4px; }
-  .ad-pill { font-size:.64rem; font-weight:700; padding:2px 7px; border-radius:7px; background:rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.06); color:#374151; }
+  .ad-pill { font-size:.72rem; font-weight:700; padding:3px 8px; border-radius:8px; background:rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.06); color:#374151; }
   .ad-pill b { color:#1f2937; font-weight:900; }
   .ad-pill.ad-tbd { background:#fffbeb; border-color:#fde68a; color:#92400e; }
-  .ad-note { font-size:.68rem; color:#6b7280; line-height:1.5; margin-top:4px; }
-  .ad-price { flex-shrink:0; align-self:flex-start; font-size:1.05rem; font-weight:900; color:#047857; white-space:nowrap; }
+  .ad-note { font-size:.78rem; color:#6b7280; line-height:1.55; margin-top:6px; }
+  .ad-price { flex-shrink:0; align-self:flex-start; font-size:1.15rem; font-weight:900; color:#047857; white-space:nowrap; }
   .ad-price small { font-size:.6rem; font-weight:700; color:#6b7280; margin-left:1px; }
   .ad-card.a-power { border-color:#bfdbfe; background:linear-gradient(160deg,#fff,#eff6ff); }
   .ad-card.a-power .ad-photo { background:linear-gradient(135deg,#eff6ff,#dbeafe); border-color:#bfdbfe; }
@@ -2353,13 +2353,11 @@
         </div>
         <p class="cc-form-hint" style="margin:12px 0 1rem">※ 標示「待確認」的規格請於 LINE 詢問時一併確認。小物依當日庫存供應。<b>僅「電吉拉 mini 行動電站」需另收押金 $1,000</b>，其餘品項不收押金。</p>
 
-        <div class="cc-sh">⚠️ 移動冰箱使用注意</div>
+        <div class="cc-sh">🛡️ 租借保障</div>
         <hr class="cc-shdiv">
         <div class="cc-grid">
-          <div class="cc-notice r"><h4><span class="ico-bubble">🚨</span>搬運後必看</h4><ul><li>靜置 <strong>30 分鐘以上</strong>再開機</li><li>保持直立，勿倒置超過 45°</li><li>直接開機可能損壞壓縮機</li></ul></div>
-          <div class="cc-notice c"><h4><span class="ico-bubble">🔌</span>電源設置</h4><ul><li>使用 110V 接地插座</li><li>延長線需 <strong>10A 以上</strong></li><li>建議與冷氣分開插座</li></ul></div>
-          <div class="cc-notice g"><h4><span class="ico-bubble">🌡️</span>溫度設定</h4><ul><li>冷藏：<strong>2°C～8°C</strong></li><li>冷凍：<strong>-10°C～-18°C</strong></li><li>避免頻繁開關蓋</li></ul></div>
-          <div class="cc-notice w"><h4><span class="ico-bubble">⚡</span>用電注意</h4><ul><li>冷氣＋冰箱合計約 <strong>4-6A</strong></li><li>勿同時使用電熱水壺</li><li>勿同時使用電磁爐</li></ul></div>
+          <div class="cc-notice r"><h4><span class="ico-bubble">🚨</span>抵營區立即檢查</h4><ul><li>商品抵達營區時請先檢查</li><li>若有問題<b>立即反應</b>處理最快</li><li>使用中才回報會延誤維修時效</li></ul></div>
+          <div class="cc-notice w"><h4><span class="ico-bubble">💡</span>使用前請先熟悉</h4><ul><li>不確定怎麼用？先問店家或上網搜尋</li><li>依說明操作即可安心使用</li><li><b>使用不當導致故障將酌收費用</b></li></ul></div>
         </div>
 
         <div class="cc-linebanner">
