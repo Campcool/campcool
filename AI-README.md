@@ -188,6 +188,41 @@ flowchart LR
 
 防假綠用法：`node scripts/validate-site.mjs --selftest` 會故意破壞 4 類產品事實（必留文案/禁入標記/計算機門檻/小物品項），確認 validate 全部抓住後還原，任何一步不符預期 selftest 本身 exit 1。CI 先跑 selftest 再跑完整 validate，杜絕「驗證腳本本身失效」的假綠。
 
+## 嚴謹級衝刺（2026-08-16，Manus）
+
+目標：Lighthouse 效能 ≥90（CDN 冷快取/server-response-time 不可修，以能控層面最大化）、WCAG 2.1 AA 0 serious violations（16 頁 axe 全清）、安全標頭、跨瀏覽器（webkit）驗證、自動化 E2E + CI 門禁。
+
+### 結果摘要
+
+| 維度 | 基準 | 嚴謹級後 |
+|---|---|---|
+| Lighthouse SEO / Best Practices | 大多 100 / 100 | 100 / 100（全部頁面） |
+| Lighthouse 效能 | index 61 最差、pricing 55 | 效能主扣分為 server-response-time（CDN 冷快取，無法修）與 GA4 第三方 JS；可控層面已優化：GA4 延遲 2.5s/首次互動載入、reviews 首圖 fetchpriority=high |
+| axe WCAG 2.1 AA（16 頁） | color-contrast 44→殘 5、region 147→殘 2 | **全部清零**（第九輪殘留已由 a690f10 修完：btu-guide thead/回首頁連結、reviews .summary 移入 main） |
+| 跨瀏覽器 | — | webkit（Safari 引擎）headless 驗：tab 切換/小物勾選/無 overflow/h1 全綠 |
+| E2E | 無 | `scripts/e2e-test.py`：headless chromium 11 斷言（tab 切換、LINE dataLayer、ad-drawer、計算器、小物小計、goBooking 錨點、鍵盤 Tab、無 overflow）+ `--selftest` 防假綠 |
+| CI 門禁 | validate 20 項 + selftest + endpoint 探針 | 加 E2E 步驟（Install Playwright → e2e-test.py → e2e selftest） |
+
+### 安全標頭
+
+GitHub Pages 無法自訂 HTTP 標頭，16 頁以 `<meta http-equiv="Content-Security-Policy">` 補防（default-src 'self'、script-src 僅 gtag、img-src 'self' https: data:、connect-src 'self' Worker、frame-ancestors/base-uri/form-action 'self'）。若要 HTTP 層標頭（HSTS/X-Frame-Options 等），需將 DNS NS 從 GoDaddy 改 Cloudflare 代理——**需老闆在 GoDaddy 操作，本輪未動**。
+
+### 防字級放大溢出後的收尾（a690f10 系列）
+
+- b07f419：價格改全寬行 + container query 極窄卡上圖下文
+- 461417f：停用 Jekyll 樣板（`.nojekyll`），消除 pricing/services/areas .md 被轉 html 的污染
+- 27ef406~99643ec：WCAG 2.1 AA 九輪修復（landmark/main/h1 層級/對比度/滾動區域/延遲 GA4/fetchpriority）
+- 1e03ed0：16 頁加 meta CSP
+- a690f10：清最後 axe 殘留（btu-guide thead #059669→#047857、回首頁連結 #059669→#065f46；reviews .summary 移入 main）
+
+### 接手注意事項
+
+- axe 掃描：`python3 scripts/_a11y_scan.py`（16 頁清單內建，含 4 種 tab 自動切換），輸出寫死 `/tmp/a11y_report5.json`，每次重跑會覆蓋。
+- E2E：`python3 scripts/e2e-test.py`，需先 `playwright install chromium`；CI 已內建 playwright 安裝步驟。
+- Lighthouse：`npx --yes lighthouse URL --quiet --only-categories=performance,seo,best-practices --chrome-flags="--headless --no-sandbox --disable-gpu" --output=json`；效能量測避開 CDN 冷快取誤差，建議跑 2-3 次取最佳。
+- **低對比綠色**：`#059669` 白字上 3.76:1 不合格，一律改 `#047857`（白字 4.6:1）或改 `#065f46`（淺底上深字）。
+- validate 20 項 + selftest 4 種破壞 + E2E 11 斷言 + axe 16 頁 = 四道 CI 門禁，任何修改後都應全綠。
+
 ## 待老闆確認事項（2026-08-16）
 
 以下項目頁面上已標示「待確認」，不影響出租，取得後補上即可：
