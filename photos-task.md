@@ -401,3 +401,21 @@ reviews banner a：background:#fff;color:#059669;border:#10b981 → 白底綠字
 
 ### 其它倉庫審查（用戶要求擴展）
 待 campcool 嚴謹級完成後：leakdoctor、0988145875、TITAN-STAR + 3 個未列名倉庫，用嚴謹級標準審 + 衝 100 分 + 各自 AI-README 標記。最後出總報告。
+
+### 第四輪線上掃描結果（/tmp/a11y_report4.json）— 大幅改善
+從基準到第四輪：region 144→7、color-contrast 44→27、landmark 5→0、heading-one 3→0、scrollable 2→0。heading-order 仍 3x 待修。
+剩餘 27 個 color-contrast 待定位（可能含隱藏 tab 內容、scroll-to 後才渲染的區域、或線上部署的 pages 頁）。
+待修 heading-order 3x：定位中（可能是 index wiki/booking 的 h2 role=heading aria-level=1 仍被算，或其它頁 h3→h4 跳級）。
+commit 27ef406 已推送，CI 全綠，Pages 部署成功。
+scan 已改寫入 /tmp/a11y_report4.json（注意 _a11y_scan.py 內寫死 report2.json，每次需 sed 改或直接改腳本）。
+
+### 第四輪後殘留違規與修複方案（2026-08-16 晚）
+| 違規 | 數量 | 位置 | 修複 |
+|---|---|---|---|
+| color-contrast | 27 | .hl .desc (#6b7280 on #dcfce7 淺綠底) | .cc-price tr.hl td.desc → #047857 或 #166534 |
+| color-contrast | - | .step-no (#059669 上白/灰底？) | .step-no → #047857 |
+| color-contrast | - | taipei/faq .banner a (#059669 on 白) | → #047857 |
+| color-contrast | - | btu-guide line 397 inline background:#10b981;color:#fff（1.92:1 FAIL） | background → #047857 或 color → #022c22 |
+| heading-order | 3 | index wiki/booking/fridge 內 h3 在 h2 role=heading aria-level=1 之後仍算跳級？實際上 .knowledge-banner>div>h3、.policy-block:nth-child(13)>h3、.cc-notice.r>h3——前序元素非 h1/h2 | index 三 tab 的 hero-title h2 role=heading aria-level=1 應改回真正 <h1>（只顯示主 tab），或用 h1 隱藏 |
+
+heading-order 根因：index 每 tab 用 <h2 role="heading" aria-level="1"> 偽裝 h1，但 aria-level 不改變 DOM 層級，axe 按 DOM 順序算 h2→h3 跳級。正解：每 tab 保留一個真實 <h1>（其它 tab 的 h1 用 visually-hidden 樣式而非 role 偽裝）。

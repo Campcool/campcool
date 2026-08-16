@@ -328,6 +328,7 @@
   .cc-hero-ovl { position: absolute; inset: 0; background: rgba(0,0,0,.12); pointer-events: none; }
   .cc-hero-badge { display: inline-block; background: rgba(255,255,255,.22); backdrop-filter: blur(4px); border-radius: 20px; padding: 4px 14px; font-size: .75rem; font-weight: 700; margin-bottom: 10px; position: relative; z-index: 1; letter-spacing: .02em; }
   .cc-hero-title { font-size: clamp(1.45rem,4.5vw,2.1rem); font-weight: 800; margin-bottom: .35rem; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,.25); position: relative; z-index: 1; }
+  .cc-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
   .cc-hero-sub { font-size: .88rem; opacity: .92; max-width: 400px; margin: 0 auto; line-height: 1.6; position: relative; z-index: 1; }
   .cc-hero-stat { margin-top: 10px; position: relative; z-index: 1; font-size: .75rem; opacity: .88; font-weight: 600; background: rgba(255,255,255,.15); display: inline-block; border-radius: 20px; padding: 3px 12px; }
   .cc-hero-cta { margin-top: 14px; position: relative; z-index: 1; display: inline-block; background: #fff; color: #047857; font-size: .95rem; font-weight: 800; border: none; border-radius: 999px; padding: .7rem 1.5rem; box-shadow: 0 4px 14px rgba(0,0,0,.2); cursor: pointer; }
@@ -691,6 +692,7 @@
   .cc-price td.desc { color: #6b7280; font-size: .83rem; }
   .cc-price tr.hl { background: #dcfce7; }
   .cc-price tr.hl td.price { color: #047857; }
+  .cc-price tr.hl td.desc { color: #166534; }
   .cc-price .tag { background: #047857; color: white; font-size: .68rem; font-weight: 800; border-radius: 6px; padding: 2px 6px; margin-right: 6px; }
   .cc-price-cta { padding: 14px 14px 12px; }
   .cc-price-cta button { width: 100%; background: linear-gradient(135deg,#06C755,#00a844); color: white; border: none; border-radius: 14px; padding: 14px 16px; font-size: 1rem; font-weight: 800; cursor: pointer; font-family: inherit; box-shadow: 0 4px 16px rgba(6,199,85,.35); letter-spacing: .01em; }
@@ -1048,7 +1050,7 @@
   .policy-block li { font-size: .85rem; color: #4b5563; line-height: 1.7; list-style: disc; margin-left: 1rem; }
   .step-row { display: flex; gap: 12px; align-items: flex-start; }
   .step-ico { width: 36px; height: 36px; border-radius: 50%; background: #ecfdf5; border: 2px solid #059669; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-  .step-no { font-size: .72rem; font-weight: 700; color: #059669; letter-spacing: .06em; text-transform: uppercase; }
+  .step-no { font-size: .72rem; font-weight: 700; color: #047857; letter-spacing: .06em; text-transform: uppercase; }
   .step-title { font-size: .95rem; font-weight: 800; color: #1f2937; margin-top: 1px; }
   .step-desc { font-size: .83rem; color: #4b5563; margin-top: 2px; line-height: 1.55; }
 
@@ -1082,7 +1084,7 @@
     display: flex; align-items: center; gap: 12px;
   }
   .knowledge-banner .kb-icon { font-size: 2rem; flex-shrink: 0; }
-  .knowledge-banner h3 { font-size: .95rem; font-weight: 800; margin-bottom: 3px; }
+  .knowledge-banner h2 { font-size: .95rem; font-weight: 800; margin-bottom: 3px; }
   .knowledge-banner p  { font-size: .78rem; opacity: .88; line-height: 1.5; }
 
   /* 知識推薦 nudge（租借頁用）*/
@@ -1631,7 +1633,7 @@
         </a>
 
         <!-- ① 透明租金方案 -->
-        <div class="cc-sh">透明租金方案</div>
+        <h2 class="cc-sh">透明租金方案</h2>
         <hr class="cc-shdiv">
         <div class="cc-price">
           <div class="cc-price-head">
@@ -1661,7 +1663,7 @@
         </div>
 
         <!-- ② 服務據點 -->
-        <div class="cc-sh" style="font-size:1.4rem">📍 服務據點分布</div>
+        <h2 class="cc-sh" style="font-size:1.4rem">📍 服務據點分布</h2>
         <hr class="cc-shdiv">
         <div class="cc-zones">
           <div class="cc-zones-header">
@@ -1708,7 +1710,7 @@
         </div>
 
         <!-- Reviews -->
-        <div class="cc-sh" id="reviews">⭐ 露友真實好評</div>
+        <h2 class="cc-sh" id="reviews">⭐ 露友真實好評</h2>
         <hr class="cc-shdiv">
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1rem">
           <div class="cc-review">
@@ -1734,7 +1736,7 @@
         </div>
 
         <!-- ④ 以租代買 -->
-        <div class="cc-sh">💡 為什麼「以租代買」更聰明？</div>
+        <h2 class="cc-sh">💡 為什麼「以租代買」更聰明？</h2>
         <hr class="cc-shdiv">
         <div class="cc-rentbuy">
           <div class="cc-rb-item"><span class="ic">📉</span><div><div class="t">買一台動輒上萬，一落地就掉價</div><div class="d">市售移動冷氣 <b>$10,000 起跳</b>，一開封變二手只剩 <b>$7,000～8,000</b>，先賠 2-3 成。</div></div></div>
@@ -1786,7 +1788,7 @@
       <div class="cc-hero" style="background:linear-gradient(135deg,#3b0764,#7c3aed)">
         <div class="cc-hero-ovl"></div>
         <div class="cc-hero-badge">📖 選購前必讀</div>
-        <h2 class="cc-hero-title" role="heading" aria-level="1">📊 選冷氣前，先看這篇</h2>
+        <h1 class="cc-sr-only">選冷氣前，先看這篇</h1><h2 class="cc-hero-title">📊 選冷氣前，先看這篇</h2>
         <p class="cc-hero-sub">BTU、跳電、免排水⋯⋯露營冷氣所有問題一次解答</p>
       </div>
       <div class="cc-body">
@@ -1803,7 +1805,7 @@
           <div class="knowledge-banner">
             <div class="kb-icon">📊</div>
             <div>
-              <h3>2026 台灣露營移動冷氣選購指南</h3>
+              <h2>2026 台灣露營移動冷氣選購指南</h2>
               <p>JUZ-400 vs SAC688・5100 vs 6300 BTU・用電風險完整解答</p>
             </div>
           </div>
@@ -1946,7 +1948,7 @@
           </div>
 
           <!-- 2️⃣ 為什麼會跳電？知識卡 -->
-          <div class="cc-sh">⚡ 營區用電 — 為什麼會跳電？</div>
+          <h2 class="cc-sh">⚡ 營區用電 — 為什麼會跳電？</h2>
           <hr class="cc-shdiv">
           <div class="cc-kb"><h3>🔌 無熔絲開關（NFB）與迴路的真相</h3><p>營區的電源由<strong>無熔絲開關（NFB）</strong>保護，每個迴路有<strong>電流上限</strong>（常見 10A 或 15A）。<strong>同一迴路上的所有插座共享這個上限</strong>——同時使用的電器電流總和超過上限，就會跳電。</p></div>
           <div class="cc-kb"><h3>📊 露營常見電器電流</h3><p>冷氣 ~3.9A、移動冰箱 ~0.4A、LED 燈 ~0.2A、手機 ~0.3A → <strong>合計約 4.8A，10A 內安全</strong>。<br>若加租<strong>製冰機（約 100W ≈ 0.9A）</strong>，合計約 5.7A，仍在 10A 內。<br>但<strong>電熱水壺（8A）、電磁爐（10A）、吹風機（10A）</strong>單一就會超標。</p></div>
@@ -1971,14 +1973,14 @@
       <div class="cc-hero" style="background:linear-gradient(135deg,#7f1d1d,#dc2626)">
         <div class="cc-hero-ovl"></div>
         <div class="cc-hero-badge">💬 LINE 通常 1 小時內回覆</div>
-        <h2 class="cc-hero-title" role="heading" aria-level="1">📋 預約簡單，3 步驟搞定</h2>
+        <h1 class="cc-sr-only">預約簡單，3 步驟搞定</h1><h2 class="cc-hero-title">📋 預約簡單，3 步驟搞定</h2>
         <p class="cc-hero-sub">LINE 詢問 → 確認檔期 → 付款完成，不用等</p>
       </div>
       <div class="cc-body">
         <div class="cc-alert g"><span class="ic">✅</span><div><strong>預約方式</strong>：請透過 LINE 官方帳號詢問檔期，確認後付款即完成預約。</div></div>
 
         <!-- 快速預約表單 -->
-        <div class="cc-sh" id="bookingForm">📝 LINE 預約訊息產生器</div>
+        <h2 class="cc-sh" id="bookingForm">📝 LINE 預約訊息產生器</h2>
         <hr class="cc-shdiv">
         <div class="cc-form">
           <div class="cc-form-skip">填最少資訊就好，系統會幫你整理成 LINE 訊息。<br>只想先問也可以 → <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('form_skip', true)">直接用 LINE 聯絡我們 →</a></div>
@@ -2090,14 +2092,14 @@
           <p class="cc-form-hint">按下按鈕只會整理並複製訊息；你在 LINE 內送出後，我們才會收到資料。</p>
         </div>
 
-        <div class="cc-sh">📋 預約流程</div>
+        <h2 class="cc-sh">📋 預約流程</h2>
         <hr class="cc-shdiv">
         <div class="policy-block step-row"><div class="step-ico">💬</div><div><div class="step-no">STEP 01</div><div class="step-title">LINE 詢問</div><div class="step-desc">告知露營日期、地點、人數與需求</div></div></div>
         <div class="policy-block step-row"><div class="step-ico">📅</div><div><div class="step-no">STEP 02</div><div class="step-title">確認檔期</div><div class="step-desc">我們確認存量並報價，通常 1 小時內回覆</div></div></div>
         <div class="policy-block step-row"><div class="step-ico">💳</div><div><div class="step-no">STEP 03</div><div class="step-title">付款確認</div><div class="step-desc">匯款租金 ＋ 押金（每台 $3,000）後傳截圖確認，預約完成</div></div></div>
         <div class="policy-block step-row"><div class="step-ico">🚗</div><div><div class="step-no">STEP 04</div><div class="step-title">取機出發</div><div class="step-desc">約定時間至據點取機，附使用說明</div></div></div>
 
-        <div class="cc-sh">💰 退費規則</div>
+        <h2 class="cc-sh">💰 退費規則</h2>
         <hr class="cc-shdiv">
         <div class="policy-block">
           <h3>📅 取消政策</h3>
@@ -2135,7 +2137,7 @@
       <div class="cc-hero" style="background:linear-gradient(135deg,#155e75,#0891b2)">
         <div class="cc-hero-ovl"></div>
         <div class="cc-hero-badge">🎒 小物 $100 起</div>
-        <h2 class="cc-hero-title" role="heading" aria-level="1">🎒 其它小物一起租</h2>
+        <h1 class="cc-sr-only">其它小物一起租</h1><h2 class="cc-hero-title">🎒 其它小物一起租</h2>
         <p class="cc-hero-sub">冰箱、天幕、燈條、焚火台、行動電源，不用為了幾晚買整套</p>
       </div>
       <div class="cc-body">
@@ -2440,7 +2442,7 @@
         </div>
         <p class="cc-form-hint" style="margin:12px 0 1rem">※ 標示「待確認」的規格請於 LINE 詢問時一併確認。小物依當日庫存供應。<b>僅「電吉拉 mini 行動電站」需另收押金 $1,000</b>，其餘品項不收押金。</p>
 
-        <div class="cc-sh">🛡️ 租借保障</div>
+        <h2 class="cc-sh">🛡️ 租借保障</h2>
         <hr class="cc-shdiv">
         <div class="cc-grid">
           <div class="cc-notice r"><h3><span class="ico-bubble">🚨</span>抵營區立即檢查</h3><ul><li>商品抵達營區時請先檢查</li><li>若有問題<b>立即反應</b>處理最快</li><li>使用中才回報會延誤維修時效</li></ul></div>
