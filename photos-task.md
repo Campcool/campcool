@@ -440,3 +440,13 @@ region 7x：axe 的 region 規則要求所有內容在 landmark/region 內，ind
 - 掃完 0 serious → 繼續 Phase 3：meta CSP、webkit 跨瀏覽器驗證、E2E + CI
 - 完成後更新 AI-README + photos-task.md 標記第九輪完成
 - Phase 5-7：其它倉庫（leakdoctor、0988145875、TITAN-STAR 等，gh repo list 查全名單）嚴謹級審查衝 100，各倉 AI-README 標記，最後總報告
+
+### 第九輪嚴謹級進度快照 2（context 壓縮前保存）
+commits 已推送：ae0263a（color-contrast 19x 修復+taipei region）、545ae2b（三頁 section aria-label）、1f007f6（殘留對比度+faq region）。
+第六輪掃描（/tmp/a11y_report5.json，commit 1f007f6 部署後）：16 頁掃描，剩 7 color-contrast + 3 region（how-it-works 1 section、index:rental 與 btu-guide 各 1）。
+已修待推送（未 push）：
+1. index.html 1766 行 inline CTA #06C755 白字→#047857
+2. btu-guide.html 417 行 45W 條 #34d399 底→#a7f3d0（#065f46 字保留）
+3. how-it-works.html 175 行 <section class="hero"> 需補 aria-label="租借流程介紹"（尚未改！）
+待辦順序：① how-it-works section aria-label → commit push → 等部署 → 重掃線上（python3 -u scripts/_a11y_scan.py > /tmp/a11yN.log 2>&1 &，輸出 /tmp/a11y_report5.json；彙總用 scripts/_a11y_sum.py）→ ② serious 0 後做 Phase 3（meta CSP、webkit 跨瀏覽器、E2E+CI）→ ③ 更新 AI-README → ④ 其他倉庫嚴謹級審查
+注意：scan 腳本輸出路徑寫死 /tmp/a11y_report5.json；bash 啟動腳本要用 exec 包裝（避免 { } 語法錯誤）；CI workflow = site-check.yml（selftest+validate+worker probe）。
