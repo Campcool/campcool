@@ -1395,6 +1395,51 @@
   .ad-card.a-fun .ad-photo { background:linear-gradient(135deg,#f5f3ff,#ede9fe); border-color:#ddd6fe; }
   .ad-card.a-fun .ad-brand, .ad-card.a-fun .ad-price { color:#6d28d9; }
 
+  /* 其它小物：分類抽屜 */
+  .ad-drawer { background:#fff; border:1.5px solid #d1fae5; border-radius:14px; margin-bottom:10px; overflow:hidden; box-shadow:0 4px 12px rgba(6,95,70,.05); }
+  .ad-drawer summary { display:flex; align-items:center; gap:10px; padding:14px 14px; cursor:pointer; list-style:none; min-height:56px; font-family:inherit; }
+  .ad-drawer summary::-webkit-details-marker { display:none; }
+  .ad-drawer summary:hover { background:#f0fdf4; }
+  .ad-dw-ico { font-size:1.3rem; line-height:1; flex-shrink:0; }
+  .ad-dw-t { font-size:.95rem; font-weight:900; color:#064e3b; flex-shrink:0; }
+  .ad-dw-meta { font-size:.7rem; color:#6b7280; font-weight:700; flex:1; }
+  .ad-dw-sel { font-size:.68rem; font-weight:900; color:#fff; background:#059669; border-radius:999px; padding:2px 9px; white-space:nowrap; }
+  .ad-dw-arr { font-size:1.3rem; color:#059669; font-weight:900; transition:transform .18s ease; flex-shrink:0; }
+  .ad-drawer[open] .ad-dw-arr { transform:rotate(90deg); }
+  .ad-drawer[open] summary { border-bottom:1px dashed #d1fae5; background:#f0fdf4; }
+  .ad-drawer .ad-grid { padding:10px; }
+
+  /* 可勾選卡片 */
+  .ad-card { position:relative; cursor:pointer; user-select:none; }
+  .ad-card .ad-chk { position:absolute; opacity:0; width:0; height:0; pointer-events:none; }
+  .ad-card .ad-photo, .ad-card .ad-info, .ad-card .ad-price { pointer-events:none; }
+  .ad-info { display:block; }
+  .ad-brand, .ad-name, .ad-note { display:block; }
+  .ad-meta { display:flex; flex-wrap:wrap; gap:4px; }
+  .ad-tick {
+    position:absolute; top:8px; right:8px; width:22px; height:22px; border-radius:50%;
+    border:1.5px solid #cbd5e1; background:#fff; color:transparent;
+    display:flex; align-items:center; justify-content:center; font-size:.78rem; font-weight:900;
+    transition:all .15s ease;
+  }
+  .ad-card:has(.ad-chk:checked) { border-color:#059669; background:linear-gradient(160deg,#ecfdf5,#d1fae5); box-shadow:0 6px 16px rgba(5,150,105,.18); }
+  .ad-card:has(.ad-chk:checked) .ad-tick { background:#059669; border-color:#059669; color:#fff; }
+  .ad-card .ad-chk:focus-visible ~ .ad-tick { outline:3px solid rgba(5,150,105,.35); outline-offset:2px; }
+
+  /* 已選小計列 */
+  .ad-cart {
+    position:sticky; bottom:calc(104px + env(safe-area-inset-bottom)); z-index:150;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:linear-gradient(160deg,#064e3b,#047857); color:#fff;
+    border-radius:14px; padding:10px 12px; margin-top:6px;
+    box-shadow:0 10px 26px rgba(6,95,70,.32);
+  }
+  .ad-cart[hidden] { display:none; }
+  .ad-cart-info { font-size:.8rem; font-weight:700; }
+  .ad-cart-info b { font-size:.95rem; font-weight:900; }
+  .ad-cart-btn { min-height:44px; background:#fff; color:#047857; border:none; border-radius:999px; padding:0 16px; font-family:inherit; font-size:.82rem; font-weight:900; cursor:pointer; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.18); }
+  .ad-cart-btn:active { transform:translateY(1px); }
+
   /* 減少動態效果偏好：置於樣式表最後，確保能覆寫前面所有動畫宣告 */
   @media (prefers-reduced-motion: reduce) {
     .cc-line-shimmer::after { animation: none; }
@@ -2046,173 +2091,262 @@
         <p class="cc-hero-sub">冰箱、天幕、燈條、焚火台、行動電源，不用為了幾晚買整套</p>
       </div>
       <div class="cc-body">
-        <div class="cc-alert g"><span class="ic">🎒</span><div><strong>小物一次租齊</strong><br>冷氣以外的裝備也能一起帶走，省下四處張羅與添購的錢。<b>可單獨租借，不必一併租冷氣</b>；依詢問時檔期存量為主，建議提前預約。</div></div>
+        <div class="cc-alert g"><span class="ic">🎒</span><div><strong>勾選想加購的小物，直接帶入預約表單</strong><br>展開下方分類 → 勾選品項 → 按「帶入預約表單」，系統會整理好，你在 LINE 送出即可。<b>可單獨租借，不必一併租冷氣</b>。</div></div>
 
-        <div class="cc-sh">🧊 保冷</div>
+        <div class="cc-sh">🎒 選擇加購品項</div>
         <hr class="cc-shdiv">
-        <div class="ad-grid">
-          <div class="ad-card a-fridge">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🧊</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">冰虎 ALPICOOL</div>
-              <div class="ad-name">C40 移動冰箱 40L</div>
-              <div class="ad-meta"><span class="ad-pill">容量 <b>40 L</b></span><span class="ad-pill">-20°C ~ +20°C</span><span class="ad-pill">約 <b>14 kg</b></span><span class="ad-pill">約 <b>60W</b></span></div>
-              <div class="ad-note">冷藏冷凍雙用，壓縮機製冷</div>
-            </div>
-            <div class="ad-price">$800<small>／次</small></div>
+        <details class="ad-drawer">
+          <summary>
+            <span class="ad-dw-ico">🧊</span>
+            <span class="ad-dw-t">保冷</span>
+            <span class="ad-dw-meta">1 項・$800</span>
+            <span class="ad-dw-sel" hidden></span>
+            <span class="ad-dw-arr" aria-hidden="true">›</span>
+          </summary>
+          <div class="ad-grid">
+            <label class="ad-card a-fridge">
+              <input type="checkbox" class="ad-chk" data-name="C40 移動冰箱 40L" data-price="800" onchange="addonsUpdate()">
+              <span class="ad-photo"><img src="assets/addon-fridge-c40.webp" alt="C40 移動冰箱 40L" width="320" height="320" loading="lazy"></span>
+              <span class="ad-info">
+                <span class="ad-brand">冰虎 ALPICOOL</span>
+                <span class="ad-name">C40 移動冰箱 40L</span>
+                <span class="ad-meta"><span class="ad-pill">容量 <b>40 L</b></span><span class="ad-pill">-20°C ~ +20°C</span><span class="ad-pill">約 <b>14 kg</b></span><span class="ad-pill">約 <b>60W</b></span></span>
+                <span class="ad-note">冷藏冷凍雙用，壓縮機製冷</span>
+              </span>
+              <span class="ad-price">$800<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
           </div>
-        </div>
+        </details>
+        <details class="ad-drawer">
+          <summary>
+            <span class="ad-dw-ico">⛺</span>
+            <span class="ad-dw-t">遮蔽</span>
+            <span class="ad-dw-meta">3 項・$600</span>
+            <span class="ad-dw-sel" hidden></span>
+            <span class="ad-dw-arr" aria-hidden="true">›</span>
+          </summary>
+          <div class="ad-grid">
+            <label class="ad-card a-shade">
+              <input type="checkbox" class="ad-chk" data-name="5×8 黑膠天幕" data-price="600" onchange="addonsUpdate()">
+              <span class="ad-photo"><img src="assets/addon-tarp-58.webp" alt="5×8 黑膠天幕" width="320" height="320" loading="lazy"></span>
+              <span class="ad-info">
+                <span class="ad-brand">遮蔽</span>
+                <span class="ad-name">5×8 黑膠天幕</span>
+                <span class="ad-meta"><span class="ad-pill">尺寸 <b>5m × 8m</b></span><span class="ad-pill">加厚黑膠</span><span class="ad-pill">遮光 <b>99.9%</b></span><span class="ad-pill">防水 <b>5000mm+</b></span></span>
+                <span class="ad-note">近全遮光、抗紫外線，底下明顯降溫；大面積遮陽，客廳、停車、炊事區都好用</span>
+              </span>
+              <span class="ad-price">$600<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+            <label class="ad-card a-shade">
+              <input type="checkbox" class="ad-chk" data-name="蝶形天幕" data-price="600" onchange="addonsUpdate()">
+              <span class="ad-photo"><img src="assets/addon-tarp-butterfly.webp" alt="蝶形天幕" width="320" height="320" loading="lazy"></span>
+              <span class="ad-info">
+                <span class="ad-brand">遮蔽</span>
+                <span class="ad-name">蝶形天幕</span>
+                <span class="ad-meta"><span class="ad-pill">展開 <b>400 × 550 cm</b></span><span class="ad-pill">中央高 <b>240 cm</b></span><span class="ad-pill">收納 <b>58×14×10 cm</b></span></span>
+                <span class="ad-note">六角蝶形，兩支營柱就能撐起，造型好看又省桿；收納體積小好帶</span>
+              </span>
+              <span class="ad-price">$600<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+            <label class="ad-card a-shade">
+              <input type="checkbox" class="ad-chk" data-name="黑狗速開穹頂" data-price="600" onchange="addonsUpdate()">
+              <span class="ad-photo"><img src="assets/addon-blackdog-dome.webp" alt="黑狗速開穹頂" width="320" height="320" loading="lazy"></span>
+              <span class="ad-info">
+                <span class="ad-brand">BLACKDOG 黑狗</span>
+                <span class="ad-name">黑狗速開穹頂</span>
+                <span class="ad-meta"><span class="ad-pill">4 步撐開</span><span class="ad-pill">1 分鐘搭建</span><span class="ad-pill">免穿桿</span><span class="ad-pill">空間 <b>近 10 ㎡</b></span><span class="ad-pill">可配 <b>2 片</b> TPU 邊布</span></span>
+                <span class="ad-note">穹頂結構免穿桿，一個人也能快速搭起；近 10 ㎡ 放得下一桌四椅。可加配 1 黑 1 白共 2 片 TPU 邊布擋風遮陽</span>
+              </span>
+              <span class="ad-price">$600<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+          </div>
+        </details>
+        <details class="ad-drawer">
+          <summary>
+            <span class="ad-dw-ico">🔌</span>
+            <span class="ad-dw-t">電力</span>
+            <span class="ad-dw-meta">3 項・$100-1,000</span>
+            <span class="ad-dw-sel" hidden></span>
+            <span class="ad-dw-arr" aria-hidden="true">›</span>
+          </summary>
+          <div class="ad-grid">
+            <label class="ad-card a-power">
+              <input type="checkbox" class="ad-chk" data-name="電吉拉 mini 行動電站" data-price="1000" onchange="addonsUpdate()">
+              <span class="ad-photo"><img src="assets/addon-bluetti-mini.webp" alt="電吉拉 mini 行動電站" width="320" height="320" loading="lazy"></span>
+              <span class="ad-info">
+                <span class="ad-brand">BLUETTI</span>
+                <span class="ad-name">電吉拉 mini 行動電站</span>
+                <span class="ad-meta"><span class="ad-pill">電量 <b>1024 Wh</b></span><span class="ad-pill">輸出 <b>1800W</b></span><span class="ad-pill">45 分鐘回充 <b>80%</b></span><span class="ad-pill">UPS 不斷電</span><span class="ad-pill">太陽能回充 <b>1000W</b></span><span class="ad-pill">押金 <b>$1,000</b></span></span>
+                <span class="ad-note">1800W 可帶動冷氣、電鍋等 90% 以上電器；無電營位、車宿或家中停電備援皆可用</span>
+              </span>
+              <span class="ad-price">$1,000<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+            <label class="ad-card a-power">
+              <input type="checkbox" class="ad-chk" data-name="動力延長線（綠）5M" data-price="100" onchange="addonsUpdate()">
+              <span class="ad-photo"><span class="ad-ph-ico">🔌</span></span>
+              <span class="ad-info">
+                <span class="ad-brand">電力</span>
+                <span class="ad-name">動力延長線（綠）5M</span>
+                <span class="ad-meta"><span class="ad-pill">長度 <b>5 M</b></span><span class="ad-pill">粗芯動力線</span></span>
+                <span class="ad-note">冷氣建議搭配粗芯動力線使用</span>
+              </span>
+              <span class="ad-price">$100<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+            <label class="ad-card a-power">
+              <input type="checkbox" class="ad-chk" data-name="動力延長線（綠）10M" data-price="150" onchange="addonsUpdate()">
+              <span class="ad-photo"><span class="ad-ph-ico">🔌</span></span>
+              <span class="ad-info">
+                <span class="ad-brand">電力</span>
+                <span class="ad-name">動力延長線（綠）10M</span>
+                <span class="ad-meta"><span class="ad-pill">長度 <b>10 M</b></span><span class="ad-pill">粗芯動力線</span></span>
+                <span class="ad-note">插座距離較遠的營位適用</span>
+              </span>
+              <span class="ad-price">$150<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+          </div>
+        </details>
+        <details class="ad-drawer">
+          <summary>
+            <span class="ad-dw-ico">💡</span>
+            <span class="ad-dw-t">照明</span>
+            <span class="ad-dw-meta">3 項・$100-300</span>
+            <span class="ad-dw-sel" hidden></span>
+            <span class="ad-dw-arr" aria-hidden="true">›</span>
+          </summary>
+          <div class="ad-grid">
+            <label class="ad-card a-light">
+              <input type="checkbox" class="ad-chk" data-name="五米黃光燈條" data-price="200" onchange="addonsUpdate()">
+              <span class="ad-photo"><span class="ad-ph-ico">💡</span></span>
+              <span class="ad-info">
+                <span class="ad-brand">照明</span>
+                <span class="ad-name">五米黃光燈條</span>
+                <span class="ad-meta"><span class="ad-pill">長度 <b>5 M</b></span><span class="ad-pill">暖黃光</span></span>
+                <span class="ad-note">營造氣氛，天幕、客廳帳掛一圈就夠亮</span>
+              </span>
+              <span class="ad-price">$200<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+            <label class="ad-card a-light">
+              <input type="checkbox" class="ad-chk" data-name="十米黃光燈條" data-price="300" onchange="addonsUpdate()">
+              <span class="ad-photo"><span class="ad-ph-ico">💡</span></span>
+              <span class="ad-info">
+                <span class="ad-brand">照明</span>
+                <span class="ad-name">十米黃光燈條</span>
+                <span class="ad-meta"><span class="ad-pill">長度 <b>10 M</b></span><span class="ad-pill">暖黃光</span></span>
+                <span class="ad-note">大天幕或雙帳串接適用</span>
+              </span>
+              <span class="ad-price">$300<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+            <label class="ad-card a-light">
+              <input type="checkbox" class="ad-chk" data-name="持久帳篷小燈" data-price="100" onchange="addonsUpdate()">
+              <span class="ad-photo"><img src="assets/addon-tent-lamp.webp" alt="持久帳篷小燈" width="320" height="320" loading="lazy"></span>
+              <span class="ad-info">
+                <span class="ad-brand">照明</span>
+                <span class="ad-name">持久帳篷小燈</span>
+                <span class="ad-meta"><span class="ad-pill">電量 <b>6000 mAh</b></span><span class="ad-pill">續航 <b>12-160 hr</b></span><span class="ad-pill">最亮 <b>1000 lm</b></span><span class="ad-pill">三色溫無極調光</span><span class="ad-pill">Type-C・磁吸・防水</span></span>
+                <span class="ad-note">白光 / 暖光 / 中性光可調，背面磁吸可吸鐵件，直徑 84mm 好收納</span>
+              </span>
+              <span class="ad-price">$100<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+          </div>
+        </details>
+        <details class="ad-drawer">
+          <summary>
+            <span class="ad-dw-ico">🔥</span>
+            <span class="ad-dw-t">焚火</span>
+            <span class="ad-dw-meta">2 項・$300</span>
+            <span class="ad-dw-sel" hidden></span>
+            <span class="ad-dw-arr" aria-hidden="true">›</span>
+          </summary>
+          <div class="ad-grid">
+            <label class="ad-card a-fire">
+              <input type="checkbox" class="ad-chk" data-name="簡易焚火台" data-price="300" onchange="addonsUpdate()">
+              <span class="ad-photo"><img src="assets/addon-firepit-basic.webp" alt="簡易焚火台" width="320" height="320" loading="lazy"></span>
+              <span class="ad-info">
+                <span class="ad-brand">焚火</span>
+                <span class="ad-name">簡易焚火台</span>
+                <span class="ad-meta"><span class="ad-pill">不鏽鋼摺疊</span><span class="ad-pill">交叉腳架離地</span><span class="ad-pill ad-tbd">尺寸待確認*</span></span>
+                <span class="ad-note">入門款，燒柴烤火用；腳架離地設計，草地、礫石地都好架</span>
+              </span>
+              <span class="ad-price">$300<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+            <label class="ad-card a-fire">
+              <input type="checkbox" class="ad-chk" data-name="青鸞觀火台" data-price="300" onchange="addonsUpdate()">
+              <span class="ad-photo"><img src="assets/addon-firepit-qingluan.webp" alt="青鸞觀火台" width="320" height="320" loading="lazy"></span>
+              <span class="ad-info">
+                <span class="ad-brand">春山 SPRINGHILL</span>
+                <span class="ad-name">青鸞觀火台</span>
+                <span class="ad-meta"><span class="ad-pill">酒精 / 柴火兩用</span><span class="ad-pill">304 不鏽鋼 + 黃銅 + 玻璃</span><span class="ad-pill">展開 <b>204×204×159mm</b></span><span class="ad-pill">約 <b>3.2 kg</b></span><span class="ad-pill">酒精盤 <b>300ml</b></span></span>
+                <span class="ad-note">玻璃擋風看得見火，桌上圍爐用；附收納包，收折後僅 204×204×90mm</span>
+              </span>
+              <span class="ad-price">$300<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+          </div>
+        </details>
+        <details class="ad-drawer">
+          <summary>
+            <span class="ad-dw-ico">🎬</span>
+            <span class="ad-dw-t">消暑與娛樂</span>
+            <span class="ad-dw-meta">3 項・$300</span>
+            <span class="ad-dw-sel" hidden></span>
+            <span class="ad-dw-arr" aria-hidden="true">›</span>
+          </summary>
+          <div class="ad-grid">
+            <label class="ad-card a-fun">
+              <input type="checkbox" class="ad-chk" data-name="C8 投影機" data-price="300" onchange="addonsUpdate()">
+              <span class="ad-photo"><img src="assets/addon-projector.webp" alt="C8 投影機" width="320" height="320" loading="lazy"></span>
+              <span class="ad-info">
+                <span class="ad-brand">KONKA 康佳</span>
+                <span class="ad-name">C8 投影機</span>
+                <span class="ad-meta"><span class="ad-pill">真 <b>1080P</b></span><span class="ad-pill">實看亮度 <b>240 CVIA</b></span><span class="ad-pill">自動對焦</span><span class="ad-pill">一體式雲台 360°</span><span class="ad-pill ad-tbd">耗電待確認*</span></span>
+                <span class="ad-note">直投白牆免幕布，帳篷夜間追劇、看球賽</span>
+              </span>
+              <span class="ad-price">$300<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+            <label class="ad-card a-fun">
+              <input type="checkbox" class="ad-chk" data-name="製冰機" data-price="300" onchange="addonsUpdate()">
+              <span class="ad-photo"><span class="ad-ph-ico">🧊</span></span>
+              <span class="ad-info">
+                <span class="ad-brand">消暑</span>
+                <span class="ad-name">製冰機</span>
+                <span class="ad-meta"><span class="ad-pill">耗電 <b>約 100W</b></span><span class="ad-pill ad-tbd">型號待確認*</span></span>
+                <span class="ad-note">現場製冰，調酒、冰飲不用一直買冰塊</span>
+              </span>
+              <span class="ad-price">$300<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+            <label class="ad-card a-fun">
+              <input type="checkbox" class="ad-chk" data-name="渦輪扇" data-price="300" onchange="addonsUpdate()">
+              <span class="ad-photo"><span class="ad-ph-ico">🌀</span></span>
+              <span class="ad-info">
+                <span class="ad-brand">ADAM OUTDOOR</span>
+                <span class="ad-name">渦輪扇</span>
+                <span class="ad-meta"><span class="ad-pill">充電式</span><span class="ad-pill ad-tbd">型號待確認*</span></span>
+                <span class="ad-note">搭配冷氣加速循環，帳內降溫更快</span>
+              </span>
+              <span class="ad-price">$300<small>／次</small></span>
+              <span class="ad-tick" aria-hidden="true">✓</span>
+            </label>
+          </div>
+        </details>
 
-        <div class="ad-cat">⛺ 遮蔽</div>
-        <div class="ad-grid">
-          <div class="ad-card a-shade">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">⛺</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">遮蔽</div>
-              <div class="ad-name">5×8 黑膠天幕</div>
-              <div class="ad-meta"><span class="ad-pill">尺寸 <b>5m × 8m</b></span><span class="ad-pill">加厚黑膠</span><span class="ad-pill">遮光 <b>99.9%</b></span><span class="ad-pill">防水 <b>5000mm+</b></span></div>
-              <div class="ad-note">近全遮光、抗紫外線，底下明顯降溫；大面積遮陽，客廳、停車、炊事區都好用</div>
-            </div>
-            <div class="ad-price">$600<small>／次</small></div>
-          </div>
-          <div class="ad-card a-shade">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🏕️</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">BLACKDOG 黑狗</div>
-              <div class="ad-name">黑狗速開穹頂</div>
-              <div class="ad-meta"><span class="ad-pill">4 步撐開</span><span class="ad-pill">1 分鐘搭建</span><span class="ad-pill">免穿桿</span><span class="ad-pill">空間 <b>近 10 ㎡</b></span><span class="ad-pill">可配 <b>2 片</b> TPU 邊布</span></div>
-              <div class="ad-note">穹頂結構免穿桿，一個人也能快速搭起；近 10 ㎡ 放得下一桌四椅。可加配 1 黑 1 白共 2 片 TPU 邊布擋風遮陽</div>
-            </div>
-            <div class="ad-price">$600<small>／次</small></div>
-          </div>
+        <div class="ad-cart" id="adCart" hidden>
+          <div class="ad-cart-info">已選 <b id="adCartN">0</b> 項・小計 <b>$<span id="adCartSum">0</span></b></div>
+          <button type="button" class="ad-cart-btn" onclick="addonsToForm()">帶入預約表單 →</button>
         </div>
-
-        <div class="ad-cat">🔌 電力</div>
-        <div class="ad-grid">
-          <div class="ad-card a-power">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔋</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">BLUETTI</div>
-              <div class="ad-name">電吉拉 mini 行動電站</div>
-              <div class="ad-meta"><span class="ad-pill">電量 <b>1024 Wh</b></span><span class="ad-pill">輸出 <b>1800W</b></span><span class="ad-pill">45 分鐘回充 <b>80%</b></span><span class="ad-pill">UPS 不斷電</span><span class="ad-pill">太陽能回充 <b>1000W</b></span><span class="ad-pill">押金 <b>$1,000</b></span></div>
-              <div class="ad-note">1800W 可帶動冷氣、電鍋等 90% 以上電器；無電營位、車宿或家中停電備援皆可用</div>
-            </div>
-            <div class="ad-price">$1,000<small>／次</small></div>
-          </div>
-          <div class="ad-card a-power">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔌</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">電力</div>
-              <div class="ad-name">動力延長線（綠）5M</div>
-              <div class="ad-meta"><span class="ad-pill">長度 <b>5 M</b></span><span class="ad-pill">粗芯動力線</span></div>
-              <div class="ad-note">冷氣建議搭配粗芯動力線使用</div>
-            </div>
-            <div class="ad-price">$100<small>／次</small></div>
-          </div>
-          <div class="ad-card a-power">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔌</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">電力</div>
-              <div class="ad-name">動力延長線（綠）10M</div>
-              <div class="ad-meta"><span class="ad-pill">長度 <b>10 M</b></span><span class="ad-pill">粗芯動力線</span></div>
-              <div class="ad-note">插座距離較遠的營位適用</div>
-            </div>
-            <div class="ad-price">$150<small>／次</small></div>
-          </div>
-        </div>
-
-        <div class="ad-cat">💡 照明</div>
-        <div class="ad-grid">
-          <div class="ad-card a-light">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">💡</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">照明</div>
-              <div class="ad-name">五米黃光燈條</div>
-              <div class="ad-meta"><span class="ad-pill">長度 <b>5 M</b></span><span class="ad-pill">暖黃光</span></div>
-              <div class="ad-note">營造氣氛，天幕、客廳帳掛一圈就夠亮</div>
-            </div>
-            <div class="ad-price">$200<small>／次</small></div>
-          </div>
-          <div class="ad-card a-light">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">💡</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">照明</div>
-              <div class="ad-name">十米黃光燈條</div>
-              <div class="ad-meta"><span class="ad-pill">長度 <b>10 M</b></span><span class="ad-pill">暖黃光</span></div>
-              <div class="ad-note">大天幕或雙帳串接適用</div>
-            </div>
-            <div class="ad-price">$300<small>／次</small></div>
-          </div>
-          <div class="ad-card a-light">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔦</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">照明</div>
-              <div class="ad-name">持久帳篷小燈</div>
-              <div class="ad-meta"><span class="ad-pill">電量 <b>6000 mAh</b></span><span class="ad-pill">續航 <b>12-160 hr</b></span><span class="ad-pill">最亮 <b>1000 lm</b></span><span class="ad-pill">三色溫無極調光</span><span class="ad-pill">Type-C・磁吸・防水</span></div>
-              <div class="ad-note">白光 / 暖光 / 中性光可調，背面磁吸可吸鐵件，直徑 84mm 好收納</div>
-            </div>
-            <div class="ad-price">$100<small>／次</small></div>
-          </div>
-        </div>
-
-        <div class="ad-cat">🔥 焚火</div>
-        <div class="ad-grid">
-          <div class="ad-card a-fire">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔥</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">焚火</div>
-              <div class="ad-name">簡易焚火台</div>
-              <div class="ad-meta"><span class="ad-pill">不鏽鋼摺疊</span><span class="ad-pill">交叉腳架離地</span><span class="ad-pill ad-tbd">尺寸待確認</span></div>
-              <div class="ad-note">入門款，燒柴烤火用；腳架離地設計，草地、礫石地都好架</div>
-            </div>
-            <div class="ad-price">$300<small>／次</small></div>
-          </div>
-          <div class="ad-card a-fire">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔥</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">春山 SPRINGHILL</div>
-              <div class="ad-name">青鸞觀火台</div>
-              <div class="ad-meta"><span class="ad-pill">酒精 / 柴火兩用</span><span class="ad-pill">304 不鏽鋼 + 黃銅 + 玻璃</span><span class="ad-pill">展開 <b>204×204×159mm</b></span><span class="ad-pill">約 <b>3.2 kg</b></span><span class="ad-pill">酒精盤 <b>300ml</b></span></div>
-              <div class="ad-note">玻璃擋風看得見火，桌上圍爐用；附收納包，收折後僅 204×204×90mm</div>
-            </div>
-            <div class="ad-price">$300<small>／次</small></div>
-          </div>
-        </div>
-
-        <div class="ad-cat">🎬 消暑與娛樂</div>
-        <div class="ad-grid">
-          <div class="ad-card a-fun">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">📽️</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">KONKA 康佳</div>
-              <div class="ad-name">C8 投影機</div>
-              <div class="ad-meta"><span class="ad-pill">真 <b>1080P</b></span><span class="ad-pill">實看亮度 <b>240 CVIA</b></span><span class="ad-pill">自動對焦</span><span class="ad-pill">一體式雲台 360°</span><span class="ad-pill ad-tbd">耗電待確認</span></div>
-              <div class="ad-note">直投白牆免幕布，帳篷夜間追劇、看球賽</div>
-            </div>
-            <div class="ad-price">$300<small>／次</small></div>
-          </div>
-          <div class="ad-card a-fun">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🧊</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">消暑</div>
-              <div class="ad-name">製冰機</div>
-              <div class="ad-meta"><span class="ad-pill">耗電 <b>約 100W</b></span><span class="ad-pill ad-tbd">型號確認中</span></div>
-              <div class="ad-note">現場製冰，調酒、冰飲不用一直買冰塊</div>
-            </div>
-            <div class="ad-price">$300<small>／次</small></div>
-          </div>
-          <div class="ad-card a-fun">
-            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🌀</span></div>
-            <div class="ad-info">
-              <div class="ad-brand">ADAM OUTDOOR</div>
-              <div class="ad-name">渦輪扇</div>
-              <div class="ad-meta"><span class="ad-pill">充電式</span><span class="ad-pill ad-tbd">型號規格確認中</span></div>
-              <div class="ad-note">搭配冷氣加速循環，帳內降溫更快</div>
-            </div>
-            <div class="ad-price">$300<small>／次</small></div>
-          </div>
-        </div>
-        <p class="cc-form-hint" style="margin:12px 0 1rem">※ 規格以實機為準，標示「確認中」的品項請於 LINE 詢問時一併確認。小物可單獨租借，依當日庫存供應。<b>僅「電吉拉 mini 行動電站」需另收押金 $1,000</b>，其餘品項不收押金。</p>
+        <p class="cc-form-hint" style="margin:12px 0 1rem">※ 標示「待確認」的規格請於 LINE 詢問時一併確認。小物依當日庫存供應。<b>僅「電吉拉 mini 行動電站」需另收押金 $1,000</b>，其餘品項不收押金。</p>
 
         <div class="cc-sh">⚠️ 移動冰箱使用注意</div>
         <hr class="cc-shdiv">
@@ -2503,6 +2637,46 @@ function quickAsk(type) {
         + '營區（若已決定）：';
   }
   openLineWith('quick_' + type, msg);
+}
+
+
+// ── 其它小物：勾選 → 帶入預約表單備註 ─────────────────────
+function addonsUpdate() {
+  var chks = document.querySelectorAll('.ad-chk');
+  var n = 0, sum = 0;
+  for (var i = 0; i < chks.length; i++) {
+    if (!chks[i].checked) continue;
+    n++;
+    sum += parseInt(chks[i].getAttribute('data-price'), 10) || 0;
+  }
+  var cart = document.getElementById('adCart');
+  if (!cart) return;
+  document.getElementById('adCartN').textContent = n;
+  document.getElementById('adCartSum').textContent = sum.toLocaleString('en-US');
+  cart.hidden = (n === 0);
+  // 各分類抽屜顯示已選數，收合時也看得到
+  var drawers = document.querySelectorAll('.ad-drawer');
+  for (var d = 0; d < drawers.length; d++) {
+    var c = drawers[d].querySelectorAll('.ad-chk:checked').length;
+    var badge = drawers[d].querySelector('.ad-dw-sel');
+    if (!badge) continue;
+    badge.textContent = c ? ('已選 ' + c) : '';
+    badge.hidden = !c;
+  }
+}
+
+function addonsToForm() {
+  var chks = document.querySelectorAll('.ad-chk:checked');
+  if (!chks.length) return;
+  var items = [], sum = 0;
+  for (var i = 0; i < chks.length; i++) {
+    var p = parseInt(chks[i].getAttribute('data-price'), 10) || 0;
+    sum += p;
+    items.push(chks[i].getAttribute('data-name') + ' $' + p.toLocaleString('en-US'));
+  }
+  appendNote('🎒 加購小物：' + items.join('、') + '（小計 $' + sum.toLocaleString('en-US') + '）');
+  logEvent('addons_to_form', String(chks.length) + '項/' + sum);
+  goBooking('addons');
 }
 
 // 捲動到好評區（首屏好評橫條點擊）
