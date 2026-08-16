@@ -128,7 +128,7 @@
         "name": "移動冰箱出租",
         "price": "800",
         "priceCurrency": "TWD",
-        "description": "冰虎/艾比酷移動冰箱，20L~60L多款，連假統一$800"
+        "description": "冰虎 ALPICOOL C40 移動冰箱 40L，冷藏冷凍雙用，連假統一 $800"
       }
     ]
   }
@@ -169,7 +169,7 @@
       "name": "移動冰箱出租費用是多少？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "移動冰箱出租統一定價 $800 元／次，連續假期不限天數一律 $800。提供冰虎與艾比酷品牌，容量從 20L 到 60L。"
+        "text": "統一定價 $800 元／次，連假不限天數。目前提供冰虎 ALPICOOL C40（40L，冷藏冷凍雙用，約 60W）。"
       }
     },
     {
@@ -1442,6 +1442,51 @@
     .cc-seo-links { grid-template-columns: 1fr; }
   }
 
+  /* 其它小物加購卡 */
+  .ad-cat { font-size:.8rem; font-weight:900; color:#047857; margin:14px 0 8px; display:flex; align-items:center; gap:6px; }
+  .ad-cat::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,#a7f3d0,transparent); }
+  .ad-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media (max-width:520px){ .ad-grid { grid-template-columns:1fr; } }
+  .ad-card {
+    display:flex; align-items:center; gap:10px;
+    background:linear-gradient(160deg,rgba(255,255,255,.96),rgba(240,253,250,.75));
+    border:1.5px solid #d1fae5; border-radius:14px; padding:10px 12px 10px 10px;
+    box-shadow:0 4px 12px rgba(6,95,70,.06), inset 0 1px 0 rgba(255,255,255,.7);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .ad-card:hover { transform:translateY(-2px); box-shadow:0 10px 22px rgba(6,95,70,.12); }
+  /* 照片欄位：目前放示意圖示，之後放實拍只要把 <img> 塞進 .ad-photo */
+  .ad-photo {
+    flex-shrink:0; width:56px; height:56px; border-radius:12px;
+    background:linear-gradient(135deg,#ecfdf5,#d1fae5);
+    border:1px solid rgba(167,243,208,.8);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .ad-photo img { width:100%; height:100%; object-fit:cover; display:block; }
+  .ad-ph-ico { font-size:1.6rem; line-height:1; }
+  .ad-info { flex:1; min-width:0; }
+  .ad-brand { font-size:.64rem; font-weight:800; color:#059669; letter-spacing:.04em; }
+  .ad-name { font-size:.92rem; font-weight:900; color:#0f172a; line-height:1.25; margin:1px 0 4px; }
+  .ad-meta { display:flex; flex-wrap:wrap; gap:4px; }
+  .ad-pill { font-size:.64rem; font-weight:700; padding:2px 7px; border-radius:7px; background:rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.06); color:#374151; }
+  .ad-pill b { color:#1f2937; font-weight:900; }
+  .ad-pill.ad-tbd { background:#fffbeb; border-color:#fde68a; color:#92400e; }
+  .ad-note { font-size:.68rem; color:#6b7280; line-height:1.5; margin-top:4px; }
+  .ad-price { flex-shrink:0; align-self:flex-start; font-size:1.05rem; font-weight:900; color:#047857; white-space:nowrap; }
+  .ad-price small { font-size:.6rem; font-weight:700; color:#6b7280; margin-left:1px; }
+  .ad-card.a-power { border-color:#bfdbfe; background:linear-gradient(160deg,#fff,#eff6ff); }
+  .ad-card.a-power .ad-photo { background:linear-gradient(135deg,#eff6ff,#dbeafe); border-color:#bfdbfe; }
+  .ad-card.a-power .ad-brand, .ad-card.a-power .ad-price { color:#1d4ed8; }
+  .ad-card.a-fire { border-color:#fecaca; background:linear-gradient(160deg,#fff,#fef2f2); }
+  .ad-card.a-fire .ad-photo { background:linear-gradient(135deg,#fef2f2,#fee2e2); border-color:#fecaca; }
+  .ad-card.a-fire .ad-brand, .ad-card.a-fire .ad-price { color:#b91c1c; }
+  .ad-card.a-light { border-color:#fde68a; background:linear-gradient(160deg,#fff,#fffbeb); }
+  .ad-card.a-light .ad-photo { background:linear-gradient(135deg,#fffbeb,#fef3c7); border-color:#fde68a; }
+  .ad-card.a-light .ad-brand, .ad-card.a-light .ad-price { color:#b45309; }
+  .ad-card.a-fun { border-color:#ddd6fe; background:linear-gradient(160deg,#fff,#f5f3ff); }
+  .ad-card.a-fun .ad-photo { background:linear-gradient(135deg,#f5f3ff,#ede9fe); border-color:#ddd6fe; }
+  .ad-card.a-fun .ad-brand, .ad-card.a-fun .ad-price { color:#6d28d9; }
+
   /* 減少動態效果偏好：置於樣式表最後，確保能覆寫前面所有動畫宣告 */
   @media (prefers-reduced-motion: reduce) {
     .cc-line-shimmer::after { animation: none; }
@@ -1609,7 +1654,7 @@
             </div>
             <button type="button" onclick="quickPlan('請幫我推薦')">💬 不確定方案，請幫我查檔期</button>
             <div class="cc-price-urgent">⚡ 連假熱門時段有限，建議提前 2 週預約</div>
-            <div class="cc-price-note">租金含移動冷氣主機、排風管、使用說明與開機測試；營區電費與動力延長線需自備（建議粗芯 10-15M）。</div>
+            <div class="cc-price-note">租金含移動冷氣主機、排風管、使用說明與開機測試；營區電費需自付；動力延長線可自備，或於「其它小物」加購（5M $100／10M $150）。</div>
             <div class="cc-price-note">押金現金可當場退、匯款約 1-3 個工作天・無隱藏費用・透明定價・LINE 通常 1 小時內回覆</div>
           </div>
         </div>
@@ -2084,69 +2129,184 @@
       </div>
     </section>
 
-    <!-- ════════ 冰箱出租 ════════ -->
+    <!-- ════════ 其它小物 ════════ -->
     <section class="cc-page" data-tab="fridge" hidden>
       <div class="cc-hero" style="background:linear-gradient(135deg,#155e75,#0891b2)">
         <div class="cc-hero-ovl"></div>
-        <div class="cc-hero-badge">🧊 統一 $800 / 次</div>
-        <h2 class="cc-hero-title">🧊 食材新鮮，露營更美味</h2>
-        <p class="cc-hero-sub">20L～60L 多款冰箱，冷藏冷凍都行，搭冷氣一起租更划算</p>
+        <div class="cc-hero-badge">🎒 小物 $100 起</div>
+        <h2 class="cc-hero-title">🎒 其它小物一起租</h2>
+        <p class="cc-hero-sub">冰箱、天幕、燈條、焚火台、行動電源，不用為了幾晚買整套</p>
       </div>
       <div class="cc-body">
-        <div class="cc-alert g"><span class="ic">💰</span><div><strong>統一定價：$800 元／次</strong><br>連假不限天數，一律 $800。依詢問時檔期存量為主，請提前透過 LINE 確認。</div></div>
+        <div class="cc-alert g"><span class="ic">🎒</span><div><strong>小物一次租齊</strong><br>冷氣以外的裝備也能一起帶走，省下四處張羅與添購的錢。依詢問時檔期存量為主，建議與冷氣一起預約。</div></div>
 
-        <div class="cc-sh">📦 可租型號一覽</div>
+        <div class="cc-sh">🧊 保冷</div>
         <hr class="cc-shdiv">
-        <div class="fr-grid">
-          <div class="fr-card f1">
-            <div class="fr-brand">冰虎 ICEHU</div>
-            <div class="fr-name">MC-20</div>
-            <div class="fr-cap">20<small>L</small></div>
-            <div class="fr-meta">
-              <span class="fr-pill">重量 <b>8 kg</b></span>
-              <span class="fr-pill">耗電 <b>25W</b></span>
+        <div class="ad-grid">
+          <div class="ad-card a-fridge">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🧊</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">冰虎 ALPICOOL</div>
+              <div class="ad-name">C40 移動冰箱 40L</div>
+              <div class="ad-meta"><span class="ad-pill">容量 <b>40 L</b></span><span class="ad-pill">-20°C ~ +20°C</span><span class="ad-pill">約 <b>14 kg</b></span><span class="ad-pill">約 <b>60W</b></span></div>
+              <div class="ad-note">冷藏冷凍雙用，壓縮機製冷</div>
             </div>
-          </div>
-          <div class="fr-card f2">
-            <div class="fr-brand">冰虎 ICEHU</div>
-            <div class="fr-name">TA-35</div>
-            <div class="fr-cap">35<small>L</small></div>
-            <div class="fr-meta">
-              <span class="fr-pill">重量 <b>14 kg</b></span>
-              <span class="fr-pill">耗電 <b>35W</b></span>
-            </div>
-          </div>
-          <div class="fr-card f3">
-            <div class="fr-brand">冰虎 ICEHU</div>
-            <div class="fr-name">T50</div>
-            <div class="fr-cap">50<small>L</small></div>
-            <div class="fr-meta">
-              <span class="fr-pill">重量 <b>19 kg</b></span>
-              <span class="fr-pill">耗電 <b>50W</b></span>
-            </div>
-          </div>
-          <div class="fr-card f4">
-            <div class="fr-brand">冰虎 ICEHU</div>
-            <div class="fr-name">T60</div>
-            <div class="fr-cap">60<small>L</small></div>
-            <div class="fr-meta">
-              <span class="fr-pill">重量 <b>22 kg</b></span>
-              <span class="fr-pill">耗電 <b>60W</b></span>
-            </div>
-          </div>
-          <div class="fr-card f5" style="grid-column:1/-1">
-            <div class="fr-brand">艾比酷 ICECO</div>
-            <div class="fr-name">LG-D36 <span style="display:inline-block;margin-left:6px;font-size:.65rem;background:#f59e0b;color:#fff;padding:2px 7px;border-radius:6px;vertical-align:3px;letter-spacing:.05em">雙溫區</span></div>
-            <div class="fr-cap">36<small>L</small></div>
-            <div class="fr-meta">
-              <span class="fr-pill">重量 <b>15 kg</b></span>
-              <span class="fr-pill">耗電 <b>40W</b></span>
-              <span class="fr-pill">冷藏 + 冷凍 雙區</span>
-            </div>
+            <div class="ad-price">$800<small>／次</small></div>
           </div>
         </div>
 
-        <div class="cc-sh">⚠️ 使用注意</div>
+        <div class="ad-cat">⛺ 遮蔽</div>
+        <div class="ad-grid">
+          <div class="ad-card a-shade">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">⛺</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">遮蔽</div>
+              <div class="ad-name">5×8 黑膠天幕</div>
+              <div class="ad-meta"><span class="ad-pill">尺寸 <b>5m × 8m</b></span><span class="ad-pill">黑膠塗層</span><span class="ad-pill">抗 UV 遮陽</span></div>
+              <div class="ad-note">大面積遮陽，客廳、停車、炊事區都好用</div>
+            </div>
+            <div class="ad-price">$600<small>／次</small></div>
+          </div>
+          <div class="ad-card a-shade">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🏕️</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">BLACKDOG 黑狗</div>
+              <div class="ad-name">黑狗速開穹頂</div>
+              <div class="ad-meta"><span class="ad-pill">速開免搭</span><span class="ad-pill">黑膠遮光</span></div>
+              <div class="ad-note">免搭免收，適合懶人露營與臨時遮蔽</div>
+            </div>
+            <div class="ad-price">$600<small>／次</small></div>
+          </div>
+        </div>
+
+        <div class="ad-cat">🔌 電力</div>
+        <div class="ad-grid">
+          <div class="ad-card a-power">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔋</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">BLUETTI</div>
+              <div class="ad-name">電吉拉 mini 行動電站</div>
+              <div class="ad-meta"><span class="ad-pill">電量 <b>1024 Wh</b></span><span class="ad-pill">輸出 <b>1800W</b></span><span class="ad-pill">約 <b>11.3 kg</b></span></div>
+              <div class="ad-note">無電營位、車宿或停電備援皆可用</div>
+            </div>
+            <div class="ad-price">$1,000<small>／次</small></div>
+          </div>
+          <div class="ad-card a-power">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔌</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">電力</div>
+              <div class="ad-name">動力延長線（綠）5M</div>
+              <div class="ad-meta"><span class="ad-pill">長度 <b>5 M</b></span><span class="ad-pill">粗芯動力線</span></div>
+              <div class="ad-note">冷氣建議搭配粗芯動力線使用</div>
+            </div>
+            <div class="ad-price">$100<small>／次</small></div>
+          </div>
+          <div class="ad-card a-power">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔌</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">電力</div>
+              <div class="ad-name">動力延長線（綠）10M</div>
+              <div class="ad-meta"><span class="ad-pill">長度 <b>10 M</b></span><span class="ad-pill">粗芯動力線</span></div>
+              <div class="ad-note">插座距離較遠的營位適用</div>
+            </div>
+            <div class="ad-price">$150<small>／次</small></div>
+          </div>
+        </div>
+
+        <div class="ad-cat">💡 照明</div>
+        <div class="ad-grid">
+          <div class="ad-card a-light">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">💡</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">照明</div>
+              <div class="ad-name">五米黃光燈條</div>
+              <div class="ad-meta"><span class="ad-pill">長度 <b>5 M</b></span><span class="ad-pill">暖黃光</span></div>
+              <div class="ad-note">營造氣氛，天幕、客廳帳掛一圈就夠亮</div>
+            </div>
+            <div class="ad-price">$200<small>／次</small></div>
+          </div>
+          <div class="ad-card a-light">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">💡</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">照明</div>
+              <div class="ad-name">十米黃光燈條</div>
+              <div class="ad-meta"><span class="ad-pill">長度 <b>10 M</b></span><span class="ad-pill">暖黃光</span></div>
+              <div class="ad-note">大天幕或雙帳串接適用</div>
+            </div>
+            <div class="ad-price">$300<small>／次</small></div>
+          </div>
+          <div class="ad-card a-light">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔦</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">照明</div>
+              <div class="ad-name">持久帳篷小燈</div>
+              <div class="ad-meta"><span class="ad-pill">長效續航</span></div>
+              <div class="ad-note">睡帳內小夜燈，起夜不吵醒同帳</div>
+            </div>
+            <div class="ad-price">$100<small>／次</small></div>
+          </div>
+        </div>
+
+        <div class="ad-cat">🔥 焚火</div>
+        <div class="ad-grid">
+          <div class="ad-card a-fire">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔥</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">焚火</div>
+              <div class="ad-name">簡易焚火台</div>
+              <div class="ad-meta"><span class="ad-pill">輕量好收</span></div>
+              <div class="ad-note">入門款，烤火、煮食都能用</div>
+            </div>
+            <div class="ad-price">$300<small>／次</small></div>
+          </div>
+          <div class="ad-card a-fire">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🔥</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">焚火</div>
+              <div class="ad-name">青鸞觀火台</div>
+              <div class="ad-meta"><span class="ad-pill">觀火設計</span></div>
+              <div class="ad-note">大面積觀火，適合圍爐聊天</div>
+            </div>
+            <div class="ad-price">$300<small>／次</small></div>
+          </div>
+        </div>
+
+        <div class="ad-cat">🎬 消暑與娛樂</div>
+        <div class="ad-grid">
+          <div class="ad-card a-fun">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">📽️</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">娛樂</div>
+              <div class="ad-name">投影機</div>
+              <div class="ad-meta"><span class="ad-pill ad-tbd">型號規格確認中</span></div>
+              <div class="ad-note">帳篷夜間追劇、看球賽</div>
+            </div>
+            <div class="ad-price">$300<small>／次</small></div>
+          </div>
+          <div class="ad-card a-fun">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🧊</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">消暑</div>
+              <div class="ad-name">製冰機</div>
+              <div class="ad-meta"><span class="ad-pill ad-tbd">型號規格確認中</span></div>
+              <div class="ad-note">現場製冰，調酒、冰飲不用一直買冰塊</div>
+            </div>
+            <div class="ad-price">$300<small>／次</small></div>
+          </div>
+          <div class="ad-card a-fun">
+            <div class="ad-photo" aria-hidden="true"><span class="ad-ph-ico">🌀</span></div>
+            <div class="ad-info">
+              <div class="ad-brand">ADAM OUTDOOR</div>
+              <div class="ad-name">渦輪扇</div>
+              <div class="ad-meta"><span class="ad-pill">充電式</span><span class="ad-pill ad-tbd">型號規格確認中</span></div>
+              <div class="ad-note">搭配冷氣加速循環，帳內降溫更快</div>
+            </div>
+            <div class="ad-price">$300<small>／次</small></div>
+          </div>
+        </div>
+        <p class="cc-form-hint" style="margin:12px 0 1rem">※ 規格以實機為準，標示「確認中」的品項請於 LINE 詢問時一併確認。小物依當日庫存供應。</p>
+
+        <div class="cc-sh">⚠️ 移動冰箱使用注意</div>
         <hr class="cc-shdiv">
         <div class="cc-grid">
           <div class="cc-notice r"><h4><span class="ico-bubble">🚨</span>搬運後必看</h4><ul><li>靜置 <strong>30 分鐘以上</strong>再開機</li><li>保持直立，勿倒置超過 45°</li><li>直接開機可能損壞壓縮機</li></ul></div>
@@ -2205,7 +2365,7 @@
       <button class="cc-nav-btn" type="button" data-tab="rental" style="--c:#34d399;--bg:rgba(52,211,153,.18)" onclick="setTab('rental')"><span class="ico">❄️</span><span class="lbl">租借方案</span></button>
       <button class="cc-nav-btn" type="button" data-tab="wiki" style="--c:#a78bfa;--bg:rgba(167,139,250,.18)" onclick="setTab('wiki')"><span class="ico">📊</span><span class="lbl">選購指南</span></button>
       <button class="cc-nav-btn" type="button" data-tab="booking" style="--c:#f87171;--bg:rgba(248,113,113,.18)" onclick="setTab('booking')"><span class="ico">📅</span><span class="lbl">預約方式</span></button>
-      <button class="cc-nav-btn" type="button" data-tab="fridge" style="--c:#22d3ee;--bg:rgba(34,211,238,.18)" onclick="setTab('fridge')"><span class="ico">🧊</span><span class="lbl">冰箱出租</span></button>
+      <button class="cc-nav-btn" type="button" data-tab="fridge" style="--c:#22d3ee;--bg:rgba(34,211,238,.18)" onclick="setTab('fridge')"><span class="ico">🎒</span><span class="lbl">其它小物</span></button>
     </div>
   </nav>
 
