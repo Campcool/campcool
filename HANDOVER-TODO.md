@@ -27,35 +27,32 @@
 `logo` 與 `image` 欄位——社群平台與 Google 對 webp 支援不一，原始 .jpg 檔案
 也全數保留未刪。
 
-### 4. 「其它小物」14 品項實拍照（新需求）
+### 4. 「其它小物」商品照（15 項中 8 項已完成）
 
-新分頁 `其它小物` 的每張卡片左側已預留 `.ad-photo` 欄位（56×56 圓角框），
-目前放 emoji 示意圖示。**放實拍只需把 `<img>` 塞進 `.ad-photo`，不必改版面**：
+卡片左側 `.ad-photo` 已可放圖。**已上線 8 張**（由老闆提供的商品資料裁切轉檔，
+總計 92KB，皆為 320×320 webp）：
 
-```html
-<div class="ad-photo"><img src="assets/addon-juz-tarp.webp" alt="5×8 黑膠天幕"></div>
-```
+`addon-tarp-58` / `addon-tarp-butterfly` / `addon-blackdog-dome` /
+`addon-bluetti-mini` / `addon-tent-lamp` / `addon-firepit-basic` /
+`addon-firepit-qingluan` / `addon-projector`
 
-需要的照片（建議 **正方形 320×320 webp，單張 < 20KB**，淺色或白底，拍實際庫存品）：
+裁切時已移除賣場行銷字樣（UPF70000+、體積減少 30% 等），避免自家網站
+出現他牌廣告詞。
 
-| # | 品項 | 建議檔名 |
-|---|---|---|
-| 1 | 冰虎 ALPICOOL C40 移動冰箱 40L | `addon-fridge-c40.webp` |
-| 2 | 5×8 黑膠天幕 | `addon-tarp-58.webp` |
-| 3 | 黑狗速開穹頂 | `addon-blackdog-dome.webp` |
-| 4 | BLUETTI 電吉拉 mini 行動電站 | `addon-bluetti-mini.webp` |
-| 5 | 動力延長線（綠）5M | `addon-cable-5m.webp` |
-| 6 | 動力延長線（綠）10M | `addon-cable-10m.webp` |
-| 7 | 五米黃光燈條 | `addon-lightstrip-5m.webp` |
-| 8 | 十米黃光燈條 | `addon-lightstrip-10m.webp` |
-| 9 | 持久帳篷小燈 | `addon-tent-lamp.webp` |
-| 10 | 簡易焚火台 | `addon-firepit-basic.webp` |
-| 11 | 青鸞觀火台 | `addon-firepit-qingluan.webp` |
-| 12 | 投影機 | `addon-projector.webp` |
-| 13 | 製冰機 | `addon-icemaker.webp` |
-| 14 | ADAM OUTDOOR 渦輪扇 | `addon-adam-fan.webp` |
+**仍缺 7 張**（目前顯示示意 emoji，不影響功能）：
 
-> ⚠️ **請用自家實際庫存品拍攝**，不要用廠商或電商的商品圖（著作權風險，且實拍對客戶更有說服力）。
+| 品項 | 建議檔名 |
+|---|---|
+| 冰虎 ALPICOOL C40 移動冰箱 | `addon-fridge-c40.webp` |
+| 動力延長線（綠）5M | `addon-cable-5m.webp` |
+| 動力延長線（綠）10M | `addon-cable-10m.webp` |
+| 五米黃光燈條 | `addon-lightstrip-5m.webp` |
+| 十米黃光燈條 | `addon-lightstrip-10m.webp` |
+| 製冰機 | `addon-icemaker.webp` |
+| ADAM OUTDOOR 渦輪扇 | `addon-adam-fan.webp` |
+
+**怎麼給圖**：截圖貼進對話框即可（手機原圖太大會上傳失敗），
+或直接上傳到 GitHub `assets/`。尺寸格式不用管，會自動裁成 320×320 webp。
 
 ### 5. （選用）首頁大圖
 
@@ -146,8 +143,11 @@ LocalBusiness 已補上 `PostalAddress`：**竹北市／新竹／TW**，與首�
 - **簡易焚火台尺寸**
 - **5×8 黑膠天幕、黑狗速開穹頂** — 僅通用描述，未標重量與收納尺寸
 
-已上線的電吉拉規格（取自宣傳圖規格條）：
+已上線的電吉拉規格（**容量 1024Wh 經老闆確認**）：
 **1024Wh・1800W 輸出・45 分鐘回充 80%・UPS 不斷電・太陽能回充 1000W**。
+
+> 註：宣傳圖中機身標籤為「AC180P 1440Wh」，與規格條的 1024Wh 不同。
+> 老闆確認以 **1024Wh** 為準，網站維持此數值。
 
 重量原本寫「約 11.3kg」為公開資料推測，未經核對，已自頁面移除。
 若你確認實機重量，可再補上——行動電站的重量客戶蠻在意（要不要扛上營位）。
