@@ -1361,14 +1361,13 @@
   .ad-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   @media (max-width:520px){ .ad-grid { grid-template-columns:1fr; } }
   @media (max-width:520px){
-    .ad-photo { width:100px; height:100px; border-radius:12px; }
-    .ad-card { padding:12px; gap:12px; }
+    .ad-photo { width:96px; height:96px; border-radius:12px; }
+    .ad-card { padding:12px; gap:11px; }
     .ad-info { gap:6px; }
     .ad-name { font-size:1rem; line-height:1.35; }
     .ad-brand { font-size:.68rem; }
-    .ad-price { font-size:1.2rem; }
+    .ad-price { font-size:1.15rem; white-space:normal; word-break:keep-all; overflow-wrap:break-word; }
     .ad-pill { font-size:.66rem; padding:3px 8px; }
-    .ad-head { gap:8px; }
     .ad-tick { width:20px; height:20px; font-size:.72rem; top:7px; right:7px; }
   }
   .ad-card {
@@ -1389,12 +1388,21 @@
   }
   .ad-photo img { width:100%; height:100%; object-fit:cover; display:block; }
   .ad-ph-ico { font-size:1.6rem; line-height:1; }
+  /* 右欄：品牌+品名在上、價格在下（全寬行），任何字級放大都不溢出卡 */
   .ad-info { flex:1; min-width:0; display:flex; flex-direction:column; gap:7px; }
-  .ad-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; min-width:0; }
-  .ad-title { min-width:0; display:flex; flex-direction:column; gap:2px; }
+  /* 容器查詢：字級放大使卡極窄時（佈局視口被壓縮），自動改為上圖下文，文字全寬 */
+  .ad-drawer { container-type:inline-size; }
+  @container (max-width:300px){
+    .ad-card { flex-direction:column; gap:10px; }
+    .ad-photo { width:100%; height:130px; align-self:stretch; }
+    .ad-info { gap:6px; }
+    .ad-name { font-size:1.05rem; }
+    .ad-price { font-size:1.25rem; }
+  }
+  .ad-head { display:flex; flex-direction:column; gap:2px; min-width:0; }
   .ad-brand { font-size:.7rem; font-weight:800; color:#059669; letter-spacing:.04em; }
   .ad-name { font-size:1.1rem; font-weight:900; color:#0f172a; line-height:1.3; margin:0; word-break:keep-all; overflow-wrap:break-word; }
-  .ad-price { flex:0 0 auto; align-self:flex-start; font-size:1.35rem; font-weight:900; color:#047857; white-space:nowrap; line-height:1.2; }
+  .ad-price { align-self:flex-start; font-size:1.3rem; font-weight:900; color:#047857; white-space:normal; word-break:keep-all; overflow-wrap:break-word; line-height:1.2; }
   .ad-price small { font-size:.65rem; font-weight:700; color:#6b7280; margin-left:1px; }
   .ad-meta { display:flex; flex-wrap:wrap; gap:5px; }
   .ad-pill { font-size:.7rem; font-weight:700; padding:4px 9px; border-radius:8px; background:rgba(255,255,255,.9); border:1px solid rgba(0,0,0,.06); color:#374151; white-space:nowrap; }
