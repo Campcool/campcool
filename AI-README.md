@@ -214,6 +214,11 @@ flowchart LR
 
 **UI/UX 優化（2026-08-16）**：老闆實測反饋圖仍只佔一點點，改為左右兩欄平行佈局——左圖（ad-photo 120×120 與卡等高、align-self:center 中置）、右邊品名／價格／規格：新增 `.ad-head`（flex，品名與 `.ad-price` 左右分佈）與 `.ad-title`，全部 16 張卡片 HTML 由 `_restructure_cards.py` 重排完成。ad-pill 加 `white-space:nowrap` 防止長標籤換行溢出（電吉拉 mini「45 分回充 80%」文案同步縮短）。冰箱注意事項已刪，改為整體租借保障（抵達營區時立即反映＋使用不當酌收費用）。
 
+**手機排版根因修復（2026-08-16，commit ed3114b）**：左右佈局上線後老闆實機截圖顯示品名逐字斷行、價格被切、標籤撐出卡右緣。本地 390px 重現不出的原因是根因有三層，皆已在 CSS 一次到位：
+1. **flex 子項不允許縮小於內容**（`min-width:auto`）：`.ad-name`／`.ad-brand` 缺 `min-width:0` 保護，長品名（如「C40 移動冰箱 40L」）把 `.ad-card` 撐寬超過 grid 格寬，內容溢出卡外、價格被螢幕邊緣切掉。修法：`.ad-head` 與 `.ad-title` 補 `min-width:0`。
+2. **逐字斷行**：`.ad-name` 缺換行控制。修法：`word-break:keep-all; overflow-wrap:break-word`，中文字只在詞界換行。
+3. **容器無收邊**：`.ad-card` 與 `.ad-drawer` 補 `overflow:hidden`；`.ad-price` 改 `flex:0 0 auto` 強制不縮。手機 520px 以下同步降級：圖 100px、品名 1rem、價格 1.2rem、pill 0.66rem。commit 後以 390px 與 360px 雙 viewport playwright 截圖逐卡驗證通過（`scripts/_shot_addons.py`、`scripts/_shot_360.py`），validate 20 項與 selftest 4 破壞全綠。接手注意：此組 CSS 規則（1361-1385 行、1432 行）是 16 張卡片的骨架，改動品名/價格字級前務必同步檢視手機降級 block 並重跑雙 viewport 驗證。
+
 **租借保障文案（2026-08-16）**：刪除原冰箱注意事項四張卡，改為整體租借保障兩條：①商品有問題請於抵達營區時立即反應；②不清楚使用方式請與店家詢問或上網搜尋，使用不當導致故障將酌收費用。
 
 **已決策定案**（不需再問）：機型分界 3×3、評價來源為 LINE、
