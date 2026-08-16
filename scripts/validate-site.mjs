@@ -7,7 +7,7 @@ import { execSync } from 'node:child_process';
 //  9. 死重圖片不可再被任何頁面引用（homepage_hero.png / taiwan_map.png）
 // 10. 每頁 LINE CTA 閉環（areas 殘頁除外）
 // 11. 兩支計算機門檻一致性（ac: 2.75 坪 / 9 ㎡、tent: 9 ㎡ / 16 坪拒租）
-// 12. 小物品項數 = 15（產品合約）
+// 12. 小物品項數 = 16（產品合約，index / pricing.md 三處同步）
 // 13. GA4 config endpoint 統一 v=20260727（14 頁）
 // 14. areas 殘頁 canonical 不得與 noindex 並存
 // 15. 評論圖 img src 僅限 1 張 jpg（產品實照），其餘 webp
@@ -151,8 +151,50 @@ if (addonCount !== 16) errors.push('index.html: addon count is ' + addonCount + 
 for (const addon of addonContract) {
   if (!homepage.includes(addon)) errors.push('index.html: product-contract addon missing: ' + addon);
 }
+// pricing.md 與 llms.txt 也必須逐項覆蓋。
+// G40 曾只加到 index.html 與 llms.txt，pricing.md 漏掉卻仍綠燈——
+// 因為本斷言原本只檢查 index.html。
+// 三份檔案對同一商品用不同寫法（pricing.md 帶品牌全名、llms.txt 把
+// 5M/10M 合併成一行），因此以「跨檔案都穩定存在的識別鍵」比對，
+// 而非整串品名，避免產生誤報。
+const addonKeys = {
+  'C40 移動冰箱 40L': 'C40',
+  '5×8 黑膠天幕': '5×8 黑膠天幕',
+  '蝶形天幕': '蝶形天幕',
+  '黑狗速開穹頂': '速開穹頂',
+  '電吉拉 mini 行動電站': '電吉拉 mini',
+  '簡易焚火台': '簡易焚火台',
+  '青鸞觀火台': '青鸞觀火台',
+  'C8 投影機': 'C8 投影機',
+  '製冰機': '製冰機',
+  '渦輪扇': '渦輪扇',
+  '五米黃光燈條': '五米黃光燈條',
+  '十米黃光燈條': '十米黃光燈條',
+  'G40 復古 LED 燈串': 'G40',
+  '持久帳篷小燈': '持久帳篷小燈',
+  '動力延長線（綠）5M': null,   // 見下方延長線特例
+  '動力延長線（綠）10M': null,
+};
+const pricing = fs.readFileSync(path.join(root, 'pricing.md'), 'utf8');
+const llmsRaw = fs.readFileSync(path.join(root, 'llms.txt'), 'utf8');
+for (const [source, text] of [['pricing.md', pricing], ['llms.txt', llmsRaw]]) {
+  for (const addon of addonContract) {
+    const key = addonKeys[addon];
+    if (key === null) continue;
+    if (!key) { errors.push(source + ': product contract has no match key for ' + addon); continue; }
+    if (!text.includes(key)) {
+      errors.push(source + ': product-contract addon missing (out of sync with index.html): ' + addon);
+    }
+  }
+  // 延長線在 llms.txt 寫成「動力延長線（綠）5M（$100）、10M（$150）」合併形式，
+  // 因此只要求「延長線」與兩個長度token 同時存在。
+  if (!text.includes('延長線') || !text.includes('5M') || !text.includes('10M')) {
+    errors.push(source + ': power extension cords (5M/10M) not fully covered');
+  }
+}
 const llms = fs.readFileSync(path.join(root, 'llms.txt'), 'utf8');
 if (!llms.includes('16 品項')) errors.push('llms.txt: missing explicit 16-item declaration');
+
 // llms.txt 小物價格表必須覆蓋 16 品項（至少 16 個含「$」與數字的中價描述）
 const llmsPrices = (llms.match(/\$\s?[0-9][0-9,]+/g) || []).length;
 if (llmsPrices < 16) errors.push('llms.txt: price table covers only ' + llmsPrices + ' items but requires at least 16');
