@@ -223,6 +223,89 @@ GitHub Pages 無法自訂 HTTP 標頭，16 頁以 `<meta http-equiv="Content-Sec
 - **低對比綠色**：`#059669` 白字上 3.76:1 不合格，一律改 `#047857`（白字 4.6:1）或改 `#065f46`（淺底上深字）。
 - validate 20 項 + selftest 4 種破壞 + E2E 11 斷言 + axe 16 頁 = 四道 CI 門禁，任何修改後都應全綠。
 
+## 2026-08-16 交叉稽核：Manus 變更的複驗與修正
+
+Manus 的嚴謹級衝刺（commit `536108c`…`82cc154`）經第三方複驗，**多數變更正確且有價值**
+（`.nojekyll`、刪除死重圖、CI 門禁、validate 擴充至 20 項斷言、補齊商品照、手機排版修復）。
+以下為複驗中發現並已修正的問題，以及仍待處理的項目。**修改本區任何規則前請先讀完理由。**
+
+### 🔴 已修正一：CSP 擋掉 Google Ads 轉換回傳
+
+Manus 加入的 `Content-Security-Policy` 未涵蓋 Google Ads 自身網域。實測（Chromium
+`securitypolicyviolation` 事件）確認以下全數被擋：
+
+| 端點 | 被擋於 |
+|---|---|
+| `www.googleadservices.com/pagead/conversion/...` | `connect-src` |
+| `www.google.com/pagead/1p-user-list/...` | `connect-src` |
+| `googleads.g.doubleclick.net/pagead/...` | `connect-src` |
+| `www.googleadservices.com/pagead/conversion_async.js` | `script-src` |
+
+根因：`logLineClick()` 使用 `transport_type: 'beacon'`，而 `navigator.sendBeacon`
+受 **`connect-src`** 管轄，不是 `img-src`。原 CSP 只放行 `google-analytics.com`，
+等於 GA4 進得去、**Ads 轉換全部回傳失敗**，直接抵銷 13 頁補齊追蹤的成果。
+
+修正：14 個頁面的 `script-src` 與 `connect-src` 補上
+`googleadservices.com`、`googleads.g.doubleclick.net`、`www.google.com`、
+`www.google.com.tw`、`analytics.google.com`、`stats.g.doubleclick.net`。
+`default-src 'self'` 與白名單制維持不變，未使用萬用字元。
+
+**維護規則**：日後若新增任何第三方追蹤或 API，必須同步更新 CSP，
+並以瀏覽器 `securitypolicyviolation` 事件實測，不可只靠靜態檢查。
+
+### 🔴 已修正二：`noindex` 與 `canonical` 並存
+
+`areas/taipei.html`、`areas/hsinchu.html`、`areas/taichung.html` 原同時具有
+`<meta name="googlebot" content="noindex">` 與指向根目錄同名頁的 `canonical`。
+
+Google 明確建議不要混用：canonical 要求把權重併入目標頁，noindex 要求不索引，
+訊號衝突時 **noindex 可能被套用到 canonical 目標**，導致 `taipei.html`、
+`hsinchu.html`、`taichung.html` 三個真實地區著陸頁一起被移出索引。
+
+修正：移除三頁的 noindex，僅保留 canonical。這三頁本來就是 meta-refresh
+轉址殘頁且不在 sitemap 內，canonical 已足夠。
+
+`scripts/validate-site.mjs` 第 14 條原本斷言「殘頁必須有 noindex」——
+該規則本身有害，已反轉為「canonical 與 noindex 不得並存」。
+
+### 🟠 已修正三：`pricing.md` 未同步 G40
+
+G40 復古 LED 燈串 $200（老闆確認之新品項）已寫入 `index.html` 與 `llms.txt`，
+但 `pricing.md` 漏掉，形成 16 vs 14 的落差。validate 第 12 條雖宣稱檢查
+「小物品項數產品合約」，卻只檢查 `index.html`，未比對 `pricing.md`。
+
+修正：`pricing.md` 補上該品項。**新增或改價品項時，
+`index.html`／`pricing.md`／`llms.txt` 三處必須同步。**
+
+### 🟠 待處理一：sr-only h1 與可見 h2 內容重複
+
+Manus 為各分頁補上 `<h1 class="cc-sr-only">`，但文字與其下方可見的
+`<h2 class="cc-hero-title">` **完全相同**：
+
+```html
+<h1 class="cc-sr-only">選冷氣前，先看這篇</h1>
+<h2 class="cc-hero-title">📊 選冷氣前，先看這篇</h2>
+```
+
+`.cc-sr-only` 是視覺隱藏但仍存在於無障礙樹，因此螢幕閱讀器會**連續讀到兩次
+相同標題**——原意是修無障礙，實際製造了新的無障礙問題。
+同時單一網址現有 **4 個 h1**。
+
+建議修法：刪除 3 個 sr-only h1，改將各分頁 hero 的 `h2` 保留為區段標題即可；
+若要讓每個 tab 都有明確標題層級，正確做法是 h1 只留首頁主標題，其餘用 h2。
+
+### 🟡 待處理二：`assets/axe-core.min.js`（540KB）
+
+無障礙測試工具被提交進 repo 並公開可存取（`campcool.tw/assets/axe-core.min.js`）。
+目前沒有任何頁面引用，不影響載入效能，但測試工具不應部署到正式站，
+且未附第三方授權檔。建議移出 `assets/`，改置於 `scripts/` 或以 devDependency 管理。
+
+### 複驗方法
+
+以下項目已於 390×844 實機尺寸重跑並確認未受影響：
+其它小物抽屜勾選 → 帶入表單 → LINE 訊息組裝、兩支計算機門檻一致性
+（300×300 → JUZ-400、330×330 → SAC688）、無橫向捲動、0 JS 例外。
+
 ## 待老闆確認事項（2026-08-16）
 
 以下項目頁面上已標示「待確認」，不影響出租，取得後補上即可：

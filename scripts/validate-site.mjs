@@ -9,7 +9,7 @@ import { execSync } from 'node:child_process';
 // 11. 兩支計算機門檻一致性（ac: 2.75 坪 / 9 ㎡、tent: 9 ㎡ / 16 坪拒租）
 // 12. 小物品項數 = 15（產品合約）
 // 13. GA4 config endpoint 統一 v=20260727（14 頁）
-// 14. areas 殘頁 noindex
+// 14. areas 殘頁 canonical 不得與 noindex 並存
 // 15. 評論圖 img src 僅限 1 張 jpg（產品實照），其餘 webp
 // 16. llms.txt  freshness ≤ 60 天
 // 17. git 追蹤清單不含死重圖
@@ -168,10 +168,17 @@ for (const file of configPages) {
 }
 if (configPages.length < 14) errors.push('config endpoint coverage: only ' + configPages.length + ' pages include /public/config (expected 14)');
 
-// ── 14. areas 殘頁必須 noindex（meta-refresh 轉址頁不參與索引）───
+// ── 14. areas 殘頁：canonical 與 noindex 不得並存 ────────────────
+// Google 明確建議不要混用 noindex 與 rel=canonical：canonical 要求把權重併入
+// 目標頁，noindex 要求不索引，訊號衝突時 noindex 可能被套用到 canonical 目標，
+// 導致 taipei/hsinchu/taichung 三個真實著陸頁一起被移出索引。
+// 這三頁為 meta-refresh 轉址殘頁，且不在 sitemap 內，僅靠 canonical 即可。
 for (const dup of ['areas/taipei.html', 'areas/hsinchu.html', 'areas/taichung.html']) {
   const html = fs.readFileSync(path.join(root, dup), 'utf8');
-  if (!/noindex/.test(html)) errors.push(dup + ': duplicate-area page missing noindex meta');
+  const hasCanonical = /rel=["']canonical["']/.test(html);
+  if (hasCanonical && /noindex/.test(html)) {
+    errors.push(dup + ': must not combine noindex with rel=canonical (risks deindexing the canonical target)');
+  }
 }
 
 // ── 15. 評論圖 img src 僅限 1 張 jpg（emergency 產品實照），其餘 webp ─
@@ -206,7 +213,7 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exitCode = 1;
 } else {
-  console.log('Validated ' + htmlFiles.length + ' HTML files, inline scripts, JSON-LD, canonicals, sitemap, local-only booking, LINE funnel, dead-weight images, calculator thresholds, 16-addon product contract, config endpoint coverage, duplicate-area noindex, review webp policy, llms.txt freshness, and git tracking.');
+  console.log('Validated ' + htmlFiles.length + ' HTML files, inline scripts, JSON-LD, canonicals, sitemap, local-only booking, LINE funnel, dead-weight images, calculator thresholds, 16-addon product contract, config endpoint coverage, duplicate-area canonical/noindex conflict, review webp policy, llms.txt freshness, and git tracking.');
 }
 
 // ── 18. --selftest 防假綠模式 ───────────────────────────────────
