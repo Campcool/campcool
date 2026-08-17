@@ -34,10 +34,18 @@
      validate + selftest + E2E，全過才部署。檢查未過時 deploy job 不執行，
      **線上維持前一個正常版本**，壞版本不會上線（無需人工介入）。
 
-     > ⚠️ 此門禁需要 GitHub Pages 的來源設為 **GitHub Actions**
-     > （Settings → Pages → Build and deployment → Source）。
-     > 若仍為 "Deploy from a branch"，Pages 會**繞過 CI 直接部署**，
-     > 門禁形同虛設。此為一次性設定。
+     > ✅ **2026-08-17 已完成設定**：Pages 來源已改為 **GitHub Actions**，
+     > 門禁自此真正生效。在此之前它是**無效的**——2026-08-16 的交叉複驗
+     > 發現同一個 commit 上「Validate and deploy」與 GitHub 內建的
+     > 「pages build and deployment」同時各跑一次，代表當時來源仍是
+     > "Deploy from a branch"，Pages 繞過 CI 直接部署，deploy.yml 寫得再對也擋不住。
+     >
+     > **驗證方式**：推 main 後看 Actions 頁，應**只出現「Validate and deploy」**。
+     > 若又冒出「pages build and deployment」，代表來源被改回分支模式，門禁已失效。
+     >
+     > **代價**：網站現在只有在 `deploy.yml` 成功時才會更新。若 workflow 本身
+     > 壞掉（YAML 改錯、Playwright 安裝失敗、Action 版本淘汰），站不會掛，
+     > 但**推了也不會變**。遇到「明明推了卻沒更新」先看 Actions，不要當成快取。
   2. **交叉複驗**——他方代理接手時，應先看上一輪的變更是否引入問題，
      特別是規則二列出的四類。
 - **退版方式**：`git revert <commit> && git push origin main`，
@@ -82,6 +90,38 @@ git push origin main                      # CI 會再跑一次；未過則不部
 
 推送後請確認 Actions 為綠燈。若為紅燈代表**部署已被擋下、線上仍是舊版**，
 請修正後重推，不要放著不管。
+
+## 2026-08-17 跨專案交叉複驗（Claude）
+
+本輪對 `Campcool` 帳號下 5 個站做了一次橫向盤點。本檔只記與 campcool 相關的部分，
+其餘見各自的 AI-README／AI-HANDOFF。
+
+### 發現
+
+- **本 repo 的 CI 門禁當時是無效的**（詳見「規則一」內的說明與已完成設定）。
+  `deploy.yml` 寫得正確，但 Pages 來源仍是分支模式，實際繞過 CI 部署。
+  這一項已由業主於 2026-08-17 修正。
+- **本 repo 沒有其他待修項目**。2026-08-16 Claude 那一輪（CSP、sr-only h1、
+  axe-core、產品合約斷言）修的東西複驗後仍然正確，未發現回歸。
+
+### 變更
+
+本輪**未變更任何程式碼或內容**，只更新本檔關於 Pages 來源的說明
+（從「待設定的警告」改為「已完成 + 驗證方式 + 代價」）。
+
+### 後續
+
+- 每次推 main 後掃一眼 Actions：只該有「Validate and deploy」一條。
+  出現「pages build and deployment」＝來源被改回分支模式，門禁失效，要重設。
+- 本 repo 的 `scripts/validate-site.mjs` 是姊妹站的斷言模板來源。
+  2026-08-17 起新增一條共同撰寫規則，已套用到 leakdoctor / 0988145875 /
+  TITAN-STAR，本檔一併記錄：
+  > **每條斷言的 `ok()` 訊息必須寫出實際掃描範圍與分母**（幾個檔案／幾處），
+  > 不得只寫「完成」或「全域」。有取樣上限就寫出上限。
+  >
+  > 這條規則在四個 repo 各抓到一個原本隱形的覆蓋落差，包括 Claude 自己
+  > 新寫的兩條斷言。搭配防假綠（刻意破壞→確認 exit 1→還原）一起用，
+  > 兩者都不是可選項。
 
 ## 2026-07-30 改版基準
 
