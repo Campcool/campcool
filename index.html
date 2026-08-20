@@ -928,6 +928,11 @@
   .cc-site-icon { font-size:1rem; flex-shrink:0; width:18px; text-align:center; line-height:1.4; }
   .cc-site-icon.y { color:#047857; }
   .cc-site-icon.n { color:#b91c1c; }
+  .cc-site-status { font-weight:700; }
+  .cc-site-status.y { color:#047857; }
+  .cc-site-status.n { color:#b91c1c; }
+  .cc-site-status.u { color:#b45309; }
+  .cc-site-advice { color:#92400e; background:#fffbeb; border-radius:6px; padding:4px 6px; }
   .cc-site-icon.u { color:#9ca3af; }
   .cc-site-meta { flex:1; min-width:0; }
   .cc-site-name { font-size:.88rem; font-weight:700; color:#1f2937; }
@@ -1938,6 +1943,7 @@
                 <option value="">全部狀態</option>
                 <option value="1">✓ 可帶冷氣</option>
                 <option value="0">✗ 不可帶</option>
+                <option value="ask">❓ 要再跟營主確認</option>
               </select>
             </div>
             <div id="sitesHint" style="padding:14px 12px;font-size:.85rem;line-height:1.6">
@@ -3231,14 +3237,18 @@ function loadSitesStats() {
     sitesStatsLoaded = true;
     var stats = document.getElementById('sitesStats');
     if (!stats) return;
-    var can = 0, no = 0;
+    var can = 0, no = 0, ask = 0;
     (d.breakdown || []).forEach(function (b) {
-      if (b.allows_ac === 1) can += b.c; else if (b.allows_ac === 0) no += b.c;
+      if (b.allows_ac === 1) can += b.c;
+      else if (b.allows_ac === 0) no += b.c;
+      else ask += b.c;
     });
-    // 只統計已確認的（可帶 + 不可帶），未確認的不對客戶顯示
-    var confirmed = can + no;
-    stats.innerHTML = '已確認 <b>' + confirmed + '</b> 個營區（<span style="color:#047857">✓ 可帶 ' + can + '</span>'
-      + (no ? '｜<span style="color:#b91c1c">✗ 不可帶 ' + no + '</span>' : '') + '）';
+    // 三種狀態都要顯示。未確認的營區同樣有地址、電話、營規原文與營業季節，
+    // 對客戶仍然有用；藏起來只會讓人以為我們沒收錄這家。
+    var total = can + no + ask;
+    stats.innerHTML = '收錄 <b>' + total + '</b> 個營區（<span style="color:#047857">✓ 可帶 ' + can + '</span>'
+      + (no ? '｜<span style="color:#b91c1c">✗ 不可帶 ' + no + '</span>' : '')
+      + (ask ? '｜<span style="color:#b45309">❓ 待確認 ' + ask + '</span>' : '') + '）';
   }).catch(function () {
     // 查詢失敗不要卡在「載入中…」，明講狀況並保留 LINE 這條路
     var stats = document.getElementById('sitesStats');
@@ -3267,7 +3277,7 @@ var checkBkSite = debounce(function () {
     .then(function (d) {
       var ql = v.toLowerCase();
       // 客戶端只看「已確認可帶/不可帶」，未確認的視同未收錄
-      var arr = (d.sites || []).filter(function (s) { return s.allows_ac === 1 || s.allows_ac === 0; });
+      var arr = (d.sites || []);
       // 1) 填入候選清單到瀏覽器原生 datalist（最多 10 筆，按名稱排序）
       var seen = {};
       var opts = arr
@@ -3342,12 +3352,13 @@ var searchSites = debounce(function () {
     .then(function (r) { return r.json(); })
     .then(function (d) {
       var rows = (d.sites || []).filter(function (s) {
-        // 客戶端只顯示已確認可帶/不可帶，過濾掉未確認 (NULL)
-        if (s.allows_ac !== 1 && s.allows_ac !== 0) return false;
+        // 三種狀態都顯示。未確認的營區同樣查得到地址、電話與營規原文，
+        // 把它們藏起來，客戶只會以為我們沒收錄這家。
         // 地區用「包含」比對：選「苗栗」要能匹配「苗栗南庄」「苗栗大湖」等
         if (region && (s.region || '').indexOf(region) < 0) return false;
         if (status === '1' && s.allows_ac !== 1) return false;
         if (status === '0' && s.allows_ac !== 0) return false;
+        if (status === 'ask' && (s.allows_ac === 1 || s.allows_ac === 0)) return false;
         if (q && (s.name || '').toLowerCase().indexOf(q.toLowerCase()) < 0 && (s.region || '').toLowerCase().indexOf(q.toLowerCase()) < 0) return false;
         return true;
       });
@@ -3355,11 +3366,21 @@ var searchSites = debounce(function () {
       list.innerHTML = rows.map(function (s) {
         var cls = (s.allows_ac === 1) ? 'y' : (s.allows_ac === 0) ? 'n' : 'u';
         var icon = (s.allows_ac === 1) ? '✓' : (s.allows_ac === 0) ? '✗' : '❓';
+        // ac_status 由後端統一產生，前端不要自己再推導一次，避免兩邊說法不一致
+        var label = s.ac_status || ((s.allows_ac === 1) ? '可以' : (s.allows_ac === 0) ? '不行' : '要再跟營主確認');
+        // 營規只禁高耗電、沒點名冷氣的，後端會附上 ac_advice 說明為何傾向可行
+        var advice = (s.ac_probable === 1 && s.ac_advice) ? s.ac_advice : '';
         return '<div class="cc-site-item">'
           + '<div class="cc-site-icon ' + cls + '">' + icon + '</div>'
           + '<div class="cc-site-meta">'
           + '<div class="cc-site-name">' + escSites(s.name) + (s.region ? '<span class="cc-site-region">' + escSites(s.region) + '</span>' : '') + '</div>'
+          + '<div class="cc-site-info cc-site-status ' + cls + '">' + escSites(label) + '</div>'
+          + (advice ? '<div class="cc-site-info cc-site-advice">💡 ' + escSites(advice) + '</div>' : '')
+          + (s.aircon_policy ? '<div class="cc-site-info">📋 營規：' + escSites(s.aircon_policy) + '</div>' : '')
           + (s.power_info ? '<div class="cc-site-info">⚡ ' + escSites(s.power_info) + '</div>' : '')
+          + (s.power_restriction && !s.power_info ? '<div class="cc-site-info">⚡ ' + escSites(s.power_restriction) + '</div>' : '')
+          + (s.phone ? '<div class="cc-site-info">📞 ' + escSites(s.phone) + '</div>' : '')
+          + (s.season_open ? '<div class="cc-site-info">📅 ' + escSites(s.season_open) + '</div>' : '')
           + (s.note ? '<div class="cc-site-info cc-site-note">📝 ' + escSites(s.note) + '</div>' : '')
           + '</div></div>';
       }).join('');
