@@ -2,7 +2,14 @@
 
 這份文件提供 AI 開發代理與後續維護者目前有效的產品事實、改版決策及防回歸規則。一般專案說明與本機預覽方式請見 [`README.md`](README.md)；公開的服務、價格與地區資料分別以 [`services.md`](services.md)、[`pricing.md`](pricing.md)、[`areas.md`](areas.md) 及 [`faq.md`](faq.md) 為準。
 
-最後更新：2026-08-16
+最後更新：2026-08-22（Codex，Pages artifact 公開範圍收斂）
+
+## 2026-08-22 Pages artifact 公開範圍收斂（Codex）
+
+實測 `https://campcool.tw/AI-README.md` 與 `/AI-Skills/README.md` 均為 HTTP 200，原因是
+`deploy.yml` 直接上傳 repo 根目錄。新增 `scripts/prepare-pages-artifact.sh`，部署前建立 `_site`，
+排除所有 Markdown、Git metadata 與舊 `AI-Skills/` 複本；PR 的 `site-check.yml` 也會跑同一支腳本，
+並斷言 `_site/index.html` 存在、內部文件不存在。本輪未改網站內容、價格、追蹤或互動行為。
 
 ## 專案與執行來源
 

@@ -32,6 +32,9 @@ jobs:
       - name: E2E anti-false-green selftest (must fail → step always OK)
         run: python3 scripts/e2e-test.py --selftest || true
 
+      - name: Pages artifact excludes internal docs
+        run: bash scripts/prepare-pages-artifact.sh
+
       - name: GA4 config endpoint probe
         run: |
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://campcool-line-bot.a0920077473.workers.dev/public/config?v=20260727")
