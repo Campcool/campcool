@@ -4,6 +4,13 @@
 
 最後更新：2026-08-24
 
+## 2026-08-24 Pages artifact 公開範圍收斂（Codex）
+
+實測 `https://campcool.tw/AI-README.md` 與 `/AI-Skills/README.md` 均為 HTTP 200，原因是
+`deploy.yml` 直接上傳 repo 根目錄。新增 `scripts/prepare-pages-artifact.sh`，部署前以明確公開白名單建立 `_site`；
+未列入白名單的 AI 文件、原始碼參考、檢測腳本與 Git metadata 預設不發佈。PR 的 `site-check.yml`
+會跑同一支腳本並驗證網站入口存在、內部檔案不存在。本輪未改網站內容、價格、追蹤或互動行為。
+
 ## 2026-08-24 UI/UX 窄幅優化（Codex，待審查）
 
 - 分支：`codex/ui-polish-campcool-2026-08-24`，從遠端 `main` 的 `6f9e8de` 開出；不得未經使用者同意合併。
