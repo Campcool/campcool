@@ -2,7 +2,16 @@
 
 這份文件提供 AI 開發代理與後續維護者目前有效的產品事實、改版決策及防回歸規則。一般專案說明與本機預覽方式請見 [`README.md`](README.md)；公開的服務、價格與地區資料分別以 [`services.md`](services.md)、[`pricing.md`](pricing.md)、[`areas.md`](areas.md) 及 [`faq.md`](faq.md) 為準。
 
-最後更新：2026-08-16
+最後更新：2026-08-24
+
+## 2026-08-24 UI/UX 窄幅優化（Codex，待審查）
+
+- 分支：`codex/ui-polish-campcool-2026-08-24`，從遠端 `main` 的 `6f9e8de` 開出；不得未經使用者同意合併。
+- `index.html` 的全站基準字級由 viewport `clamp(20px...24px)` 改為桌機 18px、手機 17px，避免寬螢幕把卡片、表格與頁長一起放大。
+- 手機底部導覽縮為 76px，四個按鈕仍各有 64px 高操作區；active 位移與縮放同步收斂，頁尾連結補到至少 44px。
+- 四處 `transition: all` 改為明確屬性，降低非預期 layout 動畫。
+- 使用者已決定本輪不需要新增真實產品照片；未改 hero 圖、價格、押金、取件點、LINE、GA4 或任何產品事實。
+- 驗證：`validate-site.mjs` 全綠；`--selftest` 5/5；390x844 與 1440x1000 實際渲染無水平溢位、console 無 error/warning；租借主頁手機高度約 8,070px。
 
 ## 專案與執行來源
 
