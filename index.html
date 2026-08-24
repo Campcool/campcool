@@ -262,8 +262,11 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  /* 固定閱讀基準，避免視窗變寬時整站文字與頁長同步膨脹。 */
-  html { font-size: 18px; scroll-padding-top: 72px; }
+  /* 固定閱讀基準，避免視窗變寬時整站文字與頁長同步膨脹。
+     取 20px = 原本 clamp() 的下限：桌機因此從 24px 收斂，手機字級與改版前完全相同。
+     不要再往下調——全站 194 條字級以 rem 計，基準每降 1px 小字就一起縮：
+     18px 時 .cc-nav-btn .lbl（底部主導覽標籤）只剩 12.2px，17px 時只剩 10.5px。 */
+  html { font-size: 20px; scroll-padding-top: 72px; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
     background: #f0fdf8;
@@ -606,10 +609,6 @@
     .cc-nav-btn { padding: 3px 8px 4px; gap: 3px; }
     .cc-nav-btn .ico { width: 40px; height: 40px; font-size: 1.24rem; border-radius: 14px; }
     .cc-nav-btn .lbl { font-size: .62rem; }
-  }
-
-  @media (max-width: 640px) {
-    html { font-size: 17px; }
   }
 
   /* ── Product spec card ── */
