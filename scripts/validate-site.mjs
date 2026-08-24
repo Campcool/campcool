@@ -81,6 +81,9 @@ for (const forbidden of [
 ]) {
   if (homepage.includes(forbidden)) errors.push('index.html still contains pre-LINE lead upload marker: ' + forbidden);
 }
+for (const retiredCampaign of ['父親節抽 3天2夜冷氣免費租', 'announcement_giveaway']) {
+  if (homepage.includes(retiredCampaign)) errors.push('index.html still contains retired campaign marker: ' + retiredCampaign);
+}
 if (/value:\s*1000/.test(homepage)) {
   errors.push('index.html still assigns a fixed NT$1,000 value to a lead conversion');
 }
@@ -299,6 +302,11 @@ if (process.argv.includes('--selftest')) {
   checkpoint.originalHtml();
   fs.writeFileSync(indexPath, original.replaceAll('C40 移動冰箱 40L', 'REMOVED_ADDON'));
   run('addon-contract-broken', null, true);
+  checkpoint.restore();
+  // 破壞 5：退役的父親節活動被放回首頁 → 應抓住
+  checkpoint.originalHtml();
+  fs.writeFileSync(indexPath, original.replace('</body>', '<div>父親節抽 3天2夜冷氣免費租</div></body>'));
+  run('retired-campaign-reintroduced', null, true);
   checkpoint.restore();
   // 還原後正常 validate 必須通過
   run('clean-state-passes', null, false);
