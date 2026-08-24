@@ -262,13 +262,16 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  /* 全站文字縮放（1.5x 上限，手機 1.25x 起跳，自適應流暢） */
-  html { font-size: clamp(20px, 16px + 1vw, 24px); scroll-padding-top: 72px; }
+  /* 固定閱讀基準，避免視窗變寬時整站文字與頁長同步膨脹。
+     取 20px = 原本 clamp() 的下限：桌機因此從 24px 收斂，手機字級與改版前完全相同。
+     不要再往下調——全站 194 條字級以 rem 計，基準每降 1px 小字就一起縮：
+     18px 時 .cc-nav-btn .lbl（底部主導覽標籤）只剩 12.2px，17px 時只剩 10.5px。 */
+  html { font-size: 20px; scroll-padding-top: 72px; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
     background: #f0fdf8;
     min-height: 100vh;
-    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+    padding-bottom: calc(78px + env(safe-area-inset-bottom));
   }
   #app-root { display: flex; flex-direction: column; min-height: 100vh; }
 
@@ -527,12 +530,13 @@
     display: flex;
     width: 100%;
     max-width: 540px;
-    padding: 8px 8px 9px;
+    padding: 5px 8px 6px;
   }
   .cc-nav-btn {
     flex: 1;
     position: relative;
-    padding: 7px 4px 5px;
+    min-height: 64px;
+    padding: 4px 4px 3px;
     border: none;
     background: none;
     color: rgba(255,255,255,.6);
@@ -542,14 +546,14 @@
     font-family: inherit;
     font-weight: 700;
     transition: color .2s ease;
-    border-radius: 16px;
+    border-radius: 12px;
     margin: 0 2px;
   }
   /* active 頂部彩色指示條 */
   .cc-nav-btn.active::before {
     content: '';
     position: absolute;
-    top: -8px; left: 50%; transform: translateX(-50%);
+    top: -5px; left: 50%; transform: translateX(-50%);
     width: 30px; height: 3px;
     border-radius: 0 0 4px 4px;
     background: var(--c);
@@ -558,7 +562,7 @@
   .cc-nav-btn .ico {
     position: relative;
     overflow: hidden;
-    width: 46px; height: 46px; border-radius: 16px;
+    width: 40px; height: 40px; border-radius: 13px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.42rem;
     /* 各按鈕套用自己的主題色玻璃果凍 */
@@ -582,7 +586,7 @@
     border-radius: 50%;
     pointer-events: none;
   }
-  .cc-nav-btn .lbl { font-size: .72rem; letter-spacing: .4px; line-height: 1; white-space: nowrap; }
+  .cc-nav-btn .lbl { font-size: .68rem; letter-spacing: 0; line-height: 1; white-space: nowrap; }
   .cc-nav-btn { color: color-mix(in srgb, var(--c) 62%, #ffffff); }
   .cc-nav-btn:hover { color: color-mix(in srgb, var(--c) 78%, #ffffff); }
   .cc-nav-btn:hover .ico { transform: translateY(-2px) scale(1.04); }
@@ -591,7 +595,7 @@
   .cc-nav-btn.active .ico {
     background: linear-gradient(160deg, color-mix(in srgb, var(--c) 96%, #fff), color-mix(in srgb, var(--c) 82%, #000));
     border: 1px solid color-mix(in srgb, var(--c) 55%, #fff);
-    transform: translateY(-5px) scale(1.12);
+    transform: translateY(-2px) scale(1.06);
     box-shadow:
       inset 0 2px 5px rgba(255,255,255,.55),
       inset 0 -5px 9px color-mix(in srgb, var(--c) 45%, #000),
@@ -599,7 +603,7 @@
   }
 
   @media (min-width: 900px) {
-    body { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+    body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
     .cc-nav { background: linear-gradient(180deg, rgba(22,40,30,.32), rgba(16,28,21,.46)); }
     .cc-nav-inner { max-width: 540px; padding: 7px 12px; }
     .cc-nav-btn { padding: 3px 8px 4px; gap: 3px; }
@@ -852,7 +856,7 @@
   /* 選購指南：子分頁（連貫頁籤＋下方內容區） */
   /* 選購指南：三色子頁籤（一眼可區分） */
   .cc-sub-tabs{display:flex;gap:6px;background:#f8fafc;border:1px solid #e2e8f0;border-bottom:none;border-radius:14px 14px 0 0;padding:6px 6px 0;margin:0;position:sticky;top:69px;z-index:90}
-  .cc-sub-tab{flex:1;padding:12px 4px;border:none;background:transparent;font-weight:800;cursor:pointer;border-radius:10px 10px 0 0;font-size:.82rem;line-height:1.3;position:relative;bottom:-1px;transition:all .15s ease}
+  .cc-sub-tab{flex:1;padding:12px 4px;border:none;background:transparent;font-weight:800;cursor:pointer;border-radius:10px 10px 0 0;font-size:.82rem;line-height:1.3;position:relative;bottom:-1px;transition:background-color .15s ease,color .15s ease,transform .15s ease,box-shadow .15s ease}
   .cc-sub-tab[data-wtab="btu"]   { color:#6d28d9 }
   .cc-sub-tab[data-wtab="tents"] { color:#047857 }
   .cc-sub-tab[data-wtab="power"] { color:#b45309 }
@@ -880,7 +884,7 @@
   .cc-pixel-box .px-alert{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid #a7f3d0;border-left:4px solid #10b981;border-radius:10px;padding:10px 14px;margin-bottom:14px;color:#065f46;font-size:.82rem;line-height:1.65;font-weight:600}
   .cc-pixel-box .px-alert b{color:#047857;font-weight:800}
   .cc-pixel-box .px-mode{display:flex;gap:8px;margin-bottom:14px}
-  .cc-pixel-box .px-mode-btn{flex:1;padding:12px 6px;background:#fff;color:#6b7280;border:1.5px solid #d1d5db;border-radius:12px;font-family:inherit;font-size:.84rem;font-weight:800;cursor:pointer;line-height:1.3;transition:all .15s ease;display:flex;flex-direction:column;align-items:center;gap:3px}
+  .cc-pixel-box .px-mode-btn{flex:1;padding:12px 6px;background:#fff;color:#6b7280;border:1.5px solid #d1d5db;border-radius:12px;font-family:inherit;font-size:.84rem;font-weight:800;cursor:pointer;line-height:1.3;transition:background-color .15s ease,border-color .15s ease,color .15s ease,box-shadow .15s ease;display:flex;flex-direction:column;align-items:center;gap:3px}
   .cc-pixel-box .px-mode-btn .px-zh{font-size:.84rem;font-weight:800}
   .cc-pixel-box .px-mode-btn:hover{color:#047857;border-color:#6ee7b7;background:#f0fdf4}
   .cc-pixel-box .px-mode-btn.active{background:linear-gradient(135deg,#10b981,#047857);color:#fff;border-color:#047857;box-shadow:0 4px 10px rgba(16,185,129,.3)}
@@ -952,7 +956,7 @@
   .cc-pick-group { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:.2rem; }
   .cc-pick-group:has(.cc-pick-btn:nth-child(2):last-child) { grid-template-columns:1fr 1fr; }
   .cc-pick-group:has(.cc-pick-btn:nth-child(1):last-child) { grid-template-columns:1fr; }
-  .cc-pick-btn { padding:.65rem .5rem; border:1.5px solid #d1d5db; border-radius:.7rem; background:#fff; color:#374151; font-family:inherit; font-weight:800; font-size:.86rem; cursor:pointer; line-height:1.25; transition:all .15s ease; display:flex; flex-direction:column; align-items:center; gap:2px; }
+  .cc-pick-btn { padding:.65rem .5rem; border:1.5px solid #d1d5db; border-radius:.7rem; background:#fff; color:#374151; font-family:inherit; font-weight:800; font-size:.86rem; cursor:pointer; line-height:1.25; transition:background-color .15s ease,border-color .15s ease,color .15s ease,box-shadow .15s ease; display:flex; flex-direction:column; align-items:center; gap:2px; }
   .cc-pick-btn small { font-size:.66rem; font-weight:600; color:#6b7280; }
   .cc-pick-btn:hover { border-color:#6ee7b7; background:#f0fdf4; }
   .cc-pick-btn.active { border-color:#059669; background:linear-gradient(135deg,#ecfdf5,#d1fae5); color:#065f46; box-shadow:0 2px 8px rgba(5,150,105,.18); }
@@ -1271,7 +1275,7 @@
   .cc-foot .ft-tag { font-size: .68rem; background: rgba(255,255,255,.18); padding: 2px 8px; border-radius: 8px; font-weight: 700; }
   .cc-foot .ft-row { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
   .cc-foot .ft-row .k { color: #a7f3d0; font-weight: 700; min-width: 56px; }
-  .cc-foot a { color: #6ee7b7; text-decoration: none; font-weight: 700; display: inline-block; padding: 6px 3px; }
+  .cc-foot a { color: #6ee7b7; text-decoration: none; font-weight: 700; display: inline-flex; min-height: 44px; align-items: center; padding: 6px 3px; }
   .cc-foot a:hover { color: #fff; text-decoration: underline; }
   .cc-foot-copy { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.12); font-size: .7rem; color: #a7f3d0; opacity: .85; }
 
@@ -1475,7 +1479,7 @@
     position:absolute; top:8px; right:8px; width:22px; height:22px; border-radius:50%;
     border:1.5px solid #cbd5e1; background:#fff; color:transparent;
     display:flex; align-items:center; justify-content:center; font-size:.78rem; font-weight:900;
-    transition:all .15s ease;
+    transition:background-color .15s ease,border-color .15s ease,color .15s ease;
   }
   .ad-card:has(.ad-chk:checked) { border-color:#059669; background:linear-gradient(160deg,#ecfdf5,#d1fae5); box-shadow:0 6px 16px rgba(5,150,105,.18); }
   .ad-card:has(.ad-chk:checked) .ad-tick { background:#059669; border-color:#059669; color:#fff; }
