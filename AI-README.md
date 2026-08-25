@@ -4,6 +4,13 @@
 
 最後更新：2026-08-24
 
+## 2026-08-24 移除父親節檔期公告（Codex）
+
+- 依使用者指示移除首頁父親節抽獎公告與對應的 `announcement_giveaway` 資料物件。
+- 公告輪播保留其餘 4 則；無 JavaScript 時的靜態首則同步改為「本週熱門檔期請先詢問」，計數改為 `1 / 4`。
+- `validate-site.mjs` 禁止退役活動標題與來源 marker 回到首頁；selftest 會故意回填活動文案，確認門禁真的失敗。
+- 未改價格、押金、取件點、LINE、GA4、服務範圍、案例或照片。
+
 ## 2026-08-24 Pages artifact 公開範圍收斂（Codex）
 
 實測 `https://campcool.tw/AI-README.md` 與 `/AI-Skills/README.md` 均為 HTTP 200，原因是
