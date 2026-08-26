@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { execSync } from 'node:child_process';
 
 // ── 滿分制第二輪：20 項斷言 + --selftest 防假綠 ───────────────
@@ -60,6 +61,75 @@ for (const duplicate of ['areas/taipei.html', 'areas/hsinchu.html', 'areas/taich
 }
 
 const homepage = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+
+function extractArrayAssignment(source, name) {
+  const assignment = new RegExp(`\\b(?:var|let|const)\\s+${name}\\s*=\\s*`).exec(source);
+  if (!assignment) throw new Error('missing assignment for ' + name);
+  const start = assignment.index + assignment[0].length;
+  if (source[start] !== '[') throw new Error(name + ' must be assigned an array literal');
+
+  let depth = 0;
+  let quote = '';
+  let escaped = false;
+  let lineComment = false;
+  let blockComment = false;
+  for (let index = start; index < source.length; index += 1) {
+    const char = source[index];
+    const next = source[index + 1];
+    if (lineComment) {
+      if (char === '\n') lineComment = false;
+      continue;
+    }
+    if (blockComment) {
+      if (char === '*' && next === '/') { blockComment = false; index += 1; }
+      continue;
+    }
+    if (quote) {
+      if (escaped) escaped = false;
+      else if (char === '\\') escaped = true;
+      else if (char === quote) quote = '';
+      continue;
+    }
+    if (char === '/' && next === '/') { lineComment = true; index += 1; continue; }
+    if (char === '/' && next === '*') { blockComment = true; index += 1; continue; }
+    if (char === "'" || char === '"' || char === '`') { quote = char; continue; }
+    if (char === '[') depth += 1;
+    if (char === ']' && --depth === 0) return source.slice(start, index + 1);
+  }
+  throw new Error('unterminated array literal for ' + name);
+}
+
+function textById(html, id) {
+  const match = new RegExp(`<([a-z][a-z0-9-]*)\\b[^>]*\\bid=["']${id}["'][^>]*>([\\s\\S]*?)<\\/\\1>`, 'i').exec(html);
+  if (!match) throw new Error('missing element #' + id);
+  return match[2].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+}
+
+try {
+  const literal = extractArrayAssignment(homepage, 'CC_ANNOUNCEMENTS');
+  const announcements = vm.runInNewContext(`(${literal})`, Object.create(null), {
+    timeout: 100,
+    contextCodeGeneration: { strings: false, wasm: false },
+  });
+  if (!Array.isArray(announcements) || announcements.length === 0) {
+    errors.push('index.html: CC_ANNOUNCEMENTS must contain at least one announcement');
+  } else {
+    const first = announcements[0];
+    for (const [id, field] of [['ccAnnKind', 'kind'], ['ccAnnTitle', 'title'], ['ccAnnText', 'text']]) {
+      const staticText = textById(homepage, id);
+      if (staticText !== first[field]) {
+        errors.push(`index.html: #${id} static text does not match CC_ANNOUNCEMENTS[0].${field}`);
+      }
+    }
+    const status = textById(homepage, 'ccAnnStatus');
+    if (status !== `1 / ${announcements.length}`) {
+      errors.push(`index.html: #ccAnnStatus is "${status}" but expected "1 / ${announcements.length}"`);
+    }
+  }
+} catch (error) {
+  errors.push('index.html: announcement contract could not be evaluated: ' + error.message);
+}
+
 for (const required of [
   'booking_message_composed',
   '內容只在此裝置整理',
@@ -307,6 +377,35 @@ if (process.argv.includes('--selftest')) {
   checkpoint.originalHtml();
   fs.writeFileSync(indexPath, original.replace('</body>', '<div>父親節抽 3天2夜冷氣免費租</div></body>'));
   run('retired-campaign-reintroduced', null, true);
+  checkpoint.restore();
+  // 破壞 6：公告陣列多一則，但靜態計數仍是 1 / 4 → 應抓住
+  checkpoint.originalHtml();
+  fs.writeFileSync(indexPath, original.replace(
+    /\r?\n\];\r?\n\r?\nfunction logLineClick/,
+    ",\n  { kind: '測試', title: '測試', text: '測試' }\n];\n\nfunction logLineClick",
+  ));
+  run('announcement-count-out-of-sync', null, true);
+  checkpoint.restore();
+  // 破壞 7：靜態首則標題與資料陣列不一致 → 應抓住
+  checkpoint.originalHtml();
+  fs.writeFileSync(indexPath, original.replace(
+    '<h2 class="cc-ann-title" id="ccAnnTitle">本週熱門檔期請先詢問</h2>',
+    '<h2 class="cc-ann-title" id="ccAnnTitle">不同步的靜態標題</h2>',
+  ));
+  run('announcement-title-out-of-sync', null, true);
+  checkpoint.restore();
+  // 破壞 8：靜態計數分母與資料陣列長度不一致 → 應抓住
+  checkpoint.originalHtml();
+  fs.writeFileSync(indexPath, original.replace('id="ccAnnStatus">1 / 4', 'id="ccAnnStatus">1 / 9'));
+  run('announcement-denominator-out-of-sync', null, true);
+  checkpoint.restore();
+  // 通過 9：靜態文字只有中間空白換行，正規化後內容仍相同 → 必須放行
+  checkpoint.originalHtml();
+  fs.writeFileSync(indexPath, original.replace(
+    '週末與連假詢問量較高，建議先用 LINE 確認 JUZ-400、SAC-688 與冰箱檔期。',
+    '週末與連假詢問量較高，建議先用 LINE 確認\n            JUZ-400、SAC-688 與冰箱檔期。',
+  ));
+  run('announcement-equivalent-whitespace-passes', null, false);
   checkpoint.restore();
   // 還原後正常 validate 必須通過
   run('clean-state-passes', null, false);

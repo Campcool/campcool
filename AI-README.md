@@ -2,7 +2,20 @@
 
 這份文件提供 AI 開發代理與後續維護者目前有效的產品事實、改版決策及防回歸規則。一般專案說明與本機預覽方式請見 [`README.md`](README.md)；公開的服務、價格與地區資料分別以 [`services.md`](services.md)、[`pricing.md`](pricing.md)、[`areas.md`](areas.md) 及 [`faq.md`](faq.md) 為準。
 
-最後更新：2026-08-24
+最後更新：2026-08-25
+
+## 2026-08-25 公告資料同步門禁（Codex）
+
+- GitHub 官方 Action 已依各專案 `action.yml` 實際 runtime 升到 Node 24 世代：
+  `checkout@v7`、`setup-node@v7`、`configure-pages@v6`、
+  `upload-pages-artifact@v5`、`deploy-pages@v5`。網站使用的 Node 版本仍為 22，
+  本次只更新 Action 自身 runtime。
+- `validate-site.mjs` 會解析 `CC_ANNOUNCEMENTS` 的真實陣列內容，要求無 JavaScript 時顯示的
+  `ccAnnKind`／`ccAnnTitle`／`ccAnnText` 與第一筆資料完全一致，並要求 `ccAnnStatus` 的分母
+  等於陣列長度。
+- selftest 新增三個反例：只增加陣列項目、只改靜態標題、只改靜態計數；三者皆實測由
+  validator 以非零退出碼攔下，乾淨狀態退出碼 0。
+- 本輪只補部署門禁，未改公告內容、價格、LINE、電話、GA4、服務範圍、案例或照片。
 
 ## 2026-08-24 移除父親節檔期公告（Codex）
 
