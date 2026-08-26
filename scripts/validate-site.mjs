@@ -102,7 +102,7 @@ function extractArrayAssignment(source, name) {
 function textById(html, id) {
   const match = new RegExp(`<([a-z][a-z0-9-]*)\\b[^>]*\\bid=["']${id}["'][^>]*>([\\s\\S]*?)<\\/\\1>`, 'i').exec(html);
   if (!match) throw new Error('missing element #' + id);
-  return match[2].replace(/<[^>]+>/g, '').replace(/\\s+/g, ' ').trim();
+  return match[2].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 }
 
 try {
@@ -398,6 +398,14 @@ if (process.argv.includes('--selftest')) {
   checkpoint.originalHtml();
   fs.writeFileSync(indexPath, original.replace('id="ccAnnStatus">1 / 4', 'id="ccAnnStatus">1 / 9'));
   run('announcement-denominator-out-of-sync', null, true);
+  checkpoint.restore();
+  // 通過 9：靜態文字只有中間空白換行，正規化後內容仍相同 → 必須放行
+  checkpoint.originalHtml();
+  fs.writeFileSync(indexPath, original.replace(
+    '週末與連假詢問量較高，建議先用 LINE 確認 JUZ-400、SAC-688 與冰箱檔期。',
+    '週末與連假詢問量較高，建議先用 LINE 確認\n            JUZ-400、SAC-688 與冰箱檔期。',
+  ));
+  run('announcement-equivalent-whitespace-passes', null, false);
   checkpoint.restore();
   // 還原後正常 validate 必須通過
   run('clean-state-passes', null, false);
