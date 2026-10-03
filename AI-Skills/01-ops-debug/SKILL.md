@@ -1,77 +1,60 @@
 ---
 name: campcool-ops-debug
-description: 維運與除錯核心技能包。適用情境：正式環境（LINE Bot、Cloudflare Worker、GitHub Pages 網站）出錯、測試失敗、異常行為、性能問題、部署異常時使用。整合 GitHub 高星技能庫精華：obra/superpowers (⭐274k) 的 systematic-debugging、verification-before-completion、test-driven-development，以及 K-Dense-AI (⭐34k) 的 exploratory-data-analysis。同時包含 Campcool 專案群（campcool-bot、leakdoctor-bot、campcool、leakdoctor）的正式環境變更保護規則：D1 資料保護、webhook 簽章驗證、CI 門禁、防假綠驗證。
+description: 調查 Campcool 專案群的網站、LINE Bot、Worker、資料與部署異常；以目前版本、重現證據、最小修復及實際流程驗證排除問題。既有參考是基準，技術與流程可依最新官方資訊更新。
 ---
 
-# Campcool 維運與除錯技能包
+# Campcool 維運與除錯
 
-## 鐵律
+## 基準與更新原則
 
-**未找到根因前，不允許提任何修復方案。** 症狀式修復（symptom fixes）等同失敗。
+現有程式碼、交接文件與本技能參考快照是理解現況的基準，不是永久技術標準。技術選型、版本、測試方法與過去的流程假設應依目前任務、最新官方證據及實際相容性重新評估；不要只因舊文件寫過，就阻止已授權的改進。
 
-> NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
+區分技術建議、目前實作與營運事實。價格、服務區、客戶紀錄、園所資訊等用可核對來源，不能因技術更新自行編造。
 
-## 適用範圍
+涉及版本或架構調整時，先讀 [技術查核與版本更新流程](../TECHNOLOGY-REVIEW.md)。其中版本表是 2026-10-03 的查核快照，執行時重新核對，不作永遠的最低版本。
 
-任何技術問題：測試失敗、正式環境 bug、預期外行為、性能問題、部署失敗、整合問題。以下情境更要強制使用本流程：
-- 時間壓力下（緊急時刻最容易猜）
-- 看似「只有一個快速修復」時
-- 已經試過多次修復仍無效時
-- 上次修復沒有解決問題時
+## 調查流程
 
-## 四階段除錯流程
+1. 記錄倉庫、分支、commit、部署版本、時間、錯誤與觸發步驟。分清本機、測試環境、正式站與外部 API。
+2. 重現並檢查近期程式、資料、設定與第三方服務變更。每個假設配一個可證偽的檢查；不能重現時明確列出缺的證據。
+3. 用證據支撐修復，優先改根因。緊急事件可採用可回退的緩解措施，說明它處理的症狀與尚未確認的根因。
+4. 依變更風險選驗證：複雜邏輯或缺陷修復用能抓到原缺陷的回歸測試；純文件或低風險調整用直接查核。不要為可逆的小改動一律添加鏡像測試。
+5. 驗證要區分「檢查執行了」「檢查通過」「實際流程有效」。環境缺相依或無 API 權限屬驗證缺口，不直接判成產品失敗。
 
-### 階段一：根因調查（必做，未完成不得進入修復）
+## 部署與外部服務
 
-1. **完整閱讀錯誤訊息**：不跳過任何錯誤或警告；完整讀 stack trace；記下行號、路徑、錯誤碼。
-2. **穩定重現**：寫下確切觸發步驟；確認可重複觸發；找出最簡重現方式。
-3. **檢查環境與狀態**：
-   - LINE Bot：`curl .../health` 確認 `auto_reply`、`ai_shadow` 狀態；檢查 D1 是否有暫時性錯誤（曾於 2026-08-13 因 D1 暫錯導致老闆被洗版）。
-   - GitHub Pages：檢查 Actions 是否出現「pages build and deployment」——若出現代表 CI 門禁失效（來源被改回 branch 模式）。
-4. **查看近期變更**：`git log --oneline -20`、比對最近 deploy 的 commit；檢查 migration 順序（D1 migration 未套用時存檔會有明確警告，不要忽略）。
-5. **隔離變因**：區分是程式碼、資料、第三方服務（LINE API、Cloudflare、OpenAI/Claude）或時序問題（Cron UTC vs 台北時區）。
+- 讀各倉庫真實 workflow 的觸發、permissions、needs、建置／測試／upload／deploy 依賴鏈，不能假設所有站都叫 deploy.yml。
+- Pages 門禁確認 build_type=workflow，檢查欲部署的實際產物。workflow 顯示名稱只能作線索，不能用「只出現某個名稱」判斷來源或健康。
+- 用 Pages 來源自檢或有權限的唯讀 API 查設定；API 權限不足明確記錄。排程成功不等於 DNS、TLS、HTTP、真機與接單都正常。
+- Bot／Worker 檢查可用 health、logs、對應 API、webhook 簽章及時區；先唯讀確認影響範圍，沿用目前任務的授權。
+- 發訊息、建立訂單與派工會產生實際 side effect。用隔離測試與授權範圍驗證；單純盤點不代送正式訊息。
+- 逾時不保證後端未寫入。分清「未建立」「無法確認」「已建立」；核對重試 idempotency、同線索事件去重及使用者返回後的狀態。
+- 回退依目前遠端 head、正確部署版本及資料相容性安排，使用可審閱的 revert；不要套用文件裡某個歷史 commit 或盲目 force push。
 
-### 階段二：建立假設與驗證計畫
+## 驗證對應
 
-- 每個假設對應一個可證偽的測試。
-- 從最便宜、最有可能的假設開始驗證。
-- 記錄每個被排除的假設與證據，避免反覆繞路。
-
-### 階段三：最小化修復
-
-- 修復只動根因，不順便改其他東西。
-- 每個修復附測試（先寫失敗的測試，修完變綠）。
-- 正式環境變更前：先用唯讀查詢確認影響範圍（`SELECT COUNT(*)`、`SELECT * LIMIT 10`），絕不憑文件舊數字判斷。
-- D1 不可逆操作（批次狀態修改、刪除、migration）必須先確認影響範圍並取得授權。
-
-### 階段四：完工驗證（防假綠）
-
-> CI 綠色 ≠ 問題解決。綠燈只證明「寫的測試通過」，不代表行為正確。
-
-- 實際觸發一次完整流程（例如：LINE 傳測試訊息、點擊轉換按鈕、模擬 webhook 簽章）。
-- 檢查 side effect：通知是否重複、push 是否正確、時間是否正確（UTC/台北時區）。
-- 對正式環境：確認 health endpoint 狀態符合預期後才宣布完成。
-
-## 防假綠（Anti-False-Green）檢查表
-
-| 變更類型 | 必要驗證 |
+| 變更 | 驗證 |
 |---|---|
-| 程式碼修正 | `node --check` + `npm test` 全綠 + 實際觸發一次完整流程 |
-| webhook / 簽章 / CSP / 第三方資源 | 實際發一次請求，確認行為與事件都送出 |
-| D1 migration | 遠端 `d1 migrations apply --remote` 前先 dry-run；確認舊 migration 順序不被破壞 |
-| GitHub Pages 部署 | Actions 頁只出現「Validate and deploy」；檢查 noindex/CSP 組合未被改動 |
-| 文字/文案修改 | 檢查 UTF-8 無 BOM（曾發生 AI 存檔導致中文變亂碼） |
-| 斷言/測試規則修改 | 確認新規則沒有掩蓋舊問題（例如取樣範圍規則曾暴露三個隱藏問題） |
+| JS／TS／React 行為 | 實際專案語法／型別／建置工具與相關流程；node --check 不能代替 JSX／TS 編譯 |
+| 聯絡、表單、試算 | 完整主流程、剪貼簿失敗備援、開 LINE／返回、防重；有 webview 時補真機 |
+| CSP、第三方腳本、公開查詢 | 真實請求與回應、console／網路錯誤、必要事件接收；static regex 不足以驗 API |
+| Pages 部署 | 正確來源、同 commit 的門禁與產物、公開白名單、正式入口 |
+| 測試規則 | 範圍與分母、代表性反例；反例驗的是實際要發布的內容 |
+| 文件 | 連結存在、狀態與來源對得上；文字編碼和二進位格式用各自檢查 |
 
-## Campcool 正式環境特殊保護
+## 專案差異
 
-- **campcool-bot**：D1 有正式訂單與訊息，任何 migration、刪除、狀態批次修改或部署都要先確認影響範圍。回滾用 commit hash（如 `42ca529`），不用 tag（曾因權限沒推上去）。
-- **leakdoctor-bot**：正式部署僅限 main 的 `deploy.yml`；PR 品質門禁走 `pr-check.yml`（私有倉庫無 branch protection）。
-- **campcool / leakdoctor / 0988145875**：Pages 來源必須是 GitHub Actions；`deploy.yml` 未通過時線上維持前一正常版本。退版用 `git revert <commit> && git push`。
-- **TITAN-STAR**：三個頁面帶 noindex 止血；斷言取樣範圍必須印出來。
+- campcool 與潔美淨的詢價表單主要在本機整理 LINE 訊息；整理或開 LINE 不代表商家收件。
+- 灰汰郎前台會呼叫外部 leads API；成功回 leadId 與下游廠商收件要分開驗證。
+- 潔淨坊是 React／Vite 多入口；華兒園正式產物是 Next 靜態 out，不能只驗 vinext 預覽。
+- TITAN-STAR 的線上與離線產物、CLI 與瀏覽器匯入都要對齊；noindex 不是存取控制。
 
-## 參考文件
+## 參考快照
 
-- `references/obra-systematic-debugging.md`：obra/superpowers ⭐274k 原版系統性除錯流程全文
-- `references/verification-before-completion.md`：完工前驗證流程（obra ⭐274k）
-- `references/campcool-ops-context.md`：Campcool 專案群環境現況快照（health check、Cron、release tag）
+只在相關時讀取；相對路徑以下列實際檔名為準。舊原文不是最新 API 保證，套用前核對版本與執行環境。
+
+- [anthropics_skills__webapp-testing.md](references/anthropics_skills__webapp-testing.md)
+- [campcool-ops-context.md](references/campcool-ops-context.md)
+- [obra_superpowers__systematic-debugging.md](references/obra_superpowers__systematic-debugging.md)
+- [obra_superpowers__test-driven-development.md](references/obra_superpowers__test-driven-development.md)
+- [obra_superpowers__verification-before-completion.md](references/obra_superpowers__verification-before-completion.md)

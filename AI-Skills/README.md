@@ -1,49 +1,39 @@
-# Campcool AI-Skills 總目錄
+# Campcool AI-Skills
 
-> 本目錄存放 Campcool 專屬的 AI Agent Skills 分類技能包，來源為 GitHub 上星數最高的 AI Agent Skills 倉庫（2026-08-20 掃描），依 Campcool 業務需求（維運+FAE+自動化接案+小型 SaaS+租賃出租）篩選分類。
+本目錄是專案群的可更新工作基準。現有程式碼、交接與參考全文用於理解現況，技術選型與流程依目前任務、官方資訊及驗證結果調整，不以歷史文件或固定版本作永久標準。
 
-## 篩選標準
+## 技能路由
 
-以倉庫星數 **≥ 30,000** 為門檻，並篩選與 Campcool 業務相關度 ≥ 4/5 的技能，共 **49 個**入選，分類存放於四個技能包。
+| 技能 | 用途 |
+|---|---|
+| [維運與除錯](01-ops-debug/SKILL.md) | 根因、外部服務、Pages／Worker 與真實流程驗證 |
+| [開發流程](02-dev-workflow/SKILL.md) | 計畫、Git、技術變更、審查與產物一致性 |
+| [文件產出](03-doc-production/SKILL.md) | 文字與二進位文件、報告、試算表、簡報、渲染與重算 |
+| [資料分析](04-data-analysis/SKILL.md) | 資料品質、分母、事件口徑、租借／詢價／維修分析 |
+| [技術查核與版本更新](TECHNOLOGY-REVIEW.md) | 官方版本、LTS、相容性、升級驗證與來源 |
 
-| 倉庫 | 星數 | 貢獻技能數 |
-|---|---|---|
-| [obra/superpowers](https://github.com/obra/superpowers) | ⭐274,450 | 14（開發流程、除錯、程式碼審查） |
-| [anthropics/skills](https://github.com/anthropics/skills) | ⭐170,537 | 12（docx/pdf/xlsx/pptx、webapp-testing、前端） |
-| [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | ⭐33,948 | 21（資料分析、統計、市場研究、時序預測） |
-| [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | ⭐30,236 | 5（React 前端、部署、組合模式） |
-
-另有 156 個科學專用技能（生物/化學/藥學）與業務無關，未納入。完整 205 個技能掃描明細見 `catalog/205-skills-full-list.md`。
-
-## 目錄結構
-
-```
-AI-Skills/
-├── README.md                      ← 本文件
-├── 01-ops-debug/                  維運與除錯（campcool-bot / leakdoctor-bot / 各站維運）
-├── 02-dev-workflow/               開發流程（計畫、審查、Git、平行子任務）
-├── 03-doc-production/             文件產出（docx/pdf/xlsx/pptx、品牌與內部文件）
-├── 04-data-analysis/              資料分析（統計、報表、預測、市場研究）
-└── catalog/                       掃描清冊（205 技能完整清單、星數、分類、相關度）
-```
+涉及技術或版本更新時先讀 TECHNOLOGY-REVIEW，再選相關技能。2026-10-03 已修正四套路由，共 41 份 reference 的連結對回現有檔名。
 
 ## 使用方式
 
-每個技能包為 Manus Agent Skill 格式（SKILL.md + references/）。可兩種方式使用：
+可由支援 SKILL.md 的工具直接讀取本目錄，或複製四個技能目錄及共同的 TECHNOLOGY-REVIEW.md 至同一個根目錄。跨資料夾連結依這個佈局解析；單獨匯入某個 SKILL.md 時，需一併提供其 references 與共同文件。
 
-1. **Manus 技能**：將 SKILL.md 匯入 Manus「我的技能」（Add to My Skills），後續任務會自動觸發。
-2. **本地 D 槽**：clone 本倉庫後把四個資料夾複製到 `D:\AI-Skill\` 對應分類，提供給其他支援 SKILL.md 的 AI 工具（Claude Code 等）讀取。
+上游 reference 可能提到額外程式或素材；若未在目前 repo／環境找到，不代表本技能帶有該工具。工作前查核實際可用能力。
 
-## 與 Campcool 專案的對應
+## 與專案的對應
 
-| 專案 | 主要套用技能包 |
-|---|---|
-| campcool-bot（LINE Bot 正式營運） | 01-ops-debug、02-dev-workflow |
-| leakdoctor-bot（灰汰郎派工） | 01-ops-debug、02-dev-workflow、04-data-analysis |
-| campcool / leakdoctor / 0988145875（靜態網站） | 01-ops-debug、03-doc-production、04-data-analysis |
-| TITAN-STAR（廠內工具） | 01-ops-debug、03-doc-production |
-| blossomkids / campcool-website | 02-dev-workflow、03-doc-production |
+- 網站維運：campcool、灰汰郎、潔淨坊、潔美淨、華兒園。
+- 工廠分析／離線工具：TITAN-STAR。
+- Bot：campcool-bot、leakdoctor-bot 等完整倉庫名稱與權限先實際核對，不能以舊文件或前台 URL 取代後端讀取。
+- React 組合模式以潔淨坊與華兒園的正式入口為主；campcool 根目錄 JSX 是歷史參考。
+
+## 來源與更新
+
+既有 references 來自 obra/superpowers、anthropics/skills、K-Dense-AI/scientific-agent-skills、vercel-labs/agent-skills 的先前收錄快照。保留來源與有用內容，按任務查核官方新版；本次未宣稱 41 份全文已全部同步。
+
+[205 技能掃描清冊](catalog/205-skills-full-list.md) 是歷史盤點，不是當日可用技能總數。原「星數 ≥30,000」與「49 個入選」不再作技能品質或實際檔案數的標準；以用途、來源、版本、可執行性與驗證結果選用。
 
 ## 變更紀錄
 
-- 2026-08-20：建立 AI-Skills 目錄，初版四分類技能包（49 個入選技能、156 個未納入）
+- 2026-10-03：改為可更新的基準；加入官方技術查核、LTS／Current 與相容性流程；修正 41 份 reference 路徑、部署名稱假設、文字／二進位格式驗證、正式產物與轉換口徑。只修改技能／交接文件，未升級網站相依。
+- 2026-08-20：建立四分類與歷史上游技能快照。

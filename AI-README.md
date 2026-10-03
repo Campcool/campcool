@@ -2,7 +2,16 @@
 
 這份文件提供 AI 開發代理與後續維護者目前有效的產品事實、改版決策及防回歸規則。一般專案說明與本機預覽方式請見 [`README.md`](README.md)；公開的服務、價格與地區資料分別以 [`services.md`](services.md)、[`pricing.md`](pricing.md)、[`areas.md`](areas.md) 及 [`faq.md`](faq.md) 為準。
 
-最後更新：2026-08-25
+最後更新：2026-10-03（技能基準與技術查核更新）
+
+## 2026-10-03 技能基準與技術查核更新（Codex）
+
+- 依業主本次指示：現有程式碼、交接與 skill 作為基準，不是永久技術標準；有新官方證據與效益時可更新技術指引與流程。歷史技術／審批假設不得無故阻擋目前已授權的工作。
+- 更新 AI-Skills 四套 SKILL.md 與總目錄，新增 [技術查核與版本更新流程](AI-Skills/TECHNOLOGY-REVIEW.md)。修正 reference 真實檔名、workflow／正式產物差異、二進位格式驗證與不同業務的事件口徑。
+- 已查核 2026-10-03 官方 release／package metadata／Action runtime：React 19.3.0、Vite 8.3.2、Next 16.3.8、Playwright 1.63.0、pnpm 12.8.1 與 Node 支援時程。版本為查核快照，不要求各站直接換成 latest。
+- 本次僅技能與交接文件變更，未修改產品、價格、網站執行碼、追蹤 ID、LINE、DNS、相依鎖檔或資料。舊 reference 全文保留為基準，未宣稱全部更新上游。
+- 驗證：以 main 完整檔案樹核對 41 份 reference 路徑、四套 frontmatter 與文字格式；正式網站測試按既有 CI 紀錄／此次部署門禁分開記錄。
+- 存取缺口：直接查詢 Campcool/AI-skill 與文件所列 Bot 倉庫回 404；不可把它們寫成已盤點。若接入後，沿用本次查核流程補中央 skill 與後端。
 
 ## 2026-08-25 公告資料同步門禁（Codex）
 

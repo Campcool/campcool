@@ -1,56 +1,60 @@
 ---
 name: campcool-dev-workflow
-description: 開發流程與計畫技能包。適用情境：收到多步驟任務規格、開始新功能開發、需要撰寫實施計畫、程式碼審查、Git 分支管理、平行子任務調度時使用。整合 obra/superpowers (⭐274k) 的 writing-plans、executing-plans、code-review、using-git-worktrees、finishing-a-development-branch、subagent-driven-development、dispatching-parallel-agents 與 vercel-labs (⭐30k) 的 composition-patterns。特別適用於 Campcool 專案群的 CI 門禁環境（GitHub Actions 部署、PR 品質門禁）。
+description: 為 Campcool 專案群規劃、實作、審查與驗證多步驟技術變更，依真實倉庫與正式產物選工作流程；技術文件與歷史技能作基準，允許有證據的更新。
 ---
 
-# Campcool 開發流程技能包
+# Campcool 開發流程
 
-## 一句話原則
+## 基準與更新原則
 
-寫計畫時假設接手的工程師對程式碼庫零上下文；執行時每個任務都是可獨立驗證的最小單元；完成前必須通過品質門禁（CI + 實際行為驗證）。
+現有程式碼、交接文件與本技能參考快照是理解現況的基準，不是永久技術標準。技術選型、版本、測試方法與過去的流程假設應依目前任務、最新官方證據及實際相容性重新評估；不要只因舊文件寫過，就阻止已授權的改進。
 
-## 撰寫實施計畫（writing-plans）
+區分技術建議、目前實作與營運事實。價格、服務區、客戶紀錄、園所資訊等用可核對來源，不能因技術更新自行編造。
 
-開始多步驟開發前先寫計畫，存到 `docs/` 或專案既有的交接文件位置（Campcool 專案慣例放在 README/AI-README.md 的待辦區或 docs/）。
+涉及版本或架構調整時，先讀 [技術查核與版本更新流程](../TECHNOLOGY-REVIEW.md)。其中版本表是 2026-10-03 的查核快照，執行時重新核對，不作永遠的最低版本。
 
-- **範圍檢查**：若規格涵蓋多個獨立子系統，先拆成多個計畫，每個計畫產出可獨立測試的軟體。
-- **檔案結構先定**：先列出每個任務要動哪些檔案、各檔案的責任。檔案改一起就放一起；依責任切分而非依技術層切分；既有程式碼庫遵循既有模式。
-- **任務粒度**：任務 = 最小單元，各自帶測試週期，值得一次新的審查門禁。建置、設定、文件等步驟併入所屬任務。
-- **內容包含**：每個任務的具體修改、程式碼、要測試的東西、要讀的文件。DRY、YAGNI、TDD、勤 commit。
+## 計畫與執行
 
-## 執行計畫（executing-plans）
+- 先確認任務目的、範圍、現有 git head、實際入口與正式產物，再列可交付的最小單元。
+- 每項列具體檔案、依賴、預期行為與必要驗證；用目前程式查核舊待辦，已完成的不重做。
+- 先完成已授權工作；證據改變時更新計畫與原因。不要將歷史技能的抽象核准步驟當作新的阻擋條件。
+- 修改技術前依 TECHNOLOGY-REVIEW 做官方版本、安全與相容性查核；在隔離分支或 worktree 形成可回退的差異。
+- 先提交與範圍相符的變更；文件／流程、依賴升級與產品行為變更分開，便於驗證與回退。
+- 複雜邏輯或已知缺陷用必要回歸測試；簡單文件與可逆小改動直接查核，不一律要求 TDD。
 
-- 照計畫逐項執行，但當證據顯示計畫有誤時允許修正方向（記錄偏離原因）。
-- 每個任務完成即 commit，commit 訊息對應計畫中的任務名稱。
-- 遇阻時回到根因調查（參考 `campcool-ops-debug` 技能），不要硬繞過。
+## Git 與部署
 
-## 程式碼審查
+- 多人／多工具工作前及推送前重新確認遠端 head，避免以舊副本覆蓋新的工作；不要 force push 來掩蓋差異。
+- Worktree 用於需要隔離或同時維護多分支的任務，不是所有任務的前置條件。
+- 依目前使用者指示選直推、分支或 PR。既有直推模式可以保留並補自動門禁；PR 不應無故增加人工批准。
+- 讀 workflow 的真實觸發、權限與 needs，不把 typecheck→test→migrations→deploy 或 pr-check.yml 當成所有專案共同結構。靜態站不憑空添加 migration。
+- 本機驗證與 CI 應針對會發布的同一產物；發布、實際可用、接單完成分開記錄。
+- 有 AI-README／AI-HANDOFF 的倉庫同步更新有效摘要、進度及待辦；過期技術決策明確以新證據取代，不只在長文件尾端堆疊互相矛盾的狀態。
 
-**請求審查（requesting-code-review）時**：說明改動範圍與風險點、哪些部分最需要關注、如何本地驗證。不要只丟一個 PR 等別人看。
+## 審查
 
-**接收審查（receiving-code-review）時**：以理解為目標而非防衛；區分「事實錯誤」「可讀性」「風格偏好」；對有疑義的建議先問清楚再決定，避免來回多輪。
+說明觸發問題、結果行為、必要測試與剩餘缺口。分開事實錯誤、實作取捨和風格偏好；有爭議先用程式或官方資料查核，避免套用過時模式。
 
-## Git 分支與工作樹
+## 同時讀取與委派
 
-- **git worktrees（using-git-worktrees）**：同一專案多分支並行開發時使用 worktree 而非 stash 切換；每個 worktree 帶自己名稱（如 `wt-faq-dedupe`）。
-- **收尾分支（finishing-a-development-branch）**：合併前先重跑測試、更新文件（**Campcool 慣例：同步更新 AI-README.md/AI-HANDOFF.md 的進度紀錄與待辦清單，與程式碼一起 commit**）、刪除或歸檔 worktree。
-- **Campcool CI 門禁注意**：推 main 前確認 `deploy.yml`（typecheck→test→migrations→deploy）會通過；私有倉庫無 branch protection，`pr-check.yml` 是合併前品質門禁；正式部署僅限 main。
+獨立倉庫／檔案可並行讀取並標記各自 SHA。修改、推送及資料遷移依其相依順序執行。同時讀取不等於委派多個代理；只有本次授權與工作環境允許時才採用子代理，並明確分工及整合驗收。
 
-## 平行子任務調度
+## 正式技術映射
 
-**dispatching-parallel-agents**：當任務可拆成多個同質子任務（如批次翻譯、批量驗證、多文件同步修改）時，平行派出多個子代理，各自帶完整指令與輸出格式，最後由主控代理整合驗收。適用：多站點同時修改 Google Ads 素材、批量更新 AI-README。
+- campcool、灰汰郎、潔美淨：原生 HTML/CSS/JS；先保留靜態可讀內容，依效益決定是否模組化或升級架構。
+- 潔淨坊：React／Vite；華兒園：Next 靜態匯出＋vinext 預覽。React 與組合模式對這些實際入口套用。
+- campcool 根目錄 JSX 是舊設計參考；改正式畫面不能只改這些檔案。
+- TITAN-STAR：Excel parser／analysis、離線 bundle、月報匯入與 localStorage 有各自契約；不要暗示 localStorage 是共享資料庫。
+- Bot 倉庫必須真正能讀取才可盤點其部署／資料邏輯，從前台 URL 或舊交接不能推斷後台現況。
 
-**subagent-driven-development**：大型功能開發時，主控代理把子任務（單元實作、測試、文件）分派給子代理，主控負責介面一致與整合測試。適用：TITAN-STAR 加功能、多頁面修改。
+## 參考快照
 
-## 架構組合模式（composition-patterns）
-
-前端元件與模組設計遵循：單一責任、介面先定、組合勝過繼承。React 專案（blossomkids、campcool-website）適用 vercel-labs 的元件組合指引。
-
-## 參考文件
-
-- `references/writing-plans.md` — 撰寫計畫（obra ⭐274k 原文）
-- `references/executing-plans.md` — 執行計畫（obra ⭐274k 原文）
-- `references/requesting-code-review.md` / `receiving-code-review.md` — 程式碼審查（obra ⭐274k 原文）
-- `references/using-git-worktrees.md` / `finishing-a-development-branch.md` — Git 分支工作流（obra ⭐274k 原文）
-- `references/subagent-driven-development.md` / `dispatching-parallel-agents.md` — 平行子任務（obra ⭐274k 原文）
-- `references/composition-patterns.md` — 前端組合模式（vercel-labs ⭐30k 原文）
+- [obra_superpowers__dispatching-parallel-agents.md](references/obra_superpowers__dispatching-parallel-agents.md)
+- [obra_superpowers__executing-plans.md](references/obra_superpowers__executing-plans.md)
+- [obra_superpowers__finishing-a-development-branch.md](references/obra_superpowers__finishing-a-development-branch.md)
+- [obra_superpowers__receiving-code-review.md](references/obra_superpowers__receiving-code-review.md)
+- [obra_superpowers__requesting-code-review.md](references/obra_superpowers__requesting-code-review.md)
+- [obra_superpowers__subagent-driven-development.md](references/obra_superpowers__subagent-driven-development.md)
+- [obra_superpowers__using-git-worktrees.md](references/obra_superpowers__using-git-worktrees.md)
+- [obra_superpowers__writing-plans.md](references/obra_superpowers__writing-plans.md)
+- [vercel-labs_agent-skills__composition-patterns.md](references/vercel-labs_agent-skills__composition-patterns.md)

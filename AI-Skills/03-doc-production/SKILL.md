@@ -1,51 +1,58 @@
 ---
 name: campcool-doc-production
-description: 文件產出技能包。適用情境：需要產生 docx（合約、SOP、報告）、pdf（提案、對帳單）、xlsx（帳務、報表、庫存）、pptx（簡報、提案）、品牌文案、內部溝通文件、網頁產物或技術文件時使用。整合 anthropics/skills (⭐170k) 的 docx、pdf、pptx、xlsx、frontend-design、web-artifacts-builder、theme-factory、internal-comms、doc-coauthoring、brand-guidelines 與 K-Dense-AI (⭐34k) 的 markdown-mermaid-writing、infographics。支援 UTF-8 無 BOM 的中文文件規範。
+description: 為 Campcool 專案群產出可查核的文件、試算表、簡報、技術報告與互動文件；使用實際存在的格式工具與模板，按文字或二進位格式驗證，更新過時操作指引。
 ---
 
-# Campcool 文件產出技能包
+# Campcool 文件產出
 
-## 格式選擇指南
+## 基準與更新原則
 
-| 格式 | 用途 | 對應參考 |
-|---|---|---|
-| docx | 合約、SOP、訓練文件、維修記錄模板（TITAN-STAR 有既用模板） | `references/docx.md` |
-| pdf | 對外提案、報價單、對帳單、客戶文件 | `references/pdf.md` |
-| xlsx | 帳務、報表、庫存、維修記錄（campcool-bot 訂單、leakdoctor-bot 派工） | `references/xlsx.md` |
-| pptx | 提案簡報、月報、培訓 | `references/pptx.md` |
-| 網頁產物 | 快速互動文件、內部工具頁 | `references/frontend-design.md`、`web-artifacts-builder.md` |
-| 內部文件 | 交接文件、內部通訊、品牌文案 | `references/internal-comms.md`、`doc-coauthoring.md`、`brand-guidelines.md` |
-| 技術文件 | 附 Mermaid 流程圖的文件（SOP、架構說明） | `references/markdown-mermaid-writing.md` |
+現有程式碼、交接文件與本技能參考快照是理解現況的基準，不是永久技術標準。技術選型、版本、測試方法與過去的流程假設應依目前任務、最新官方證據及實際相容性重新評估；不要只因舊文件寫過，就阻止已授權的改進。
 
-## 鐵律：中文文件規範
+區分技術建議、目前實作與營運事實。價格、服務區、客戶紀錄、園所資訊等用可核對來源，不能因技術更新自行編造。
 
-- 所有文件存檔必須 **UTF-8、無 BOM**。曾發生 AI 在 Big5/Windows 環境存檔導致中文變亂碼。
-- 交付前驗證：`python3 -c "open('file',encoding='utf-8').read()"` 不報錯。
-- xlsx 檔名與內容涉及客戶資料時，只放必要欄位，不放入完整個資（姓名+電話+地址不同時出現於同一非內部文件）。
+涉及版本或架構調整時，先讀 [技術查核與版本更新流程](../TECHNOLOGY-REVIEW.md)。其中版本表是 2026-10-03 的查核快照，執行時重新核對，不作永遠的最低版本。
 
-## 標準產出流程
+## 產出流程
 
-1. **確認需求與受眾**：這份文件給誰看、用來做什麼決定。
-2. **選格式與模板**：依上表選格式；有既有模板（如 TITAN-STAR 維修記錄模板）就遵循其結構。
-3. **產出**：依對應參考文件的官方流程；xlsx 用本技能內建 Excel 生成器、docx/pdf/pptx 依 Anthropic 官方腳本流程。
-4. **驗證**：實際開啟檔案檢查中文渲染、表格欄位、數字加總；對帳務類文件用獨立計算二次驗算。
-5. **交接**：文件放入對應倉庫的 docs/ 或資料區，並同步更新 AI-README 的進度紀錄。
+1. 明確受眾、目的、資料來源與需要的格式。模板作結構與風格起點，依目前指示調整。
+2. 查核原始資料、版本與時間；歷史快照、推測、待確認與已實測分開，不能把舊狀態直接搬成最新結論。
+3. 選執行環境真正具備的工具。參考全文可能提到上游 scripts 或 assets，未隨此 repo 打包的工具不能稱為「本技能內建」。
+4. 產出後按格式驗證內容、數字、字型、排版、連結與開啟／重算行為；金額與重要計算以獨立方法核對。
+5. 交付可直接閱讀的成品及必要來源；同步有效交接摘要與剩餘缺口。
 
-## 各格式操作要點
+## 格式與驗證
 
-**docx**：用參考文件附帶的腳本產生；段落、表格、樣式依官方模板；交付前轉 PDF 預覽一次確認版面。
+| 格式 | 建議處理與驗證 |
+|---|---|
+| Markdown／TXT／JSON／YAML／一般 CSV | 預設 UTF-8 無 BOM；實際 decode、parse、欄位／連結與必要 round-trip。若收件端明確需要 BOM 或其他編碼，依需求輸出並標示 |
+| DOCX | 合法 OOXML／ZIP，用相容文件工具開啟；檢查段落、樣式、表格與分頁，必要時轉 PDF 預覽 |
+| XLSX | 合法 OOXML／ZIP，用試算表工具開啟與重算；檢查公式、日期、欄寬、凍結窗格與加總。公式儲存不代表已有正確計算快取 |
+| PPTX | 合法 OOXML／ZIP，渲染所有投影片；檢查字型、裁切、重疊、可讀性與圖表來源 |
+| PDF | 驗證 PDF 結構、抽取文字及逐頁渲染；中文字型嵌入、跨頁表頭與長表格 |
+| 網頁／互動文件 | 用實際瀏覽器檢查手機與桌機、互動、鍵盤、資料來源、必要 HTTP／API |
 
-**pdf**：先 Markdown 排版再轉；表格超過一頁時確認表頭重複；中文字型用 Noto Sans CJK。
+DOCX、XLSX、PPTX、PDF 是二進位格式，不能用 open(..., encoding="utf-8") 判斷有效與否。「UTF-8 無 BOM」不是所有檔案的通用鐵律。
 
-**xlsx**：欄寬與凍結窗格必設；數字格式（貨幣 NT$、日期）統一；大報表用本技能內建 Excel 生成器；公式與常數分開列，避免硬編碼。
+## 文件品質
 
-**pptx**：先定大綱與訊息層級再動版面；每頁一個重點；數據頁附上資料來源與日期。
+- 先寫具體問題與結論，數字附單位、期間、來源與分母。
+- 明確區分基準、建議與驗收標準。舊報告分數或技能模板不是永久判準。
+- 中文使用可用字型並實際驗證渲染；版本或工具範例更新依 TECHNOLOGY-REVIEW。
+- 只收集必要資料；對外文件與分析事件避免完整姓名、電話、地址或訊息的非必要曝光。
+- xlsx 公式與常數分開；pptx 每頁聚焦一個訊息；技術圖與文件需能對回目前實作。
+- 不宣稱完成沒有跑過的渲染、重算、真機或正式環境驗證。
 
-**內部文件/交接文件**：先寫「一句話目標」與「目前公開狀態」再寫細節（Campcool AI-HANDOFF 慣例）；交接文件必須包含目前狀態快照、已知陷阱、下一步。
+## 參考快照
 
-## 參考文件
-
-- `references/docx.md`、`references/pdf.md`、`references/pptx.md`、`references/xlsx.md` — Anthropic 官方格式產出（⭐170k 原文）
-- `references/frontend-design.md`、`references/web-artifacts-builder.md`、`references/theme-factory.md` — 網頁產物
-- `references/internal-comms.md`、`references/doc-coauthoring.md`、`references/brand-guidelines.md` — 內部溝通與品牌文件
-- `references/markdown-mermaid-writing.md`、`references/infographics.md` — 技術文件與資訊圖表
+- [K-Dense-AI_scientific-agent-skills__markdown-mermaid-writing.md](references/K-Dense-AI_scientific-agent-skills__markdown-mermaid-writing.md)
+- [anthropics_skills__brand-guidelines.md](references/anthropics_skills__brand-guidelines.md)
+- [anthropics_skills__doc-coauthoring.md](references/anthropics_skills__doc-coauthoring.md)
+- [anthropics_skills__docx.md](references/anthropics_skills__docx.md)
+- [anthropics_skills__frontend-design.md](references/anthropics_skills__frontend-design.md)
+- [anthropics_skills__internal-comms.md](references/anthropics_skills__internal-comms.md)
+- [anthropics_skills__pdf.md](references/anthropics_skills__pdf.md)
+- [anthropics_skills__pptx.md](references/anthropics_skills__pptx.md)
+- [anthropics_skills__theme-factory.md](references/anthropics_skills__theme-factory.md)
+- [anthropics_skills__web-artifacts-builder.md](references/anthropics_skills__web-artifacts-builder.md)
+- [anthropics_skills__xlsx.md](references/anthropics_skills__xlsx.md)
