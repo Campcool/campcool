@@ -209,3 +209,7 @@ body.cc-site{margin:0;background:var(--cc-paper);color:var(--cc-ink);font-family
  .cc-site .cc-line-btn{padding:8px 10px}.cc-site .cc-seo-links{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){.cc-site *,.cc-site *::before,.cc-site *::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Keep article anchors clear of the two-row mobile header. */
+.cc-editorial [id]{scroll-margin-top:50px}
+@media(min-width:641px) and (max-width:1023px){.cc-model{grid-template-columns:minmax(0,1fr) 110px;padding:20px;gap:12px}.cc-model img{width:110px;height:150px}}

@@ -81,6 +81,13 @@ async def main(base):
                     check(name+': main and skip link',
                           await page.locator('#main-content').count()==1 and
                           await page.locator('.cc-skip').count()==1)
+                    await page.locator('.cc-skip').focus()
+                    await page.keyboard.press('Enter')
+                    main_rect=await page.locator('#main-content').bounding_box()
+                    header_rect=await page.locator('.cc-header,.cc-site-header').bounding_box()
+                    check(name+': skip link clears sticky header',
+                          main_rect['y']>=header_rect['height']-1, str(main_rect))
+                    await page.evaluate('scrollTo(0,0)')
                     check(name+': no CSP violations', not await page.evaluate('window.__cspViolations'))
                     if width in (390,1440) and name in (
                             'index.html','juz-400.html','camping-ac-rental.html','areas/new-taipei.html'):
