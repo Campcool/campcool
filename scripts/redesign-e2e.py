@@ -94,6 +94,14 @@ async def main(base):
                         await page.screenshot(path=str(OUTPUT/f'{name.replace("/","-")}-{width}.png'),
                                               full_page=True)
                 await page.goto(base+'/index.html#rental',wait_until='networkidle')
+                closed_height=await page.evaluate('document.documentElement.scrollHeight')
+                await page.locator('.cc-more-reviews summary').click()
+                check(f'{width}: more reviews reveal real content',
+                      await page.locator('.cc-more-reviews .cc-review').first.is_visible() and
+                      await page.evaluate('document.documentElement.scrollHeight')>closed_height+100)
+                await page.locator('.cc-more-reviews summary').click()
+                check(f'{width}: reviews collapse again',
+                      not await page.locator('.cc-more-reviews .cc-review').first.is_visible())
                 nav='.cc-top-tab' if width>=1024 else '.cc-nav-btn'
                 for tab in ('wiki','fridge','booking','rental'):
                     button=page.locator(f'{nav}[data-tab="{tab}"]')
