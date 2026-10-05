@@ -59,7 +59,7 @@ async def main():
                 await page.evaluate('() => document.querySelectorAll(".ad-drawer").forEach(d => d.open = true)')
                 vis = await page.evaluate(f"""
                   () => {{
-                    const el = document.querySelector('[data-tab="{tab}"]');
+                    const el = document.querySelector('.cc-page[data-tab="{tab}"]');
                     return el && el.offsetParent !== null && el.offsetHeight > 50;
                   }}
                 """)
