@@ -41,6 +41,18 @@ jobs:
       - name: E2E core-flow tests
         run: python3 scripts/e2e-test.py
 
+      - name: Responsive redesign and booking privacy
+        run: python3 scripts/redesign-e2e.py
+
+      - name: Upload browser screenshots and measurements
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: campcool-redesign-browser-evidence
+          path: work/redesign-screenshots/
+          retention-days: 14
+          if-no-files-found: warn
+
   deploy:
     name: Deploy to Pages
     needs: validate

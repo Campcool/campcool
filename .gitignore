@@ -1,2 +1,4 @@
 scripts/.cache/
 _site/
+work/
+__pycache__/
