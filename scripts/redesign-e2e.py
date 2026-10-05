@@ -151,7 +151,7 @@ async def main(base):
             check('LINE link opens confirmation',
                   (await page.locator('#bkLineLink').get_attribute('href')).startswith(
                       'https://line.me/R/oaMessage/'))
-            events=await page.evaluate('dataLayer.map(x=>Array.from(x))')
+            events=json.loads(await page.evaluate('JSON.stringify(dataLayer.map(x=>Array.from(x)))'))
             check('compose tracking has no contact data',
                   any(e[:2]==['event','booking_message_composed'] for e in events) and
                   '0999999999' not in json.dumps(events))
@@ -160,7 +160,7 @@ async def main(base):
             await page.evaluate("""document.querySelector('.cc-header-contact').addEventListener(
               'click',e=>e.preventDefault());""")
             await page.locator('.cc-header-contact').click()
-            events=await page.evaluate('dataLayer.map(x=>Array.from(x))')
+            events=json.loads(await page.evaluate('JSON.stringify(dataLayer.map(x=>Array.from(x)))'))
             check('new header retains LINE click and conversion',
                   any(e[:2]==['event','line_click'] for e in events) and
                   any(e[:2]==['event','conversion'] for e in events))
