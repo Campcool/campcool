@@ -66,8 +66,8 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://campcool.tw/">
 <meta property="og:site_name" content="露涼社 CampCool">
-<meta property="og:title" content="帳篷冷氣幾 BTU 才夠？5100 vs 6300 實測｜2026 露營移動冷氣完整攻略">
-<meta property="og:description" content="3×3 帳篷選 5100 還是 6300 BTU？10A 電源會跳電嗎？免排水冷氣是什麼原理？一篇看懂，附主流型號規格完整比較表。">
+<meta property="og:title" content="露涼社 CampCool｜把涼爽帶進山裡・露營冷氣與冰箱租借">
+<meta property="og:description" content="兩天一夜 $1,000 起。依帳篷挑選冷氣，北部、新竹與台中預約取還，LINE 確認檔期。">
 <meta property="og:image" content="https://campcool.tw/assets/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -80,8 +80,8 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@campcool2025">
-<meta name="twitter:title" content="帳篷冷氣幾 BTU 才夠？5100 vs 6300 實測｜2026 露營移動冷氣完整攻略">
-<meta name="twitter:description" content="3×3 帳篷選 5100 還是 6300 BTU？10A 電源會跳電？免排水原理？一篇看懂，附型號規格完整比較表。">
+<meta name="twitter:title" content="露涼社 CampCool｜把涼爽帶進山裡・露營冷氣與冰箱租借">
+<meta name="twitter:description" content="兩天一夜 $1,000 起。依帳篷挑選冷氣，北部、新竹與台中預約取還，LINE 確認檔期。">
 <meta name="twitter:image" content="https://campcool.tw/assets/og-cover.jpg">
 <meta name="twitter:image:alt" content="露涼社 CampCool 露營移動冷氣選購指南：BTU、功率、重量比較表">
 <meta name="twitter:label1" content="閱讀時間">
@@ -1506,24 +1506,28 @@
     .cc-calc-res.show, .cc-form-res.show { animation: none; }
   }
 </style>
+<link rel="stylesheet" href="assets/site-redesign.css?v=20261004">
+<meta name="theme-color" content="#244b3b">
 </head>
-<body>
+<body class="cc-site cc-home">
+<a class="cc-skip" href="#main-content">跳到主要內容</a>
 
 <div id="app-root">
 
   <!-- Header -->
   <header class="cc-header" role="banner">
     <div class="cc-header-inner">
-      <button class="cc-logo" type="button" onclick="setTab('rental')" aria-label="回首頁">
-        <img src="assets/logo-88.webp" alt="露涼社 CampCool Logo" width="44" height="44">
-        <span>
-          <span class="cc-logo-main" style="display:block">露涼社 CampCool</span>
-          <span class="cc-logo-sub">露營冷氣・移動冰箱出租</span>
-        </span>
+      <button class="cc-logo" type="button" onclick="setTab('rental')" aria-label="回露涼社首頁">
+        <img src="assets/logo-88.webp" alt="露涼社 CampCool" width="48" height="48">
+        <span><span class="cc-logo-main">露涼社 CampCool</span><span class="cc-logo-sub">露營冷氣・冰箱出租</span></span>
       </button>
-      <button class="cc-line-btn cc-line-shimmer" type="button" onclick="goBooking('header')">
-        <span>💬</span> 詢問・預約
-      </button>
+      <nav class="cc-top-nav" aria-label="桌面主要導覽">
+        <button type="button" class="cc-top-tab" data-tab="rental" onclick="setTab('rental')">冷氣租借</button>
+        <button type="button" class="cc-top-tab" data-tab="wiki" onclick="setTab('wiki')">選機指南</button>
+        <button type="button" class="cc-top-tab" data-tab="fridge" onclick="setTab('fridge')">冰箱・小物</button>
+        <button type="button" class="cc-top-tab" data-tab="booking" onclick="setTab('booking')">租借預約</button>
+      </nav>
+      <button class="cc-line-btn" type="button" onclick="goBooking('header')">詢問檔期 <span aria-hidden="true">↗</span></button>
     </div>
   </header>
 
@@ -1531,19 +1535,28 @@
 
     <!-- ════════ 租借方案 ════════ -->
     <section class="cc-page" data-tab="rental">
-      <div class="cc-hero" style="background:linear-gradient(135deg,#064e3b,#059669)">
-        <div class="cc-hero-ovl"></div>
-        <div class="cc-hero-badge" role="status">🏕️ 夏季熱門出租中</div>
-        <h1 class="cc-hero-title">露營冷氣租借｜露涼社 CampCool</h1>
-        <p class="cc-hero-sub">睡覺不悶熱，露營才好玩・兩天一夜 $1,000 起</p>
-        <div class="cc-hero-stat">✅ 已服務 800+ 組露友</div>
-        <div><button type="button" class="cc-hero-cta cc-line-shimmer" onclick="goBooking('hero')">💬 LINE 查檔期</button></div>
-        <div class="cc-quick" aria-label="快速詢問">
-          <button type="button" onclick="quickAsk('schedule')">📅 只問檔期</button>
-          <button type="button" onclick="quickAsk('combo')">❄️ 冷氣 + 冰箱</button>
-          <button type="button" onclick="quickAsk('recommend')">🤔 不知道選哪台</button>
+      <div class="cc-hero cc-home-hero">
+        <div class="cc-home-hero-inner">
+          <div class="cc-home-hero-copy">
+            <div class="cc-eyebrow">CAMP LIGHT. STAY COOL.</div>
+            <h1 class="cc-hero-title">露營冷氣租借，<br><em>把涼爽帶進山裡。</em></h1>
+            <p class="cc-hero-sub">喜歡親近自然，也值得好好睡一晚。<br>冷氣、冰箱與露營小物，用租的輕鬆出發。</p>
+            <div class="cc-hero-actions">
+              <button type="button" class="cc-hero-cta" onclick="goBooking('hero')">查詢檔期・開始預約 <span aria-hidden="true">↗</span></button>
+              <a class="cc-hero-secondary" href="how-it-works.html">第一次租？看流程 <span aria-hidden="true">→</span></a>
+            </div>
+            <p class="cc-hero-rent-note">兩天一夜 $1,000 起 · 冷氣押金每台 $3,000</p>
+          </div>
+          <figure class="cc-home-hero-photo">
+            <img src="assets/homepage_hero.webp" alt="山林帳篷與移動冷氣的露營情境示意" width="1392" height="752" fetchpriority="high">
+            <figcaption class="cc-photo-note"><span>把裝備交給我們<br><small>租借方案・預約取還</small></span><strong>輕裝出發 ↗</strong></figcaption>
+          </figure>
         </div>
-        <div class="cc-quick-hint">點上方按鈕 → 開啟 LINE 並預填問題，貼出即可</div>
+        <div class="cc-service-strip" aria-label="租借服務重點">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9 5l3 3 3-3M9 19l3-3 3 3"/></svg><span>兩款冷氣，依帳篷推薦</span></div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>北部・新竹・台中取還</span></div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/><path d="M20 13a8 8 0 1 1-7-9"/></svg><span>透明租金，LINE 確認檔期</span></div>
+        </div>
       </div>
       <div class="cc-body">
 
@@ -1563,33 +1576,21 @@
           </div>
         </section>
 
-        <div class="cc-decision" aria-label="快速選擇適合的露營冷氣">
-          <div class="cc-decision-head">
-            <div class="t">不知道租哪台？先選你的情境</div>
-            <div class="s">3 秒決定機型</div>
-          </div>
-          <div class="cc-decision-grid">
-            <button type="button" class="cc-decision-card" onclick="quickRecommend('juz')">
-              <span class="k">3×3 帳／1-4 人</span>
-              <span class="m">艾比酷 JUZ-400</span>
-              <span class="r">輕量、免排水，小家庭與一般睡帳最省心。</span>
-              <span class="go">帶入表單 →</span>
-            </button>
-            <button type="button" class="cc-decision-card sac" onclick="quickRecommend('sac')">
-              <span class="k">4×4 帳／多人／寵物</span>
-              <span class="m">山水 SAC-688</span>
-              <span class="r">冷房力較強，大帳、多人同睡或怕熱優先。</span>
-              <span class="go">帶入表單 →</span>
-            </button>
-            <button type="button" class="cc-decision-card help" onclick="quickRecommend('help')">
-              <span class="k">不確定帳篷大小</span>
-              <span class="m">請我們幫你推薦</span>
-              <span class="r">填帳篷型號或人數，我們直接判斷適合機型。</span>
-              <span class="go">快速詢問 →</span>
-            </button>
-          </div>
+        <div class="cc-section-heading" id="rentalModels">
+          <div><h2>你的帳篷，適合哪一台？</h2><p>先看空間與人數，再選擇適合的冷房力。</p></div>
+          <span class="cc-section-index">01 / 裝備租借</span>
         </div>
-
+        <div class="cc-models">
+          <article class="cc-model">
+            <div><span class="cc-model-tag">小家庭・一般睡帳</span><h3>艾比酷<br>JUZ-400</h3><p>1–4 人、3×3 以下睡帳。<br>輕量免排水，輕鬆帶著走。</p><div class="cc-model-specs"><span><strong>5100</strong> BTU</span><span><strong>13</strong> kg</span><span><strong>425</strong> W</span></div><button type="button" onclick="quickRecommend('juz')">選這台・查檔期 ↗</button><a href="juz-400.html">完整規格 →</a></div>
+            <img src="assets/juz400_product.webp" alt="艾比酷 JUZ-400 露營移動冷氣" width="145" height="168" loading="lazy">
+          </article>
+          <article class="cc-model">
+            <div><span class="cc-model-tag">大帳・多人・寵物同帳</span><h3>山水<br>SAC-688</h3><p>超過 3×3 的大帳、4 人以上。<br>想要更強冷房力，優先看這台。</p><div class="cc-model-specs"><span><strong>6300</strong> BTU</span><span><strong>17</strong> kg</span><span><strong>530</strong> W</span></div><button type="button" onclick="quickRecommend('sac')">選這台・查檔期 ↗</button><a href="sac-688.html">完整規格 →</a></div>
+            <img src="assets/sac688_product.webp" alt="山水 SAC-688 露營移動冷氣" width="145" height="168" loading="lazy">
+          </article>
+        </div>
+        <div class="cc-model-help"><span>還不確定？告訴我們帳篷型號或人數，<br>一起找到適合的組合。</span><button type="button" onclick="quickRecommend('help')">幫我推薦 →</button></div>
         <!-- 首屏好評縮圖橫條（社會證明前置） -->
         <a href="#reviews" onclick="scrollToReviews();return false;" style="display:block;text-decoration:none;color:inherit">
           <div style="font-size:.8rem;font-weight:800;color:#047857;margin:2px 0 6px;display:flex;align-items:center;gap:5px">⭐ 露友真實回饋 <span style="font-size:.7rem;color:#6b7280;font-weight:600">（點看更多）</span></div>
@@ -1642,7 +1643,7 @@
         </a>
 
         <!-- ① 透明租金方案 -->
-        <h2 class="cc-sh">透明租金方案</h2>
+        <h2 class="cc-sh" id="rentalPricing">租多久，都算得清楚</h2>
         <hr class="cc-shdiv">
         <div class="cc-price">
           <div class="cc-price-head">
@@ -1672,7 +1673,7 @@
         </div>
 
         <!-- ② 服務據點 -->
-        <h2 class="cc-sh" style="font-size:1.4rem">📍 服務據點分布</h2>
+        <h2 class="cc-sh" id="pickupLocations">順路取還，輕鬆出發</h2>
         <hr class="cc-shdiv">
         <div class="cc-zones">
           <div class="cc-zones-header">
@@ -1721,28 +1722,31 @@
         <!-- Reviews -->
         <h2 class="cc-sh" id="reviews">⭐ 露友真實好評</h2>
         <hr class="cc-shdiv">
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1rem">
+        <div class="cc-reviews" aria-label="露友好評精選">
           <div class="cc-review">
-            <img src="assets/review-01.webp" alt="露友 LINE 好評截圖 1" width="681" height="624" loading="lazy">
+            <a href="assets/review-01.webp" target="_blank" rel="noopener"><img src="assets/review-01.webp" alt="露友 LINE 好評截圖 1" width="681" height="624" loading="lazy"></a>
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 新竹尖石</span><span style="font-size:.7rem;color:#6b7280">2026.05</span></div></div>
           </div>
           <div class="cc-review">
-            <img src="assets/review-02.webp" alt="露友 LINE 好評截圖 2" width="644" height="469" loading="lazy">
+            <a href="assets/review-02.webp" target="_blank" rel="noopener"><img src="assets/review-02.webp" alt="露友 LINE 好評截圖 2" width="644" height="469" loading="lazy"></a>
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 南投清境</span><span style="font-size:.7rem;color:#6b7280">2026.05</span></div></div>
           </div>
+        </div>
+        <details class="cc-more-reviews"><summary>再看 3 則露友回饋</summary><div class="cc-reviews">
           <div class="cc-review">
-            <img src="assets/review-03.webp" alt="露友 LINE 好評截圖 3" width="640" height="528" loading="lazy">
+            <a href="assets/review-03.webp" target="_blank" rel="noopener"><img src="assets/review-03.webp" alt="露友 LINE 好評截圖 3" width="640" height="528" loading="lazy"></a>
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 宜蘭太平山</span><span style="font-size:.7rem;color:#6b7280">2026.04</span></div></div>
           </div>
           <div class="cc-review">
-            <img src="assets/review-04.webp" alt="露友 LINE 好評截圖 4 — 效果很好" width="638" height="473" loading="lazy">
+            <a href="assets/review-04.webp" target="_blank" rel="noopener"><img src="assets/review-04.webp" alt="露友 LINE 好評截圖 4 — 效果很好" width="638" height="473" loading="lazy"></a>
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 露友分享</span><span style="font-size:.7rem;color:#6b7280">2026.05</span></div></div>
           </div>
           <div class="cc-review">
-            <img src="assets/review-05.webp" alt="露友 LINE 好評截圖 5 — 涼度很可以" width="656" height="531" loading="lazy">
+            <a href="assets/review-05.webp" target="_blank" rel="noopener"><img src="assets/review-05.webp" alt="露友 LINE 好評截圖 5 — 涼度很可以" width="656" height="531" loading="lazy"></a>
             <div class="cc-review-meta"><span style="font-size:.85rem;color:#f59e0b;letter-spacing:2px">★★★★★</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:.73rem;color:#6b7280">📍 露友分享</span><span style="font-size:.7rem;color:#6b7280">2026.06</span></div></div>
           </div>
-        </div>
+        </div></details>
+        <p class="cc-reviews-link"><a href="reviews.html">看完整好評與使用心得 →</a></p>
 
         <!-- ④ 以租代買 -->
         <h2 class="cc-sh">💡 為什麼「以租代買」更聰明？</h2>
@@ -2473,8 +2477,8 @@
 
   <section class="cc-seo-hub" aria-labelledby="seoHubTitle">
     <div class="cc-seo-hub-box">
-      <h2 id="seoHubTitle">露營冷氣租借快速入口</h2>
-      <p>依照「機型、地區、用電、價格」整理重點頁面，方便露友快速判斷，也讓 Google 與 AI 更清楚理解露涼社的服務內容。</p>
+      <h2 id="seoHubTitle">出發前，先看這幾件事</h2>
+      <p>從挑選冷氣到營區用電，把第一次租借需要知道的事整理給你。</p>
       <div class="cc-seo-links">
         <a class="cc-seo-link" href="camping-ac-rental.html"><strong>露營冷氣租借</strong><span>價格、押金、適合帳篷與預約流程總整理。</span></a>
         <a class="cc-seo-link" href="juz-400.html"><strong>艾比酷 JUZ-400</strong><span>適合 3×3 以下睡帳，小家庭與一般睡帳優先看這台。</span></a>
@@ -2506,10 +2510,10 @@
   <!-- Bottom nav -->
   <nav class="cc-nav" aria-label="主要分頁">
     <div class="cc-nav-inner">
-      <button class="cc-nav-btn" type="button" data-tab="rental" style="--c:#34d399;--bg:rgba(52,211,153,.18)" onclick="setTab('rental')"><span class="ico">❄️</span><span class="lbl">租借方案</span></button>
-      <button class="cc-nav-btn" type="button" data-tab="wiki" style="--c:#a78bfa;--bg:rgba(167,139,250,.18)" onclick="setTab('wiki')"><span class="ico">📊</span><span class="lbl">選購指南</span></button>
-      <button class="cc-nav-btn" type="button" data-tab="booking" style="--c:#f87171;--bg:rgba(248,113,113,.18)" onclick="setTab('booking')"><span class="ico">📅</span><span class="lbl">預約方式</span></button>
-      <button class="cc-nav-btn" type="button" data-tab="fridge" style="--c:#22d3ee;--bg:rgba(34,211,238,.18)" onclick="setTab('fridge')"><span class="ico">🎒</span><span class="lbl">其它小物</span></button>
+      <button class="cc-nav-btn" type="button" data-tab="rental" style="--c:#34d399;--bg:rgba(52,211,153,.18)" onclick="setTab('rental')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9 5l3 3 3-3M9 19l3-3 3 3"/></svg></span><span class="lbl">租借方案</span></button>
+      <button class="cc-nav-btn" type="button" data-tab="wiki" style="--c:#a78bfa;--bg:rgba(167,139,250,.18)" onclick="setTab('wiki')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a3 3 0 0 1 3 3v14a4 4 0 0 0-4-2H4zM13 7a3 3 0 0 1 3-3h5v15h-5a4 4 0 0 0-3 2"/></svg></span><span class="lbl">選購指南</span></button>
+      <button class="cc-nav-btn" type="button" data-tab="booking" style="--c:#f87171;--bg:rgba(248,113,113,.18)" onclick="setTab('booking')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18m-12 5 2 2 4-4"/></svg></span><span class="lbl">預約方式</span></button>
+      <button class="cc-nav-btn" type="button" data-tab="fridge" style="--c:#22d3ee;--bg:rgba(34,211,238,.18)" onclick="setTab('fridge')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M6 10h12M9 5v2M9 14v3"/></svg></span><span class="lbl">其它小物</span></button>
     </div>
   </nav>
 
@@ -3166,7 +3170,7 @@ function setTab(id, opts) {
   for (var i = 0; i < pages.length; i++) {
     pages[i].hidden = (pages[i].getAttribute('data-tab') !== id);
   }
-  var btns = document.querySelectorAll('.cc-nav-btn');
+  var btns = document.querySelectorAll('.cc-nav-btn, .cc-top-tab');
   for (var j = 0; j < btns.length; j++) {
     var on = btns[j].getAttribute('data-tab') === id;
     btns[j].classList.toggle('active', on);

@@ -29,8 +29,25 @@ jobs:
       - name: E2E core-flow tests (headless chromium, 11 assertions)
         run: python3 scripts/e2e-test.py
 
-      - name: E2E anti-false-green selftest (must fail → step always OK)
-        run: python3 scripts/e2e-test.py --selftest || true
+      - name: E2E anti-false-green selftest (must exit exactly 1)
+        run: |
+          set +e
+          python3 scripts/e2e-test.py --selftest
+          result=$?
+          set -e
+          test "$result" -eq 1
+
+      - name: Responsive redesign and booking privacy
+        run: python3 scripts/redesign-e2e.py
+
+      - name: Upload browser screenshots and measurements
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: campcool-redesign-browser-evidence
+          path: work/redesign-screenshots/
+          retention-days: 14
+          if-no-files-found: warn
 
       - name: Pages artifact excludes internal docs
         run: bash scripts/prepare-pages-artifact.sh

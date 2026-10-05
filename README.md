@@ -13,8 +13,9 @@ share metadata.
 ## Pages
 | File | Description |
 |---|---|
-| `index.html` | Main site — **self-contained static HTML/CSS + vanilla JS** (no build step, no runtime framework). Four tabbed sections with `#hash` deep-linking. |
+| `index.html` | Main site — **static HTML + vanilla JS and shared assets/site-redesign.css** (no build step, no runtime framework). Four tabbed sections with `#hash` deep-linking. |
 | `btu-guide.html` | Standalone BTU 選購指南 article — static, optimized for LINE/FB share previews. |
+| Product, rental, region, FAQ and review pages | Share the same brand header, reading styles and navigation. `areas/new-taipei.html` is content; the other three area aliases retain redirects. |
 
 ### `index.html` tabs
 - **租借方案** — AC rental info, pricing, locations, 露友 reviews
@@ -51,6 +52,16 @@ python3 -m http.server 8000   # then visit http://localhost:8000/
   confirm and send the message in LINE before Campcool receives it.
 - LINE click tracking fires a GA4 `line_click` event. Buttons that actually open
   LINE also send a Google Ads conversion when `ADS_CONVERSION_LABEL` is set.
-- Primary LINE calls to action use a brief shimmer every three seconds and
-  disable the animation when the visitor prefers reduced motion.
-- Design: mobile-first (≤680px content width), system font stack, no custom fonts.
+- Design: warm white and forest green; desktop content up to 1160px, articles
+  up to 960px, fixed 20px root font. Desktop top navigation and mobile bottom
+  navigation share tab state. See [DESIGN.md](DESIGN.md).
+- Decorative CTA shimmer is disabled. Reduced-motion users receive instant
+  scrolling and no interface animations.
+- Checks: `node scripts/validate-site.mjs`, the same command with `--selftest`,
+  `python3 scripts/e2e-test.py`, and `python3 scripts/redesign-e2e.py`.
+  Browser tests require Playwright and Chromium. The redesign test covers
+  15 content pages, four widths, navigation, equipment and plan carry-over,
+  local-only booking privacy and header LINE tracking.
+  CI uploads screenshots and layout measurements as an Actions artifact;
+  all checks must pass before Pages deploys. Internal docs, scripts and
+  `work/` are excluded from the public Pages artifact.
