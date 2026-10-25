@@ -1581,12 +1581,12 @@
           <span class="cc-section-index">01 / 裝備租借</span>
         </div>
         <div class="cc-models">
-          <article class="cc-model">
-            <div><span class="cc-model-tag">小家庭・一般睡帳</span><h3>艾比酷<br>JUZ-400</h3><p>1–4 人、3×3 以下睡帳。<br>輕量免排水，輕鬆帶著走。</p><div class="cc-model-specs"><span><strong>5100</strong> BTU</span><span><strong>13</strong> kg</span><span><strong>425</strong> W</span></div><button type="button" onclick="quickRecommend('juz')">選這台・查檔期 ↗</button><a href="juz-400.html">完整規格 →</a></div>
+          <article class="cc-model" data-book-model="艾比酷 JUZ-400">
+            <div><span class="cc-model-selected" hidden>目前詢問此機型</span><span class="cc-model-tag">小家庭・一般睡帳</span><h3>艾比酷<br>JUZ-400</h3><p>1–4 人、3×3 以下睡帳。<br>輕量免排水，輕鬆帶著走。</p><div class="cc-model-specs"><span><strong>5100</strong> BTU</span><span><strong>13</strong> kg</span><span><strong>425</strong> W</span></div><button type="button" onclick="quickRecommend('juz')">選這台・查檔期 ↗</button><a href="juz-400.html">完整規格 →</a></div>
             <img src="assets/juz400_product.webp" alt="艾比酷 JUZ-400 露營移動冷氣" width="145" height="168" loading="lazy">
           </article>
-          <article class="cc-model">
-            <div><span class="cc-model-tag">大帳・多人・寵物同帳</span><h3>山水<br>SAC-688</h3><p>超過 3×3 的大帳、4 人以上。<br>想要更強冷房力，優先看這台。</p><div class="cc-model-specs"><span><strong>6300</strong> BTU</span><span><strong>17</strong> kg</span><span><strong>530</strong> W</span></div><button type="button" onclick="quickRecommend('sac')">選這台・查檔期 ↗</button><a href="sac-688.html">完整規格 →</a></div>
+          <article class="cc-model" data-book-model="山水 SAC688">
+            <div><span class="cc-model-selected" hidden>目前詢問此機型</span><span class="cc-model-tag">大帳・多人・寵物同帳</span><h3>山水<br>SAC-688</h3><p>超過 3×3 的大帳、4 人以上。<br>想要更強冷房力，優先看這台。</p><div class="cc-model-specs"><span><strong>6300</strong> BTU</span><span><strong>17</strong> kg</span><span><strong>530</strong> W</span></div><button type="button" onclick="quickRecommend('sac')">選這台・查檔期 ↗</button><a href="sac-688.html">完整規格 →</a></div>
             <img src="assets/sac688_product.webp" alt="山水 SAC-688 露營移動冷氣" width="145" height="168" loading="lazy">
           </article>
         </div>
@@ -1996,8 +1996,25 @@
         <!-- 快速預約表單 -->
         <h2 class="cc-sh" id="bookingForm">📝 LINE 預約訊息產生器</h2>
         <hr class="cc-shdiv">
-        <div class="cc-form">
+        <div class="cc-form cc-booking-form">
           <div class="cc-form-skip">填最少資訊就好，系統會幫你整理成 LINE 訊息。<br>只想先問也可以 → <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('form_skip', true)">直接用 LINE 聯絡我們 →</a></div>
+
+          <div class="cc-booking-layout">
+          <div class="cc-booking-fields">
+            <fieldset class="cc-book-models" id="bkModelChoices" hidden>
+              <legend>這次想帶哪台？</legend>
+              <p class="cc-book-model-hint">先選希望機型，也可以請我們依帳篷推薦。實際檔期仍需透過 LINE 確認。</p>
+              <div class="cc-book-model-options" id="bkModelOptions"></div>
+            </fieldset>
+            <div id="bkModelFallback">
+          <label for="modelSel">希望機型</label>
+          <select id="modelSel" onchange="onModelChange()">
+            <option value="不限／請推薦">不限／請幫我推薦</option>
+            <option value="艾比酷 JUZ-400">艾比酷 JUZ-400</option>
+            <option value="山水 SAC688">山水 SAC688</option>
+          </select>
+            </div>
+          <div class="cc-modelinfo" id="modelInfo"></div>
 
           <div class="cc-form-sec"><span class="n">1</span>聯絡資訊</div>
           <label for="bkName">稱呼</label>
@@ -2067,13 +2084,7 @@
             <option>5</option><option>6</option><option>7+</option>
           </select>
 
-          <label for="modelSel">希望機型</label>
-          <select id="modelSel" onchange="onModelChange()">
-            <option value="不限／請推薦">不限／請幫我推薦</option>
-            <option value="艾比酷 JUZ-400">艾比酷 JUZ-400</option>
-            <option value="山水 SAC688">山水 SAC688</option>
-          </select>
-          <div class="cc-modelinfo" id="modelInfo"></div>
+
 
           <div class="cc-counter-row">
             <span class="cc-counter-label">冷氣台數</span>
@@ -2096,14 +2107,31 @@
           <label for="bkNote">其他租借需求</label>
           <textarea id="bkNote" placeholder="也可代租天幕、營柱、焚火台／觀火台、椅子、沙發等露營用品；或填人數、帳篷大小、特殊取還時間等（選填）"></textarea>
 
+          </div>
+          <aside class="cc-booking-summary" id="bkSummary" aria-labelledby="bkSummaryTitle" hidden>
+            <h3 id="bkSummaryTitle">你的詢問內容</h3>
+            <p class="cc-book-summary-intro">選擇會同步更新在這裡。</p>
+            <dl>
+              <div><dt>希望機型</dt><dd id="bkSummaryModel">不限／請幫我推薦</dd></div>
+              <div><dt>取機日期</dt><dd id="bkSummaryDate">待選擇</dd></div>
+              <div><dt>租借方案</dt><dd id="bkSummaryPlan">兩天一夜（2天1夜・$1,000）</dd></div>
+              <div><dt>取機點</dt><dd id="bkSummaryPickup">竹北</dd></div>
+              <div><dt>設備數量</dt><dd id="bkSummaryQty">冷氣 1 台</dd></div>
+            </dl>
+            <p class="cc-book-summary-note">這是詢問內容，尚未確認庫存或完成預約。整理後請到 LINE 確認並自行送出。</p>
+          </aside>
+          <div class="cc-booking-submit">
           <p class="cc-local-only-note"><span aria-hidden="true">🔒</span><span>內容只在此裝置整理，不會上傳到 Campcool。開啟 LINE 後，由你確認並自行送出。</span></p>
           <div class="cc-form-actions">
-            <button type="button" class="cc-btn-primary" onclick="submitBooking()">整理 LINE 詢問訊息</button>
+            <button type="button" class="cc-btn-primary" id="bkComposeButton" onclick="submitBooking()">整理 LINE 詢問訊息</button>
             <button type="button" class="cc-btn-ghost" onclick="resetBooking()">重新填寫</button>
           </div>
 
+          <p class="cc-booking-update" id="bkComposeStatus" role="status" aria-live="polite"></p>
           <div class="cc-form-res" id="bkRes" role="status" aria-live="polite"></div>
           <p class="cc-form-hint">按下按鈕只會整理並複製訊息；你在 LINE 內送出後，我們才會收到資料。</p>
+          </div>
+          </div>
         </div>
 
         <h2 class="cc-sh">📋 預約流程</h2>
@@ -2793,6 +2821,7 @@ function setPickup(btn) {
   btn.setAttribute('aria-pressed', 'true');
   var hidden = document.getElementById('pickupSel');
   if (hidden) hidden.value = btn.getAttribute('data-v');
+  refreshBookingPreview();
 }
 
 // 由計算機帶入推薦機型後前往表單
@@ -2808,6 +2837,7 @@ function setFieldValue(id, value) {
   el.value = value;
   if (id === 'modelSel' && typeof onModelChange === 'function') onModelChange();
   if (id === 'planSel' && typeof onPlanChange === 'function') onPlanChange();
+  refreshBookingPreview();
 }
 
 function appendNote(text) {
@@ -2816,17 +2846,18 @@ function appendNote(text) {
   var current = note.value.trim();
   if (current.indexOf(text) !== -1) return;
   note.value = current ? (current + '\n' + text) : text;
+  refreshBookingPreview();
 }
 
 function quickRecommend(type) {
   if (type === 'juz') {
     setFieldValue('modelSel', '艾比酷 JUZ-400');
-    setFieldValue('peopleSel', '4');
-    appendNote('情境：3×3 帳／1-4 人，想租 JUZ-400。');
+    if (!document.getElementById('peopleSel').value) setFieldValue('peopleSel', '4');
+    appendNote('選機入口：希望詢問 JUZ-400，帳篷與人數請依已填內容確認。');
   } else if (type === 'sac') {
     setFieldValue('modelSel', '山水 SAC688');
-    setFieldValue('peopleSel', '5');
-    appendNote('情境：4×4 帳／多人／寵物同帳，想租 SAC-688。');
+    if (!document.getElementById('peopleSel').value) setFieldValue('peopleSel', '5');
+    appendNote('選機入口：希望詢問 SAC-688，帳篷與人數請依已填內容確認。');
   } else {
     setFieldValue('modelSel', '不限／請推薦');
     appendNote('情境：不確定帳篷大小，請依帳篷型號或人數推薦機型。');
@@ -3028,6 +3059,7 @@ function adjustCounter(id, delta, min) {
   span.textContent = v;
   var minus = document.getElementById(id + '-minus');
   if (minus) minus.disabled = (v <= min);
+  refreshBookingPreview();
 }
 
 // 方案 select 變動：選「其他（長租／自訂天數）」時顯示專屬欄位
@@ -3036,6 +3068,7 @@ function onPlanChange() {
   var box = document.getElementById('longRentFields');
   if (!sel || !box) return;
   box.style.display = (sel.value === '其他') ? 'block' : 'none';
+  refreshBookingPreview();
 }
 
 // 機型規格（顯示給客戶看的瓦數等資訊）
@@ -3055,10 +3088,99 @@ function onModelChange() {
     box.textContent = '';
     box.style.display = 'none';
   }
+  refreshBookingPreview();
 }
+
+
+// P01: native radio cards; visual adaptation from Uiverse / ChristosMourgelas.
+// Source and full MIT notice: assets/uiverse-NOTICE.txt. No upstream handlers imported.
+var CC_BOOKING_REVISION = 0;
+var CC_BOOKING_SIGNATURE = '';
+var CC_BOOKING_COMPOSING = false;
+function refreshBookingPreview() {
+  var form = document.querySelector('.cc-booking-form');
+  if (!form) return;
+  var value = function (id) { var el = document.getElementById(id); return el ? el.value : ''; };
+  var counter = function (id) { return document.getElementById(id).textContent; };
+  var signature = JSON.stringify(
+    ['bkName','bkPhone','bkDate','planSel','pickupSel','bkSite','bkTent','peopleSel','modelSel','bkNote'].map(value)
+      .concat(['acQty','fridgeQty','rentDays'].map(counter)));
+  if (CC_BOOKING_SIGNATURE && signature !== CC_BOOKING_SIGNATURE) {
+    CC_BOOKING_REVISION++;
+    var result = document.getElementById('bkRes');
+    if (result && result.classList.contains('show')) {
+      result.classList.remove('show');
+      result.textContent = '';
+      document.getElementById('bkComposeStatus').textContent = '內容已更新，請重新整理詢問訊息。';
+    }
+  }
+  CC_BOOKING_SIGNATURE = signature;
+  var model = value('modelSel');
+  form.querySelectorAll('input[name="ccBookingModel"]').forEach(function (radio) {
+    radio.checked = radio.value === model;
+    radio.closest('label').classList.toggle('is-selected', radio.checked);
+  });
+  document.querySelectorAll('.cc-model[data-book-model]').forEach(function (card) {
+    var selected = card.getAttribute('data-book-model') === model;
+    card.classList.toggle('is-selected', selected);
+    card.querySelector('.cc-model-selected').hidden = !selected;
+  });
+  var text = function (id, content) { var el = document.getElementById(id); if (el) el.textContent = content; };
+  var plan = document.getElementById('planSel');
+  var planText = plan.options[plan.selectedIndex].textContent;
+  if (plan.value === '其他') planText += '（' + counter('rentDays') + ' 天）';
+  text('bkSummaryModel', document.getElementById('modelSel').selectedOptions[0].textContent);
+  text('bkSummaryDate', value('bkDate') || '待選擇');
+  text('bkSummaryPlan', planText);
+  text('bkSummaryPickup', value('pickupSel'));
+  text('bkSummaryQty', '冷氣 ' + counter('acQty') + ' 台' +
+    (Number(counter('fridgeQty')) > 0 ? '・移動冰箱 ' + counter('fridgeQty') + ' 台' : ''));
+}
+(function initBookingPreview() {
+  var select = document.getElementById('modelSel');
+  var container = document.getElementById('bkModelOptions');
+  ['艾比酷 JUZ-400','山水 SAC688','不限／請推薦'].forEach(function (value, index) {
+    var option = Array.from(select.options).find(function (item) { return item.value === value; });
+    var label = document.createElement('label');
+    label.className = 'cc-book-model-option' + (index === 2 ? ' cc-book-model-help' : '');
+    var radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'ccBookingModel';
+    radio.value = option.value;
+    var copy = document.createElement('span');
+    var title = document.createElement('strong');
+    title.textContent = option.textContent;
+    var description = document.createElement('span');
+    description.className = 'cc-book-model-detail';
+    description.textContent = MODEL_SPEC[value] || '還不確定帳篷大小？先保留推薦選項。';
+    copy.appendChild(title);
+    copy.appendChild(description);
+    label.appendChild(radio);
+    label.appendChild(copy);
+    container.appendChild(label);
+    radio.addEventListener('change', function () {
+      if (!radio.checked) return;
+      select.value = radio.value;
+      onModelChange();
+    });
+  });
+  document.getElementById('bkModelChoices').hidden = false;
+  document.getElementById('bkModelFallback').hidden = true;
+  document.getElementById('bkSummary').hidden = false;
+  var form = document.querySelector('.cc-booking-form');
+  form.addEventListener('input', function (event) {
+    // Native radios emit input before change; let their change handler update modelSel first.
+    if (event.target.name !== 'ccBookingModel') refreshBookingPreview();
+  });
+  form.addEventListener('change', refreshBookingPreview);
+  refreshBookingPreview();
+})();
 
 // 送出：整理欄位成 LINE 訊息、複製並開啟 LINE
 async function submitBooking() {
+  if (CC_BOOKING_COMPOSING) return;
+  refreshBookingPreview();
+  var revision = CC_BOOKING_REVISION;
   var g = function (id) { var el = document.getElementById(id); return el ? String(el.value).trim() : ''; };
   var t = function (id) { var el = document.getElementById(id); return el ? el.textContent.trim() : ''; };
   var res = document.getElementById('bkRes');
@@ -3112,19 +3234,37 @@ async function submitBooking() {
   var msg = '【露涼社 預約詢問】\n\n' + L1.join('\n') + '\n\n' + L2.join('\n');
   var lineUrl = 'https://line.me/R/oaMessage/%40campcool/?' + encodeURIComponent('[來源:booking_form]\n' + msg);
   var copied = false;
+  var composeButton = document.getElementById('bkComposeButton');
+  var composeStatus = document.getElementById('bkComposeStatus');
+  CC_BOOKING_COMPOSING = true;
+  composeButton.disabled = true;
+  composeButton.setAttribute('aria-busy', 'true');
+  composeStatus.textContent = '正在整理詢問訊息…';
 
   try {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       await navigator.clipboard.writeText(msg);
       copied = true;
     }
-  } catch (e) {}
+  } catch (e) {
+    // The readable message below remains available for manual copying.
+  } finally {
+    CC_BOOKING_COMPOSING = false;
+    composeButton.disabled = false;
+    composeButton.removeAttribute('aria-busy');
+  }
+  refreshBookingPreview();
+  if (revision !== CC_BOOKING_REVISION) {
+    composeStatus.textContent = '內容已修改，請重新整理最新的詢問訊息。';
+    return;
+  }
+  composeStatus.textContent = copied ? '' : '未能自動複製，請選取下方訊息手動複製。';
 
   res.innerHTML =
     '<div class="rt">' + (copied ? '✅ 訊息已複製' : '✅ 訊息已在此裝置整理完成') + '</div>' +
     '<div class="cc-local-state">資料尚未上傳；請開啟 LINE，確認內容後自行送出。</div>' +
     '<a class="rbtn cc-line-shimmer" id="bkLineLink" target="_blank" rel="noopener">💬 開啟 LINE 確認並送出</a>' +
-    '<pre id="bkMsg"></pre>';
+    '<pre id="bkMsg" tabindex="0" aria-label="可選取並手動複製的詢問訊息"></pre>';
   res.classList.add('show');
   res.querySelector('#bkMsg').textContent = msg;
   var lineLink = res.querySelector('#bkLineLink');
@@ -3160,6 +3300,8 @@ function resetBooking() {
   onPlanChange();
   var res = document.getElementById('bkRes');
   if (res) { res.classList.remove('show'); res.innerHTML = ''; }
+  document.getElementById('bkComposeStatus').textContent = '';
+  refreshBookingPreview();
 }
 
 // 分頁切換：顯示對應區塊、更新導覽列、寫入網址 hash 與 localStorage

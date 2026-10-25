@@ -225,3 +225,51 @@ body.cc-site{margin:0;background:var(--cc-paper);color:var(--cc-ink);font-family
 .cc-more-reviews>.cc-reviews{padding:0 18px 18px;margin:0}
 .cc-reviews-link a{display:inline-flex;align-items:center;min-height:44px;color:var(--cc-green);font-size:.75rem;font-weight:700}
 @media(min-width:641px){.cc-site .cc-reviews{grid-template-columns:repeat(2,1fr)}}
+
+
+/* P01 booking selection. Visual adaptation of ChristosMourgelas / polite-rattlesnake-85
+   at Galaxy adbd2adde0a299a3956ea288fb444ec01891ca41.
+   From Uiverse.io by ChristosMourgelas. Full MIT terms: assets/uiverse-NOTICE.txt.
+   Changes: scoped classes, brand tokens, visible native radios, keyboard focus,
+   no decorative animation; all product values/handlers remain local. */
+.cc-site .cc-booking-form{max-width:none}
+.cc-booking-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:0 28px;align-items:start}
+.cc-booking-fields,.cc-booking-submit{min-width:0;grid-column:1}
+.cc-booking-fields .cc-book-models{border:0;padding:0;margin:4px 0 24px;min-width:0}
+.cc-book-models legend{font-size:1.15rem;font-weight:800;color:var(--cc-green);padding:0}
+.cc-book-model-hint{font-size:.8rem;line-height:1.7;color:var(--cc-muted);margin:8px 0 16px}
+.cc-book-model-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cc-site .cc-form .cc-book-model-option{display:flex;align-items:flex-start;gap:12px;padding:18px 14px;margin:0;border:2px solid #b7c5b9;border-radius:12px;background:var(--cc-white);color:var(--cc-ink);min-height:64px;cursor:pointer}
+.cc-site .cc-form .cc-book-model-option>span{min-width:0;overflow-wrap:anywhere}
+.cc-book-model-option strong{display:block;font-size:.9rem;line-height:1.5}
+.cc-book-model-detail{display:block;margin-top:6px;font-size:.72rem;font-weight:400;line-height:1.7;color:var(--cc-muted)}
+.cc-site .cc-form .cc-book-model-option input{flex:0 0 20px;width:20px;height:20px;min-height:20px;margin:4px 0 0;accent-color:var(--cc-green);box-shadow:none}
+.cc-site .cc-form .cc-book-model-option.is-selected{border-color:var(--cc-green);background:var(--cc-sage)}
+.cc-site .cc-form .cc-book-model-option:focus-within{outline:3px solid var(--cc-accent);outline-offset:3px}
+.cc-book-model-help{grid-column:1 / -1}
+.cc-booking-summary{grid-column:2;grid-row:1 / span 2;position:sticky;top:110px;align-self:start;min-width:0;background:var(--cc-paper);border:1px solid var(--cc-line);border-radius:14px;padding:22px;overflow-wrap:anywhere}
+.cc-booking-summary h3{margin:0;font-size:1.1rem;color:var(--cc-green);line-height:1.5}
+.cc-book-summary-intro{font-size:.75rem;color:var(--cc-muted);line-height:1.7;margin:8px 0 22px}
+.cc-booking-summary dl{margin:0}.cc-booking-summary dl>div+div{margin-top:18px}
+.cc-booking-summary dt{font-size:.72rem;color:var(--cc-muted);margin-bottom:5px}
+.cc-booking-summary dd{font-size:.85rem;font-weight:700;color:var(--cc-ink);margin:0;line-height:1.6}
+.cc-book-summary-note{border-top:1px solid var(--cc-line);padding-top:16px;margin:22px 0 0;color:var(--cc-muted);font-size:.72rem;line-height:1.8}
+.cc-booking-update{font-size:.78rem;line-height:1.7;color:var(--cc-green);overflow-wrap:anywhere}.cc-booking-update:empty{display:none}
+.cc-booking-form .cc-form-actions{flex-wrap:wrap}.cc-booking-form .cc-form-actions button{min-height:52px;min-width:140px}
+.cc-booking-form .cc-btn-primary:disabled{opacity:.65;cursor:wait}
+.cc-model.is-selected{outline:2px solid var(--cc-green);outline-offset:2px}
+.cc-model-selected{display:block;color:var(--cc-green);font-size:.7rem;font-weight:800;margin-bottom:10px}
+.cc-booking-form #bkMsg:focus-visible{outline:3px solid var(--cc-accent);outline-offset:3px}
+@media(max-width:1023px){
+ .cc-booking-layout{display:flex;flex-direction:column;gap:22px}
+ .cc-booking-fields,.cc-booking-submit,.cc-booking-summary{width:100%}
+ .cc-booking-summary{position:static}
+ .cc-booking-summary dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+ .cc-booking-summary dl>div+div{margin:0}
+}
+@media(max-width:640px){
+ .cc-book-model-options{grid-template-columns:1fr}
+ .cc-site .cc-form .cc-book-model-option{padding:16px 14px}
+ .cc-booking-summary{padding:18px}
+ .cc-booking-summary dl{grid-template-columns:1fr}
+}
