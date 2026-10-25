@@ -214,6 +214,7 @@ async def main(base):
                   await page.locator('#planSel').input_value()=='其他' and
                   await page.locator('#peopleSel').input_value()=='7+' and
                   'P01 fictional inquiry note' in await page.locator('#bkNote').input_value() and
+                  '1-4 人' not in await page.locator('#bkNote').input_value() and
                   'JUZ-400' in await page.locator('#bkSummaryModel').inner_text())
             await page.wait_for_timeout(100)
             await page.screenshot(path=str(OUTPUT/'p01-models-375.png'))

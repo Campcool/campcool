@@ -2853,11 +2853,11 @@ function quickRecommend(type) {
   if (type === 'juz') {
     setFieldValue('modelSel', '艾比酷 JUZ-400');
     if (!document.getElementById('peopleSel').value) setFieldValue('peopleSel', '4');
-    appendNote('情境：3×3 帳／1-4 人，想租 JUZ-400。');
+    appendNote('選機入口：希望詢問 JUZ-400，帳篷與人數請依已填內容確認。');
   } else if (type === 'sac') {
     setFieldValue('modelSel', '山水 SAC688');
     if (!document.getElementById('peopleSel').value) setFieldValue('peopleSel', '5');
-    appendNote('情境：4×4 帳／多人／寵物同帳，想租 SAC-688。');
+    appendNote('選機入口：希望詢問 SAC-688，帳篷與人數請依已填內容確認。');
   } else {
     setFieldValue('modelSel', '不限／請推薦');
     appendNote('情境：不確定帳篷大小，請依帳篷型號或人數推薦機型。');
@@ -3168,7 +3168,10 @@ function refreshBookingPreview() {
   document.getElementById('bkModelFallback').hidden = true;
   document.getElementById('bkSummary').hidden = false;
   var form = document.querySelector('.cc-booking-form');
-  form.addEventListener('input', refreshBookingPreview);
+  form.addEventListener('input', function (event) {
+    // Native radios emit input before change; let their change handler update modelSel first.
+    if (event.target.name !== 'ccBookingModel') refreshBookingPreview();
+  });
   form.addEventListener('change', refreshBookingPreview);
   refreshBookingPreview();
 })();
