@@ -56,3 +56,12 @@ CI 的 campcool-redesign-browser-evidence artifact 提供手機／桌面截圖�
 measurements.json、failures.json；保留 14 天，必要時重跑 workflow。
 工作環境無法啟動時，完整內容與瀏覽器測試以此次 GitHub CI 結果為準。
 內部 Markdown、腳本與測試產物不在正式網站公開產物內。
+
+
+## 2026-10-25 P01 局部延伸
+
+使用者已同意 P01，保持暖紙／森林綠、20px 根字級與原有照片。預約區以原生三選一機型卡片開始，推薦仍為預設；選取框線、原生 radio 與焦點外框分工，不依賴 hover 或顏色單獨表達。原 modelSel 保留作既有 handler 資料來源及初始化失敗時的原生選擇外觀。
+
+桌機預約區左欄保留完整欄位，右欄 sticky 摘要只列機型、日期、方案、取機點、設備數量；1023px 以下單欄，摘要在整理按鈕前。摘要不是報價、庫存或訂單。錯誤、等待、可手動複製與內容修改須重新整理各自保留真實文字，不用動畫表示成功。
+
+cc-book-* 與 cc-booking-* 是此模組作用域，不擴充成全站通用覆寫。Uiverse 改作來源與 MIT 見 assets/uiverse-NOTICE.txt；不導入付費素材、字型服務或新依賴。

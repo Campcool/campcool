@@ -171,6 +171,120 @@ async def main(base):
                   any(e[:2]==['event','booking_message_composed'] for e in events) and
                   '0999999999' not in json.dumps(events))
             await page.screenshot(path=str(OUTPUT/'booking-390.png'),full_page=True)
+            # P01: native choice cards, live summary and truthful LINE handoff.
+            await page.set_viewport_size({'width':375,'height':900})
+            await page.goto(base+'/index.html#booking',wait_until='networkidle')
+            await page.evaluate('resetBooking()')
+            radios=page.locator('input[name="ccBookingModel"]')
+            check('P01: exactly three native model choices',await radios.count()==3)
+            check('P01: recommendation remains the default',
+                  await radios.nth(2).is_checked() and
+                  await page.locator('#modelSel').input_value()=='不限／請推薦')
+            await radios.nth(0).check()
+            await radios.nth(0).focus()
+            await page.keyboard.press('ArrowDown')
+            check('P01: keyboard changes original model and summary',
+                  await radios.nth(1).is_checked() and
+                  await page.locator('#modelSel').input_value()=='山水 SAC688' and
+                  '山水 SAC688' in await page.locator('#bkSummaryModel').inner_text())
+            check('P01: keyboard focus visible on selected card',
+                  await radios.nth(1).evaluate("e=>parseFloat(getComputedStyle(e.closest('label')).outlineWidth)>=3"))
+            date_min=await page.locator('#bkDate').get_attribute('min')
+            await page.locator('#bkDate').fill(date_min)
+            await page.locator('#planSel').select_option('其他')
+            await page.locator('button[onclick="adjustCounter(\'rentDays\',1,3)"]').click()
+            await page.locator('button[onclick="adjustCounter(\'acQty\',1,1)"]').click()
+            await page.locator('button[onclick="adjustCounter(\'fridgeQty\',1,0)"]').click()
+            await page.locator('.cc-pick-btn[data-v="內湖"]').click()
+            check('P01: date, custom days, pickup and quantities stay current',
+                  await page.locator('#bkSummaryDate').inner_text()==date_min and
+                  '4 天' in await page.locator('#bkSummaryPlan').inner_text() and
+                  await page.locator('#bkSummaryPickup').inner_text()=='內湖' and
+                  await page.locator('#bkSummaryQty').inner_text()=='冷氣 2 台・移動冰箱 1 台')
+            await page.locator('#bkName').fill('P01 Fixture')
+            await page.locator('#bkPhone').fill('0999999999')
+            await page.locator('#bkNote').fill('P01 fictional inquiry note')
+            await page.locator('#peopleSel').select_option('7+')
+            await page.evaluate('setTab("rental")')
+            await page.locator('.cc-model button').first.click()
+            check('P01: home model entry preserves existing customer choices',
+                  await page.locator('#bkName').input_value()=='P01 Fixture' and
+                  await page.locator('#bkPhone').input_value()=='0999999999' and
+                  await page.locator('#bkDate').input_value()==date_min and
+                  await page.locator('#planSel').input_value()=='其他' and
+                  await page.locator('#peopleSel').input_value()=='7+' and
+                  'P01 fictional inquiry note' in await page.locator('#bkNote').input_value() and
+                  'JUZ-400' in await page.locator('#bkSummaryModel').inner_text())
+            await page.wait_for_timeout(100)
+            await page.screenshot(path=str(OUTPUT/'p01-models-375.png'))
+            await page.set_viewport_size({'width':1440,'height':1000})
+            await page.locator('#bookingForm').scroll_into_view_if_needed()
+            await page.screenshot(path=str(OUTPUT/'p01-models-1440.png'))
+            await measure(page,'P01 booking choices',1440)
+            await page.set_viewport_size({'width':375,'height':900})
+            await page.locator('#bkSummary').scroll_into_view_if_needed()
+            await page.screenshot(path=str(OUTPUT/'p01-summary-375.png'))
+            await measure(page,'P01 booking summary',375)
+            await page.evaluate("""Object.defineProperty(navigator,'clipboard',{configurable:true,
+              value:{writeText:()=>Promise.reject(new Error('clipboard denied fixture'))}});""")
+            await page.evaluate('dataLayer.length=0')
+            before=len(external)
+            await page.locator('#bkComposeButton').click()
+            await page.wait_for_function("document.querySelector('#bkMsg') !== null")
+            check('P01: clipboard refusal retains selectable manual-copy message',
+                  await page.locator('#bkMsg').get_attribute('tabindex')=='0' and
+                  '手動複製' in await page.locator('#bkComposeStatus').inner_text() and
+                  'P01 Fixture' in await page.locator('#bkMsg').inner_text())
+            events=json.loads(await page.evaluate('JSON.stringify(dataLayer.map(x=>Array.from(x)))'))
+            check('P01: composing records one event and no contact conversion or request',
+                  len([e for e in events if e[:2]==['event','booking_message_composed']])==1 and
+                  not any(e[:2]==['event','line_click'] or e[:2]==['event','conversion'] for e in events) and
+                  len(external)==before)
+            await page.locator('#bkLineLink').evaluate("e=>e.addEventListener('click',event=>event.preventDefault())")
+            await page.locator('#bkLineLink').click()
+            events=json.loads(await page.evaluate('JSON.stringify(dataLayer.map(x=>Array.from(x)))'))
+            check('P01: actual LINE click records contact and conversion once',
+                  len([e for e in events if e[:2]==['event','line_click']])==1 and
+                  len([e for e in events if e[:2]==['event','conversion']])==1)
+            await page.locator('#bkDate').fill('2099-05-06')
+            check('P01: editing removes the outdated LINE message and link',
+                  await page.locator('#bkLineLink').count()==0 and
+                  await page.locator('#bkMsg').count()==0 and
+                  await page.locator('#bkSummaryDate').inner_text()=='2099-05-06')
+            await page.evaluate("""window.__copyCalls=0;
+              Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:()=>{
+                window.__copyCalls++;return new Promise(resolve=>window.__finishCopy=resolve);
+              }}});
+              void submitBooking();void submitBooking();""")
+            check('P01: repeated compose is locked while clipboard is pending',
+                  await page.locator('#bkComposeButton').is_disabled() and
+                  await page.evaluate('window.__copyCalls')==1)
+            await page.locator('#bkNote').fill('P01 revised while copy pending')
+            await page.evaluate('window.__finishCopy()')
+            await page.wait_for_function("!document.getElementById('bkComposeButton').disabled")
+            check('P01: late clipboard completion cannot restore stale LINE content',
+                  await page.locator('#bkLineLink').count()==0 and
+                  '重新整理' in await page.locator('#bkComposeStatus').inner_text())
+            await page.evaluate("""Object.defineProperty(navigator,'clipboard',{configurable:true,
+              value:{writeText:()=>Promise.resolve()}});void submitBooking();""")
+            await page.wait_for_function("document.querySelector('#bkMsg') !== null")
+            check('P01: retry uses the latest message',
+                  'P01 revised while copy pending' in await page.locator('#bkMsg').inner_text() and
+                  '2099-05-06' in await page.locator('#bkMsg').inner_text())
+            await page.locator('#bkNote').fill('P01 長文字示意。'*80)
+            await measure(page,'P01 long text',375)
+            await page.evaluate('resetBooking()')
+            check('P01: reset synchronizes model, summary, pickup and counters',
+                  await radios.nth(2).is_checked() and
+                  await page.locator('#bkSummaryDate').inner_text()=='待選擇' and
+                  await page.locator('#bkSummaryPickup').inner_text()=='竹北' and
+                  await page.locator('#bkSummaryQty').inner_text()=='冷氣 1 台' and
+                  await page.locator('#bkMsg').count()==0)
+            check('P01: fixture PII stays out of requests and analytics',
+                  all('0999999999' not in json.dumps(r) and 'P01 Fixture' not in json.dumps(r)
+                      and 'P01 fictional inquiry note' not in json.dumps(r) for r in external) and
+                  '0999999999' not in await page.evaluate('JSON.stringify(dataLayer)'))
+
             await page.goto(base+'/juz-400.html',wait_until='networkidle')
             await page.evaluate("""document.querySelector('.cc-header-contact').addEventListener(
               'click',e=>e.preventDefault());""")
