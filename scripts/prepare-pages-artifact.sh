@@ -11,7 +11,6 @@ readonly -a deny_rules=(
   '/.github/***'
   '/AI-Skills/***'
   '/scripts/***'
-  '/*.md'
   '/*.jsx'
 )
 readonly -a public_rules=(
@@ -22,6 +21,10 @@ readonly -a public_rules=(
   '/robots.txt'
   '/sitemap.xml'
   '/llms.txt'
+  '/pricing.md'
+  '/services.md'
+  '/areas.md'
+  '/faq.md'
   '/assets/***'
   '/areas/***'
 )
@@ -31,6 +34,10 @@ readonly -a required_paths=(
   'robots.txt'
   'sitemap.xml'
   'llms.txt'
+  'pricing.md'
+  'services.md'
+  'areas.md'
+  'faq.md'
   'assets'
 )
 readonly -a denied_paths=(
