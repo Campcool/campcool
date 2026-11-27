@@ -334,8 +334,13 @@ async def main(base):
                 if width in (375,1440):
                     await page.screenshot(path=str(OUTPUT/f'journey-comparison-{width}.png'),full_page=True)
                 await page.get_by_role('link',name='詢問 SAC-688',exact=True).click()
+                # A locator can resolve in the new document before its final script
+                # applies the public model code. Wait for the user-visible handoff.
+                await page.wait_for_function("""() => location.hash === '#booking' &&
+                  document.querySelector('#modelSel')?.value === '山水 SAC688'""", timeout=10000)
                 check('journey: comparison public model link selects SAC',
-                      await page.locator('#modelSel').input_value()=='山水 SAC688')
+                      await page.locator('#modelSel').input_value()=='山水 SAC688' and
+                      'SAC688' in await page.locator('#bkSummaryModel').inner_text())
             await page.goto(base+'/index.html?model=untrusted#booking',wait_until='networkidle')
             check('journey: unknown model URL cannot set arbitrary option',
                   await page.locator('#modelSel').input_value()=='不限／請推薦')
@@ -366,3 +371,4 @@ if __name__=='__main__':
     finally:
         server.shutdown()
         server.server_close()
+
