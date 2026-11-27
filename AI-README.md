@@ -1,5 +1,12 @@
 # Campcool AI 維護指南
 
+## 2026-11-27 搜尋曝光優化（本輪）
+
+新增兩款露營冷氣比較入口，修正商家評論結構化資料。新增 compare-camping-ac.html，從首頁、兩款機型與租借方案提供原生連結；比較帳篷、功率、價格、取機與確認條件。移除自家 LocalBusiness 的 review/aggregateRating，既有可見評論及租借條件保留。
+
+基準 `643895f47c20f1ab467c8f95968e50ac08f05b92`。node scripts/validate-site.mjs；--selftest（含破壞反例）；搜尋門禁16個HTML、21個sitemap項目。 修改、回退、CI／正式驗證界線及成效待辦見 [本輪交付](docs/search-exposure-2026-11-27.md)。待辦：核對本輪CI／正式新頁，並以GSC及實際營運樣本追蹤。新增正式產物搜尋門禁；未驗排名、AI引用、正式LINE收件或營收。既有歷史待辦按日期保留，本輪授權優先。
+
+
 這份文件提供 AI 開發代理與後續維護者目前有效的產品事實、改版決策及防回歸規則。一般專案說明與本機預覽方式請見 [`README.md`](README.md)；公開的服務、價格與地區資料分別以 [`services.md`](services.md)、[`pricing.md`](pricing.md)、[`areas.md`](areas.md) 及 [`faq.md`](faq.md) 為準。
 
 最後更新：2026-10-25（P01 機型選擇與詢問摘要）

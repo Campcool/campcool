@@ -50,7 +50,9 @@ jobs:
           if-no-files-found: warn
 
       - name: Pages artifact excludes internal docs
-        run: bash scripts/prepare-pages-artifact.sh
+        run: |
+          bash scripts/prepare-pages-artifact.sh
+          node scripts/check-search.mjs _site
 
       - name: GA4 config endpoint probe
         run: |
