@@ -1518,6 +1518,7 @@
 </style>
 <link rel="stylesheet" href="assets/site-redesign.css?v=20261004">
 <meta name="theme-color" content="#244b3b">
+<link rel="stylesheet" href="assets/visitor-journey.css?v=20261128">
 </head>
 <body class="cc-site cc-home">
 <a class="cc-skip" href="#main-content">跳到主要內容</a>
@@ -1552,14 +1553,14 @@
             <h1 class="cc-hero-title">露營冷氣租借，<br><em>把涼爽帶進山裡。</em></h1>
             <p class="cc-hero-sub">喜歡親近自然，也值得好好睡一晚。<br>冷氣、冰箱與露營小物，用租的輕鬆出發。</p>
             <div class="cc-hero-actions">
-              <button type="button" class="cc-hero-cta" onclick="goBooking('hero')">查詢檔期・開始預約 <span aria-hidden="true">↗</span></button>
-              <a class="cc-hero-secondary" href="how-it-works.html">第一次租？看流程 <span aria-hidden="true">→</span></a>
+              <button type="button" class="cc-hero-cta" onclick="goBooking('hero')">已選好？詢問檔期</button>
+              <a class="cc-hero-secondary" href="#quickPicker" data-journey-anchor>第一次租？幫我選機</a>
             </div>
-            <p class="cc-hero-rent-note">兩天一夜 $1,000 起 · 冷氣押金每台 $3,000</p>
+            <p class="cc-hero-rent-note">兩天一夜租金 $1,000／台 · 押金 $3,000／台另計</p>
           </div>
           <figure class="cc-home-hero-photo">
             <img src="assets/homepage_hero.webp" alt="山林帳篷與移動冷氣的露營情境示意" width="1392" height="752" fetchpriority="high">
-            <figcaption class="cc-photo-note"><span>把裝備交給我們<br><small>租借方案・預約取還</small></span><strong>輕裝出發 ↗</strong></figcaption>
+            <figcaption class="cc-photo-note"><span>把裝備交給我們<br><small>露營情境示意・非顧客實拍</small></span><strong>輕裝出發 ↗</strong></figcaption>
           </figure>
         </div>
         <div class="cc-service-strip" aria-label="租借服務重點">
@@ -1570,25 +1571,28 @@
       </div>
       <div class="cc-body">
 
-        <section class="cc-announcements" aria-labelledby="ccAnnTitle">
-          <div class="cc-ann-head">
-            <span class="cc-ann-kicker" id="ccAnnKind">檔期提醒</span>
-            <span class="cc-ann-status" id="ccAnnStatus">1 / 4</span>
+
+        <nav class="cc-journey-tasks" aria-label="先找到你需要的資訊">
+          <a href="#quickPicker" data-journey-anchor><span>第一次租借</span><strong>幫我挑冷氣</strong><small>依帳篷與人數找方向</small></a>
+          <a href="#rentalPricing" data-journey-anchor><span>先安排預算</span><strong>租金與押金</strong><small>看方案、配件與另計費用</small></a>
+          <a href="#pickupLocations" data-journey-anchor><span>準備出發</span><strong>找順路取還點</strong><small>六個據點皆採預約制</small></a>
+        </nav>
+        <section class="cc-quick-picker" id="quickPicker" aria-labelledby="quickPickerTitle">
+          <div class="cc-picker-intro"><p class="cc-journey-eyebrow">先看你的帳篷</p><h2 id="quickPickerTitle">不用先懂規格，<br>也能找到選機方向。</h2><p>帳篷大小、睡覺人數與營區用電一起看。冷房效果仍受日照、隔熱與密閉程度影響。</p><a href="compare-camping-ac.html">完整比較兩款冷氣</a></div>
+          <div class="cc-picker-controls" id="quickPickerControls" hidden>
+            <label for="quickTent">睡帳大小</label><select id="quickTent"><option value="unknown">還不確定</option><option value="small">3×3（300×300cm）以下</option><option value="large">超過3×3的大帳</option><option value="open">開放式天幕／客廳帳</option></select>
+            <label for="quickPeople">睡覺人數</label><select id="quickPeople"><option value="unknown">還不確定</option><option value="small">1–4 人</option><option value="large">5 人以上</option></select>
+            <label for="quickPower">營區是否允許使用冷氣？</label><select id="quickPower"><option value="unknown">尚未向營區確認</option><option value="yes">已詢問營區，允許使用</option><option value="no">營區不允許</option></select>
+            <div class="cc-picker-result" role="status" aria-live="polite"><strong id="quickResultTitle">不知道尺寸也沒關係。</strong><p id="quickResultText">可先看兩機比較，或提供帳篷型號讓我們協助。</p></div>
+            <button type="button" class="cc-journey-primary" id="quickApply">請協助推薦機型</button>
+            <p class="cc-picker-caveat">有插座不等於允許使用冷氣；允許使用後，仍需核對供電與同迴路設備。</p>
           </div>
-          <h2 class="cc-ann-title" id="ccAnnTitle">本週熱門檔期請先詢問</h2>
-          <p class="cc-ann-text" id="ccAnnText">週末與連假詢問量較高，建議先用 LINE 確認 JUZ-400、SAC-688 與冰箱檔期。</p>
-          <div class="cc-ann-footer">
-            <div class="cc-ann-dots" id="ccAnnDots" aria-label="公告切換"></div>
-            <div class="cc-ann-actions">
-              <button type="button" class="cc-ann-link cc-ann-toggle" id="ccAnnToggle" aria-pressed="false">暫停輪播</button>
-              <a class="cc-ann-link" id="ccAnnLink" href="#booking" onclick="goBooking('announcement');return false;">查詢檔期</a>
-            </div>
-          </div>
+        <noscript><p>不使用 JavaScript 仍可<a href="compare-camping-ac.html">閱讀機型比較</a>，或<a href="https://lin.ee/8maotVi">用 LINE 詢問</a>。</p></noscript>
         </section>
 
         <div class="cc-section-heading" id="rentalModels">
           <div><h2>你的帳篷，適合哪一台？</h2><p>先看空間與人數，再選擇適合的冷房力。</p></div>
-          <span class="cc-section-index">01 / 裝備租借</span>
+          <a class="cc-journey-compare-link" href="compare-camping-ac.html">把兩台放在一起比較</a>
         </div>
         <div class="cc-models">
           <article class="cc-model" data-book-model="艾比酷 JUZ-400">
@@ -1728,6 +1732,24 @@
           </div>
           <div class="cc-zones-footer">— 台中以南目前暫不開放 —</div>
         </div>
+
+        <section class="cc-journey-ready" aria-label="租借前後的下一步"><div><h2>第一次租，取機時會教你。</h2><p>主機、排風管、基本使用說明與開機測試一起確認；營區電費另計，延長線可自備或加購。</p><a href="how-it-works.html">看完整租借流程</a></div><div><h2>已租借，想改期或確認退還？</h2><p>準備原本的詢問日期或租借資訊，透過原 LINE 對話聯絡。取消退費及特殊天候依既有規則確認。</p><a href="faq.html">查取消、押金與歸還問題</a></div></section>
+
+        <section class="cc-announcements" aria-labelledby="ccAnnTitle">
+          <div class="cc-ann-head">
+            <span class="cc-ann-kicker" id="ccAnnKind">檔期提醒</span>
+            <span class="cc-ann-status" id="ccAnnStatus">1 / 4</span>
+          </div>
+          <h2 class="cc-ann-title" id="ccAnnTitle">本週熱門檔期請先詢問</h2>
+          <p class="cc-ann-text" id="ccAnnText">週末與連假詢問量較高，建議先用 LINE 確認 JUZ-400、SAC-688 與冰箱檔期。</p>
+          <div class="cc-ann-footer">
+            <div class="cc-ann-dots" id="ccAnnDots" aria-label="公告切換"></div>
+            <div class="cc-ann-actions">
+              <button type="button" class="cc-ann-link cc-ann-toggle" id="ccAnnToggle" aria-pressed="false">暫停輪播</button>
+              <a class="cc-ann-link" id="ccAnnLink" href="#booking" onclick="goBooking('announcement');return false;">查詢檔期</a>
+            </div>
+          </div>
+        </section>
 
         <!-- Reviews -->
         <h2 class="cc-sh" id="reviews">⭐ 露友真實好評</h2>
@@ -1997,17 +2019,18 @@
       <div class="cc-hero" style="background:linear-gradient(135deg,#7f1d1d,#dc2626)">
         <div class="cc-hero-ovl"></div>
         <div class="cc-hero-badge">💬 LINE 通常 1 小時內回覆</div>
-        <h2 class="cc-hero-title">📋 預約簡單，3 步驟搞定</h2>
-        <p class="cc-hero-sub">LINE 詢問 → 確認檔期 → 付款完成，不用等</p>
+        <h2 class="cc-hero-title">先整理好，詢問更輕鬆。</h2>
+        <p class="cc-hero-sub">先整理需求，再由 LINE 確認機型、檔期與報價。</p>
       </div>
       <div class="cc-body">
         <div class="cc-alert g"><span class="ic">✅</span><div><strong>預約方式</strong>：請透過 LINE 官方帳號詢問檔期，確認後付款即完成預約。</div></div>
 
         <!-- 快速預約表單 -->
-        <h2 class="cc-sh" id="bookingForm">📝 LINE 預約訊息產生器</h2>
+        <h2 class="cc-sh" id="bookingForm">整理這次的租借需求</h2>
         <hr class="cc-shdiv">
+        <ol class="cc-journey-steps" aria-label="詢問與預約流程"><li><strong>整理需求</strong><span>選機型、日期與取機點</span></li><li><strong>到 LINE 確認</strong><span>自行傳送，核對檔期與報價</span></li><li><strong>確認後安排</strong><span>依約付款與取還</span></li></ol>
         <div class="cc-form cc-booking-form">
-          <div class="cc-form-skip">填最少資訊就好，系統會幫你整理成 LINE 訊息。<br>只想先問也可以 → <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('form_skip', true)">直接用 LINE 聯絡我們 →</a></div>
+          <div class="cc-form-skip">稱呼與手機可先留白；日期、方案和希望機型會整理成 LINE 訊息。<br>只想先問也可以 → <a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('form_skip', true)">直接用 LINE 聯絡我們 →</a></div>
 
           <div class="cc-booking-layout">
           <div class="cc-booking-fields">
@@ -2030,12 +2053,12 @@
           <label for="bkName">稱呼</label>
           <input type="text" id="bkName" placeholder="怎麼稱呼你？（選填）">
 
-          <label for="bkPhone">手機號碼</label>
+          <label for="bkPhone">手機號碼（選填，可於 LINE 補充）</label>
           <input type="tel" id="bkPhone" inputmode="numeric" autocomplete="tel" placeholder="方便聯絡的手機號碼">
 
           <div class="cc-form-sec"><span class="n">2</span>租借方案</div>
           <label for="bkDate">取機日期</label>
-          <input type="date" id="bkDate">
+          <input type="date" id="bkDate" aria-describedby="bkDateHint"><p id="bkDateHint" class="cc-form-hint">日期還沒決定？<a href="https://lin.ee/8maotVi" target="_blank" rel="noopener" onclick="logLineClick('date_unknown',true)">先用 LINE 討論</a>，不必為了詢問填入假日期。</p>
 
           <label for="planSel">租借方案</label>
           <select id="planSel" onchange="onPlanChange()">
@@ -2127,8 +2150,12 @@
               <div><dt>租借方案</dt><dd id="bkSummaryPlan">兩天一夜（2天1夜・$1,000）</dd></div>
               <div><dt>取機點</dt><dd id="bkSummaryPickup">竹北</dd></div>
               <div><dt>設備數量</dt><dd id="bkSummaryQty">冷氣 1 台</dd></div>
+              <div><dt>預計還機日</dt><dd id="bkSummaryReturn">依日期與方案確認</dd></div>
+              <div><dt>冷氣租金參考</dt><dd id="bkSummaryRent">NT$1,000</dd></div>
+              <div><dt>冷氣押金（另計）</dt><dd id="bkSummaryDeposit">NT$3,000</dd></div>
+              <div id="bkSummaryFridgeRow" hidden><dt>冰箱租金參考</dt><dd id="bkSummaryFridge"></dd></div>
             </dl>
-            <p class="cc-book-summary-note">這是詢問內容，尚未確認庫存或完成預約。整理後請到 LINE 確認並自行送出。</p>
+            <p class="cc-book-summary-note">以上為常規費用參考，不含小物加購與營區電費；多台、長租或特殊檔期請確認正式報價。尚未確認庫存或完成預約。</p>
           </aside>
           <div class="cc-booking-submit">
           <p class="cc-local-only-note"><span aria-hidden="true">🔒</span><span>內容只在此裝置整理，不會上傳到 Campcool。開啟 LINE 後，由你確認並自行送出。</span></p>
@@ -2579,6 +2606,7 @@
 <!-- ── 分頁切換 + LINE 點擊轉換追蹤（Google Ads + GA4）── -->
 <script>
 var TAB_IDS = ['rental','wiki','booking','fridge'];
+var CC_INITIAL_JOURNEY_ANCHOR = location.hash.slice(1);
 
 /* ── Google Ads 轉換標籤 ──────────────────────────────────
    只有「真的開啟 LINE 聯絡」的動作會回傳轉換（logLineClick 第二參數 true）；
@@ -3145,6 +3173,7 @@ function refreshBookingPreview() {
   text('bkSummaryPickup', value('pickupSel'));
   text('bkSummaryQty', '冷氣 ' + counter('acQty') + ' 台' +
     (Number(counter('fridgeQty')) > 0 ? '・移動冰箱 ' + counter('fridgeQty') + ' 台' : ''));
+  if (typeof ccUpdateJourneySummary === 'function') ccUpdateJourneySummary();
 }
 (function initBookingPreview() {
   var select = document.getElementById('modelSel');
@@ -3200,7 +3229,7 @@ async function submitBooking() {
     res.innerHTML = '<div class="rt">' + msg + '</div>';
     res.classList.add('show');
     res.scrollIntoView({ behavior: ccScrollBehavior(), block: 'nearest' });
-    if (dateEl) dateEl.focus();
+    if (dateEl) { dateEl.setAttribute('aria-invalid','true'); dateEl.setAttribute('aria-describedby','bkDateHint bkRes'); dateEl.focus(); }
   };
   if (!bookingDate) {
     showFieldError('請先選擇取機日期，再送出預約詢問。');
@@ -3211,6 +3240,8 @@ async function submitBooking() {
     showFieldError('取機日期不能早於今天，請重新選擇。');
     return;
   }
+
+  if (dateEl) { dateEl.removeAttribute('aria-invalid'); dateEl.setAttribute('aria-describedby','bkDateHint'); }
 
   // 手機可先留空，不阻擋 LINE 詢問；正式建檔時再補即可。
   var phone = g('bkPhone');
@@ -3274,7 +3305,8 @@ async function submitBooking() {
     '<div class="rt">' + (copied ? '✅ 訊息已複製' : '✅ 訊息已在此裝置整理完成') + '</div>' +
     '<div class="cc-local-state">資料尚未上傳；請開啟 LINE，確認內容後自行送出。</div>' +
     '<a class="rbtn cc-line-shimmer" id="bkLineLink" target="_blank" rel="noopener">💬 開啟 LINE 確認並送出</a>' +
-    '<pre id="bkMsg" tabindex="0" aria-label="可選取並手動複製的詢問訊息"></pre>';
+    '<pre id="bkMsg" tabindex="0" aria-label="可選取並手動複製的詢問訊息"></pre>' +
+    '<button type="button" class="cc-journey-edit" onclick="ccEditBooking()">返回修改需求</button>';
   res.classList.add('show');
   res.querySelector('#bkMsg').textContent = msg;
   var lineLink = res.querySelector('#bkLineLink');
@@ -3287,6 +3319,8 @@ async function submitBooking() {
 
 // 重新填寫：計數器回預設、清空欄位、收起條件區與結果
 function resetBooking() {
+  document.getElementById('bkDate').removeAttribute('aria-invalid');
+  document.getElementById('bkDate').setAttribute('aria-describedby','bkDateHint');
   ['bkName', 'bkPhone', 'bkDate', 'bkSite', 'bkTent', 'bkNote'].forEach(function (id) { var el = document.getElementById(id); if (el) el.value = ''; });
   var planSel = document.getElementById('planSel'); if (planSel) planSel.selectedIndex = 0;
   var peopleSel = document.getElementById('peopleSel'); if (peopleSel) peopleSel.selectedIndex = 0;
@@ -3352,9 +3386,9 @@ initAnnouncements();
 (function initBookingDateMin() {
   var d = document.getElementById('bkDate');
   if (!d) return;
-  var n = new Date();
-  n.setMinutes(n.getMinutes() - n.getTimezoneOffset());
-  d.min = n.toISOString().slice(0, 10);
+  var parts = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+  var part = function(type) { return parts.find(function(p) { return p.type === type; }).value; };
+  d.min = part('year') + '-' + part('month') + '-' + part('day');
 })();
 
 // 支援瀏覽器上一頁／分享連結直接深連結到分頁
@@ -3543,5 +3577,6 @@ var searchSites = debounce(function () {
 // 提供舊命名給 inline handler 使用
 function renderSites() { searchSites(); }
 </script>
+<script src="assets/visitor-journey.js?v=20261128"></script>
 </body>
 </html>

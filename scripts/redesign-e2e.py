@@ -286,6 +286,60 @@ async def main(base):
                       and 'P01 fictional inquiry note' not in json.dumps(r) for r in external) and
                   '0999999999' not in await page.evaluate('JSON.stringify(dataLayer)'))
 
+            # Visitor journey: real controls, public model handoff, costs and return editing.
+            for width in (320,375,768,1440):
+                await page.set_viewport_size({'width':width,'height':1000})
+                await page.goto(base+'/index.html#quickPicker',wait_until='networkidle')
+                check(f'journey/{width}: direct chooser anchor reveals rental page',
+                      await page.locator('.cc-page[data-tab="rental"]').is_visible() and
+                      await page.locator('#quickPicker').is_visible())
+                await page.locator('#quickTent').select_option('small')
+                await page.locator('#quickPeople').select_option('small')
+                check('journey: small closed tent recommendation',
+                      'JUZ-400' in await page.locator('#quickResultTitle').inner_text())
+                await page.locator('#quickPower').select_option('no')
+                check('journey: prohibited power never recommends a machine',
+                      '不建議' in await page.locator('#quickResultTitle').inner_text() and
+                      '帶入' not in await page.locator('#quickApply').inner_text())
+                await page.locator('#quickPower').select_option('unknown')
+                await page.locator('#quickTent').select_option('open')
+                check('journey: open canopy requires discussion',
+                      '討論' in await page.locator('#quickApply').inner_text())
+                await page.locator('#quickTent').select_option('large')
+                await page.locator('#quickApply').click()
+                check('journey: chosen model enters existing booking handler',
+                      await page.locator('#modelSel').input_value()=='山水 SAC688')
+                await page.locator('#bkDate').fill('2099-05-06')
+                await page.locator('#planSel').select_option('三天兩夜')
+                check('journey: rent, deposit and return date stay separate',
+                      await page.locator('#bkSummaryRent').inner_text()=='NT$1,300' and
+                      await page.locator('#bkSummaryDeposit').inner_text()=='NT$3,000' and
+                      '2099-05-08' in await page.locator('#bkSummaryReturn').inner_text())
+                await page.locator('#planSel').select_option('請幫我推薦')
+                check('journey: unknown plan is not zero-priced',
+                      await page.locator('#bkSummaryRent').inner_text()=='方案待確認')
+                await measure(page,'visitor booking',width)
+                await page.locator('#planSel').select_option('兩天一夜')
+                await page.locator('#bkComposeButton').click()
+                await page.wait_for_selector('#bkMsg')
+                await page.get_by_role('button',name='返回修改需求',exact=True).click()
+                check('journey: return editing preserves date and removes old outbound link',
+                      await page.locator('#bkDate').input_value()=='2099-05-06' and
+                      await page.locator('#bkLineLink').count()==0)
+                if width in (375,1440):
+                    await page.locator('#bkSummary').scroll_into_view_if_needed()
+                    await page.screenshot(path=str(OUTPUT/f'journey-summary-{width}.png'))
+                await page.goto(base+'/compare-camping-ac.html',wait_until='networkidle')
+                await measure(page,'visitor comparison',width)
+                if width in (375,1440):
+                    await page.screenshot(path=str(OUTPUT/f'journey-comparison-{width}.png'),full_page=True)
+                await page.get_by_role('link',name='詢問 SAC-688',exact=True).click()
+                check('journey: comparison public model link selects SAC',
+                      await page.locator('#modelSel').input_value()=='山水 SAC688')
+            await page.goto(base+'/index.html?model=untrusted#booking',wait_until='networkidle')
+            check('journey: unknown model URL cannot set arbitrary option',
+                  await page.locator('#modelSel').input_value()=='不限／請推薦')
+
             await page.goto(base+'/juz-400.html',wait_until='networkidle')
             await page.evaluate("""document.querySelector('.cc-header-contact').addEventListener(
               'click',e=>e.preventDefault());""")
