@@ -341,9 +341,11 @@ async def main(base):
                 check('journey: comparison public model link selects SAC',
                       await page.locator('#modelSel').input_value()=='山水 SAC688' and
                       'SAC688' in await page.locator('#bkSummaryModel').inner_text())
-            await page.goto(base+'/index.html?model=untrusted#booking',wait_until='networkidle')
-            check('journey: unknown model URL cannot set arbitrary option',
-                  await page.locator('#modelSel').input_value()=='不限／請推薦')
+            for invalid_model in ('untrusted','__proto__','constructor','toString'):
+                await page.goto(base+'/index.html?model='+invalid_model+'#booking',wait_until='networkidle')
+                check('journey: unknown model URL is ignored: '+invalid_model,
+                      await page.locator('#modelSel').input_value()=='不限／請推薦' and
+                      '推薦' in await page.locator('#bkSummaryModel').inner_text())
 
             await page.goto(base+'/juz-400.html',wait_until='networkidle')
             await page.evaluate("""document.querySelector('.cc-header-contact').addEventListener(
@@ -371,4 +373,3 @@ if __name__=='__main__':
     finally:
         server.shutdown()
         server.server_close()
-

@@ -103,6 +103,6 @@
   if (initialAnchor && anchors[initialAnchor]) revealAnchor(initialAnchor,false);
   var model = new URLSearchParams(location.search).get('model');
   var modelMap = {juz400:'艾比酷 JUZ-400',sac688:'山水 SAC688'};
-  if (modelMap[model]) goBookingWithModel(modelMap[model],'comparison_model');
+  if (Object.prototype.hasOwnProperty.call(modelMap,model)) goBookingWithModel(modelMap[model],'comparison_model');
   refreshBookingPreview();
 })();
